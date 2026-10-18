@@ -49,6 +49,7 @@ export async function api(url, options = {}) {
   if (!res.ok) {
     const error = new Error(data.error || "Не удалось выполнить запрос");
     error.status = res.status;
+    error.fields = data.fields || [];
     throw error;
   }
   return data;
@@ -172,6 +173,7 @@ function Header() {
           aria-label="Главная навигация"
         >
           <Link to="/#events">Олимпиады</Link>
+          <Link to="/register">Регистрация</Link>
           <Link to="/#teachers">Учителям</Link>
           <Link to="/#about">Зачем IQ LAND</Link>
         </nav>
@@ -320,6 +322,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/events/:id/register" element={<Registration />} />
+            <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cabinet" element={<Dashboard />} />
             <Route path="/privacy" element={<Privacy />} />

@@ -110,8 +110,8 @@ try {
   await page
     .getByRole("button", { name: "Добавить учеников", exact: true })
     .click();
-  await expect(page.locator(".student-table tbody tr")).toHaveCount(2);
-  const rows = page.locator(".student-table tbody tr");
+  await expect(page.locator(".reg-students tbody tr")).toHaveCount(2);
+  const rows = page.locator(".reg-students tbody tr");
   await rows.nth(0).getByLabel("Математика", { exact: true }).check();
   await rows.nth(1).getByLabel("Математика", { exact: true }).check();
   await rows.nth(1).getByLabel("Английский язык", { exact: true }).uncheck();
@@ -130,14 +130,14 @@ try {
     .getByLabel("ФИО дополнительного учителя 1")
     .fill("Тестовый Второй Педагог");
   await page.getByRole("button", { name: "Продолжить", exact: true }).click();
-  await page.locator(".consent input").check();
+  await page.locator(".reg-consent input").check();
   await page
     .getByRole("button", { name: "Отправить заявку", exact: true })
     .click();
   await expect(
     page.getByRole("heading", { name: "Ваша команда в списке!" }),
   ).toBeVisible();
-  await expect(page.locator(".receipt-card>strong")).toHaveText(/^IQ-/);
+  await expect(page.locator(".reg-receipt>strong")).toHaveText(/^IQ-/);
   console.log(
     "PASS: public listing, filters, event details, Excel paste, multi-subject team registration, receipt",
   );
@@ -289,7 +289,7 @@ try {
     .click();
   await page.goto(base + "/events/baku-2027/register");
   await expect(
-    page.getByRole("heading", { name: "Кто едет за новыми знаниями?" }),
+    page.getByRole("heading", { name: "Ученики команды" }),
   ).toBeVisible();
   await page.getByLabel("ФИО ученика 1").fill("Тестовый Ученик");
   await page.getByLabel("Дата рождения ученика 1").fill("2015-03-15");
