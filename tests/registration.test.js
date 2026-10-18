@@ -36,6 +36,35 @@ test("student defaults get fresh keys and independent subject selections", () =>
   assert.deepEqual(makeStudent([]).subjects, []);
 });
 
+test("student rows, imports and drafts work without Web Crypto", (t) => {
+  const cryptoDescriptor = Object.getOwnPropertyDescriptor(
+    globalThis,
+    "crypto",
+  );
+  Object.defineProperty(globalThis, "crypto", {
+    value: undefined,
+    configurable: true,
+  });
+  t.after(() => Object.defineProperty(globalThis, "crypto", cryptoDescriptor));
+  t.mock.method(Date, "now", () => 0);
+
+  const students = Array.from({ length: 300 }, () => makeStudent(subjects));
+  assert.equal(new Set(students.map((student) => student.key)).size, 300);
+  const imported = parseStudentList(
+    "Ахметова Алия;15.03.2015;5",
+    subjects,
+    {},
+    today,
+  );
+  assert.deepEqual(imported.errors, []);
+  const restored = sanitizeDraft(
+    { version: 1, students: imported.students },
+    subjects,
+  );
+  assert.equal(restored.students[0].name, "Ахметова Алия");
+  assert.notEqual(restored.students[0].key, imported.students[0].key);
+});
+
 test("TSV import retains names, dates, preschool grade and explicit disciplines", () => {
   const result = parseStudentList(
     "ФИО\tДата рождения\tКласс\tДисциплины\r\nАхметова Алия\t15.03.2015\t5\tМатематика, английский язык\r\nПетров Тимур\t2020-07-22\t0\tАнглийский язык\r\n",

@@ -17,10 +17,17 @@ let browser;
 let releasePost;
 const browserErrors = [];
 
-async function newPage() {
+async function newPage({ withoutCrypto = false } = {}) {
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
   });
+  await page.addInitScript(({ withoutCrypto }) => {
+    if (withoutCrypto) {
+      Object.defineProperty(globalThis, "crypto", { value: undefined, configurable: true });
+    } else if (globalThis.crypto) {
+      Object.defineProperty(globalThis.crypto, "randomUUID", { value: undefined, configurable: true });
+    }
+  }, { withoutCrypto });
   page.on("pageerror", (error) => browserErrors.push(error.message));
   page.on("dialog", (dialog) => dialog.accept());
   return page;
@@ -72,6 +79,20 @@ try {
     args: ["--no-sandbox"],
   });
 
+  const legacyPage = await newPage({ withoutCrypto: true });
+  await legacyPage.goto(base + "/events/baku-2027/register");
+  await fillStudent(legacyPage, 1, "Ученик Без Крипто", "2015-03-15", 5);
+  await legacyPage.getByRole("button", { name: "Добавить похожего ученика 1", exact: true }).click();
+  await expect(legacyPage.locator(".reg-students tbody tr")).toHaveCount(2);
+  await expect(legacyPage.getByLabel("Дата рождения ученика 2", { exact: true })).toHaveValue("2015-03-15");
+  await expect(legacyPage.getByLabel("ФИО ученика 1", { exact: true })).toHaveValue("Ученик Без Крипто");
+  await expect(legacyPage.getByLabel("ФИО ученика 2", { exact: true })).toHaveValue("");
+  await legacyPage.getByRole("button", { name: "Добавить 5 строк", exact: true }).click();
+  await expect(legacyPage.locator(".reg-students tbody tr")).toHaveCount(7);
+  await legacyPage.close();
+  console.log("PASS: registration opens and adds/copies rows without Web Crypto");
+
+  // Run the complete registration flow without randomUUID, as on HTTP over LAN.
   const page = await newPage();
   await page.goto(base + "/register");
   await expect(page.locator(".reg-choice")).toHaveCount(2);

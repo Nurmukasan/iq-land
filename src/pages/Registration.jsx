@@ -372,12 +372,10 @@ export default function Registration() {
   }
   function copyStudent(student) {
     if (students.length >= 300) return;
-    const next = {
+    const next = makeStudent(subjects, {
       ...student,
-      key: crypto.randomUUID(),
       name: "",
-      subjects: [...student.subjects],
-    };
+    });
     setStudents((list) => {
       const pos = list.findIndex((s) => s.key === student.key);
       return [...list.slice(0, pos + 1), next, ...list.slice(pos + 1)];
