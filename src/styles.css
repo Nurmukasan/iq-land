@@ -2769,3 +2769,31 @@ svg {
     transform: none;
   }
 }
+
+@media (min-width: 741px) and (max-width: 980px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 86px;
+    left: 0;
+    right: 0;
+    padding: 18px 32px 25px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 12px 25px #1928510a;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    font-size: 17px;
+  }
+  .nav-links.is-open {
+    display: flex;
+  }
+  .nav-links > a {
+    padding: 13px 0;
+    width: 100%;
+  }
+  .mobile-menu {
+    display: inline-flex !important;
+  }
+}
