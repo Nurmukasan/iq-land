@@ -2,6 +2,7 @@ import test, { before, after } from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
+import { createServer as createPortServer } from "node:net";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -14,9 +15,13 @@ const apiUrl = `http://127.0.0.1:${apiPort}`;
 let child, vite, origin, account;
 
 before(async () => {
+  let logs = "";
   child = spawn(process.execPath, ["server/index.js"], {
     env: { ...process.env, PORT: String(apiPort), DATA_DIR: dir },
-    stdio: "ignore",
+    stdio: ["ignore", "ignore", "pipe"],
+  });
+  child.stderr.on("data", (chunk) => {
+    logs += chunk;
   });
   let ready = false;
   for (let i = 0; i < 100; i++) {
@@ -28,7 +33,7 @@ before(async () => {
     } catch {}
     await delay(100);
   }
-  assert.ok(ready, "Temporary API did not start");
+  assert.ok(ready, "Temporary API did not start: " + logs);
   account = JSON.parse(
     readFileSync(join(dir, "initial-accounts.json"), "utf8"),
   ).find((user) => user.role === "admin");
@@ -40,6 +45,17 @@ before(async () => {
     mode: "test",
   });
   const configuredProxy = config.server.proxy["/api"];
+  // Vite resolves port:0 back to 5173. Reserve an unused port explicitly so
+  // this regression check can run while the normal dev server is running.
+  const reservation = createPortServer();
+  await new Promise((resolve, reject) => {
+    reservation.once("error", reject);
+    reservation.listen(0, "127.0.0.1", resolve);
+  });
+  const proxyPort = reservation.address().port;
+  await new Promise((resolve, reject) =>
+    reservation.close((error) => (error ? reject(error) : resolve())),
+  );
   vite = await createServer({
     ...config,
     configFile: false,
@@ -48,7 +64,7 @@ before(async () => {
     server: {
       ...config.server,
       host: "127.0.0.1",
-      port: 0,
+      port: proxyPort,
       strictPort: true,
       proxy: {
         "/api":
