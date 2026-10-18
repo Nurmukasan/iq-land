@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
   ArrowRight,
-  ChevronRight,
+  ArrowLeft,
   MapPin,
   CalendarDays,
   Check,
   Plus,
   Minus,
   Globe2,
-  Sparkles,
-  GraduationCap,
-  Trophy,
   Calculator,
   Languages,
   Sigma,
-  MoveUpRight,
-  ArrowDown,
   Compass,
-  ClipboardList,
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
 
@@ -31,40 +25,70 @@ const subjects = [
 ];
 const faqs = [
   [
-    "Кто может зарегистрировать учеников?",
-    "Заявку подаёт учитель или представитель образовательного центра. Создавать отдельный аккаунт для каждого ученика не нужно: вся команда регистрируется в одной форме.",
+    "Кто регистрирует учеников?",
+    "Заявку подаёт учитель или представитель образовательного центра. Ученик не создаёт аккаунт: всю команду можно зарегистрировать в одной форме.",
   ],
   [
-    "Можно ли вставить список учеников из Excel?",
-    "Да. Скопируйте строки из таблицы и нажмите «Вставить список» в форме регистрации. Формат: ФИО, дата рождения, класс. Каждая строка станет отдельным участником. Дисциплины можно выбрать для каждого ученика.",
+    "Можно вставить готовый список из Excel?",
+    "Да. Скопируйте три столбца: ФИО, дата рождения и класс. В форме нажмите «Вставить список» — каждая строка станет отдельным учеником. Дисциплины можно выбрать для каждого участника.",
   ],
   [
-    "Что входит в стоимость участия?",
-    "Программа указана в карточке каждой олимпиады. Стоимость и условия поездки уточняются организатором до подтверждения заявки. Перелёт и проживание не считаются включёнными, если это прямо не указано в программе.",
+    "Что включено в участие?",
+    "Программа указана в карточке олимпиады. Стоимость и детали организатор подтвердит перед участием. Перелёт и проживание включены только тогда, когда это прямо указано в программе.",
   ],
   [
-    "Как получить благодарственный сертификат учителю?",
-    "При регистрации укажите ФИО дополнительных педагогов в разделе «Благодарственные сертификаты». Эти имена попадут в список организатора для подготовки документов.",
+    "Учителя получат благодарственные сертификаты?",
+    "В форме можно добавить педагогов, которым нужен сертификат. Ответственный учитель уже включён. Имена попадут организатору для подготовки документов.",
   ],
   [
-    "Что произойдёт после отправки заявки?",
-    "Вы получите номер заявки прямо на сайте. Организатор увидит команду в общем списке и свяжется по указанным контактам для подтверждения участия и уточнения деталей.",
+    "Что будет после отправки заявки?",
+    "Сайт покажет номер вашей заявки — сохраните его. Организатор получит список команды и свяжется с вами по указанным контактам, чтобы подтвердить участие и обсудить детали.",
   ],
 ];
-export default function Home() {
-  const [events, setEvents] = useState([]),
-    [loading, setLoading] = useState(true),
-    [error, setError] = useState(""),
-    [filter, setFilter] = useState("Все направления"),
-    [country, setCountry] = useState("Все страны"),
-    [selected, setSelected] = useState(null),
-    [faq, setFaq] = useState(0),
-    [promo, setPromo] = useState(null);
+const isOpen = (event) =>
+  event.deadline >= new Date().toISOString().slice(0, 10);
+
+function useReveal(dependencies) {
+  const ref = useRef(null);
   useEffect(() => {
-    api("/promo")
-      .then(setPromo)
-      .catch(() => {});
-  }, []);
+    const root = ref.current;
+    if (
+      !root ||
+      !window.IntersectionObserver ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries)
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+      },
+      { threshold: 0.08 },
+    );
+    const items = root.querySelectorAll("[data-reveal]:not(.is-visible)");
+    for (const item of items) {
+      item.classList.add("will-reveal");
+      observer.observe(item);
+    }
+    return () => observer.disconnect();
+  }, dependencies);
+  return ref;
+}
+
+export default function Home() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [filter, setFilter] = useState("Все направления");
+  const [country, setCountry] = useState("Все страны");
+  const [selected, setSelected] = useState(null);
+  const [faq, setFaq] = useState(-1);
+  const [promo, setPromo] = useState(null);
+  const [slide, setSlide] = useState(0);
+  const root = useReveal([loading, filter, country, promo]);
   const load = () => {
     setLoading(true);
     setError("");
@@ -74,146 +98,188 @@ export default function Home() {
       .finally(() => setLoading(false));
   };
   useEffect(load, []);
+  useEffect(() => {
+    api("/promo")
+      .then(setPromo)
+      .catch(() => {});
+  }, []);
   const visible = events.filter(
     (e) =>
       (filter === "Все направления" || e.subjects.includes(filter)) &&
       (country === "Все страны" || e.country === country),
   );
+  const destination = events.length ? events[slide % events.length] : null;
+
   return (
-    <main>
+    <main className="home-page" ref={root}>
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="hero-eyebrow">
-              <span className="live-dot" /> МЕЖДУНАРОДНЫЕ ОЛИМПИАДЫ · СЕЗОН 2027
-            </div>
+            <p className="hero-eyebrow">
+              <span className="live-dot" /> Международные детские олимпиады
+            </p>
             <h1>
-              Знания, которые
-              <br />
-              открывают{" "}
-              <span className="world-word">
-                мир.
-                <svg viewBox="0 0 250 20" aria-hidden="true">
-                  <path d="M3 15 Q115 -3 245 9" />
-                </svg>
+              <span className="hero-line">Знания —</span>
+              <span className="hero-line">ваш билет</span>
+              <span className="hero-line">
+                в <em>большой мир.</em>
               </span>
             </h1>
             <p className="hero-description">
-              Большие открытия начинаются с маленького шага.
-              <br className="desktop-break" /> Олимпиады, путешествия и новые
-              возможности
-              <br className="desktop-break" /> для ваших учеников — вместе с IQ
-              LAND.
+              Математика, английский и ментальная арифметика.
+              <br className="desktop-break" /> Олимпиады в разных странах, новые
+              друзья
+              <br className="desktop-break" /> и впечатления, которые остаются.
             </p>
             <div className="hero-buttons">
               <a className="btn btn-primary" href="#events">
-                Выбрать олимпиаду <ArrowUpRight size={20} />
+                Выбрать олимпиаду{" "}
+                <span className="button-arrow">
+                  <ArrowUpRight size={21} />
+                </span>
               </a>
               <a className="text-link" href="#teachers">
-                Я учитель <ArrowRight size={17} />
+                Как участвовать <ArrowDownIcon />
               </a>
             </div>
             <div className="hero-footnote">
-              <span className="mini-icon">
-                <GraduationCap size={21} />
-              </span>
+              <span className="footnote-line" />
               <p>
-                <strong>Одна заявка — вся команда</strong>
+                Для учителей и образовательных центров.
                 <br />
-                Больше времени для того, что важно
+                <strong>Вся команда — в одной заявке.</strong>
               </p>
             </div>
           </div>
           <div className="hero-visual">
-            <img
-              className="hero-photo"
-              src="/images/baku.png"
-              alt="Архитектурная иллюстрация Баку: Старый город и Пламенные башни"
-            />
-            <div className="hero-photo-shade" />
-            <div className="hero-photo-caption">
-              <span className="location-label">
-                <MapPin size={14} /> Баку, Азербайджан
+            <div className="destination-photo" key={destination?.id || "baku"}>
+              <img
+                src={destination?.image || "/images/baku.png"}
+                alt={
+                  destination
+                    ? `Иллюстрация города ${destination.city}`
+                    : "Иллюстрация Баку"
+                }
+                fetchPriority="high"
+              />
+              <div className="photo-gradient" />
+            </div>
+            <span className="destination-kicker">
+              <span /> Учимся. Путешествуем. Растём.
+            </span>
+            <div className="destination-caption">
+              <span className="destination-country">
+                {destination?.country || "Азербайджан"}
               </span>
-              <span>
-                Следующая остановка —<br />
-                <strong>новые вершины.</strong>
-              </span>
-              <a
-                href="#events"
-                className="circle-btn"
-                aria-label="Посмотреть олимпиады"
+              <div
+                className="destination-city-row"
+                aria-live="polite"
+                aria-atomic="true"
               >
-                <ArrowUpRight />
-              </a>
+                <h2 key={destination?.id}>
+                  {destination?.city || "Баку"}
+                  <ArrowUpRight size={41} aria-hidden="true" />
+                </h2>
+                <span className="destination-date">
+                  {destination
+                    ? dateLabel(destination.date).replace(" г.", "")
+                    : "Откройте новые страны"}
+                </span>
+              </div>
             </div>
-            <div className="hero-sticker">
-              <Sparkles size={25} />
-              <span>
-                Здесь растут
-                <br />
-                <strong>большие мечты</strong>
+            <div className="destination-controls">
+              <span className="destination-counter">
+                {String((slide % Math.max(events.length, 1)) + 1).padStart(
+                  2,
+                  "0",
+                )}{" "}
+                <span>
+                  / {String(Math.max(events.length, 1)).padStart(2, "0")}
+                </span>
               </span>
-            </div>
-            <div className="orbit-stamp">
-              <Globe2 size={34} />
-              <span>LEARN. TRAVEL. GROW.</span>
-            </div>
-            <div className="visual-index">
-              <span>01</span> / 02 <div />
+              <div className="destination-nav">
+                <button
+                  aria-label="Предыдущая олимпиада"
+                  disabled={events.length < 2}
+                  onClick={() =>
+                    setSlide((s) => (s - 1 + events.length) % events.length)
+                  }
+                >
+                  <ArrowLeft size={20} />
+                </button>
+                <button
+                  aria-label="Следующая олимпиада"
+                  disabled={events.length < 2}
+                  onClick={() => setSlide((s) => (s + 1) % events.length)}
+                >
+                  <ArrowRight size={20} />
+                </button>
+              </div>
+              <a href="#events" className="destination-link">
+                Смотреть афишу <ArrowUpRight size={18} />
+              </a>
             </div>
           </div>
         </div>
-      </section>
-      <section className="values-strip">
-        <div className="container">
+        <div
+          className="container hero-subjects"
+          aria-label="Направления олимпиад"
+        >
           <span>
-            <Trophy /> Знания за пределами класса
+            Три способа
+            <br />
+            показать, на что ты способен
           </span>
-          <i>✳</i>
-          <span>
-            <Globe2 /> Путешествия со смыслом
-          </span>
-          <i>✳</i>
-          <span>
-            <GraduationCap /> Вдохновение для будущего
-          </span>
-          <i>✳</i>
+          <div>
+            <Sigma size={24} />
+            <strong>Математика</strong>
+          </div>
+          <div>
+            <Languages size={23} />
+            <strong>Английский язык</strong>
+          </div>
+          <div>
+            <Calculator size={23} />
+            <strong>Ментальная арифметика</strong>
+          </div>
         </div>
       </section>
+
       <section className="section events-section container" id="events">
-        <div className="section-title-row">
+        <div className="section-title-row" data-reveal>
           <div>
-            <span className="eyebrow">
-              <span /> КАЛЕНДАРЬ ВОЗМОЖНОСТЕЙ
-            </span>
+            <span className="eyebrow">Ближайшие олимпиады</span>
             <h2>
-              Куда отправимся <span className="serif-text">за знаниями?</span>
+              Следующая точка
+              <br />
+              на <span className="accent-text">вашей карте.</span>
             </h2>
           </div>
           <p className="section-aside">
-            Выберите направление.
+            Выберите город и направление.
             <br />
-            Соберите команду. Откройте больше.
+            Зарегистрируйте команду —<br />
+            остальное обсудим вместе.
           </p>
         </div>
         <div className="event-filters">
-          <div className="filter-tabs">
+          <div className="filter-tabs" aria-label="Направление олимпиады">
             {subjects.map((s) => (
               <button
                 key={s.name}
                 className={
                   filter === s.name ? "filter-tab active" : "filter-tab"
                 }
+                aria-pressed={filter === s.name}
                 onClick={() => setFilter(s.name)}
               >
-                <s.icon size={16} />
+                <s.icon size={18} />
                 {s.name}
               </button>
             ))}
           </div>
           <label className="country-select">
-            <MapPin size={16} />
+            <MapPin size={18} />
             <select
               aria-label="Страна олимпиады"
               value={country}
@@ -232,13 +298,13 @@ export default function Home() {
           <div>
             <ErrorBox>{error}</ErrorBox>
             <button className="btn btn-secondary" onClick={load}>
-              Повторить
+              Повторить загрузку
             </button>
           </div>
         ) : visible.length ? (
           <div className="event-grid">
-            {visible.map((e, i) => (
-              <article className="event-card" key={e.id}>
+            {visible.map((e) => (
+              <article className="event-card" key={e.id} data-reveal>
                 <button
                   className="event-image-button"
                   onClick={() => setSelected(e)}
@@ -246,75 +312,62 @@ export default function Home() {
                 >
                   <img
                     src={e.image}
-                    alt={
-                      e.city === "Баку"
-                        ? "Панорама Баку"
-                        : "Алматы у подножия Тянь-Шаня"
-                    }
+                    alt={`Иллюстрация города ${e.city}`}
                     loading="lazy"
                   />
                   <span className="event-date">
-                    <CalendarDays size={14} />
+                    <CalendarDays size={17} />
                     {dateLabel(e.date).replace(" г.", "")}
                   </span>
-                  <span className="image-country">
-                    {e.flag} {e.country}
-                  </span>
                   <span className="event-photo-arrow">
-                    <ArrowUpRight size={21} />
+                    <ArrowUpRight size={24} />
                   </span>
                 </button>
                 <div className="event-card-body">
                   <div className="event-city-row">
-                    <h3>
-                      {e.city}
-                      <span>, {e.country}</span>
-                    </h3>
-                    <span className="available">
-                      <span />{" "}
-                      {e.deadline >= new Date().toISOString().slice(0, 10)
-                        ? "Регистрация открыта"
-                        : "Регистрация завершена"}
-                    </span>
+                    <div>
+                      <span className="event-country">{e.country}</span>
+                      <h3>{e.city}</h3>
+                    </div>
+                    <button
+                      className="text-link event-program-link"
+                      onClick={() => setSelected(e)}
+                    >
+                      Программа <ArrowUpRight size={17} />
+                    </button>
                   </div>
                   <div className="subject-tags">
                     {e.subjects.map((s) => (
-                      <span key={s}>
-                        {s === "Математика" ? (
-                          <Sigma size={13} />
-                        ) : s === "Английский язык" ? (
-                          <Languages size={13} />
-                        ) : (
-                          <Calculator size={13} />
-                        )}{" "}
-                        {s}
-                      </span>
+                      <span key={s}>{s}</span>
                     ))}
                   </div>
                   <div className="event-inclusion">
-                    <Sparkles size={16} />
-                    <span>
+                    <span>Ещё в программе</span>
+                    <p>
                       {e.includes
                         .filter(
                           (x) =>
                             !x.includes("Участие") && !x.includes("Сертификат"),
                         )
-                        .join(" · ")}
-                    </span>
+                        .join(" · ") || "Подробности в программе олимпиады"}
+                    </p>
                   </div>
                   <div className="event-card-bottom">
                     <div>
-                      <small>Участие в олимпиаде</small>
                       <strong>{priceLabel(e)}</strong>
+                      <span className="available">
+                        <span />
+                        {isOpen(e)
+                          ? "Приём заявок открыт"
+                          : "Регистрация завершена"}
+                      </span>
                     </div>
                     <Link
-                      className="btn btn-primary btn-small"
+                      className="btn btn-primary"
                       to={"/events/" + e.id + "/register"}
                     >
-                      {e.deadline >= new Date().toISOString().slice(0, 10)
-                        ? "Зарегистрировать команду"
-                        : "Подробнее"}{" "}
-                      <ArrowUpRight size={17} />
+                      {isOpen(e) ? "Зарегистрировать команду" : "Подробнее"}
+                      <ArrowUpRight size={20} />
                     </Link>
                   </div>
                 </div>
@@ -323,8 +376,8 @@ export default function Home() {
           </div>
         ) : (
           <div className="empty-state">
-            <Compass size={32} />
-            <h3>Новые направления уже на подходе</h3>
+            <Compass size={36} />
+            <h3>Новые направления впереди</h3>
             <p>Попробуйте выбрать другую дисциплину или страну.</p>
             <button
               className="text-link"
@@ -333,120 +386,116 @@ export default function Home() {
                 setCountry("Все страны");
               }}
             >
-              Показать все олимпиады <ArrowRight size={16} />
+              Показать все олимпиады <ArrowRight size={18} />
             </button>
           </div>
         )}
         <p className="demo-note">
-          Предварительная афиша: даты, программа и стоимость требуют
-          подтверждения организатором.
+          Предварительная афиша. Даты, программу и стоимость подтвердит
+          организатор.
         </p>
       </section>
+
       <section className="about-section" id="about">
-        <div className="container about-grid">
-          <div className="about-art">
-            <div className="art-orbit orbit-one" />
-            <div className="art-orbit orbit-two" />
-            <div className="art-globe">
-              <Globe2 size={130} strokeWidth={0.6} />
+        <div className="container">
+          <div className="about-grid" data-reveal>
+            <div>
+              <span className="eyebrow">Зачем мы это делаем</span>
+              <h2>
+                Мир больше
+                <br />
+                школьного
+                <br />
+                <span>учебника.</span>
+              </h2>
             </div>
-            <span className="art-chip chip-one">
-              <Sigma /> Думаем
-            </span>
-            <span className="art-chip chip-two">
-              <Compass /> Открываем
-            </span>
-            <span className="art-chip chip-three">
-              <Trophy /> Растём
-            </span>
-            <span className="art-star star-one">✳</span>
-            <span className="art-star star-two">✧</span>
-            <div className="art-bottom">БОЛЬШЕ, ЧЕМ ОЛИМПИАДА</div>
+            <div className="about-copy">
+              <div className="about-symbol" aria-hidden="true">
+                <Globe2 size={60} strokeWidth={1} />
+                <ArrowUpRight size={35} />
+              </div>
+              <p className="about-statement">
+                Олимпиада — повод поверить в себя.
+                <br />
+                Путешествие — увидеть, сколько
+                <br />
+                всего ещё впереди.
+              </p>
+              <p>
+                IQ LAND соединяет знания с настоящими впечатлениями. Дети
+                пробуют свои силы, знакомятся с новыми странами и возвращаются с
+                желанием расти дальше.
+              </p>
+            </div>
           </div>
-          <div className="about-copy">
-            <span className="eyebrow">
-              <span /> МИР БОЛЬШЕ УЧЕБНИКА
-            </span>
-            <h2>
-              Не просто соревнование.
-              <br />
-              <span className="serif-text">Опыт, который остаётся.</span>
-            </h2>
-            <p>
-              Мы верим, что знания обретают смысл, когда выходят за пределы
-              класса. IQ LAND объединяет интеллектуальные олимпиады и знакомство
-              с новыми странами.
-            </p>
-            <div className="about-points">
-              <div>
-                <span>01</span>
-                <div>
-                  <h4>Раскрыть свой потенциал</h4>
-                  <p>Попробовать силы и увидеть, на что способен.</p>
-                </div>
+          <div className="about-values">
+            {[
+              {
+                n: "01",
+                t: "Поверить в себя",
+                p: "Решить непростую задачу. Сделать шаг вперёд. Почувствовать: «Я могу».",
+              },
+              {
+                n: "02",
+                t: "Увидеть больше",
+                p: "Новые города, культура и университеты — чтобы мечты стали конкретнее.",
+              },
+              {
+                n: "03",
+                t: "Найти своих",
+                p: "Встретить детей, которым тоже интересно думать, учиться и открывать.",
+              },
+            ].map((v) => (
+              <div key={v.n} data-reveal>
+                <span className="value-number">{v.n}</span>
+                <h3>{v.t}</h3>
+                <p>{v.p}</p>
               </div>
-              <div>
-                <span>02</span>
-                <div>
-                  <h4>Открыть новые горизонты</h4>
-                  <p>Познакомиться с культурой, городами и университетами.</p>
-                </div>
-              </div>
-              <div>
-                <span>03</span>
-                <div>
-                  <h4>Найти единомышленников</h4>
-                  <p>Встретить тех, кто так же любит учиться и мечтать.</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
+
       <section className="section container teachers-section" id="teachers">
-        <div className="section-title-row">
+        <div className="section-title-row" data-reveal>
           <div>
-            <span className="eyebrow">
-              <span /> УЧИТЕЛЯМ — С ЗАБОТОЙ
-            </span>
+            <span className="eyebrow">Учителям — проще</span>
             <h2>
-              Ваша команда.
+              Вдохновлять — ваша часть.
               <br />
-              <span className="serif-text">Одна простая заявка.</span>
+              <span className="accent-text">Упростить — наша.</span>
             </h2>
           </div>
           <p className="section-aside">
-            Меньше рутины, больше вдохновения.
+            Не нужны аккаунты учеников
+            <br />и десятки отдельных заявок.
             <br />
-            Мы продумали регистрацию за вас.
+            Вся команда — в одной форме.
           </p>
         </div>
         <div className="steps-grid">
           {[
             {
               n: "01",
-              icon: Compass,
               t: "Выберите олимпиаду",
-              p: "Найдите подходящий город, дату и направление для вашей команды.",
+              p: "Город, дата и дисциплины — всё важное уже в карточке.",
             },
             {
               n: "02",
-              icon: ClipboardList,
-              t: "Добавьте учеников",
-              p: "Введите данные в удобную таблицу или вставьте готовый список из Excel.",
+              t: "Соберите команду",
+              p: "Добавляйте учеников строками или вставьте готовый список из Excel.",
             },
             {
               n: "03",
-              icon: GraduationCap,
-              t: "Расскажите о центре",
-              p: "Укажите свои контакты и педагогов, которым нужен благодарственный сертификат.",
+              t: "Оставьте контакты",
+              p: "Укажите центр, учителя и педагогов для благодарственных сертификатов.",
             },
           ].map((s) => (
-            <div className="step-card" key={s.n}>
-              <div className="step-top">
-                <s.icon size={26} strokeWidth={1.5} />
-                <span>{s.n}</span>
-              </div>
+            <div className="step-card" key={s.n} data-reveal>
+              <span className="step-number">
+                {s.n}
+                <ArrowUpRight size={24} />
+              </span>
               <h3>{s.t}</h3>
               <p>{s.p}</p>
             </div>
@@ -454,15 +503,17 @@ export default function Home() {
         </div>
         <div className="teacher-bottom">
           <span>
-            <Check size={17} /> Без отдельных аккаунтов для учеников
+            <Check size={20} /> Вы отправляете заявку. Организатор подтверждает
+            детали.
           </span>
-          <a className="text-link" href="#events">
-            Собрать свою команду <ArrowUpRight size={19} />
+          <a className="btn btn-primary" href="#events">
+            Начать с выбора олимпиады <ArrowUpRight size={20} />
           </a>
         </div>
       </section>
+
       {promo?.active && (
-        <section className="cta-section container">
+        <section className="cta-section container" data-reveal>
           <div>
             <span className="eyebrow">{promo.eyebrow}</span>
             <h2>
@@ -472,36 +523,36 @@ export default function Home() {
             </h2>
             <a
               href={promo.href}
-              className="btn btn-yellow"
+              className="btn btn-primary"
               rel={
                 promo.href.startsWith("https:")
                   ? "noopener noreferrer"
                   : undefined
               }
             >
-              {promo.button} <ArrowUpRight size={20} />
+              {promo.button}
+              <ArrowUpRight size={21} />
             </a>
           </div>
-          <div className="cta-graphic" aria-hidden="true">
-            <div />
-            <Globe2 size={160} strokeWidth={0.7} />
-            <span>✳</span>
-            <ArrowUpRight size={50} />
-          </div>
+          <ArrowUpRight
+            className="cta-arrow"
+            aria-hidden="true"
+            strokeWidth={1.1}
+          />
         </section>
       )}
+
       <section className="section container faq-section" id="faq">
-        <div>
-          <span className="eyebrow">
-            <span /> ВСЁ ПРОСТО
-          </span>
+        <div data-reveal>
+          <span className="eyebrow">Перед первым шагом</span>
           <h2>
-            Остались <span className="serif-text">вопросы?</span>
+            Хороший
+            <br /> <span className="accent-text">вопрос.</span>
           </h2>
           <p>
-            Собрали то, что важно знать
+            Ответы, чтобы начать
             <br />
-            перед первым шагом.
+            без лишних сомнений.
           </p>
         </div>
         <div className="faq-list">
@@ -515,14 +566,25 @@ export default function Home() {
                 aria-controls={"faq-" + i}
                 onClick={() => setFaq(faq === i ? -1 : i)}
               >
-                {q}
-                {faq === i ? <Minus size={19} /> : <Plus size={19} />}
+                <span>{q}</span>
+                <span className="faq-toggle">
+                  {faq === i ? <Minus size={21} /> : <Plus size={21} />}
+                </span>
               </button>
-              {faq === i && <p id={"faq-" + i}>{a}</p>}
+              <div
+                id={"faq-" + i}
+                className="faq-answer"
+                inert={faq !== i ? true : undefined}
+              >
+                <div>
+                  <p>{a}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </section>
+
       {selected && (
         <Modal
           title={selected.city + " · " + selected.country}
@@ -545,7 +607,7 @@ export default function Home() {
           <ul className="check-list">
             {selected.includes.map((s) => (
               <li key={s}>
-                <Check size={17} />
+                <Check size={18} />
                 {s}
               </li>
             ))}
@@ -562,10 +624,26 @@ export default function Home() {
             className="btn btn-primary full-width"
             to={"/events/" + selected.id + "/register"}
           >
-            Зарегистрировать команду <ArrowUpRight size={18} />
+            {isOpen(selected) ? "Зарегистрировать команду" : "Подробнее"}
+            <ArrowUpRight size={20} />
           </Link>
         </Modal>
       )}
     </main>
+  );
+}
+function ArrowDownIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      aria-hidden="true"
+    >
+      <path d="M12 4v16m-6-6 6 6 6-6" />
+    </svg>
   );
 }

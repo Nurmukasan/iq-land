@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
@@ -12,14 +18,13 @@ import {
   ArrowRight,
   Menu,
   X,
-  Globe2,
-  ChevronDown,
   LogIn,
   Check,
   AlertCircle,
   LoaderCircle,
 } from "lucide-react";
-import "@fontsource-variable/manrope";
+import "@fontsource-variable/golos-text";
+import "@fontsource-variable/unbounded";
 import "./styles.css";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
@@ -137,37 +142,58 @@ export function Modal({ title, children, onClose, wide = false }) {
 }
 function Header() {
   const [open, setOpen] = useState(false);
+  const menuButton = useRef(null);
   const { user } = useApp();
   const loc = useLocation();
   useEffect(() => setOpen(false), [loc]);
+  useEffect(() => {
+    if (!open) return;
+    const close = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [open]);
   return (
     <header className="site-header">
       <div className="container header-inner">
+        <a className="skip-link" href="#main-content">
+          К содержимому
+        </a>
         <Link to="/" aria-label="IQ LAND — главная" className="brand">
           <img src="/images/logo.svg" alt="IQ LAND" />
         </Link>
         <nav
+          id="primary-navigation"
           className={open ? "nav-links is-open" : "nav-links"}
           aria-label="Главная навигация"
         >
           <Link to="/#events">Олимпиады</Link>
-          <Link to="/#about">О проекте</Link>
           <Link to="/#teachers">Учителям</Link>
-          <Link to="/#faq">Вопросы и ответы</Link>
+          <Link to="/#about">Зачем IQ LAND</Link>
         </nav>
         <div className="header-actions">
-          <span className="language">
-            <Globe2 size={15} /> RU
-          </span>
-          <Link className="btn btn-nav" to={user ? "/cabinet" : "/login"}>
-            <LogIn size={16} />
-            <span>Личный кабинет</span>
+          <Link className="header-cta" to="/#events">
+            Выбрать олимпиаду <ArrowUpRight size={18} />
+          </Link>
+          <Link
+            className="btn-nav"
+            aria-label="Личный кабинет"
+            to={user ? "/cabinet" : "/login"}
+          >
+            <LogIn size={19} />
+            <span>Кабинет</span>
           </Link>
           <button
+            ref={menuButton}
             className="icon-btn mobile-menu"
             onClick={() => setOpen(!open)}
             aria-label="Открыть меню"
             aria-expanded={open}
+            aria-controls="primary-navigation"
           >
             {open ? <X /> : <Menu />}
           </button>
@@ -254,15 +280,18 @@ function Privacy() {
 function ScrollManager() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    if (hash)
-      setTimeout(
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "instant"
+      : "smooth";
+    if (hash) {
+      const timeout = setTimeout(
         () =>
-          document
-            .getElementById(hash.slice(1))
-            ?.scrollIntoView({ behavior: "smooth" }),
+          document.getElementById(hash.slice(1))?.scrollIntoView({ behavior }),
         100,
       );
-    else window.scrollTo(0, 0);
+      return () => clearTimeout(timeout);
+    } else window.scrollTo(0, 0);
   }, [pathname, hash]);
   return null;
 }
@@ -287,24 +316,26 @@ function App() {
       <BrowserRouter>
         <ScrollManager />
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/events/:id/register" element={<Registration />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cabinet" element={<Dashboard />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route
-            path="*"
-            element={
-              <main className="empty-page">
-                <h1>Страница не найдена</h1>
-                <Link to="/" className="btn btn-primary">
-                  На главную <ArrowRight size={18} />
-                </Link>
-              </main>
-            }
-          />
-        </Routes>
+        <div id="main-content" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events/:id/register" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cabinet" element={<Dashboard />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route
+              path="*"
+              element={
+                <main className="empty-page">
+                  <h1>Страница не найдена</h1>
+                  <Link to="/" className="btn btn-primary">
+                    На главную <ArrowRight size={18} />
+                  </Link>
+                </main>
+              }
+            />
+          </Routes>
+        </div>
         <Footer />
         {toast && (
           <div className="toast" role="status">

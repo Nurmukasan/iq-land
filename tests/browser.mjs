@@ -15,6 +15,19 @@ const child = spawn(process.execPath, ["server/index.js"], {
 let browser;
 const artifacts = resolve(".data/screenshots");
 mkdirSync(artifacts, { recursive: true });
+async function revealPage(page) {
+  await page.evaluate(() => document.fonts.ready);
+  const height = await page.evaluate(() => document.body.scrollHeight);
+  for (let y = 0; y < height; y += 650) {
+    await page.evaluate(
+      (y) => window.scrollTo({ top: y, behavior: "instant" }),
+      y,
+    );
+    await page.waitForTimeout(100);
+  }
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForTimeout(800);
+}
 try {
   let ready = false;
   for (let i = 0; i < 100; i++) {
@@ -43,11 +56,36 @@ try {
   page.on("dialog", (d) => d.accept());
   await page.goto(base);
   await expect(page.locator(".event-card")).toHaveCount(2);
+  await expect(
+    page
+      .locator(".hero-buttons")
+      .getByRole("link", { name: "Выбрать олимпиаду" }),
+  ).toBeInViewport();
+  await page
+    .getByRole("button", { name: "Следующая олимпиада", exact: true })
+    .click();
+  await expect(page.locator(".destination-city-row h2")).toContainText(
+    "Алматы",
+  );
+  await page
+    .getByRole("button", { name: "Предыдущая олимпиада", exact: true })
+    .click();
+  await expect(page.locator(".destination-city-row h2")).toContainText("Баку");
+  const question = page.getByRole("button", {
+    name: "Можно вставить готовый список из Excel?",
+    exact: true,
+  });
+  await question.click();
+  await expect(question).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#faq-1")).toContainText("ФИО");
+  await question.click();
+  await expect(question).toHaveAttribute("aria-expanded", "false");
   await page.getByRole("button", { name: "Математика", exact: true }).click();
   await expect(page.locator(".event-card")).toHaveCount(1);
   await page
     .getByRole("button", { name: "Все направления", exact: true })
     .click();
+  await revealPage(page);
   await page.screenshot({
     path: join(artifacts, "home-desktop.png"),
     fullPage: true,
@@ -226,6 +264,7 @@ try {
   });
   await page.goto(base);
   await expect(page.locator(".event-card")).toHaveCount(2);
+  await revealPage(page);
   await page.screenshot({
     path: join(artifacts, "home-mobile.png"),
     fullPage: true,
@@ -239,6 +278,11 @@ try {
   await expect(
     page.getByRole("navigation", { name: "Главная навигация" }),
   ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("navigation", { name: "Главная навигация" }),
+  ).toBeHidden();
+  await page.getByRole("button", { name: "Открыть меню" }).click();
   await page
     .getByRole("navigation", { name: "Главная навигация" })
     .getByRole("link", { name: "Учителям" })
@@ -247,11 +291,43 @@ try {
   await expect(
     page.getByRole("heading", { name: "Кто едет за новыми знаниями?" }),
   ).toBeVisible();
+  await page.getByLabel("ФИО ученика 1").fill("Тестовый Ученик");
+  await page.getByLabel("Дата рождения ученика 1").fill("2015-03-15");
+  await page.getByLabel("Класс ученика 1").selectOption("5");
+  await page.evaluate(() => {
+    document.activeElement?.blur();
+    window.scrollTo({ top: 0, behavior: "instant" });
+  });
+  await page.waitForTimeout(200);
+  await page.screenshot({
+    path: join(artifacts, "registration-mobile.png"),
+    fullPage: true,
+  });
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  for (const width of [320, 768, 1024]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(base);
+    await expect(page.locator(".event-card")).toHaveCount(2);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto(base);
+  await expect(page.locator(".event-card")).toHaveCount(2);
+  expect(
+    await page
+      .locator(".hero-line")
+      .first()
+      .evaluate((e) => getComputedStyle(e).animationName),
+  ).toBe("none");
+  await expect(page.locator("#about h2")).toHaveCSS("opacity", "1");
   expect(errors).toEqual([]);
   console.log(
     "PASS: mobile landing, navigation, registration, cabinet; no horizontal page overflow or browser errors",
