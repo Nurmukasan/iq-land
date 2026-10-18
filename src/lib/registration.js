@@ -1,4 +1,5 @@
 const currentDate = () => new Date().toISOString().slice(0, 10);
+let studentSequence = 0;
 
 export function makeStudent(availableSubjects, defaults = {}) {
   return {
@@ -6,7 +7,8 @@ export function makeStudent(availableSubjects, defaults = {}) {
     birth: "",
     grade: "",
     ...defaults,
-    key: globalThis.crypto.randomUUID(),
+    // Local UI keys must also work on HTTP without Web Crypto.
+    key: `student-${Date.now().toString(36)}-${++studentSequence}`,
     subjects: [...(defaults.subjects ?? availableSubjects.slice(0, 1))],
   };
 }
