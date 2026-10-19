@@ -1,0 +1,25 @@
+[Unit]
+Description=IQ LAND website
+After=network.target
+
+[Service]
+Type=simple
+User=iqland
+Group=iqland
+WorkingDirectory=/opt/iq-land
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=3001
+Environment=DATA_DIR=/var/lib/iqland/data
+ExecStart=/usr/bin/node /opt/iq-land/server/index.js
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/iqland/data
+
+[Install]
+WantedBy=multi-user.target

@@ -29,6 +29,9 @@ import { receiveEventVideo, videoPath, videoTypes } from "./event-videos.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
+// Nginx connects locally and overwrites X-Forwarded-For with the peer's IP.
+// Trust only that local hop, never arbitrary public proxy chains.
+if (production) app.set("trust proxy", "loopback");
 app.disable("x-powered-by");
 app.use(
   helmet({
@@ -656,6 +659,8 @@ app.use((err, req, res, next) => {
           : "Не удалось выполнить запрос. Попробуйте ещё раз.",
     });
 });
-app.listen(Number(process.env.PORT || 3001), "0.0.0.0", () =>
-  console.log(`IQ LAND API running on port ${process.env.PORT || 3001}`),
+app.listen(
+  Number(process.env.PORT || 3001),
+  process.env.HOST || (production ? "127.0.0.1" : "0.0.0.0"),
+  () => console.log(`IQ LAND API running on port ${process.env.PORT || 3001}`),
 );
