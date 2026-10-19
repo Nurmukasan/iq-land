@@ -12,7 +12,7 @@ import {
   Download,
   GraduationCap,
   MapPin,
-  MessageCircle,
+  Send,
   Plus,
   Save,
   ShieldCheck,
@@ -41,6 +41,7 @@ import {
   sanitizeDraft,
 } from "../lib/registration";
 import "./Registration.css";
+import { normalizeTelegramUrl } from "../../shared/telegram.js";
 import EventPhoto from "../components/EventPhoto";
 
 const emptyContact = () => ({
@@ -59,24 +60,7 @@ const steps = [
 const draftKey = (id) => `iqland:team-draft:${id}`;
 const receiptKey = (id) => `iqland:pending-receipt:${id}`;
 const receiptReadyEvent = "iqland:registration-completed";
-function whatsappInvite(value) {
-  if (typeof value !== "string" || value.length > 2048) return "";
-  const trimmed = value.trim();
-  if (!trimmed || /[\\\s]/.test(trimmed)) return "";
-  try {
-    const url = new URL(trimmed);
-    return url.protocol === "https:" &&
-      url.hostname === "chat.whatsapp.com" &&
-      !url.username &&
-      !url.password &&
-      !url.port &&
-      /^\/[A-Za-z0-9]{22}$/.test(url.pathname)
-      ? `https://chat.whatsapp.com${url.pathname}`
-      : "";
-  } catch {
-    return "";
-  }
-}
+const telegramInvite = (value) => normalizeTelegramUrl(value) || "";
 function restoreReceipt(saved, event) {
   const restored = sanitizeDraft(saved?.draft, event.subjects);
   const receipt = saved?.receipt;
@@ -95,7 +79,7 @@ function restoreReceipt(saved, event) {
     receipt: {
       id: receipt.id,
       count: receipt.count,
-      whatsappUrl: whatsappInvite(receipt.whatsappUrl),
+      telegramUrl: telegramInvite(receipt.telegramUrl),
     },
   };
 }
@@ -623,7 +607,7 @@ export default function Registration() {
           receipt: {
             id: response.id,
             count: response.count,
-            whatsappUrl: whatsappInvite(response.whatsappUrl),
+            telegramUrl: telegramInvite(response.telegramUrl),
           },
           draft: snapshot,
         };
@@ -643,7 +627,7 @@ export default function Registration() {
       }
       setReceipt({
         ...response,
-        whatsappUrl: whatsappInvite(response.whatsappUrl),
+        telegramUrl: telegramInvite(response.telegramUrl),
       });
       setDraft(null);
       window.scrollTo({ top: 0, behavior: "instant" });
@@ -838,31 +822,31 @@ export default function Registration() {
             </div>
           </div>
         </div>
-        {receipt.whatsappUrl && (
+        {receipt.telegramUrl && (
           <section
-            className="reg-whatsapp"
-            aria-labelledby="reg-whatsapp-title"
+            className="reg-telegram"
+            aria-labelledby="reg-telegram-title"
           >
-            <div className="reg-whatsapp-icon" aria-hidden="true">
-              <MessageCircle size={28} />
+            <div className="reg-telegram-icon" aria-hidden="true">
+              <Send size={28} />
             </div>
-            <div className="reg-whatsapp-copy">
+            <div className="reg-telegram-copy">
               <span>Следующий шаг</span>
-              <h2 id="reg-whatsapp-title">
-                Присоединяйтесь к группе олимпиады
+              <h2 id="reg-telegram-title">
+                Присоединяйтесь к каналу олимпиады
               </h2>
               <p>
                 Расписание, подготовка и важные новости для вашей команды — в
-                WhatsApp-группе мероприятия «{event.title}».
+                Telegram-канале мероприятия «{event.title}».
               </p>
               <a
-                className="btn reg-whatsapp-link"
-                href={receipt.whatsappUrl}
+                className="btn reg-telegram-link"
+                href={receipt.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Вступить в WhatsApp-группу олимпиады (откроется в новой вкладке)"
+                aria-label="Вступить в Telegram-канал олимпиады (откроется в новой вкладке)"
               >
-                Вступить в WhatsApp-группу <ArrowUpRight size={20} />
+                Вступить в Telegram-канал <ArrowUpRight size={20} />
               </a>
               <small>Ссылка также сохранится в скачанном подтверждении.</small>
             </div>
@@ -874,7 +858,7 @@ export default function Registration() {
             onClick={() =>
               download(
                 receipt.id + ".txt",
-                `IQ LAND\nНомер заявки: ${receipt.id}\nОлимпиада: ${event.city}, ${dateLabel(event.date)}\nЦентр: ${contact.center}\nУчитель: ${contact.teacher}\nУчеников: ${receipt.count}\nСтатус: получена, ожидает подтверждения организатором.${receipt.whatsappUrl ? `\n\nWhatsApp-группа олимпиады: ${receipt.whatsappUrl}` : ""}`,
+                `IQ LAND\nНомер заявки: ${receipt.id}\nОлимпиада: ${event.city}, ${dateLabel(event.date)}\nЦентр: ${contact.center}\nУчитель: ${contact.teacher}\nУчеников: ${receipt.count}\nСтатус: получена, ожидает подтверждения организатором.${receipt.telegramUrl ? `\n\nTelegram-канал олимпиады: ${receipt.telegramUrl}` : ""}`,
               )
             }
           >

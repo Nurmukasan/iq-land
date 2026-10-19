@@ -7,13 +7,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import ExcelJS from "exceljs";
 import { z } from "zod";
-import {
-  db,
-  allEvents,
-  eventObject,
-  protocolRows,
-  publicResults,
-} from "./db.js";
+import { db, allEvents, eventObject, protocolRows } from "./db.js";
 import {
   eventSchema,
   registrationSchema,
@@ -26,6 +20,8 @@ import {
   storeEventImage,
 } from "./event-images.js";
 import { receiveEventVideo, videoPath, videoTypes } from "./event-videos.js";
+import { awardsRouter } from "./awards.js";
+import { MAX_SCORE } from "../shared/award-rules.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
@@ -200,8 +196,8 @@ app.get("/api/archive/:id", (req, res) => {
     return res.status(404).json({ error: "Прошедшая олимпиада не найдена" });
   res.json({
     event,
-    resultsPublished: event.resultsPublished,
-    results: event.resultsPublished ? publicResults(event.id) : [],
+    resultsPublished: false,
+    results: [],
   });
 });
 app.get("/api/events/:id", (req, res) => {
@@ -383,7 +379,7 @@ app.post(
     }
     res
       .status(201)
-      .json({ id, count: data.students.length, whatsappUrl: e.whatsappUrl });
+      .json({ id, count: data.students.length, telegramUrl: e.telegramUrl });
   },
 );
 app.get("/api/manage", auth, (req, res) => {
@@ -416,9 +412,11 @@ app.patch("/api/entries/:id", auth, (req, res) => {
     (typeof score !== "number" ||
       !Number.isFinite(score) ||
       score < 0 ||
-      score > 100)
+      score > MAX_SCORE)
   )
-    return res.status(400).json({ error: "Баллы должны быть от 0 до 100" });
+    return res
+      .status(400)
+      .json({ error: "Баллы должны быть от 0 до 1 000 000" });
   const r = db
     .prepare("UPDATE entries SET score=? WHERE id=?")
     .run(score, req.params.id);
@@ -426,12 +424,13 @@ app.patch("/api/entries/:id", auth, (req, res) => {
     ? res.json({ ok: true })
     : res.status(404).json({ error: "Участник не найден" });
 });
+app.use("/api/awards", auth, organizer, awardsRouter);
 app.post("/api/events", auth, organizer, (req, res) => {
   const e = parse(eventSchema, req.body, res);
   if (!e) return;
   const id = randomUUID();
   db.prepare(
-    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active,whatsapp_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active,telegram_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
   ).run(
     id,
     e.title,
@@ -447,7 +446,7 @@ app.post("/api/events", auth, organizer, (req, res) => {
     e.image,
     e.description,
     Number(e.active),
-    e.whatsappUrl ?? "",
+    e.telegramUrl ?? "",
   );
   res.status(201).json({ id });
 });
@@ -456,7 +455,7 @@ app.put("/api/events/:id/archive", auth, admin, (req, res) => {
   if (!data) return;
   const updated = db
     .prepare("UPDATE events SET video=?,results_published=? WHERE id=?")
-    .run(data.video, Number(data.resultsPublished), req.params.id);
+    .run(data.video, 0, req.params.id);
   return updated.changes
     ? res.json({ ok: true })
     : res.status(404).json({ error: "Мероприятие не найдено" });
@@ -481,7 +480,7 @@ app.put("/api/events/:id", auth, organizer, (req, res) => {
       error: "Нельзя удалить дисциплину с зарегистрированными учениками",
     });
   db.prepare(
-    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=?,whatsapp_url=? WHERE id=?",
+    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=?,telegram_url=? WHERE id=?",
   ).run(
     e.title,
     e.city,
@@ -496,7 +495,7 @@ app.put("/api/events/:id", auth, organizer, (req, res) => {
     e.image,
     e.description,
     Number(e.active),
-    e.whatsappUrl ?? previous.whatsappUrl,
+    e.telegramUrl ?? previous.telegramUrl,
     req.params.id,
   );
   res.json({ ok: true });
@@ -617,7 +616,7 @@ app.get("/api/export", auth, async (req, res, next) => {
         ["ФИО", "name", 35],
         ["Центр", "center", 30],
         ["Баллы", "score", 12],
-        ["Место", "place", 12],
+        ["Рейтинг", "place", 12],
       ],
       confirmed,
     );

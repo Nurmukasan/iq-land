@@ -30,6 +30,7 @@ import "./styles.css";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Dashboard, { Login } from "./pages/Dashboard";
+import AwardsPage from "./pages/AwardsPage";
 import InteractionMotion from "./components/InteractionMotion";
 import Archive from "./pages/Archive";
 import EventRecap from "./pages/EventRecap";
@@ -299,12 +300,12 @@ function Privacy() {
         протокола олимпиады и сертификатов. Доступ к заявкам получают только
         авторизованные организаторы.
       </p>
-      <h2>Публикация результатов</h2>
+      <h2>Доступ к результатам</h2>
       <p>
-        После олимпиады организатор может опубликовать результаты в архиве
-        сайта: ФИО участника, класс, дисциплину, баллы и место. Контакты
-        учителя, даты рождения учеников и примечания к заявке в публичные
-        результаты не входят.
+        Баллы и награды доступны организаторам в закрытом кабинете. Организатор
+        готовит отдельный Excel с результатами для каждого образовательного
+        центра. Имена учеников, баллы, места, контакты и даты рождения не
+        публикуются в открытом архиве сайта.
       </p>
       <h2>Согласие представителя</h2>
       <p>
@@ -370,6 +371,7 @@ function App() {
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cabinet" element={<Dashboard />} />
+            <Route path="/cabinet/awards" element={<AwardsPage />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route
               path="*"

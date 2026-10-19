@@ -12,6 +12,7 @@
     "test:registration": "npm run build && node tests/registration-browser.mjs",
     "test:worldwide": "npm run build && node tests/worldwide-browser.mjs",
     "test:archive": "npm run build && node tests/archive-browser.mjs",
+    "test:awards": "npm run build && node tests/awards-browser.mjs",
     "test:launch": "npm run build && node tests/launch-browser.mjs"
   },
   "engines": {

@@ -177,7 +177,7 @@ test("director can confirm a team and record scores, and reaches event validatio
       await request("/entries/" + entries[0].id, {
         cookie: directorCookie,
         method: "PATCH",
-        body: { score: 101 },
+        body: { score: 1_000_001 },
       })
     ).res.status,
     400,

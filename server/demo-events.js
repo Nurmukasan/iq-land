@@ -53,7 +53,8 @@ function isOriginalDemo(row, seed) {
     row.active !== 1 ||
     row.video ||
     row.results_published ||
-    row.whatsapp_url
+    row.whatsapp_url ||
+    row.telegram_url
   )
     return false;
   const legacyImage = `/images/${seed.id.split("-")[0]}.png`;

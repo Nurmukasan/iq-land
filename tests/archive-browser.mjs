@@ -302,60 +302,29 @@ try {
   await archiveLink.focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(base + "/archive/" + event.id);
-  await expect(page.getByRole("heading", { name: "Результаты готовятся", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: event.title, exact: true })).toBeVisible();
   await expect(page.locator(".recap-results-table")).toHaveCount(0);
   for (const name of Object.values(names)) await expect(page.locator("main")).not.toContainText(name);
   console.log("PASS: archive navigation and keyboard entry work; unpublished participant results remain hidden");
 
   await openArchiveEditor(staff);
   const firstVideoUrl = await uploadVideo(staff);
-  await staff.getByLabel("Опубликовать результаты", { exact: true }).check();
+  const savePath = `**/api/events/${event.id}/archive`;
+  await staff.route(savePath, (route) => route.fulfill({status: 400, contentType: "application/json", body: JSON.stringify({error: "Тестовый отказ сохранения монтажа"})}));
+  await staff.getByRole("button", {name: "Сохранить итоги", exact: true}).click();
+  await expect(staff.getByRole("dialog")).toContainText("Тестовый отказ сохранения монтажа");
+  await staff.unroute(savePath);
+  await expect(staff.getByLabel("Опубликовать результаты", { exact: true })).toHaveCount(0);
   await saveArchive(staff, event.id);
   const published = await json(page, "/archive/" + event.id);
   expect(published.event.video).toBe(firstVideoUrl);
-  expect(published.resultsPublished).toBe(true);
+  expect(published.resultsPublished).toBe(false);
+  expect(published.results).toEqual([]);
   expectNoPrivateData(published);
-  const expectedResults = [
-    { name: names.alpha, grade: 5, subject: "Математика", score: 95, place: 1 },
-    { name: names.beta, grade: 5, subject: "Математика", score: 95, place: 1 },
-    { name: names.gamma, grade: 5, subject: "Математика", score: 80, place: 3 },
-    { name: names.delta, grade: 6, subject: "Математика", score: 80, place: 1 },
-    { name: names.zero, grade: 0, subject: "Математика", score: 0, place: 1 },
-    { name: names.alpha, grade: 5, subject: "Английский язык", score: 70, place: 1 },
-  ];
-  const byNameAndSubject = (a, b) => (a.name + a.subject).localeCompare(b.name + b.subject);
-  expect(published.results.toSorted(byNameAndSubject)).toEqual(expectedResults.toSorted(byNameAndSubject));
-  for (const row of published.results) expect(Object.keys(row).sort()).toEqual(["grade", "name", "place", "score", "subject"]);
   await page.reload();
-  await expect(page.getByRole("heading", { name: /^Результаты олимпиады\.?$/ })).toBeVisible();
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(6);
-  await expect(page.locator("main")).not.toContainText(names.cancelled);
-  await expect(page.locator("main")).not.toContainText(names.unscored);
-  await page.getByLabel("Дисциплина результатов", { exact: true }).selectOption("Английский язык");
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(1);
-  await expect(page.locator(".recap-results-table tbody tr")).toContainText(names.alpha);
-  await page.getByLabel("Дисциплина результатов", { exact: true }).selectOption({ index: 0 });
-  await page.getByLabel("Класс результатов", { exact: true }).selectOption("0");
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(1);
-  await expect(page.locator(".recap-results-table tbody tr")).toContainText(names.zero);
-  await page.getByLabel("Класс результатов", { exact: true }).selectOption({ index: 0 });
-  await page.getByLabel("Найти участника", { exact: true }).fill("Бета");
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(1);
-  await expect(page.locator(".recap-results-table tbody tr")).toContainText(names.beta);
-  await page.getByLabel("Найти участника", { exact: true }).clear();
-  console.log("PASS: published results rank ties per class and subject, exclude cancelled/unscored entries and expose no contacts or birth dates");
-
-  const detailApi = "**/api/archive/" + event.id;
-  const delayedDetail = async (route) => {
-    await delay(300);
-    await route.continue();
-  };
-  await page.route(detailApi, delayedDetail);
-  await page.goto(base + "/archive/" + event.id + "#results");
-  await expect(page.getByRole("heading", { name: /^Результаты олимпиады\.?$/ }))
-    .toBeInViewport({ ratio: 0.9 });
-  await page.unroute(detailApi, delayedDetail);
-  console.log("PASS: direct results anchor waits for delayed archive data before scrolling");
+  await expect(page.locator(".recap-results-table")).toHaveCount(0);
+  for (const name of Object.values(names)) await expect(page.locator("main")).not.toContainText(name);
+  console.log("PASS: students and awards stay private; montage is public");
 
   const original = await page.request.get(base + firstVideoUrl);
   expect(original.ok()).toBe(true);
@@ -382,7 +351,7 @@ try {
   await page.screenshot({ path: join(tmpdir(), "iqland-archive-list.png"), fullPage: true });
   await page.setViewportSize({ width: 390, height: 1000 });
   await page.goto(base + "/archive/" + event.id);
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(6);
+  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(0);
   await expect.poll(() => page.locator(".montage-player video").evaluate((element) => element.videoWidth)).toBe(1920);
   await page.screenshot({ path: join(tmpdir(), "iqland-archive-mobile.png"), fullPage: true });
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -398,30 +367,30 @@ try {
   await saveArchive(staff, event.id);
   await page.reload();
   await expect(page.locator(".montage-player video")).toHaveCount(0);
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(6);
+  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(0);
   await openArchiveEditor(staff);
   const finalVideoUrl = await uploadVideo(staff, "final-1080p60.webm");
-  await staff.getByLabel("Опубликовать результаты", { exact: true }).uncheck();
+  await expect(staff.getByLabel("Опубликовать результаты", { exact: true })).toHaveCount(0);
   await saveArchive(staff, event.id);
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Результаты готовятся", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: event.title, exact: true })).toBeVisible();
   await expect(page.locator(".recap-results-table")).toHaveCount(0);
   for (const name of Object.values(names)) await expect(page.locator("main")).not.toContainText(name);
   expect((await json(page, "/archive/" + event.id)).results).toEqual([]);
   await openArchiveEditor(staff);
-  await staff.getByLabel("Опубликовать результаты", { exact: true }).check();
+  await expect(staff.getByLabel("Опубликовать результаты", { exact: true })).toHaveCount(0);
   await saveArchive(staff, event.id);
-  console.log("PASS: organisers can replace/remove montage and withdraw/re-publish results independently");
+  console.log("PASS: organisers can replace/remove montage and keep all participant results private");
 
   await stopServer();
   await startServer();
   await page.reload();
   await verifyVideo(page, finalVideoUrl, { checkLoop: false });
-  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(6);
+  await expect(page.locator(".recap-results-table tbody tr")).toHaveCount(0);
   expect(Buffer.compare(await (await page.request.get(base + finalVideoUrl)).body(), fixture)).toBe(0);
   await noOverflow(page, "/archive", ".archive-card");
   await noOverflow(page, "/archive/" + event.id, ".montage-player video");
-  console.log("PASS: archive, original video and results survive server restart; archive pages fit 320–1440px");
+  console.log("PASS: archive, original video and privacy survive server restart; archive pages fit 320–1440px");
   expect(errors).toEqual([]);
   console.log("PASS: no browser runtime errors");
 } finally {
