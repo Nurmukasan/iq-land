@@ -17,7 +17,12 @@ let child, vite, origin, account;
 before(async () => {
   let logs = "";
   child = spawn(process.execPath, ["server/index.js"], {
-    env: { ...process.env, PORT: String(apiPort), DATA_DIR: dir },
+    env: {
+      ...process.env,
+      IQLAND_SEED_DEMO_EVENTS: "true",
+      PORT: String(apiPort),
+      DATA_DIR: dir,
+    },
     stdio: ["ignore", "ignore", "pipe"],
   });
   child.stderr.on("data", (chunk) => {

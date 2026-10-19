@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -13,6 +13,7 @@ import {
   EyeOff,
   FileSpreadsheet,
   GraduationCap,
+  ImagePlus,
   LayoutDashboard,
   ListChecks,
   LogOut,
@@ -23,6 +24,8 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   Trophy,
+  Trash2,
+  UploadCloud,
   Users,
 } from "lucide-react";
 import {
@@ -34,6 +37,7 @@ import {
   ErrorBox,
   Modal,
 } from "../main";
+import EventPhoto from "../components/EventPhoto";
 
 const statusNames = {
   new: "Новая",
@@ -731,7 +735,11 @@ export default function Dashboard() {
                   <div className="event-manage-list">
                     {data.events.map((e) => (
                       <div key={e.id}>
-                        <img src={e.image} alt={e.city} />
+                        <EventPhoto
+                          src={e.image}
+                          alt={e.city}
+                          className="event-manage-photo"
+                        />
                         <div>
                           <h3>
                             {e.flag} {e.city}, {e.country}
@@ -874,6 +882,218 @@ function ScoreInput({ row, onSave }) {
     />
   );
 }
+const photoTypes = ["image/jpeg", "image/png", "image/webp"];
+const maxPhotoBytes = 8 * 1024 * 1024;
+
+function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
+  const inputId = useId();
+  const input = useRef(null),
+    request = useRef(null),
+    previewUrl = useRef(""),
+    generation = useRef(0),
+    mounted = useRef(false);
+  const [preview, setPreview] = useState(""),
+    [uploading, setUploading] = useState(false),
+    [error, setError] = useState(""),
+    [fileName, setFileName] = useState(""),
+    [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      generation.current += 1;
+      request.current?.abort();
+      if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
+    };
+  }, []);
+
+  function clearPreview() {
+    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
+    previewUrl.current = "";
+    setPreview("");
+  }
+
+  async function upload(file) {
+    if (!file || disabled) return;
+    const attempt = ++generation.current;
+    request.current?.abort();
+    clearPreview();
+    setError("");
+    setFileName("");
+    setUploading(false);
+    onBusyChange(false);
+    if (!photoTypes.includes(file.type)) {
+      setError("Выберите фото в формате JPEG, PNG или WebP.");
+      return;
+    }
+    if (!file.size) {
+      setError("Файл пустой. Выберите другое фото.");
+      return;
+    }
+    if (file.size > maxPhotoBytes) {
+      setError("Фото больше 8 МБ. Выберите файл меньшего размера.");
+      return;
+    }
+
+    const controller = new AbortController();
+    request.current = controller;
+    const localUrl = URL.createObjectURL(file);
+    previewUrl.current = localUrl;
+    setPreview(localUrl);
+    setFileName(file.name);
+    setUploading(true);
+    onBusyChange(true);
+    try {
+      const result = await api("/event-images", {
+        method: "POST",
+        body: file,
+        headers: { "Content-Type": file.type },
+        signal: controller.signal,
+      });
+      if (!mounted.current || generation.current !== attempt) return;
+      if (
+        typeof result.url !== "string" ||
+        !result.url.startsWith("/api/event-images/")
+      )
+        throw new Error(
+          "Сервер не вернул фото. Попробуйте загрузить его ещё раз.",
+        );
+      onChange(result.url);
+      clearPreview();
+    } catch (error) {
+      if (!mounted.current || generation.current !== attempt) return;
+      clearPreview();
+      setFileName("");
+      setError(
+        error.message || "Не удалось загрузить фото. Попробуйте ещё раз.",
+      );
+    } finally {
+      if (mounted.current && generation.current === attempt) {
+        request.current = null;
+        setUploading(false);
+        onBusyChange(false);
+      }
+    }
+  }
+
+  function remove() {
+    generation.current += 1;
+    request.current?.abort();
+    request.current = null;
+    clearPreview();
+    setUploading(false);
+    onBusyChange(false);
+    setFileName("");
+    setError("");
+    onChange("");
+  }
+
+  const hasPhoto = Boolean(preview || value);
+  return (
+    <section
+      className={
+        "event-photo-upload" +
+        (dragging ? " is-dragging" : "") +
+        (error ? " has-error" : "")
+      }
+      aria-label="Фото мероприятия"
+      aria-busy={uploading}
+      onDragOver={(event) => {
+        event.preventDefault();
+        if (!disabled) setDragging(true);
+      }}
+      onDragLeave={(event) => {
+        if (
+          !(event.relatedTarget instanceof Node) ||
+          !event.currentTarget.contains(event.relatedTarget)
+        )
+          setDragging(false);
+      }}
+      onDrop={(event) => {
+        event.preventDefault();
+        setDragging(false);
+        upload(event.dataTransfer.files[0]);
+      }}
+    >
+      <div className="event-photo-upload-preview">
+        <EventPhoto src={preview || value} alt="Фото мероприятия" />
+        {uploading && (
+          <span className="event-photo-upload-progress" aria-hidden="true">
+            <RefreshCw size={20} className="spin" />
+          </span>
+        )}
+      </div>
+      <div className="event-photo-upload-content">
+        <div className="event-photo-upload-title">
+          <ImagePlus size={21} />
+          <h3>
+            Фото мероприятия <small>Необязательно</small>
+          </h3>
+        </div>
+        <p>
+          Добавьте настоящий кадр города, площадки или прошлой олимпиады. Он
+          появится на карточке в афише.
+        </p>
+        <input
+          ref={input}
+          id={inputId}
+          className="event-photo-file-input"
+          type="file"
+          accept={photoTypes.join(",")}
+          aria-label="Загрузить фото мероприятия"
+          aria-describedby={inputId + "-hint"}
+          disabled={disabled}
+          tabIndex={-1}
+          onChange={(event) => {
+            const file = event.currentTarget.files?.[0];
+            event.currentTarget.value = "";
+            upload(file);
+          }}
+        />
+        <div className="event-photo-upload-actions">
+          <button
+            className="btn btn-secondary btn-small"
+            type="button"
+            disabled={disabled}
+            onClick={() => input.current?.click()}
+          >
+            <UploadCloud size={16} />
+            {hasPhoto ? "Заменить фото" : "Выбрать фото"}
+          </button>
+          {hasPhoto && (
+            <button
+              className="text-link event-photo-remove"
+              type="button"
+              disabled={disabled}
+              onClick={remove}
+            >
+              <Trash2 size={16} /> Убрать фото
+            </button>
+          )}
+        </div>
+        <small id={inputId + "-hint"} className="event-photo-upload-hint">
+          JPEG, PNG или WebP · до 8 МБ. Можно перетащить фото сюда.
+        </small>
+        {uploading ? (
+          <p className="event-photo-upload-status" role="status">
+            Загружаем фото…
+          </p>
+        ) : fileName ? (
+          <p className="event-photo-upload-status" role="status">
+            <Check size={15} /> Фото загружено <span>{fileName}</span>
+          </p>
+        ) : null}
+        {error && (
+          <p className="event-photo-upload-error" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function EventEditor({ event, onClose, onSaved }) {
   const [form, setForm] = useState({
       title: "",
@@ -886,34 +1106,57 @@ function EventEditor({ event, onClose, onSaved }) {
       includes: ["Участие в олимпиаде", "Сертификат участника"],
       price: null,
       currency: "KZT",
-      image: "/images/baku.png",
+      image: "",
       description: "",
       active: true,
       ...event,
     }),
     [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [uploading, setUploading] = useState(false);
+  const saving = useRef(false),
+    photoBusy = useRef(false),
+    mounted = useRef(false),
+    saveRequest = useRef(null);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      saveRequest.current?.abort();
+    };
+  }, []);
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
   async function save(e) {
     e.preventDefault();
+    if (saving.current || photoBusy.current) return;
+    if (!form.subjects.length) {
+      setError("Выберите хотя бы одну дисциплину олимпиады.");
+      return;
+    }
+    saving.current = true;
+    const controller = new AbortController();
+    saveRequest.current = controller;
     setBusy(true);
     setError("");
     try {
       await api("/events" + (event.id ? "/" + event.id : ""), {
         method: event.id ? "PUT" : "POST",
+        signal: controller.signal,
         body: JSON.stringify({
           ...form,
+          includes: form.includes.map((item) => item.trim()).filter(Boolean),
           price:
             form.price === "" || form.price === null
               ? null
               : Number(form.price),
         }),
       });
-      onSaved();
+      if (mounted.current) onSaved();
     } catch (e) {
-      setError(e.message);
+      if (mounted.current) setError(e.message);
     } finally {
-      setBusy(false);
+      saving.current = false;
+      if (mounted.current) setBusy(false);
     }
   }
   return (
@@ -922,7 +1165,16 @@ function EventEditor({ event, onClose, onSaved }) {
       onClose={onClose}
       wide
     >
-      <form onSubmit={save}>
+      <form onSubmit={save} className="event-editor-form">
+        <EventPhotoUploader
+          value={form.image}
+          onChange={(url) => set("image", url)}
+          onBusyChange={(value) => {
+            photoBusy.current = value;
+            setUploading(value);
+          }}
+          disabled={busy}
+        />
         <div className="fields-grid">
           {[
             ["title", "Название олимпиады", "text"],
@@ -942,6 +1194,13 @@ function EventEditor({ event, onClose, onSaved }) {
                 required
                 minLength={type === "text" && k !== "flag" ? 2 : undefined}
                 maxLength={k === "flag" ? 8 : 150}
+                placeholder={
+                  k === "city"
+                    ? "Например, Лондон"
+                    : k === "country"
+                      ? "Например, Великобритания"
+                      : undefined
+                }
                 value={form[k]}
                 onChange={(e) => set(k, e.target.value)}
               />
@@ -963,19 +1222,20 @@ function EventEditor({ event, onClose, onSaved }) {
               value={form.currency}
               onChange={(e) => set("currency", e.target.value)}
             >
-              {["KZT", "USD", "AZN"].map((v) => (
-                <option key={v}>{v}</option>
+              {[
+                ["KZT", "KZT · Казахстанский тенге"],
+                ["USD", "USD · Доллар США"],
+                ["AZN", "AZN · Азербайджанский манат"],
+                ["EUR", "EUR · Евро"],
+                ["GBP", "GBP · Фунт стерлингов"],
+                ["AED", "AED · Дирхам ОАЭ"],
+                ["TRY", "TRY · Турецкая лира"],
+                ["UZS", "UZS · Узбекский сум"],
+              ].map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
               ))}
-            </select>
-          </label>
-          <label className="field span-two">
-            <span>Иллюстрация</span>
-            <select
-              value={form.image}
-              onChange={(e) => set("image", e.target.value)}
-            >
-              <option value="/images/baku.png">Баку</option>
-              <option value="/images/almaty.png">Алматы</option>
             </select>
           </label>
         </div>
@@ -1032,7 +1292,10 @@ function EventEditor({ event, onClose, onSaved }) {
           Показывать в публичной афише
         </label>
         {error && <ErrorBox>{error}</ErrorBox>}
-        <button disabled={busy} className="btn btn-primary full-width">
+        <button
+          disabled={busy || uploading}
+          className="btn btn-primary full-width"
+        >
           {busy ? "Сохраняем…" : "Сохранить мероприятие"}
           <Check size={17} />
         </button>

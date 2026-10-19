@@ -3,6 +3,7 @@ import { mkdirSync, existsSync, writeFileSync, chmodSync } from "node:fs";
 import { resolve } from "node:path";
 import { randomBytes } from "node:crypto";
 import bcrypt from "bcryptjs";
+import { prepareEvents } from "./demo-events.js";
 
 export const dataDir = resolve(process.env.DATA_DIR || ".data");
 mkdirSync(dataDir, { recursive: true, mode: 0o700 });
@@ -65,69 +66,7 @@ if (!db.prepare("SELECT id FROM users LIMIT 1").get()) {
   );
 }
 
-if (!db.prepare("SELECT id FROM events LIMIT 1").get()) {
-  const events = [
-    {
-      id: "baku-2027",
-      title: "Baku International Olympiad",
-      city: "Баку",
-      country: "Азербайджан",
-      flag: "🇦🇿",
-      date: "2027-10-03",
-      deadline: "2027-09-20",
-      subjects: ["Английский язык", "Математика"],
-      includes: [
-        "Участие в олимпиаде",
-        "Посещение цирка",
-        "Сертификат участника",
-      ],
-      price: null,
-      currency: "KZT",
-      image: "/images/baku.png",
-      description:
-        "Новые знания, новые друзья и город, в который хочется вернуться. Объедините интеллектуальное соревнование с открытием удивительного Баку.",
-    },
-    {
-      id: "almaty-2027",
-      title: "Almaty Mental Arithmetic",
-      city: "Алматы",
-      country: "Казахстан",
-      flag: "🇰🇿",
-      date: "2027-11-14",
-      deadline: "2027-11-01",
-      subjects: ["Ментальная арифметика"],
-      includes: [
-        "Участие в олимпиаде",
-        "Посещение КБТУ и ЖЕНПУ",
-        "Сертификат участника",
-      ],
-      price: null,
-      currency: "KZT",
-      image: "/images/almaty.png",
-      description:
-        "Ментальная арифметика у подножия гор. Познакомьтесь с университетами Алматы и подарите детям вдохновение для будущих открытий.",
-    },
-  ];
-  const stmt = db.prepare(
-    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-  );
-  for (const e of events)
-    stmt.run(
-      e.id,
-      e.title,
-      e.city,
-      e.country,
-      e.flag,
-      e.date,
-      e.deadline,
-      JSON.stringify(e.subjects),
-      JSON.stringify(e.includes),
-      e.price,
-      e.currency,
-      e.image,
-      e.description,
-    );
-}
+prepareEvents(db, process.env.IQLAND_SEED_DEMO_EVENTS === "true");
 
 export function eventObject(e) {
   return e

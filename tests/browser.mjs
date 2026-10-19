@@ -9,7 +9,12 @@ const dir = mkdtempSync(join(tmpdir(), "iqland-browser-"));
 const port = 45000 + Math.floor(Math.random() * 10000),
   base = `http://127.0.0.1:${port}`;
 const child = spawn(process.execPath, ["server/index.js"], {
-  env: { ...process.env, PORT: String(port), DATA_DIR: dir },
+  env: {
+    ...process.env,
+    IQLAND_SEED_DEMO_EVENTS: "true",
+    PORT: String(port),
+    DATA_DIR: dir,
+  },
   stdio: "ignore",
 });
 let browser;
