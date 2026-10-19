@@ -13,7 +13,7 @@ db.exec(`
  PRAGMA foreign_keys = ON;
  CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, role TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS sessions (token TEXT PRIMARY KEY, user_id INTEGER REFERENCES users(id), expires INTEGER NOT NULL);
- CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, title TEXT NOT NULL, city TEXT NOT NULL, country TEXT NOT NULL, flag TEXT NOT NULL, date TEXT NOT NULL, deadline TEXT NOT NULL, subjects TEXT NOT NULL, includes TEXT NOT NULL, price INTEGER, currency TEXT NOT NULL, image TEXT NOT NULL, description TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1, video TEXT NOT NULL DEFAULT '', results_published INTEGER NOT NULL DEFAULT 0);
+ CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, title TEXT NOT NULL, city TEXT NOT NULL, country TEXT NOT NULL, flag TEXT NOT NULL, date TEXT NOT NULL, deadline TEXT NOT NULL, subjects TEXT NOT NULL, includes TEXT NOT NULL, price INTEGER, currency TEXT NOT NULL, image TEXT NOT NULL, description TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1, video TEXT NOT NULL DEFAULT '', results_published INTEGER NOT NULL DEFAULT 0, whatsapp_url TEXT NOT NULL DEFAULT '');
  CREATE TABLE IF NOT EXISTS registrations (id TEXT PRIMARY KEY, event_id TEXT REFERENCES events(id), center TEXT NOT NULL, city TEXT NOT NULL, teacher TEXT NOT NULL, email TEXT NOT NULL, phone TEXT NOT NULL, teachers TEXT NOT NULL, note TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'new', created TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS students (id TEXT PRIMARY KEY, registration_id TEXT REFERENCES registrations(id) ON DELETE CASCADE, name TEXT NOT NULL, birth TEXT NOT NULL, grade INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS entries (id TEXT PRIMARY KEY, student_id TEXT REFERENCES students(id) ON DELETE CASCADE, subject TEXT NOT NULL, score REAL);
@@ -30,6 +30,10 @@ if (!eventColumns.has("video"))
 if (!eventColumns.has("results_published"))
   db.exec(
     "ALTER TABLE events ADD COLUMN results_published INTEGER NOT NULL DEFAULT 0",
+  );
+if (!eventColumns.has("whatsapp_url"))
+  db.exec(
+    "ALTER TABLE events ADD COLUMN whatsapp_url TEXT NOT NULL DEFAULT ''",
   );
 db.prepare("INSERT OR IGNORE INTO settings VALUES(?,?)").run(
   "promo",
@@ -80,7 +84,7 @@ if (!db.prepare("SELECT id FROM users LIMIT 1").get()) {
 
 prepareEvents(db, process.env.IQLAND_SEED_DEMO_EVENTS === "true");
 
-export function eventObject(e) {
+export function eventObject(e, { includePrivate = false } = {}) {
   return e
     ? {
         id: e.id,
@@ -99,6 +103,7 @@ export function eventObject(e) {
         active: Boolean(e.active),
         video: e.video || "",
         resultsPublished: Boolean(e.results_published),
+        ...(includePrivate ? { whatsappUrl: e.whatsapp_url || "" } : {}),
       }
     : null;
 }
@@ -130,11 +135,11 @@ export function publicResults(eventId) {
         a.name.localeCompare(b.name, "ru"),
     );
 }
-export function allEvents() {
+export function allEvents(options) {
   return db
     .prepare("SELECT * FROM events ORDER BY date")
     .all()
-    .map(eventObject);
+    .map((event) => eventObject(event, options));
 }
 export function protocolRows() {
   return db

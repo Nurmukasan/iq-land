@@ -352,11 +352,9 @@ export default function Dashboard() {
             {[
               { id: "registrations", title: "Заявки команд", icon: Users },
               { id: "protocol", title: "Протокол олимпиады", icon: ListChecks },
+              { id: "events", title: "Мероприятия", icon: CalendarDays },
               ...(user.role === "admin"
-                ? [
-                    { id: "events", title: "Мероприятия", icon: CalendarDays },
-                    { id: "promo", title: "Рекламный блок", icon: Trophy },
-                  ]
+                ? [{ id: "promo", title: "Рекламный блок", icon: Trophy }]
                 : []),
             ].map((t) => (
               <button
@@ -724,12 +722,14 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-              {tab === "events" && user.role === "admin" && (
+              {tab === "events" && (
                 <div className="workspace-panel">
                   <div className="workspace-heading">
                     <div>
                       <h2>Мероприятия</h2>
-                      <p>Афиша, программа, стоимость и сроки регистрации.</p>
+                      <p>
+                        Афиша, программа, стоимость и группа для участников.
+                      </p>
                     </div>
                     <button
                       className="btn btn-primary btn-small"
@@ -773,7 +773,7 @@ export default function Dashboard() {
                           >
                             <Pencil size={15} /> Изменить
                           </button>
-                          {isPastEvent(e) && (
+                          {isPastEvent(e) && user.role === "admin" && (
                             <button
                               className="btn btn-secondary btn-small event-archive-button"
                               onClick={() => setArchiving(e)}
@@ -796,7 +796,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-              {tab === "promo" && <PromoEditor />}
+              {tab === "promo" && user.role === "admin" && <PromoEditor />}
             </>
           )}
         </section>
@@ -1292,6 +1292,7 @@ function EventEditor({ event, onClose, onSaved }) {
       price: null,
       currency: "KZT",
       image: "",
+      whatsappUrl: "",
       description: "",
       active: true,
       ...event,
@@ -1330,6 +1331,7 @@ function EventEditor({ event, onClose, onSaved }) {
         signal: controller.signal,
         body: JSON.stringify({
           ...details,
+          whatsappUrl: (form.whatsappUrl || "").trim(),
           includes: form.includes.map((item) => item.trim()).filter(Boolean),
           price:
             form.price === "" || form.price === null
@@ -1425,6 +1427,26 @@ function EventEditor({ event, onClose, onSaved }) {
             </select>
           </label>
         </div>
+        <label className="field event-whatsapp-field">
+          <span id="event-whatsapp-label">
+            Ссылка на WhatsApp-группу олимпиады · необязательно
+          </span>
+          <input
+            type="url"
+            maxLength={2048}
+            placeholder="https://chat.whatsapp.com/…"
+            autoComplete="off"
+            value={form.whatsappUrl}
+            aria-labelledby="event-whatsapp-label"
+            aria-describedby="event-whatsapp-help"
+            onChange={(e) => set("whatsappUrl", e.target.value)}
+          />
+          <small id="event-whatsapp-help">
+            Скопируйте приглашение из настроек группы в WhatsApp. Учитель увидит
+            ссылку после отправки заявки на эту олимпиаду и в скачанном
+            подтверждении. Чтобы убрать группу, очистите поле и сохраните.
+          </small>
+        </label>
         <label className="field">
           <span>Дисциплины</span>
         </label>

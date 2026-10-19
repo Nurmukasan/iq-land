@@ -150,7 +150,7 @@ test("fresh databases have no public or private demonstration events", async (t)
   assert.equal(data.image, "");
 });
 
-test("event images require admin, reject invalid uploads, and retain real image files across restart", async (t) => {
+test("event images require an organizer, reject invalid uploads, and retain real image files across restart", async (t) => {
   const api = await temporaryServer(t);
   const [png, jpeg, webp] = images;
   const upload = (image, cookie = api.admin) => api.request("/api/event-images", {
@@ -160,7 +160,7 @@ test("event images require admin, reject invalid uploads, and retain real image 
   assert.equal((await api.request("/api/event-images", {
     method: "POST", type: png.type, body: png.bytes,
   })).response.status, 401);
-  assert.equal((await upload(png, api.director)).response.status, 403);
+  assert.equal((await upload(png, api.director)).response.status, 201, "Director can upload event photos");
 
   const uploaded = [];
   for (const image of images) {

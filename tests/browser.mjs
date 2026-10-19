@@ -231,7 +231,7 @@ try {
   await signIn(page);
   await expect(
     page.getByRole("button", { name: "Мероприятия", exact: true }),
-  ).toHaveCount(0);
+  ).toBeVisible();
   await expect(page.locator(".manage-table")).toContainText(
     "Демо-центр «Зерде»",
   );

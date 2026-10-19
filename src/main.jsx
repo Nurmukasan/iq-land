@@ -22,6 +22,7 @@ import {
   Check,
   AlertCircle,
   LoaderCircle,
+  Instagram,
 } from "lucide-react";
 import "@fontsource-variable/golos-text";
 import "@fontsource-variable/unbounded";
@@ -186,7 +187,7 @@ function Header() {
           </Link>
           <Link to="/register">Регистрация</Link>
           <Link to="/#teachers">Учителям</Link>
-          <Link to="/#about">Зачем IQ LAND</Link>
+          <Link to="/#contacts">Контакты</Link>
         </nav>
         <div className="header-actions">
           <Link className="header-cta" to="/#events">
@@ -235,6 +236,15 @@ export function Footer() {
           </div>
           <div>
             <Link to="/#faq">Вопросы и ответы</Link>
+            <Link to="/#contacts">Контакты</Link>
+            <a
+              className="footer-instagram"
+              href="https://www.instagram.com/iqland_competitions/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Instagram size={17} /> @iqland_competitions
+            </a>
             <Link to="/login">
               Кабинет организатора <ArrowUpRight size={14} />
             </Link>
@@ -259,6 +269,19 @@ function Privacy() {
       </Link>
       <span className="eyebrow">IQ LAND</span>
       <h1>Обработка персональных данных</h1>
+      <h2>Организатор и связь</h2>
+      <p>
+        Олимпиады проводит команда IQ LAND, Казахстан. По вопросам регистрации и
+        обработки данных напишите в Instagram:{" "}
+        <a
+          href="https://www.instagram.com/iqland_competitions/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @iqland_competitions
+        </a>
+        .
+      </p>
       <p>
         Форма регистрации предназначена для совершеннолетних учителей и
         представителей образовательных центров. Ученик самостоятельно заявку не
@@ -276,6 +299,13 @@ function Privacy() {
         протокола олимпиады и сертификатов. Доступ к заявкам получают только
         авторизованные организаторы.
       </p>
+      <h2>Публикация результатов</h2>
+      <p>
+        После олимпиады организатор может опубликовать результаты в архиве
+        сайта: ФИО участника, класс, дисциплину, баллы и место. Контакты
+        учителя, даты рождения учеников и примечания к заявке в публичные
+        результаты не входят.
+      </p>
       <h2>Согласие представителя</h2>
       <p>
         Отправляя заявку, представитель подтверждает, что имеет необходимые
@@ -283,10 +313,10 @@ function Privacy() {
         указанных данных организаторам олимпиады.
       </p>
       <div className="notice">
-        Перед публичным запуском организатору необходимо указать юридическое
-        лицо, контакт для обращений по данным и сроки хранения. Эта версия
-        предназначена для ознакомления с функциональностью; используйте тестовые
-        данные.
+        Для исправления или удаления данных, а также уточнения сроков их
+        хранения напишите в личные сообщения @iqland_competitions. Укажите номер
+        заявки и название образовательного центра, чтобы организатор мог найти
+        нужную запись.
       </div>
     </main>
   );

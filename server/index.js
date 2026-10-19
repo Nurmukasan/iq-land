@@ -35,7 +35,15 @@ if (production) app.set("trust proxy", "loopback");
 app.disable("x-powered-by");
 app.use(
   helmet({
-    contentSecurityPolicy: production ? undefined : false,
+    contentSecurityPolicy: production
+      ? {
+          directives: {
+            // Upload forms preview local files before the server returns a URL.
+            imgSrc: ["'self'", "data:", "blob:"],
+            mediaSrc: ["'self'", "blob:"],
+          },
+        }
+      : false,
     strictTransportSecurity: production ? undefined : false,
   }),
 );
@@ -76,6 +84,10 @@ const admin = (req, res, next) =>
   req.user?.role === "admin"
     ? next()
     : res.status(403).json({ error: "Доступно администратору" });
+const organizer = (req, res, next) =>
+  ["admin", "director"].includes(req.user?.role)
+    ? next()
+    : res.status(403).json({ error: "Доступно организаторам" });
 const parse = (schema, body, res) => {
   const r = schema.safeParse(body);
   if (!r.success) {
@@ -205,7 +217,7 @@ app.get("/api/events/:id", (req, res) => {
 app.post(
   "/api/event-images",
   auth,
-  admin,
+  organizer,
   (req, res, next) => {
     const type = req.headers["content-type"]
       ?.split(";")[0]
@@ -318,6 +330,7 @@ app.post(
       db
         .prepare("SELECT * FROM events WHERE id=? AND active=1")
         .get(data.eventId),
+      { includePrivate: true },
     );
     if (!e) return res.status(404).json({ error: "Мероприятие не найдено" });
     if (e.deadline < new Date().toISOString().slice(0, 10))
@@ -368,7 +381,9 @@ app.post(
       db.exec("ROLLBACK");
       throw err;
     }
-    res.status(201).json({ id, count: data.students.length });
+    res
+      .status(201)
+      .json({ id, count: data.students.length, whatsappUrl: e.whatsappUrl });
   },
 );
 app.get("/api/manage", auth, (req, res) => {
@@ -378,7 +393,11 @@ app.get("/api/manage", auth, (req, res) => {
     )
     .all()
     .map((r) => ({ ...r, teachers: JSON.parse(r.teachers) }));
-  res.json({ events: allEvents(), registrations, entries: protocolRows() });
+  res.json({
+    events: allEvents({ includePrivate: true }),
+    registrations,
+    entries: protocolRows(),
+  });
 });
 app.patch("/api/registrations/:id/status", auth, (req, res) => {
   if (!["new", "confirmed", "cancelled"].includes(req.body.status))
@@ -407,12 +426,12 @@ app.patch("/api/entries/:id", auth, (req, res) => {
     ? res.json({ ok: true })
     : res.status(404).json({ error: "Участник не найден" });
 });
-app.post("/api/events", auth, admin, (req, res) => {
+app.post("/api/events", auth, organizer, (req, res) => {
   const e = parse(eventSchema, req.body, res);
   if (!e) return;
   const id = randomUUID();
   db.prepare(
-    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active,whatsapp_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
   ).run(
     id,
     e.title,
@@ -428,6 +447,7 @@ app.post("/api/events", auth, admin, (req, res) => {
     e.image,
     e.description,
     Number(e.active),
+    e.whatsappUrl ?? "",
   );
   res.status(201).json({ id });
 });
@@ -441,11 +461,12 @@ app.put("/api/events/:id/archive", auth, admin, (req, res) => {
     ? res.json({ ok: true })
     : res.status(404).json({ error: "Мероприятие не найдено" });
 });
-app.put("/api/events/:id", auth, admin, (req, res) => {
+app.put("/api/events/:id", auth, organizer, (req, res) => {
   const e = parse(eventSchema, req.body, res);
   if (!e) return;
   const previous = eventObject(
     db.prepare("SELECT * FROM events WHERE id=?").get(req.params.id),
+    { includePrivate: true },
   );
   if (!previous)
     return res.status(404).json({ error: "Мероприятие не найдено" });
@@ -460,7 +481,7 @@ app.put("/api/events/:id", auth, admin, (req, res) => {
       error: "Нельзя удалить дисциплину с зарегистрированными учениками",
     });
   db.prepare(
-    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=? WHERE id=?",
+    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=?,whatsapp_url=? WHERE id=?",
   ).run(
     e.title,
     e.city,
@@ -475,6 +496,7 @@ app.put("/api/events/:id", auth, admin, (req, res) => {
     e.image,
     e.description,
     Number(e.active),
+    e.whatsappUrl ?? previous.whatsappUrl,
     req.params.id,
   );
   res.json({ ok: true });
