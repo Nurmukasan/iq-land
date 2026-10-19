@@ -7,14 +7,25 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import ExcelJS from "exceljs";
 import { z } from "zod";
-import { db, allEvents, eventObject, protocolRows } from "./db.js";
-import { eventSchema, registrationSchema } from "./validation.js";
+import {
+  db,
+  allEvents,
+  eventObject,
+  protocolRows,
+  publicResults,
+} from "./db.js";
+import {
+  eventSchema,
+  registrationSchema,
+  archiveSchema,
+} from "./validation.js";
 import {
   maxImageBytes,
   imageTypes,
   imagePath,
   storeEventImage,
 } from "./event-images.js";
+import { receiveEventVideo, videoPath, videoTypes } from "./event-videos.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
@@ -25,7 +36,6 @@ app.use(
     strictTransportSecurity: production ? undefined : false,
   }),
 );
-app.use(express.json({ limit: "1mb" }));
 app.use("/api", (req, res, next) => {
   res.set("Cache-Control", "no-store");
   if (!["GET", "HEAD", "OPTIONS"].includes(req.method) && req.headers.origin) {
@@ -77,6 +87,42 @@ const parse = (schema, body, res) => {
   }
   return r.data;
 };
+app.post("/api/event-videos", auth, admin, async (req, res) => {
+  try {
+    const url = await receiveEventVideo(req);
+    res.status(201).json({ url });
+  } catch (error) {
+    if (res.destroyed || req.aborted || res.headersSent) return;
+    const status = [400, 413, 415].includes(error.status) ? error.status : 500;
+    res.status(status).json({
+      error:
+        status === 500
+          ? "Не удалось сохранить видео. Попробуйте ещё раз."
+          : error.message,
+    });
+  }
+});
+app.get("/api/event-videos/:filename", (req, res, next) => {
+  const path = videoPath(req.params.filename);
+  if (!path) return res.status(404).json({ error: "Видео не найдено" });
+  const extension = req.params.filename.split(".").at(-1);
+  res.set({
+    "Content-Type": Object.entries(videoTypes).find(
+      ([, ext]) => ext === extension,
+    )[0],
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "public, max-age=31536000, immutable",
+  });
+  res.sendFile(path, (error) => {
+    if (!error) return;
+    if (error.status === 416 && !res.headersSent) {
+      if (error.headers) res.set(error.headers);
+      return res.status(416).end();
+    }
+    next(error);
+  });
+});
+app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (req, res) =>
   res.json({ status: "ok", storage: "sqlite" }),
 );
@@ -115,9 +161,34 @@ app.put("/api/promo", auth, admin, (req, res) => {
   );
   res.json({ ok: true });
 });
+const todayUtc = () => new Date().toISOString().slice(0, 10);
 app.get("/api/events", (req, res) =>
-  res.json(allEvents().filter((e) => e.active)),
+  res.json(allEvents().filter((e) => e.active && e.date >= todayUtc())),
 );
+app.get("/api/archive", (req, res) =>
+  res.json(
+    allEvents()
+      .filter((event) => event.active && event.date < todayUtc())
+      .sort(
+        (a, b) =>
+          b.date.localeCompare(a.date) || a.city.localeCompare(b.city, "ru"),
+      ),
+  ),
+);
+app.get("/api/archive/:id", (req, res) => {
+  const event = eventObject(
+    db
+      .prepare("SELECT * FROM events WHERE id=? AND active=1 AND date<?")
+      .get(req.params.id, todayUtc()),
+  );
+  if (!event)
+    return res.status(404).json({ error: "Прошедшая олимпиада не найдена" });
+  res.json({
+    event,
+    resultsPublished: event.resultsPublished,
+    results: event.resultsPublished ? publicResults(event.id) : [],
+  });
+});
 app.get("/api/events/:id", (req, res) => {
   const e = eventObject(
     db
@@ -147,11 +218,9 @@ app.post(
       res,
       (error) => {
         if (error?.status === 413)
-          return res
-            .status(413)
-            .json({
-              error: "Фотография слишком большая. Максимальный размер — 8 МБ",
-            });
+          return res.status(413).json({
+            error: "Фотография слишком большая. Максимальный размер — 8 МБ",
+          });
         next(error);
       },
     );
@@ -159,12 +228,9 @@ app.post(
   (req, res) => {
     const url = storeEventImage(req.body, req.imageType);
     if (!url)
-      return res
-        .status(400)
-        .json({
-          error:
-            "Файл повреждён или не соответствует формату JPEG, PNG или WebP",
-        });
+      return res.status(400).json({
+        error: "Файл повреждён или не соответствует формату JPEG, PNG или WebP",
+      });
     res.status(201).json({ url });
   },
 );
@@ -342,7 +408,9 @@ app.post("/api/events", auth, admin, (req, res) => {
   const e = parse(eventSchema, req.body, res);
   if (!e) return;
   const id = randomUUID();
-  db.prepare("INSERT INTO events VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)").run(
+  db.prepare(
+    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+  ).run(
     id,
     e.title,
     e.city,
@@ -359,6 +427,16 @@ app.post("/api/events", auth, admin, (req, res) => {
     Number(e.active),
   );
   res.status(201).json({ id });
+});
+app.put("/api/events/:id/archive", auth, admin, (req, res) => {
+  const data = parse(archiveSchema, req.body, res);
+  if (!data) return;
+  const updated = db
+    .prepare("UPDATE events SET video=?,results_published=? WHERE id=?")
+    .run(data.video, Number(data.resultsPublished), req.params.id);
+  return updated.changes
+    ? res.json({ ok: true })
+    : res.status(404).json({ error: "Мероприятие не найдено" });
 });
 app.put("/api/events/:id", auth, admin, (req, res) => {
   const e = parse(eventSchema, req.body, res);

@@ -1,0 +1,245 @@
+.event-video-upload {
+  position: relative;
+  padding: 22px;
+  border: 1px solid #dce3d3;
+  border-radius: 18px;
+  background: #f4f7ef;
+}
+
+.event-video-upload.is-dragging {
+  border-color: #829a46;
+  background: #edf4db;
+}
+
+.event-video-upload.has-error {
+  border-color: #d4a28e;
+}
+
+.event-video-upload-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.event-video-upload-heading > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #718646;
+}
+
+.event-video-upload-heading h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
+}
+
+.event-video-upload-heading p {
+  margin: 6px 0 0;
+  color: #65718a;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.event-video-upload-preview {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #131e3b;
+}
+
+.event-video-upload-preview > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.event-video-upload-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  color: #e1e9ca;
+  text-align: center;
+}
+
+.event-video-upload-empty > svg {
+  color: var(--accent);
+}
+
+.event-video-upload-empty > span {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.event-video-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.event-video-upload-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-top: 18px;
+}
+
+.event-video-upload-actions .btn {
+  gap: 9px;
+  min-height: 44px;
+  border-color: #c6d1b7;
+  background: #fff;
+  font-size: 14px;
+}
+
+.event-video-upload-actions .text-link {
+  gap: 8px;
+  min-height: 44px;
+  color: #8c6150;
+  font-size: 13px;
+}
+
+.event-video-upload-hint {
+  margin: 14px 0 0;
+  color: #6b775e;
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.event-video-upload-hint > span {
+  display: block;
+}
+
+.event-video-upload-progress {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #dce5d0;
+}
+
+.event-video-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+}
+
+.event-video-progress-label > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.event-video-progress-label strong {
+  font-size: 13px;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+
+.event-video-progress-bar {
+  height: 7px;
+  overflow: hidden;
+  margin-top: 12px;
+  border-radius: 10px;
+  background: #dce4d0;
+}
+
+.event-video-progress-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #8aa24b;
+  transition: width 0.18s;
+}
+
+.event-video-upload-success {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0 0;
+  color: #4f6931;
+  font-size: 13px;
+}
+
+.event-video-upload-success > span {
+  min-width: 0;
+  width: 100%;
+  overflow-wrap: anywhere;
+  color: #6b775e;
+  font-size: 12px;
+}
+
+.event-video-upload-error,
+.event-video-preview-error {
+  margin: 15px 0 0;
+  color: #a34e37;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+@media (max-width: 600px) {
+  .event-video-upload {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .event-video-upload-heading {
+    gap: 10px;
+    margin-bottom: 17px;
+  }
+
+  .event-video-upload-heading h3 {
+    font-size: 19px;
+  }
+
+  .event-video-upload-heading p {
+    font-size: 13px;
+  }
+
+  .event-video-upload-empty {
+    gap: 13px;
+    padding: 18px;
+  }
+
+  .event-video-upload-empty > span {
+    font-size: 13px;
+  }
+
+  .event-video-upload-actions {
+    gap: 8px 14px;
+  }
+
+  .event-video-upload-actions .btn,
+  .event-video-upload-actions .text-link {
+    font-size: 13px;
+  }
+
+  .event-video-progress-label {
+    gap: 10px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-video-progress-bar > span {
+    transition: none;
+  }
+}
