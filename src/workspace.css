@@ -500,6 +500,19 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.event-whatsapp-field {
+  padding: 20px;
+  border: 1px solid #c6ddcd;
+  border-radius: 14px;
+  background: #f3faf3;
+}
+
+.event-whatsapp-field > small {
+  color: #4c6653;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
 .success-page {
   padding-block: 75px;
   text-align: center;

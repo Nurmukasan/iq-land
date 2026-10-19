@@ -12,6 +12,7 @@ import {
   Download,
   GraduationCap,
   MapPin,
+  MessageCircle,
   Plus,
   Save,
   ShieldCheck,
@@ -57,28 +58,53 @@ const steps = [
 ];
 const draftKey = (id) => `iqland:team-draft:${id}`;
 const receiptKey = (id) => `iqland:pending-receipt:${id}`;
+const receiptReadyEvent = "iqland:registration-completed";
+function whatsappInvite(value) {
+  if (typeof value !== "string" || value.length > 2048) return "";
+  const trimmed = value.trim();
+  if (!trimmed || /[\\\s]/.test(trimmed)) return "";
+  try {
+    const url = new URL(trimmed);
+    return url.protocol === "https:" &&
+      url.hostname === "chat.whatsapp.com" &&
+      !url.username &&
+      !url.password &&
+      !url.port &&
+      /^\/[A-Za-z0-9]{22}$/.test(url.pathname)
+      ? `https://chat.whatsapp.com${url.pathname}`
+      : "";
+  } catch {
+    return "";
+  }
+}
+function restoreReceipt(saved, event) {
+  const restored = sanitizeDraft(saved?.draft, event.subjects);
+  const receipt = saved?.receipt;
+  if (
+    !restored ||
+    typeof receipt?.id !== "string" ||
+    !/^IQ-/.test(receipt.id) ||
+    receipt.id.length > 80 ||
+    !Number.isInteger(receipt.count) ||
+    receipt.count < 1 ||
+    receipt.count > 300
+  )
+    return null;
+  return {
+    draft: restored,
+    receipt: {
+      id: receipt.id,
+      count: receipt.count,
+      whatsappUrl: whatsappInvite(receipt.whatsappUrl),
+    },
+  };
+}
 function readPendingReceipt(event) {
   try {
     const raw = sessionStorage.getItem(receiptKey(event.id));
     sessionStorage.removeItem(receiptKey(event.id));
     if (!raw) return null;
-    const saved = JSON.parse(raw);
-    const restored = sanitizeDraft(saved?.draft, event.subjects);
-    const receipt = saved?.receipt;
-    if (
-      !restored ||
-      typeof receipt?.id !== "string" ||
-      !/^IQ-/.test(receipt.id) ||
-      receipt.id.length > 80 ||
-      !Number.isInteger(receipt.count) ||
-      receipt.count < 1 ||
-      receipt.count > 300
-    )
-      return null;
-    return {
-      draft: restored,
-      receipt: { id: receipt.id, count: receipt.count },
-    };
+    return restoreReceipt(JSON.parse(raw), event);
   } catch {
     return null;
   }
@@ -133,6 +159,7 @@ export default function Registration() {
   const [consent, setConsent] = useState(false),
     [sending, setSending] = useState(false),
     [receipt, setReceipt] = useState(null),
+    [pendingCompletion, setPendingCompletion] = useState(null),
     [picker, setPicker] = useState(false),
     [paste, setPaste] = useState(false),
     [pasteText, setPasteText] = useState(""),
@@ -147,6 +174,15 @@ export default function Registration() {
     transfer = useRef(null),
     liveState = useRef(null);
   liveState.current = { id, event, students, contact, teachers };
+
+  useEffect(() => {
+    const receive = ({ detail }) => {
+      if (detail?.eventId === liveState.current?.id)
+        setPendingCompletion(detail);
+    };
+    window.addEventListener(receiptReadyEvent, receive);
+    return () => window.removeEventListener(receiptReadyEvent, receive);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -235,6 +271,29 @@ export default function Registration() {
       routeGeneration.current += 1;
     };
   }, [id]);
+
+  // A completed request may outlive this route or its component instance.
+  // Recover after the current event loads as well as when a late response arrives.
+  useEffect(() => {
+    if (
+      !pendingCompletion ||
+      event?.id !== id ||
+      pendingCompletion.eventId !== id
+    )
+      return;
+    const completed = restoreReceipt(pendingCompletion, event);
+    setPendingCompletion(null);
+    if (!completed) return;
+    try {
+      sessionStorage.removeItem(receiptKey(id));
+    } catch {}
+    setStudents(completed.draft.students);
+    setContact(completed.draft.contact);
+    setTeachers(completed.draft.teachers);
+    setReceipt(completed.receipt);
+    setDraft(null);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pendingCompletion, event, id]);
 
   const subjects = event?.subjects || [];
   const dirty =
@@ -559,21 +618,33 @@ export default function Registration() {
         sessionStorage.removeItem(draftKey(submitted.event.id));
       } catch {}
       if (!isCurrent()) {
+        const completion = {
+          eventId: submitted.event.id,
+          receipt: {
+            id: response.id,
+            count: response.count,
+            whatsappUrl: whatsappInvite(response.whatsappUrl),
+          },
+          draft: snapshot,
+        };
         try {
           sessionStorage.setItem(
             receiptKey(submitted.event.id),
-            JSON.stringify({
-              receipt: { id: response.id, count: response.count },
-              draft: snapshot,
-            }),
+            JSON.stringify(completion),
           );
         } catch {}
+        window.dispatchEvent(
+          new CustomEvent(receiptReadyEvent, { detail: completion }),
+        );
         notify(
           `Заявка ${response.id} в городе ${submitted.event.city} получена. Сохраните её номер.`,
         );
         return;
       }
-      setReceipt(response);
+      setReceipt({
+        ...response,
+        whatsappUrl: whatsappInvite(response.whatsappUrl),
+      });
       setDraft(null);
       window.scrollTo({ top: 0, behavior: "instant" });
     } catch (error) {
@@ -767,13 +838,43 @@ export default function Registration() {
             </div>
           </div>
         </div>
+        {receipt.whatsappUrl && (
+          <section
+            className="reg-whatsapp"
+            aria-labelledby="reg-whatsapp-title"
+          >
+            <div className="reg-whatsapp-icon" aria-hidden="true">
+              <MessageCircle size={28} />
+            </div>
+            <div className="reg-whatsapp-copy">
+              <span>Следующий шаг</span>
+              <h2 id="reg-whatsapp-title">
+                Присоединяйтесь к группе олимпиады
+              </h2>
+              <p>
+                Расписание, подготовка и важные новости для вашей команды — в
+                WhatsApp-группе мероприятия «{event.title}».
+              </p>
+              <a
+                className="btn reg-whatsapp-link"
+                href={receipt.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Вступить в WhatsApp-группу олимпиады (откроется в новой вкладке)"
+              >
+                Вступить в WhatsApp-группу <ArrowUpRight size={20} />
+              </a>
+              <small>Ссылка также сохранится в скачанном подтверждении.</small>
+            </div>
+          </section>
+        )}
         <div className="reg-success-actions">
           <button
             className="btn btn-primary"
             onClick={() =>
               download(
                 receipt.id + ".txt",
-                `IQ LAND\nНомер заявки: ${receipt.id}\nОлимпиада: ${event.city}, ${dateLabel(event.date)}\nЦентр: ${contact.center}\nУчитель: ${contact.teacher}\nУчеников: ${receipt.count}\nСтатус: получена, ожидает подтверждения организатором.`,
+                `IQ LAND\nНомер заявки: ${receipt.id}\nОлимпиада: ${event.city}, ${dateLabel(event.date)}\nЦентр: ${contact.center}\nУчитель: ${contact.teacher}\nУчеников: ${receipt.count}\nСтатус: получена, ожидает подтверждения организатором.${receipt.whatsappUrl ? `\n\nWhatsApp-группа олимпиады: ${receipt.whatsappUrl}` : ""}`,
               )
             }
           >

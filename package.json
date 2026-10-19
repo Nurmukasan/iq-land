@@ -11,7 +11,8 @@
     "test:e2e": "npm run build && node tests/browser.mjs",
     "test:registration": "npm run build && node tests/registration-browser.mjs",
     "test:worldwide": "npm run build && node tests/worldwide-browser.mjs",
-    "test:archive": "npm run build && node tests/archive-browser.mjs"
+    "test:archive": "npm run build && node tests/archive-browser.mjs",
+    "test:launch": "npm run build && node tests/launch-browser.mjs"
   },
   "engines": {
     "node": ">=24.0.0"

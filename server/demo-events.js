@@ -48,7 +48,13 @@ const migrationKey = "migration:remove-seeded-events:v1";
 const legacyImages = ["/images/baku.png", "/images/almaty.png"];
 
 function isOriginalDemo(row, seed) {
-  if (!row || row.active !== 1 || row.video || row.results_published)
+  if (
+    !row ||
+    row.active !== 1 ||
+    row.video ||
+    row.results_published ||
+    row.whatsapp_url
+  )
     return false;
   const legacyImage = `/images/${seed.id.split("-")[0]}.png`;
   if (!["", legacyImage].includes(row.image)) return false;

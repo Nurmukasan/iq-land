@@ -14,6 +14,46 @@ const date = z
     const d = new Date(v);
     return !isNaN(d) && d.toISOString().slice(0, 10) === v;
   }, "Некорректная дата");
+
+// WhatsApp app share links may add tracking parameters. Store only the fixed,
+// trusted invite destination so neither query strings nor fragments are exposed.
+export function normalizeWhatsAppUrl(value) {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  if (
+    trimmed.length > 2048 ||
+    !/^https:\/\//i.test(trimmed) ||
+    /[\s\\]/.test(trimmed)
+  )
+    return null;
+  try {
+    const url = new URL(trimmed);
+    if (
+      url.protocol !== "https:" ||
+      url.hostname !== "chat.whatsapp.com" ||
+      url.username ||
+      url.password ||
+      url.port ||
+      !/^\/[A-Za-z0-9]{22}$/.test(url.pathname)
+    )
+      return null;
+    return `https://chat.whatsapp.com${url.pathname}`;
+  } catch {
+    return null;
+  }
+}
+
+const whatsappUrl = z
+  .string()
+  .trim()
+  .max(2048)
+  .refine(
+    (value) => normalizeWhatsAppUrl(value) !== null,
+    "Вставьте ссылку-приглашение вида https://chat.whatsapp.com/… или оставьте поле пустым",
+  )
+  .transform(normalizeWhatsAppUrl)
+  .optional();
 export const registrationSchema = z.object({
   eventId: text(),
   center: text(),
@@ -64,6 +104,7 @@ export const eventSchema = z
         "Загрузите фотографию через форму или оставьте изображение пустым",
       )
       .default(""),
+    whatsappUrl,
     description: text(2000),
     active: z.boolean().default(true),
   })

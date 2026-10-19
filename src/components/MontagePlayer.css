@@ -1,5 +1,7 @@
 .montage-player {
   position: relative;
+  width: 100%;
+  min-width: 0;
   aspect-ratio: 16/9;
   isolation: isolate;
   overflow: hidden;

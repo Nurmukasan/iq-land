@@ -13,16 +13,52 @@ import {
   Calculator,
   Languages,
   Sigma,
+  Instagram,
+  Sparkles,
+  MoveUpRight,
+  Send,
+  Users,
+  BadgeCheck,
+  Asterisk,
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
 import EventPhoto from "../components/EventPhoto";
 import "./Home.css";
+import "./LandingSections.css";
 
 const subjects = [
   { name: "Все направления", icon: Globe2 },
   { name: "Математика", icon: Sigma },
   { name: "Английский язык", icon: Languages },
   { name: "Ментальная арифметика", icon: Calculator },
+];
+const directions = [
+  {
+    name: "Математика",
+    theme: "coral",
+    label: "Думать. Находить. Решать.",
+    description: "Логика, смелые идеи и удовольствие от найденного решения.",
+    glyph: "x²",
+    number: "01",
+  },
+  {
+    name: "Английский язык",
+    theme: "violet",
+    label: "Say hello to the world.",
+    description:
+      "Язык, который помогает знакомиться, путешествовать и понимать мир.",
+    glyph: "Hello!",
+    number: "02",
+  },
+  {
+    name: "Ментальная арифметика",
+    theme: "lime",
+    label: "Скорость начинается с мысли.",
+    description:
+      "Концентрация, быстрый счёт и уверенность в собственных силах.",
+    glyph: "1 2 3",
+    number: "03",
+  },
 ];
 const faqs = [
   [
@@ -43,7 +79,7 @@ const faqs = [
   ],
   [
     "Что будет после отправки заявки?",
-    "Сайт покажет номер вашей заявки — сохраните его. Организатор получит список команды и свяжется с вами по указанным контактам, чтобы подтвердить участие и обсудить детали.",
+    "Сохраните номер заявки. Если у олимпиады есть WhatsApp-группа, ссылка появится сразу после отправки — присоединяйтесь, чтобы получать новости мероприятия. Организатор получит список команды и свяжется с вами для подтверждения участия.",
   ],
 ];
 const isOpen = (event) =>
@@ -261,38 +297,83 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div
-          className="container hero-subjects"
-          aria-label="Направления олимпиад"
-        >
-          <span>
-            Три способа
+      </section>
+
+      <section
+        className="directions-section container"
+        aria-labelledby="directions-title"
+      >
+        <div className="landing-section-heading" data-reveal>
+          <div>
+            <span className="eyebrow">
+              <span className="section-dot" /> Три способа показать, на что ты
+              способен
+            </span>
+            <h2 id="directions-title">
+              У каждого таланта
+              <br />
+              своё <span className="word-highlight">направление.</span>
+            </h2>
+          </div>
+          <p>
+            Разные интересы.
             <br />
-            показать, на что ты способен
-          </span>
-          <div>
-            <Sigma size={24} />
-            <strong>Математика</strong>
-          </div>
-          <div>
-            <Languages size={23} />
-            <strong>Английский язык</strong>
-          </div>
-          <div>
-            <Calculator size={23} />
-            <strong>Ментальная арифметика</strong>
-          </div>
+            Одинаково большие возможности.
+          </p>
+        </div>
+        <div className="direction-grid">
+          {directions.map((direction) => (
+            <a
+              key={direction.name}
+              className={"direction-card direction-" + direction.theme}
+              href="#events"
+              data-reveal
+              data-tilt
+              onClick={() => {
+                setFilter(direction.name);
+                setCountry("Все страны");
+              }}
+              aria-label={"Найти олимпиады: " + direction.name}
+            >
+              <div className="direction-card-top">
+                <span>{direction.number} / НАПРАВЛЕНИЕ</span>
+                <span className="direction-arrow">
+                  <ArrowUpRight size={22} />
+                </span>
+              </div>
+              <div className="direction-art" aria-hidden="true">
+                <span className="direction-orbit" />
+                <strong>{direction.glyph}</strong>
+                <span className="direction-spark">
+                  <Asterisk strokeWidth={1.5} />
+                </span>
+              </div>
+              <div className="direction-card-copy">
+                <span className="direction-kicker">{direction.label}</span>
+                <h3>{direction.name}</h3>
+                <p>{direction.description}</p>
+              </div>
+              <span className="direction-card-link">
+                Выбрать олимпиаду <ArrowRight size={18} />
+              </span>
+            </a>
+          ))}
         </div>
       </section>
 
       <section className="section events-section container" id="events">
         <div className="section-title-row" data-reveal>
           <div>
-            <span className="eyebrow">Ближайшие олимпиады</span>
+            <span className="eyebrow">
+              <span className="section-dot" /> Ближайшие олимпиады
+            </span>
             <h2>
               Следующая точка
               <br />
-              на <span className="accent-text">вашей карте.</span>
+              на{" "}
+              <span className="word-highlight highlight-blue">
+                вашей карте.
+              </span>
             </h2>
           </div>
           <p className="section-aside">
@@ -464,8 +545,13 @@ export default function Home() {
                   Показать все олимпиады <ArrowRight size={18} />
                 </button>
               ) : (
-                <a className="text-link" href="#teachers">
-                  Как участвовать <ArrowRight size={18} />
+                <a
+                  className="text-link"
+                  href="https://www.instagram.com/iqland_competitions/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Следить за анонсами <Instagram size={18} />
                 </a>
               )}
             </div>
@@ -473,23 +559,27 @@ export default function Home() {
         )}
       </section>
 
-      <section className="about-section" id="about">
+      <section className="about-section discovery-section" id="about">
         <div className="container">
           <div className="about-grid" data-reveal>
             <div>
-              <span className="eyebrow">Зачем мы это делаем</span>
+              <span className="eyebrow">
+                <span className="section-dot" /> Это больше, чем олимпиада
+              </span>
               <h2>
                 Мир больше
-                <br />
-                школьного
                 <br />
                 <span>учебника.</span>
               </h2>
             </div>
             <div className="about-copy">
-              <div className="about-symbol" aria-hidden="true">
-                <Globe2 size={60} strokeWidth={1} />
-                <ArrowUpRight size={35} />
+              <div className="discovery-orbit" aria-hidden="true">
+                <Globe2 size={102} strokeWidth={1} />
+                <span className="orbit-dot orbit-coral" />
+                <span className="orbit-dot orbit-lime" />
+                <span className="orbit-label">
+                  ЗНАНИЯ БЕЗ ГРАНИЦ <ArrowUpRight size={15} />
+                </span>
               </div>
               <p className="about-statement">
                 Олимпиада — повод поверить в себя.
@@ -511,20 +601,26 @@ export default function Home() {
                 n: "01",
                 t: "Поверить в себя",
                 p: "Решить непростую задачу. Сделать шаг вперёд. Почувствовать: «Я могу».",
+                icon: Sparkles,
               },
               {
                 n: "02",
                 t: "Увидеть больше",
                 p: "Новые города, культура и университеты — чтобы мечты стали конкретнее.",
+                icon: Globe2,
               },
               {
                 n: "03",
                 t: "Найти своих",
                 p: "Встретить детей, которым тоже интересно думать, учиться и открывать.",
+                icon: Users,
               },
             ].map((v) => (
-              <div key={v.n} data-reveal>
-                <span className="value-number">{v.n}</span>
+              <div key={v.n} data-reveal className="discovery-value">
+                <div className="value-top">
+                  <span className="value-number">{v.n}</span>
+                  <v.icon size={25} strokeWidth={1.6} />
+                </div>
                 <h3>{v.t}</h3>
                 <p>{v.p}</p>
               </div>
@@ -536,11 +632,15 @@ export default function Home() {
       <section className="section container teachers-section" id="teachers">
         <div className="section-title-row" data-reveal>
           <div>
-            <span className="eyebrow">Учителям — проще</span>
+            <span className="eyebrow">
+              <span className="section-dot" /> Учителям — проще
+            </span>
             <h2>
-              Вдохновлять — ваша часть.
+              Большая команда.
               <br />
-              <span className="accent-text">Упростить — наша.</span>
+              <span className="word-highlight highlight-violet">
+                Одна простая заявка.
+              </span>
             </h2>
           </div>
           <p className="section-aside">
@@ -564,8 +664,8 @@ export default function Home() {
             },
             {
               n: "03",
-              t: "Оставьте контакты",
-              p: "Укажите центр, учителя и педагогов для благодарственных сертификатов.",
+              t: "Будьте на связи",
+              p: "Укажите контакты и отправьте заявку. Ссылку на группу мероприятия покажем, если организатор её добавил.",
             },
           ].map((s) => (
             <div className="step-card" key={s.n} data-reveal>
@@ -577,6 +677,17 @@ export default function Home() {
               <p>{s.p}</p>
             </div>
           ))}
+        </div>
+        <div className="teacher-shortcuts" data-reveal>
+          <span>
+            <Users size={18} /> Вся команда сразу
+          </span>
+          <span>
+            <BadgeCheck size={18} /> Педагоги в одной заявке
+          </span>
+          <span>
+            <Send size={18} /> WhatsApp после регистрации
+          </span>
         </div>
         <div className="teacher-bottom">
           <span>
@@ -590,7 +701,7 @@ export default function Home() {
       </section>
 
       {promo?.active && (
-        <section className="cta-section container" data-reveal>
+        <section className="cta-section container next-chapter" data-reveal>
           <div>
             <span className="eyebrow">{promo.eyebrow}</span>
             <h2>
@@ -611,11 +722,14 @@ export default function Home() {
               <ArrowUpRight size={21} />
             </a>
           </div>
-          <ArrowUpRight
-            className="cta-arrow"
-            aria-hidden="true"
-            strokeWidth={1.1}
-          />
+          <div className="cta-decoration" aria-hidden="true">
+            <span>
+              LET’S
+              <br />
+              GO.
+            </span>
+            <MoveUpRight size={90} strokeWidth={1} />
+          </div>
         </section>
       )}
 
@@ -623,8 +737,11 @@ export default function Home() {
         <div data-reveal>
           <span className="eyebrow">Перед первым шагом</span>
           <h2>
-            Хороший
-            <br /> <span className="accent-text">вопрос.</span>
+            Сначала — вопросы.
+            <br />{" "}
+            <span className="word-highlight highlight-coral">
+              Потом — открытия.
+            </span>
           </h2>
           <p>
             Ответы, чтобы начать
@@ -660,6 +777,54 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section
+        className="contact-section container"
+        id="contacts"
+        aria-labelledby="contacts-title"
+        data-reveal
+      >
+        <div className="contact-copy">
+          <span className="eyebrow">
+            <span className="section-dot" /> На связи — IQ LAND
+          </span>
+          <h2 id="contacts-title">
+            Знакомство
+            <br />
+            начинается с <span>hello.</span>
+          </h2>
+          <p>
+            Есть вопрос об участии или хотите привезти свою команду? Напишите
+            нам в Instagram. Там же — анонсы и моменты с наших олимпиад.
+          </p>
+          <a className="contact-event-link" href="#events">
+            А пока — выберите свою олимпиаду <ArrowUpRight size={19} />
+          </a>
+        </div>
+        <a
+          className="instagram-contact"
+          href="https://www.instagram.com/iqland_competitions/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram IQ LAND: @iqland_competitions"
+          data-tilt
+        >
+          <div className="instagram-contact-top">
+            <span>НАШ INSTAGRAM</span>
+            <ArrowUpRight size={25} />
+          </div>
+          <div className="instagram-art" aria-hidden="true">
+            <Instagram size={104} strokeWidth={1.2} />
+            <span>
+              <Asterisk strokeWidth={1.5} />
+            </span>
+          </div>
+          <strong>@iqland_competitions</strong>
+          <span className="instagram-contact-bottom">
+            Новости, впечатления и ответы <ArrowRight size={19} />
+          </span>
+        </a>
       </section>
 
       {selected && (

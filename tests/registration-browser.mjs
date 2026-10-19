@@ -10,7 +10,12 @@ const dir = mkdtempSync(join(tmpdir(), "iqland-registration-browser-"));
 const port = 51000 + Math.floor(Math.random() * 9000);
 const base = `http://127.0.0.1:${port}`;
 const child = spawn(process.execPath, ["server/index.js"], {
-  env: { ...process.env, IQLAND_SEED_DEMO_EVENTS: "true", PORT: String(port), DATA_DIR: dir },
+  env: {
+    ...process.env,
+    IQLAND_SEED_DEMO_EVENTS: "true",
+    PORT: String(port),
+    DATA_DIR: dir,
+  },
   stdio: "ignore",
 });
 let browser;
@@ -21,13 +26,22 @@ async function newPage({ withoutCrypto = false } = {}) {
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
   });
-  await page.addInitScript(({ withoutCrypto }) => {
-    if (withoutCrypto) {
-      Object.defineProperty(globalThis, "crypto", { value: undefined, configurable: true });
-    } else if (globalThis.crypto) {
-      Object.defineProperty(globalThis.crypto, "randomUUID", { value: undefined, configurable: true });
-    }
-  }, { withoutCrypto });
+  await page.addInitScript(
+    ({ withoutCrypto }) => {
+      if (withoutCrypto) {
+        Object.defineProperty(globalThis, "crypto", {
+          value: undefined,
+          configurable: true,
+        });
+      } else if (globalThis.crypto) {
+        Object.defineProperty(globalThis.crypto, "randomUUID", {
+          value: undefined,
+          configurable: true,
+        });
+      }
+    },
+    { withoutCrypto },
+  );
   page.on("pageerror", (error) => browserErrors.push(error.message));
   page.on("dialog", (dialog) => dialog.accept());
   return page;
@@ -82,15 +96,27 @@ try {
   const legacyPage = await newPage({ withoutCrypto: true });
   await legacyPage.goto(base + "/events/baku-2027/register");
   await fillStudent(legacyPage, 1, "Ученик Без Крипто", "2015-03-15", 5);
-  await legacyPage.getByRole("button", { name: "Добавить похожего ученика 1", exact: true }).click();
+  await legacyPage
+    .getByRole("button", { name: "Добавить похожего ученика 1", exact: true })
+    .click();
   await expect(legacyPage.locator(".reg-students tbody tr")).toHaveCount(2);
-  await expect(legacyPage.getByLabel("Дата рождения ученика 2", { exact: true })).toHaveValue("2015-03-15");
-  await expect(legacyPage.getByLabel("ФИО ученика 1", { exact: true })).toHaveValue("Ученик Без Крипто");
-  await expect(legacyPage.getByLabel("ФИО ученика 2", { exact: true })).toHaveValue("");
-  await legacyPage.getByRole("button", { name: "Добавить 5 строк", exact: true }).click();
+  await expect(
+    legacyPage.getByLabel("Дата рождения ученика 2", { exact: true }),
+  ).toHaveValue("2015-03-15");
+  await expect(
+    legacyPage.getByLabel("ФИО ученика 1", { exact: true }),
+  ).toHaveValue("Ученик Без Крипто");
+  await expect(
+    legacyPage.getByLabel("ФИО ученика 2", { exact: true }),
+  ).toHaveValue("");
+  await legacyPage
+    .getByRole("button", { name: "Добавить 5 строк", exact: true })
+    .click();
   await expect(legacyPage.locator(".reg-students tbody tr")).toHaveCount(7);
   await legacyPage.close();
-  console.log("PASS: registration opens and adds/copies rows without Web Crypto");
+  console.log(
+    "PASS: registration opens and adds/copies rows without Web Crypto",
+  );
 
   // Run the complete registration flow without randomUUID, as on HTTP over LAN.
   const page = await newPage();
@@ -354,18 +380,32 @@ try {
 
   const searchPage = await newPage();
   await searchPage.goto(base + "/events/baku-2027/register");
-  await searchPage.getByRole("button", { name: "Добавить 5 строк", exact: true }).click();
+  await searchPage
+    .getByRole("button", { name: "Добавить 5 строк", exact: true })
+    .click();
   for (let index = 1; index <= 3; index++)
-    await searchPage.getByLabel(`ФИО ученика ${index}`, { exact: true }).fill(`Поиск Ученик ${index}`);
-  await searchPage.getByRole("button", { name: "Сохранить черновик", exact: true }).click();
-  const search = searchPage.getByLabel("Найти ученика в списке", { exact: true });
+    await searchPage
+      .getByLabel(`ФИО ученика ${index}`, { exact: true })
+      .fill(`Поиск Ученик ${index}`);
+  await searchPage
+    .getByRole("button", { name: "Сохранить черновик", exact: true })
+    .click();
+  const search = searchPage.getByLabel("Найти ученика в списке", {
+    exact: true,
+  });
   await search.fill("Поиск");
   for (let index = 0; index < 3; index++)
-    await searchPage.locator(".reg-students tbody tr").first().getByRole("button", { name: /^Удалить ученика/ }).click();
+    await searchPage
+      .locator(".reg-students tbody tr")
+      .first()
+      .getByRole("button", { name: /^Удалить ученика/ })
+      .click();
   await expect(search).toBeVisible();
   await expect(search).toHaveValue("Поиск");
   await expect(searchPage.locator(".reg-students tbody tr")).toHaveCount(0);
-  await searchPage.getByRole("button", { name: "Восстановить", exact: true }).click();
+  await searchPage
+    .getByRole("button", { name: "Восстановить", exact: true })
+    .click();
   await expect(search).toHaveValue("");
   await expect(searchPage.locator(".reg-students tbody tr")).toHaveCount(6);
 
@@ -376,29 +416,48 @@ try {
   await continueButton(emptyPage).click();
   await fillContact(emptyPage, "Центр Без Ученика");
   await emptyPage.locator(".reg-steps button").first().click();
-  await emptyPage.getByRole("button", { name: "Удалить ученика 1", exact: true }).click();
-  await emptyPage.getByRole("button", { name: "Сохранить черновик", exact: true }).click();
+  await emptyPage
+    .getByRole("button", { name: "Удалить ученика 1", exact: true })
+    .click();
+  await emptyPage
+    .getByRole("button", { name: "Сохранить черновик", exact: true })
+    .click();
   await emptyPage.reload();
-  await emptyPage.getByRole("button", { name: "Восстановить", exact: true }).click();
+  await emptyPage
+    .getByRole("button", { name: "Восстановить", exact: true })
+    .click();
   await expect(emptyPage.locator(".reg-students tbody tr")).toHaveCount(1);
   await fillStudent(emptyPage, 1, "Новый Ученик", "2015-01-20", 5);
   await continueButton(emptyPage).click();
-  await expect(emptyPage.getByLabel("Образовательный центр")).toHaveValue("Центр Без Ученика");
+  await expect(emptyPage.getByLabel("Образовательный центр")).toHaveValue(
+    "Центр Без Ученика",
+  );
 
   // A delayed response belongs to the submitted event even after browser Back.
   const racePage = await newPage();
   await racePage.goto(base + "/events/baku-2027/register");
-  await racePage.getByRole("button", { name: "Сменить олимпиаду", exact: true }).click();
-  await racePage.getByRole("button", { name: "Выбрать олимпиаду в городе Алматы", exact: true }).click();
+  await racePage
+    .getByRole("button", { name: "Сменить олимпиаду", exact: true })
+    .click();
+  await racePage
+    .getByRole("button", {
+      name: "Выбрать олимпиаду в городе Алматы",
+      exact: true,
+    })
+    .click();
   await expect(racePage).toHaveURL(base + "/events/almaty-2027/register");
-  await expect(racePage.locator(".reg-event-banner h2")).toContainText("Алматы");
+  await expect(racePage.locator(".reg-event-banner h2")).toContainText(
+    "Алматы",
+  );
   await fillStudent(racePage, 1, "Асинхронный Ученик", "2015-06-19", 5);
   await continueButton(racePage).click();
   await fillContact(racePage, "Центр Асинхронной Заявки");
   await continueButton(racePage).click();
   await racePage.locator(".reg-consent input").check();
   let racePosts = 0;
-  const raceReleased = new Promise((resolve) => { releasePost = resolve; });
+  const raceReleased = new Promise((resolve) => {
+    releasePost = resolve;
+  });
   await racePage.route("**/api/registrations", async (route) => {
     racePosts += 1;
     expect(route.request().postDataJSON().eventId).toBe("almaty-2027");
@@ -409,28 +468,156 @@ try {
       body: JSON.stringify({ id: "IQ-BROWSER-RACE", count: 1 }),
     });
   });
-  await racePage.getByRole("button", { name: "Отправить заявку", exact: true }).click();
+  await racePage
+    .getByRole("button", { name: "Отправить заявку", exact: true })
+    .click();
   await expect.poll(() => racePosts).toBe(1);
   await racePage.goBack();
   await expect(racePage).toHaveURL(base + "/events/baku-2027/register");
-  await expect(racePage.getByRole("heading", { name: "Ученики команды", exact: true })).toBeVisible();
-  await racePage.getByLabel("ФИО ученика 1", { exact: true }).fill("Другая Команда Баку");
+  await expect(
+    racePage.getByRole("heading", { name: "Ученики команды", exact: true }),
+  ).toBeVisible();
+  await racePage
+    .getByLabel("ФИО ученика 1", { exact: true })
+    .fill("Другая Команда Баку");
   releasePost();
-  await expect.poll(() => racePage.evaluate(() => sessionStorage.getItem("iqland:pending-receipt:almaty-2027"))).not.toBeNull();
+  await expect
+    .poll(() =>
+      racePage.evaluate(() =>
+        sessionStorage.getItem("iqland:pending-receipt:almaty-2027"),
+      ),
+    )
+    .not.toBeNull();
   await expect(racePage.locator(".reg-receipt")).toHaveCount(0);
-  await expect(racePage.getByLabel("ФИО ученика 1", { exact: true })).toHaveValue("Другая Команда Баку");
+  await expect(
+    racePage.getByLabel("ФИО ученика 1", { exact: true }),
+  ).toHaveValue("Другая Команда Баку");
   await racePage.goForward();
   await expect(racePage).toHaveURL(base + "/events/almaty-2027/register");
-  await expect(racePage.locator(".reg-receipt > strong")).toHaveText("IQ-BROWSER-RACE");
-  await expect(racePage.locator(".reg-receipt-info")).toContainText("Центр Асинхронной Заявки");
+  await expect(racePage.locator(".reg-receipt > strong")).toHaveText(
+    "IQ-BROWSER-RACE",
+  );
+  await expect(racePage.locator(".reg-receipt-info")).toContainText(
+    "Центр Асинхронной Заявки",
+  );
   await expect(racePage.locator(".reg-receipt-info")).toContainText("Алматы");
-  expect(await racePage.evaluate(() => sessionStorage.getItem("iqland:pending-receipt:almaty-2027"))).toBeNull();
+  await expect(racePage.locator(".reg-whatsapp-link")).toHaveCount(0);
+  expect(
+    await racePage.evaluate(() =>
+      sessionStorage.getItem("iqland:pending-receipt:almaty-2027"),
+    ),
+  ).toBeNull();
+
+  // Returning before the delayed response must recover immediately, including
+  // when navigation unmounted Registration and created a new component instance.
+  const invite = "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv";
+  for (const remount of [false, true]) {
+    const latePage = await newPage();
+    const id = remount ? "IQ-LATE-REMOUNT" : "IQ-LATE-SAME";
+    if (remount) {
+      await latePage.goto(base + "/");
+      await latePage
+        .locator('a[href="/events/almaty-2027/register"]')
+        .first()
+        .click();
+    } else {
+      await latePage.goto(base + "/events/baku-2027/register");
+      await latePage
+        .getByRole("button", { name: "Сменить олимпиаду", exact: true })
+        .click();
+      await latePage
+        .getByRole("button", {
+          name: "Выбрать олимпиаду в городе Алматы",
+          exact: true,
+        })
+        .click();
+    }
+    await expect(latePage).toHaveURL(base + "/events/almaty-2027/register");
+    await fillStudent(latePage, 1, "Отправленный Ученик", "2015-06-19", 5);
+    await continueButton(latePage).click();
+    await fillContact(latePage, "Центр Позднего Подтверждения");
+    await continueButton(latePage).click();
+    await latePage.locator(".reg-consent input").check();
+    let latePosts = 0;
+    const lateReleased = new Promise((resolve) => {
+      releasePost = resolve;
+    });
+    await latePage.route("**/api/registrations", async (route) => {
+      latePosts += 1;
+      expect(route.request().postDataJSON().eventId).toBe("almaty-2027");
+      await lateReleased;
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({ id, count: 1, whatsappUrl: invite }),
+      });
+    });
+    await latePage
+      .getByRole("button", { name: "Отправить заявку", exact: true })
+      .click();
+    await expect.poll(() => latePosts).toBe(1);
+    await latePage.goBack();
+    if (remount) {
+      await expect(latePage).toHaveURL(base + "/");
+    } else {
+      await expect(latePage).toHaveURL(base + "/events/baku-2027/register");
+      await fillStudent(
+        latePage,
+        1,
+        "Сохранённая Команда Баку",
+        "2016-04-12",
+        4,
+      );
+      await latePage
+        .getByRole("button", { name: "Сохранить черновик", exact: true })
+        .click();
+    }
+    await expect(latePage.locator(".reg-whatsapp-link")).toHaveCount(0);
+    await latePage.goForward();
+    await expect(latePage).toHaveURL(base + "/events/almaty-2027/register");
+    await expect(
+      latePage.getByRole("heading", { name: "Ученики команды", exact: true }),
+    ).toBeVisible();
+    // The receipt must describe the submitted snapshot, not new form edits.
+    await latePage
+      .getByLabel("ФИО ученика 1", { exact: true })
+      .fill("Более Поздний Черновик");
+    releasePost();
+    await expect(latePage.locator(".reg-receipt > strong")).toHaveText(id);
+    await expect(latePage.locator(".reg-receipt-info")).toContainText(
+      "Центр Позднего Подтверждения",
+    );
+    await expect(latePage.locator(".reg-receipt-info")).toContainText("Алматы");
+    await expect(latePage.locator(".reg-whatsapp-link")).toHaveCount(1);
+    await expect(latePage.locator(".reg-whatsapp-link")).toHaveAttribute(
+      "href",
+      invite,
+    );
+    expect(
+      await latePage.evaluate(() =>
+        sessionStorage.getItem("iqland:pending-receipt:almaty-2027"),
+      ),
+    ).toBeNull();
+    if (!remount) {
+      const unrelated = await latePage.evaluate(() =>
+        JSON.parse(sessionStorage.getItem("iqland:team-draft:baku-2027")),
+      );
+      expect(unrelated.students[0].name).toBe("Сохранённая Команда Баку");
+    }
+    expect(latePosts).toBe(1);
+    await latePage.close();
+  }
 
   expect(browserErrors).toEqual([]);
   console.log(
     "PASS: browser history preserves drafts; filtered search survives row removal and clears on restore; no browser errors",
   );
-  console.log("PASS: zero-roster draft keeps contacts; delayed success stays with its event and restores the correct receipt");
+  console.log(
+    "PASS: zero-roster draft keeps contacts; delayed success stays with its event and restores the correct receipt",
+  );
+  console.log(
+    "PASS: returning before a late success restores its snapshot and WhatsApp group, across route reuse/remount, without touching another event's draft",
+  );
 } finally {
   releasePost?.();
   await browser?.close();

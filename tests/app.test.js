@@ -150,7 +150,7 @@ test("team automatically appears in the protocol; extra teacher is retained", as
   assert.equal(new Set(data.entries.map((r) => r.student_id)).size, 2);
   entries = data.entries;
 });
-test("director can confirm a team and record scores, but cannot manage events or ads", async () => {
+test("director can confirm a team and record scores, and reaches event validation while ads remain admin-only", async () => {
   assert.equal(
     (
       await request("/registrations/" + registrationId + "/status", {
@@ -190,7 +190,7 @@ test("director can confirm a team and record scores, but cannot manage events or
         body: {},
       })
     ).res.status,
-    403,
+    400,
   );
   assert.equal(
     (
