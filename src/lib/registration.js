@@ -1,3 +1,4 @@
+import { translate, LANGUAGES } from "../../shared/i18n/index.js";
 const currentDate = () => new Date().toISOString().slice(0, 10);
 let studentSequence = 0;
 
@@ -63,9 +64,11 @@ function normalizeDate(value) {
 
 function isHeader(columns) {
   return (
-    /^(фио|фамилия|имя|name|full\s*name|student)(\s|$)/i.test(columns[0]) &&
-    /дата|рожд|birth/i.test(columns[1] ?? "") &&
-    /класс|grade/i.test(columns[2] ?? "")
+    /^(фио|фамилия|имя|name|full\s*name|student|аты-жөні|ad və soyad|f\.?i\.?sh\.?)(\s|$)/iu.test(
+      columns[0],
+    ) &&
+    /дата|рожд|birth|туған|doğum|tug[‘’'ʻ]ilgan/iu.test(columns[1] ?? "") &&
+    /класс|grade|сыны[пб]|sinif|sinf/iu.test(columns[2] ?? "")
   );
 }
 
@@ -122,10 +125,18 @@ export function parseStudentList(
           subjects.split(",").map((value) => {
             const subject = value.trim();
             return (
-              availableSubjects.find(
-                (candidate) =>
-                  candidate.toLocaleLowerCase("ru-RU") ===
-                  subject.toLocaleLowerCase("ru-RU"),
+              availableSubjects.find((candidate) =>
+                LANGUAGES.some(
+                  ({ code }) =>
+                    translate(candidate, code)
+                      .normalize("NFKD")
+                      .replace(/\p{M}/gu, "")
+                      .toLowerCase() ===
+                    subject
+                      .normalize("NFKD")
+                      .replace(/\p{M}/gu, "")
+                      .toLowerCase(),
+                ),
               ) ?? subject
             );
           }),
@@ -136,7 +147,7 @@ export function parseStudentList(
       validateStudent(student, availableSubjects, today),
     );
     if (messages.length)
-      errors.push({ line: index + 1, message: messages.join(" ") });
+      errors.push({ line: index + 1, message: messages.join(" "), messages });
     else students.push(student);
   }
 

@@ -162,3 +162,24 @@ test("proxy deployment still rejects requests from other sites", async () => {
   assert.equal(res.status, 403);
   assert.equal((await res.json()).error, "Запрос с другого сайта отклонён");
 });
+
+test("language detection uses the client IP from the trusted local Nginx hop", async () => {
+  for (const [ip, country, language] of [
+    ["2.72.0.1", "KZ", "kk"],
+    ["213.230.64.1", "UZ", "uz"],
+    ["94.20.0.1", "AZ", "az"],
+    ["77.88.8.8", "RU", "ru"],
+    ["8.8.8.8", "US", "en"],
+  ]) {
+    const response = await fetch(base + "/api/language", {
+      headers: {
+        "X-Forwarded-For": ip,
+        "Accept-Language": "ru-RU",
+        "CF-IPCountry": "KZ",
+      },
+    });
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { country, language });
+    assert.equal(response.headers.get("cache-control"), "no-store");
+  }
+});

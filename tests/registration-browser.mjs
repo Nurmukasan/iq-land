@@ -24,6 +24,7 @@ const browserErrors = [];
 
 async function newPage({ withoutCrypto = false } = {}) {
   const page = await browser.newPage({
+    locale: "ru-RU",
     viewport: { width: 1440, height: 1000 },
   });
   await page.addInitScript(

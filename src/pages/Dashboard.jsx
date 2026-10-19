@@ -1,3 +1,9 @@
+import {
+  tr,
+  getIntlLocale,
+  getLanguage,
+  dateTimeLabel,
+} from "../i18n/runtime.js";
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -75,14 +81,16 @@ export function Login() {
   return (
     <main className="login-page">
       <div className="login-intro">
-        <span className="eyebrow">КОМАНДА IQ LAND</span>
+        <span className="eyebrow">{tr("КОМАНДА IQ LAND")}</span>
         <h1>
-          За каждым открытием —<br />
-          <span className="serif-text">люди, которые верят.</span>
+          {tr("За каждым открытием —")}
+          <br />
+          <span className="serif-text">{tr("люди, которые верят.")}</span>
         </h1>
         <p>
-          Ваше рабочее пространство для управления олимпиадами, заявками и
-          результатами.
+          {tr(
+            "Ваше рабочее пространство для управления олимпиадами, заявками и результатами.",
+          )}
         </p>
         <div className="login-art">
           <GlobeIcon />
@@ -93,27 +101,27 @@ export function Login() {
         <div className="login-icon">
           <ShieldCheck size={25} />
         </div>
-        <h2>С возвращением</h2>
-        <p>Войдите в кабинет организатора</p>
+        <h2>{tr("С возвращением")}</h2>
+        <p>{tr("Войдите в кабинет организатора")}</p>
         <form onSubmit={submit}>
           <label className="field">
             <span>Email</span>
             <input
               type="email"
               autoComplete="username"
-              placeholder="Ваш рабочий email"
+              placeholder={tr("Ваш рабочий email")}
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
           <label className="field">
-            <span>Пароль</span>
+            <span>{tr("Пароль")}</span>
             <div className="password-field">
               <input
                 type={show ? "text" : "password"}
                 autoComplete="current-password"
-                placeholder="Введите пароль"
+                placeholder={tr("Введите пароль")}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -121,29 +129,30 @@ export function Login() {
               <button
                 type="button"
                 className="icon-btn"
-                aria-label={show ? "Скрыть пароль" : "Показать пароль"}
+                aria-label={tr(show ? "Скрыть пароль" : "Показать пароль")}
                 onClick={() => setShow(!show)}
               >
                 {show ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </label>
-          {error && <ErrorBox>{error}</ErrorBox>}
+          {error && <ErrorBox>{tr(error)}</ErrorBox>}
           <button className="btn btn-primary full-width" disabled={busy}>
-            {busy ? "Входим…" : "Войти в кабинет"}
+            {tr(busy ? "Входим…" : "Войти в кабинет")}
             <ArrowRight size={18} />
           </button>
         </form>
         <div className="login-help">
           <ShieldCheck size={16} />
           <span>
-            Доступ для администратора и руководителя.
+            {tr("Доступ для администратора и руководителя.")}
             <br />
-            Данные входа выдаёт администратор сайта.
+            {tr("Данные входа выдаёт администратор сайта.")}
           </span>
         </div>
         <Link to="/" className="back-link">
-          <ArrowLeft size={15} /> Вернуться на сайт
+          <ArrowLeft size={15} />
+          {tr(" Вернуться на сайт")}
         </Link>
       </section>
     </main>
@@ -261,6 +270,7 @@ export default function Dashboard() {
       const res = await fetch(
         "/api/export" +
           (eventId ? "?event=" + encodeURIComponent(eventId) : ""),
+        { headers: { "Accept-Language": getIntlLocale() } },
       );
       if (!res.ok) throw new Error("Не удалось выгрузить файл");
       const blob = await res.blob();
@@ -343,28 +353,31 @@ export default function Dashboard() {
         <section className="dashboard-content">
           <div className="dashboard-title">
             <div>
-              <span className="eyebrow">КАБИНЕТ ОРГАНИЗАТОРА</span>
+              <span className="eyebrow">{tr("КАБИНЕТ ОРГАНИЗАТОРА")}</span>
               <h1>
-                Всё под контролем<span>.</span>
+                {tr("Всё под контролем")}
+                <span>.</span>
               </h1>
             </div>
             <button
               className="btn btn-primary btn-small"
               disabled={!data || exporting}
-              title="Три листа: участники, протокол и учителя. Экспорт всех данных выбранной олимпиады."
+              title={tr(
+                "Три листа: участники, протокол и учителя. Экспорт всех данных выбранной олимпиады.",
+              )}
               onClick={exportExcel}
             >
               <Download size={17} />
-              {exporting ? "Готовим файл…" : "Скачать Excel"}
+              {tr(exporting ? "Готовим файл…" : "Скачать Excel")}
             </button>
           </div>
-          {error && <ErrorBox>{error}</ErrorBox>}
+          {error && <ErrorBox>{tr(error)}</ErrorBox>}
           {!data ? (
             busy ? (
               <Spinner />
             ) : (
               <button className="btn btn-secondary" onClick={load}>
-                Повторить загрузку
+                {tr("Повторить загрузку")}
               </button>
             )
           ) : (
@@ -402,10 +415,10 @@ export default function Dashboard() {
                 ].map((s) => (
                   <div className="stat-card" key={s.label}>
                     <span>
-                      {s.label}
+                      {tr(s.label)}
                       <s.icon size={18} />
                     </span>
-                    <strong>{s.value.toString().padStart(2, "0")}</strong>
+                    <strong>{tr(s.value.toString().padStart(2, "0"))}</strong>
                   </div>
                 ))}
               </div>
@@ -414,21 +427,25 @@ export default function Dashboard() {
                   <div className="workspace-heading">
                     <div>
                       <h2>
-                        {tab === "registrations"
-                          ? "Заявки команд"
-                          : "Протокол олимпиады"}
+                        {tr(
+                          tab === "registrations"
+                            ? "Заявки команд"
+                            : "Протокол олимпиады",
+                        )}
                       </h2>
                       <p>
-                        {tab === "registrations"
-                          ? "Новые заявки появляются здесь после отправки формы."
-                          : "Сортировка по олимпиаде, дисциплине, классу, баллам и имени."}
+                        {tr(
+                          tab === "registrations"
+                            ? "Новые заявки появляются здесь после отправки формы."
+                            : "Сортировка по олимпиаде, дисциплине, классу, баллам и имени.",
+                        )}
                       </p>
                     </div>
                     <button
                       className="icon-btn"
                       onClick={load}
                       disabled={busy}
-                      aria-label="Обновить данные"
+                      aria-label={tr("Обновить данные")}
                     >
                       <RefreshCw size={18} className={busy ? "spin" : ""} />
                     </button>
@@ -437,68 +454,72 @@ export default function Dashboard() {
                     <label className="search-input">
                       <Search size={16} />
                       <input
-                        placeholder={
+                        placeholder={tr(
                           tab === "registrations"
                             ? "Центр, учитель или номер…"
-                            : "Ученик, центр или учитель…"
-                        }
-                        aria-label="Поиск"
+                            : "Ученик, центр или учитель…",
+                        )}
+                        aria-label={tr("Поиск")}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                       />
                     </label>
                     <select
-                      aria-label="Олимпиада"
+                      aria-label={tr("Олимпиада")}
                       value={eventId}
                       onChange={(e) => setEventId(e.target.value)}
                     >
-                      <option value="">Все олимпиады</option>
+                      <option value="">{tr("Все олимпиады")}</option>
                       {data.events.map((e) => (
                         <option value={e.id} key={e.id}>
-                          {e.city} · {dateLabel(e.date)}
+                          {tr(e.city)} · {tr(dateLabel(e.date))}
                         </option>
                       ))}
                     </select>
                     {tab === "registrations" ? (
                       <select
-                        aria-label="Статус заявки"
+                        aria-label={tr("Статус заявки")}
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                        <option value="">Все статусы</option>
+                        <option value="">{tr("Все статусы")}</option>
                         {Object.entries(statusNames).map(([k, v]) => (
                           <option key={k} value={k}>
-                            {v}
+                            {tr(v)}
                           </option>
                         ))}
                       </select>
                     ) : (
                       <>
                         <select
-                          aria-label="Дисциплина"
+                          aria-label={tr("Дисциплина")}
                           value={subject}
                           onChange={(e) => setSubject(e.target.value)}
                         >
-                          <option value="">Все дисциплины</option>
+                          <option value="">{tr("Все дисциплины")}</option>
                           {[
                             "Английский язык",
                             "Математика",
                             "Ментальная арифметика",
                           ].map((s) => (
-                            <option key={s}>{s}</option>
+                            <option key={s} value={s}>
+                              {tr(s)}
+                            </option>
                           ))}
                         </select>
                         <select
-                          aria-label="Класс"
+                          aria-label={tr("Класс")}
                           value={grade}
                           onChange={(e) => setGrade(e.target.value)}
                         >
-                          <option value="">Все классы</option>
-                          {Array.from({ length: 13 }, (_, i) => (
-                            <option key={i} value={i}>
-                              {i === 0 ? "Дошкольники" : i + " класс"}
-                            </option>
-                          ))}
+                          <option value="">{tr("Все классы")}</option>
+                          {tr(
+                            Array.from({ length: 13 }, (_, i) => (
+                              <option key={i} value={i}>
+                                {tr(i === 0 ? "Дошкольники" : i + " класс")}
+                              </option>
+                            )),
+                          )}
                         </select>
                       </>
                     )}
@@ -509,10 +530,10 @@ export default function Dashboard() {
                         <table className="manage-table">
                           <thead>
                             <tr>
-                              <th>Команда / центр</th>
-                              <th>Олимпиада</th>
-                              <th>Ученики</th>
-                              <th>Статус</th>
+                              <th>{tr("Команда / центр")}</th>
+                              <th>{tr("Олимпиада")}</th>
+                              <th>{tr("Ученики")}</th>
+                              <th>{tr("Статус")}</th>
                               <th />
                             </tr>
                           </thead>
@@ -522,28 +543,30 @@ export default function Dashboard() {
                                 <td>
                                   <strong>{r.center}</strong>
                                   <small>
-                                    {r.teacher} · {r.city}
+                                    {r.teacher} · {tr(r.city)}
                                   </small>
                                   <small className="registration-code">
-                                    {r.id}
+                                    {tr(r.id)}
                                   </small>
                                 </td>
                                 <td>
-                                  {
+                                  {tr(
                                     data.events.find((e) => e.id === r.event_id)
-                                      ?.city
-                                  }
+                                      ?.city,
+                                  )}
                                   <small>
-                                    {dateLabel(
-                                      data.events.find(
-                                        (e) => e.id === r.event_id,
-                                      ).date,
+                                    {tr(
+                                      dateLabel(
+                                        data.events.find(
+                                          (e) => e.id === r.event_id,
+                                        ).date,
+                                      ),
                                     )}
                                   </small>
                                 </td>
                                 <td>
                                   <span className="number-pill">
-                                    {r.student_count}
+                                    {tr(r.student_count)}
                                   </span>
                                 </td>
                                 <td>
@@ -551,7 +574,7 @@ export default function Dashboard() {
                                     className={
                                       "status-select status-" + r.status
                                     }
-                                    aria-label={"Статус заявки " + r.id}
+                                    aria-label={tr("Статус заявки " + r.id)}
                                     value={r.status}
                                     onChange={(e) =>
                                       changeStatus(r.id, e.target.value)
@@ -560,7 +583,7 @@ export default function Dashboard() {
                                     {Object.entries(statusNames).map(
                                       ([k, v]) => (
                                         <option key={k} value={k}>
-                                          {v}
+                                          {tr(v)}
                                         </option>
                                       ),
                                     )}
@@ -570,7 +593,7 @@ export default function Dashboard() {
                                   <button
                                     className="icon-btn"
                                     onClick={() => setDetail(r)}
-                                    aria-label={"Открыть заявку " + r.id}
+                                    aria-label={tr("Открыть заявку " + r.id)}
                                   >
                                     <ArrowUpRight size={19} />
                                   </button>
@@ -584,17 +607,22 @@ export default function Dashboard() {
                       <div className="empty-state">
                         <Users size={34} />
                         <h3>
-                          {query || eventId || status
-                            ? "Заявки не найдены"
-                            : "Здесь появится ваша первая команда"}
+                          {tr(
+                            query || eventId || status
+                              ? "Заявки не найдены"
+                              : "Здесь появится ваша первая команда",
+                          )}
                         </h3>
                         <p>
-                          {query || eventId || status
-                            ? "Попробуйте изменить условия поиска."
-                            : "Отправленные учителем заявки автоматически попадут в этот список."}
+                          {tr(
+                            query || eventId || status
+                              ? "Попробуйте изменить условия поиска."
+                              : "Отправленные учителем заявки автоматически попадут в этот список.",
+                          )}
                         </p>
                         <Link to="/#events" className="text-link">
-                          Перейти к афише <ArrowUpRight size={17} />
+                          {tr("Перейти к афише ")}
+                          <ArrowUpRight size={17} />
                         </Link>
                       </div>
                     )
@@ -603,10 +631,10 @@ export default function Dashboard() {
                       <table className="manage-table protocol-table">
                         <thead>
                           <tr>
-                            <th>Участник</th>
-                            <th>Дисциплина / класс</th>
-                            <th>Баллы</th>
-                            <th>Рейтинг</th>
+                            <th>{tr("Участник")}</th>
+                            <th>{tr("Дисциплина / класс")}</th>
+                            <th>{tr("Баллы")}</th>
+                            <th>{tr("Рейтинг")}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -615,15 +643,17 @@ export default function Dashboard() {
                               <td>
                                 <strong>{r.name}</strong>
                                 <small>
-                                  {r.center} · {r.event_city}
+                                  {r.center} · {tr(r.event_city)}
                                 </small>
                               </td>
                               <td>
-                                {r.subject}
+                                {tr(r.subject)}
                                 <small>
-                                  {r.grade === 0
-                                    ? "Дошкольник"
-                                    : r.grade + " класс"}
+                                  {tr(
+                                    r.grade === 0
+                                      ? "Дошкольник"
+                                      : r.grade + " класс",
+                                  )}
                                 </small>
                               </td>
                               <td>
@@ -637,7 +667,7 @@ export default function Dashboard() {
                                       : "place-badge"
                                   }
                                 >
-                                  {place(r)}
+                                  {tr(place(r))}
                                 </span>
                               </td>
                             </tr>
@@ -648,23 +678,28 @@ export default function Dashboard() {
                   ) : (
                     <div className="empty-state">
                       <ListChecks size={34} />
-                      <h3>Протокол пока пуст</h3>
+                      <h3>{tr("Протокол пока пуст")}</h3>
                       <p>
-                        Участники появятся после первой заявки. Отменённые
-                        заявки в протокол не включаются.
+                        {tr(
+                          "Участники появятся после первой заявки. Отменённые заявки в протокол не включаются.",
+                        )}
                       </p>
                     </div>
                   )}
                   <div className="table-bottom">
                     <span>
-                      {tab === "registrations"
-                        ? `Найдено заявок: ${registrations.length}`
-                        : `Участий в дисциплинах: ${entries.length}`}
+                      {tr(
+                        tab === "registrations"
+                          ? `Найдено заявок: ${registrations.length}`
+                          : `Участий в дисциплинах: ${entries.length}`,
+                      )}
                     </span>
                     <span>
-                      {tab === "protocol"
-                        ? "Рейтинг по классу и предмету. Медали рассчитываются в разделе «Присвоение мест»."
-                        : "Автообновление каждые 15 секунд. Отменённые заявки сохраняются в списке."}
+                      {tr(
+                        tab === "protocol"
+                          ? "Рейтинг по классу и предмету. Медали рассчитываются в разделе «Присвоение мест»."
+                          : "Автообновление каждые 15 секунд. Отменённые заявки сохраняются в списке.",
+                      )}
                     </span>
                   </div>
                 </div>
@@ -673,14 +708,19 @@ export default function Dashboard() {
                 <div className="workspace-panel">
                   <div className="workspace-heading">
                     <div>
-                      <h2>Мероприятия</h2>
-                      <p>Афиша, программа, стоимость и канал для участников.</p>
+                      <h2>{tr("Мероприятия")}</h2>
+                      <p>
+                        {tr(
+                          "Афиша, программа, стоимость и канал для участников.",
+                        )}
+                      </p>
                     </div>
                     <button
                       className="btn btn-primary btn-small"
                       onClick={() => setEditing({})}
                     >
-                      <Plus size={16} /> Добавить
+                      <Plus size={16} />
+                      {tr(" Добавить")}
                     </button>
                   </div>
                   <div className="event-manage-list">
@@ -688,15 +728,15 @@ export default function Dashboard() {
                       <div key={e.id}>
                         <EventPhoto
                           src={e.image}
-                          alt={e.city}
+                          alt={tr(e.city)}
                           className="event-manage-photo"
                         />
                         <div>
                           <h3>
-                            {e.flag} {e.city}, {e.country}
+                            {tr(e.flag)} {tr(e.city)}, {tr(e.country)}
                           </h3>
                           <p>
-                            {dateLabel(e.date)} · {priceLabel(e)}
+                            {tr(dateLabel(e.date))} · {tr(priceLabel(e))}
                           </p>
                           <span
                             className={
@@ -704,11 +744,13 @@ export default function Dashboard() {
                               (!e.active ? "inactive" : "")
                             }
                           >
-                            {e.active
-                              ? isPastEvent(e)
-                                ? "В архиве"
-                                : "Опубликовано"
-                              : "Скрыто с сайта"}
+                            {tr(
+                              e.active
+                                ? isPastEvent(e)
+                                  ? "В архиве"
+                                  : "Опубликовано"
+                                : "Скрыто с сайта",
+                            )}
                           </span>
                         </div>
                         <div className="event-manage-actions">
@@ -716,14 +758,16 @@ export default function Dashboard() {
                             className="btn btn-secondary btn-small"
                             onClick={() => setEditing(e)}
                           >
-                            <Pencil size={15} /> Изменить
+                            <Pencil size={15} />
+                            {tr(" Изменить")}
                           </button>
                           {isPastEvent(e) && user.role === "admin" && (
                             <button
                               className="btn btn-secondary btn-small event-archive-button"
                               onClick={() => setArchiving(e)}
                             >
-                              <Film size={15} /> Итоги и видео
+                              <Film size={15} />
+                              {tr(" Итоги и видео")}
                             </button>
                           )}
                           {isPastEvent(e) && e.active && (
@@ -731,7 +775,7 @@ export default function Dashboard() {
                               to={"/archive/" + e.id}
                               className="text-link event-manage-public-link"
                             >
-                              Открыть страницу олимпиады{" "}
+                              {tr("Открыть страницу олимпиады")}{" "}
                               <ArrowUpRight size={15} />
                             </Link>
                           )}
@@ -748,7 +792,7 @@ export default function Dashboard() {
       </div>
       {detail && (
         <Modal
-          title={"Заявка " + detail.id}
+          title={tr("Заявка " + detail.id)}
           onClose={() => setDetail(null)}
           wide
         >
@@ -757,26 +801,26 @@ export default function Dashboard() {
             <div>
               <h3>{detail.center}</h3>
               <p>
-                {detail.city} ·{" "}
-                {data.events.find((e) => e.id === detail.event_id)?.city}
+                {tr(detail.city)} ·{" "}
+                {tr(data.events.find((e) => e.id === detail.event_id)?.city)}
               </p>
             </div>
             <span className={"status-tag status-" + detail.status}>
-              {statusNames[detail.status]}
+              {tr(statusNames[detail.status])}
             </span>
           </div>
           <div className="review-grid">
             <div>
-              <small>Ответственный учитель</small>
+              <small>{tr("Ответственный учитель")}</small>
               <strong>{detail.teacher}</strong>
             </div>
             <div>
-              <small>Контакты</small>
+              <small>{tr("Контакты")}</small>
               <strong>{detail.phone}</strong>
               <span>{detail.email}</span>
             </div>
           </div>
-          <h4>Ученики</h4>
+          <h4>{tr("Ученики")}</h4>
           <div className="review-list">
             {Object.values(
               data.entries
@@ -789,28 +833,33 @@ export default function Dashboard() {
                 }, {}),
             ).map((r, i) => (
               <div key={r.id}>
-                <span className="row-number">{i + 1}</span>
+                <span className="row-number">{tr(i + 1)}</span>
                 <div>
                   <strong>{r.name}</strong>
                   <small>
-                    {r.birth.split("-").reverse().join(".")} ·{" "}
-                    {r.grade === 0 ? "Дошкольник" : r.grade + " класс"}
+                    {tr(r.birth.split("-").reverse().join("."))} ·{" "}
+                    {tr(r.grade === 0 ? "Дошкольник" : r.grade + " класс")}
                   </small>
                 </div>
-                <span>{r.subjects.join(", ")}</span>
+                <span>{tr(r.subjects.join(", "))}</span>
               </div>
             ))}
           </div>
-          <h4>Дополнительные сертификаты педагогам</h4>
-          <p>{detail.teachers.join(", ") || "Не запрошены"}</p>
+          <h4>{tr("Дополнительные сертификаты педагогам")}</h4>
+          <p>
+            {detail.teachers.length
+              ? detail.teachers.join(", ")
+              : tr("Не запрошены")}
+          </p>
           {detail.note && (
             <>
-              <h4>Комментарий</h4>
+              <h4>{tr("Комментарий")}</h4>
               <p>{detail.note}</p>
             </>
           )}
           <p className="muted small">
-            Получена: {new Date(detail.created).toLocaleString("ru-RU")}
+            {tr("Получена: ")}
+            {tr(dateTimeLabel(detail.created))}
           </p>
         </Modal>
       )}
@@ -880,27 +929,28 @@ function ArchiveEditor({ event, onClose, onSaved }) {
   }
 
   return (
-    <Modal title={"Итоги олимпиады · " + event.city} onClose={onClose} wide>
+    <Modal title={tr("Итоги олимпиады · " + event.city)} onClose={onClose} wide>
       <form className="archive-editor-form" onSubmit={save}>
         <div className="archive-editor-event">
           <EventPhoto
             src={event.image}
-            alt={event.city}
+            alt={tr(event.city)}
             className="archive-editor-photo"
           />
           <div className="archive-editor-event-info">
             <span>
-              {event.flag} {event.country}
+              {tr(event.flag)} {tr(event.country)}
             </span>
-            <strong>{event.title}</strong>
+            <strong>{tr(event.title)}</strong>
             <small>
-              <CalendarDays size={14} /> {dateLabel(event.date)}
+              <CalendarDays size={14} /> {tr(dateLabel(event.date))}
             </small>
           </div>
         </div>
         <p className="archive-editor-intro">
-          Сохраните воспоминания об олимпиаде. Сохранённое видео появится на
-          странице прошедшей олимпиады.
+          {tr(
+            "Сохраните воспоминания об олимпиаде. Сохранённое видео появится на странице прошедшей олимпиады.",
+          )}
         </p>
         <EventVideoUploader
           value={video}
@@ -916,8 +966,9 @@ function ArchiveEditor({ event, onClose, onSaved }) {
           disabled={busy}
         />
         <div className="notice">
-          На странице олимпиады публикуется видео и программа. Имена учеников и
-          награды доступны только организаторам.
+          {tr(
+            "На странице олимпиады публикуется видео и программа. Имена учеников и награды доступны только организаторам.",
+          )}
         </div>
         {event.active && isPastEvent(event) && (
           <Link
@@ -926,26 +977,28 @@ function ArchiveEditor({ event, onClose, onSaved }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Открыть страницу олимпиады <ArrowUpRight size={17} />
+            {tr("Открыть страницу олимпиады ")}
+            <ArrowUpRight size={17} />
           </Link>
         )}
         {!event.active && (
           <p className="archive-editor-hidden-note">
-            Олимпиада скрыта с сайта. Видео станет доступно после публикации
-            мероприятия.
+            {tr(
+              "Олимпиада скрыта с сайта. Видео станет доступно после публикации мероприятия.",
+            )}
           </p>
         )}
-        {error && <ErrorBox>{error}</ErrorBox>}
+        {error && <ErrorBox>{tr(error)}</ErrorBox>}
         <div className="archive-editor-actions">
           {uploading && (
-            <p role="status">Дождитесь завершения загрузки видео.</p>
+            <p role="status">{tr("Дождитесь завершения загрузки видео.")}</p>
           )}
           <button
             className="btn btn-primary full-width"
             type="submit"
             disabled={busy || uploading}
           >
-            {busy ? "Сохраняем…" : "Сохранить итоги"} <Check size={18} />
+            {tr(busy ? "Сохраняем…" : "Сохранить итоги")} <Check size={18} />
           </button>
         </div>
       </form>
@@ -964,7 +1017,7 @@ function ScoreInput({ row, onSave }) {
       min="0"
       max="1000000"
       step="0.5"
-      aria-label={"Баллы " + row.name + ", " + row.subject}
+      aria-label={tr("Баллы " + row.name + ", " + row.subject)}
       value={value}
       placeholder="—"
       onChange={(e) => {
@@ -1096,7 +1149,7 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
         (dragging ? " is-dragging" : "") +
         (error ? " has-error" : "")
       }
-      aria-label="Фото мероприятия"
+      aria-label={tr("Фото мероприятия")}
       aria-busy={uploading}
       onDragOver={(event) => {
         event.preventDefault();
@@ -1116,7 +1169,7 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
       }}
     >
       <div className="event-photo-upload-preview">
-        <EventPhoto src={preview || value} alt="Фото мероприятия" />
+        <EventPhoto src={preview || value} alt={tr("Фото мероприятия")} />
         {uploading && (
           <span className="event-photo-upload-progress" aria-hidden="true">
             <RefreshCw size={20} className="spin" />
@@ -1127,12 +1180,14 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
         <div className="event-photo-upload-title">
           <ImagePlus size={21} />
           <h3>
-            Фото мероприятия <small>Необязательно</small>
+            {tr("Фото мероприятия ")}
+            <small>{tr("Необязательно")}</small>
           </h3>
         </div>
         <p>
-          Добавьте настоящий кадр города, площадки или прошлой олимпиады. Он
-          появится на карточке в афише.
+          {tr(
+            "Добавьте настоящий кадр города, площадки или прошлой олимпиады. Он появится на карточке в афише.",
+          )}
         </p>
         <input
           ref={input}
@@ -1140,7 +1195,7 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
           className="event-photo-file-input"
           type="file"
           accept={photoTypes.join(",")}
-          aria-label="Загрузить фото мероприятия"
+          aria-label={tr("Загрузить фото мероприятия")}
           aria-describedby={inputId + "-hint"}
           disabled={disabled}
           tabIndex={-1}
@@ -1158,7 +1213,7 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
             onClick={() => input.current?.click()}
           >
             <UploadCloud size={16} />
-            {hasPhoto ? "Заменить фото" : "Выбрать фото"}
+            {tr(hasPhoto ? "Заменить фото" : "Выбрать фото")}
           </button>
           {hasPhoto && (
             <button
@@ -1167,25 +1222,28 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
               disabled={disabled}
               onClick={remove}
             >
-              <Trash2 size={16} /> Убрать фото
+              <Trash2 size={16} />
+              {tr(" Убрать фото")}
             </button>
           )}
         </div>
         <small id={inputId + "-hint"} className="event-photo-upload-hint">
-          JPEG, PNG или WebP · до 8 МБ. Можно перетащить фото сюда.
+          {tr("JPEG, PNG или WebP · до 8 МБ. Можно перетащить фото сюда.")}
         </small>
         {uploading ? (
           <p className="event-photo-upload-status" role="status">
-            Загружаем фото…
+            {tr("Загружаем фото…")}
           </p>
         ) : fileName ? (
           <p className="event-photo-upload-status" role="status">
-            <Check size={15} /> Фото загружено <span>{fileName}</span>
+            <Check size={15} />
+            {tr(" Фото загружено ")}
+            <span>{tr(fileName)}</span>
           </p>
         ) : null}
         {error && (
           <p className="event-photo-upload-error" role="alert">
-            {error}
+            {tr(error)}
           </p>
         )}
       </div>
@@ -1263,7 +1321,7 @@ function EventEditor({ event, onClose, onSaved }) {
   }
   return (
     <Modal
-      title={event.id ? "Изменить мероприятие" : "Новая олимпиада"}
+      title={tr(event.id ? "Изменить мероприятие" : "Новая олимпиада")}
       onClose={onClose}
       wide
     >
@@ -1290,26 +1348,26 @@ function EventEditor({ event, onClose, onSaved }) {
               className={"field " + (k === "title" ? "span-two" : "")}
               key={k}
             >
-              <span>{label}</span>
+              <span>{tr(label)}</span>
               <input
                 type={type}
                 required
                 minLength={type === "text" && k !== "flag" ? 2 : undefined}
                 maxLength={k === "flag" ? 8 : 150}
-                placeholder={
+                placeholder={tr(
                   k === "city"
                     ? "Например, Лондон"
                     : k === "country"
                       ? "Например, Великобритания"
-                      : undefined
-                }
+                      : undefined,
+                )}
                 value={form[k]}
                 onChange={(e) => set(k, e.target.value)}
               />
             </label>
           ))}
           <label className="field">
-            <span>Стоимость · пусто, если уточняется</span>
+            <span>{tr("Стоимость · пусто, если уточняется")}</span>
             <input
               type="number"
               min="0"
@@ -1319,7 +1377,7 @@ function EventEditor({ event, onClose, onSaved }) {
             />
           </label>
           <label className="field">
-            <span>Валюта</span>
+            <span>{tr("Валюта")}</span>
             <select
               value={form.currency}
               onChange={(e) => set("currency", e.target.value)}
@@ -1335,7 +1393,7 @@ function EventEditor({ event, onClose, onSaved }) {
                 ["UZS", "UZS · Узбекский сум"],
               ].map(([value, label]) => (
                 <option key={value} value={value}>
-                  {label}
+                  {tr(label)}
                 </option>
               ))}
             </select>
@@ -1343,7 +1401,7 @@ function EventEditor({ event, onClose, onSaved }) {
         </div>
         <label className="field event-telegram-field">
           <span id="event-telegram-label">
-            Ссылка на Telegram-канал олимпиады · необязательно
+            {tr("Ссылка на Telegram-канал олимпиады · необязательно")}
           </span>
           <input
             type="url"
@@ -1356,13 +1414,13 @@ function EventEditor({ event, onClose, onSaved }) {
             onChange={(e) => set("telegramUrl", e.target.value)}
           />
           <small id="event-telegram-help">
-            Скопируйте ссылку на канал в Telegram. Учитель увидит ссылку после
-            отправки заявки на эту олимпиаду и в скачанном подтверждении. Чтобы
-            убрать ссылку, очистите поле и сохраните.
+            {tr(
+              "Скопируйте ссылку на канал в Telegram. Учитель увидит ссылку после отправки заявки на эту олимпиаду и в скачанном подтверждении. Чтобы убрать ссылку, очистите поле и сохраните.",
+            )}
           </small>
         </label>
         <label className="field">
-          <span>Дисциплины</span>
+          <span>{tr("Дисциплины")}</span>
         </label>
         <div className="event-subject-options">
           {["Математика", "Английский язык", "Ментальная арифметика"].map(
@@ -1380,13 +1438,13 @@ function EventEditor({ event, onClose, onSaved }) {
                     )
                   }
                 />
-                {s}
+                {tr(s)}
               </label>
             ),
           )}
         </div>
         <label className="field">
-          <span>Программа · один пункт на строку</span>
+          <span>{tr("Программа · один пункт на строку")}</span>
           <textarea
             rows={4}
             required
@@ -1395,7 +1453,7 @@ function EventEditor({ event, onClose, onSaved }) {
           />
         </label>
         <label className="field">
-          <span>Описание</span>
+          <span>{tr("Описание")}</span>
           <textarea
             rows={3}
             minLength={2}
@@ -1411,14 +1469,14 @@ function EventEditor({ event, onClose, onSaved }) {
             checked={form.active}
             onChange={(e) => set("active", e.target.checked)}
           />{" "}
-          Показывать в публичной афише
+          {tr("Показывать в публичной афише")}
         </label>
-        {error && <ErrorBox>{error}</ErrorBox>}
+        {error && <ErrorBox>{tr(error)}</ErrorBox>}
         <button
           disabled={busy || uploading}
           className="btn btn-primary full-width"
         >
-          {busy ? "Сохраняем…" : "Сохранить мероприятие"}
+          {tr(busy ? "Сохраняем…" : "Сохранить мероприятие")}
           <Check size={17} />
         </button>
       </form>
@@ -1452,12 +1510,12 @@ function PromoEditor() {
     <div className="workspace-panel">
       <div className="workspace-heading">
         <div>
-          <h2>Рекламный блок</h2>
-          <p>Редактируйте предложение на главной странице.</p>
+          <h2>{tr("Рекламный блок")}</h2>
+          <p>{tr("Редактируйте предложение на главной странице.")}</p>
         </div>
       </div>
       <div className="promo-editor">
-        {error && <ErrorBox>{error}</ErrorBox>}
+        {error && <ErrorBox>{tr(error)}</ErrorBox>}
         {promo ? (
           <form onSubmit={save}>
             {[
@@ -1468,7 +1526,7 @@ function PromoEditor() {
               ["href", "Ссылка (https://… или #events)"],
             ].map(([k, t]) => (
               <label className="field" key={k}>
-                <span>{t}</span>
+                <span>{tr(t)}</span>
                 <input
                   required
                   minLength={2}
@@ -1488,10 +1546,10 @@ function PromoEditor() {
                   setPromo((p) => ({ ...p, active: e.target.checked }))
                 }
               />{" "}
-              Показывать рекламный блок
+              {tr("Показывать рекламный блок")}
             </label>
             <button className="btn btn-primary" disabled={busy}>
-              {busy ? "Сохраняем…" : "Сохранить"}
+              {tr(busy ? "Сохраняем…" : "Сохранить")}
               <Check size={17} />
             </button>
           </form>

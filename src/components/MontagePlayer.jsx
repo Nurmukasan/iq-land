@@ -1,3 +1,4 @@
+import { tr } from "../i18n/runtime.js";
 import React, { useEffect, useRef, useState } from "react";
 import { Play, RotateCcw, Volume2, VolumeX } from "lucide-react";
 import EventPhoto from "./EventPhoto";
@@ -47,7 +48,7 @@ export default function MontagePlayer({ src, poster, title }) {
             ref={player}
             src={src}
             poster={poster || undefined}
-            aria-label={"Видео олимпиады: " + title}
+            aria-label={tr("Видео олимпиады: " + title)}
             autoPlay
             loop
             muted={muted}
@@ -69,26 +70,27 @@ export default function MontagePlayer({ src, poster, title }) {
           {!failed && (
             <div className="montage-toolbar">
               <span className="montage-label">
-                <Play size={12} fill="currentColor" /> Моменты олимпиады{" "}
+                <Play size={12} fill="currentColor" />
+                {tr(" Моменты олимпиады")}{" "}
                 {highDefinition && <small>Full HD</small>}
               </span>
               <button
                 type="button"
                 className="montage-sound"
-                aria-label={muted ? "Включить звук" : "Выключить звук"}
+                aria-label={tr(muted ? "Включить звук" : "Выключить звук")}
                 onClick={() => {
                   if (player.current) player.current.muted = !muted;
                   setMuted(!muted);
                 }}
               >
                 {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                <span>{muted ? "Включить звук" : "Звук включён"}</span>
+                <span>{tr(muted ? "Включить звук" : "Звук включён")}</span>
               </button>
             </div>
           )}
           {failed ? (
             <div className="montage-message" role="status">
-              <p>Не удалось воспроизвести видео</p>
+              <p>{tr("Не удалось воспроизвести видео")}</p>
               <button
                 className="btn btn-secondary"
                 type="button"
@@ -99,7 +101,8 @@ export default function MontagePlayer({ src, poster, title }) {
                   play();
                 }}
               >
-                <RotateCcw size={17} /> Повторить
+                <RotateCcw size={17} />
+                {tr(" Повторить")}
               </button>
             </div>
           ) : (
@@ -107,7 +110,7 @@ export default function MontagePlayer({ src, poster, title }) {
               <button
                 className="montage-play"
                 type="button"
-                aria-label="Воспроизвести монтаж"
+                aria-label={tr("Воспроизвести монтаж")}
                 onClick={play}
               >
                 <Play size={28} fill="currentColor" />
@@ -119,12 +122,12 @@ export default function MontagePlayer({ src, poster, title }) {
         <>
           <EventPhoto
             src={poster}
-            alt={"Олимпиада IQ LAND · " + title}
+            alt={tr("Олимпиада IQ LAND · " + title)}
             className="montage-poster"
           />
           <div className="montage-poster-caption">
-            <span>Моменты, которые остаются.</span>
-            <p>История одной олимпиады.</p>
+            <span>{tr("Моменты, которые остаются.")}</span>
+            <p>{tr("История одной олимпиады.")}</p>
           </div>
         </>
       )}

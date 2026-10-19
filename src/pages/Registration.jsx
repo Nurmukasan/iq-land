@@ -1,3 +1,9 @@
+import {
+  tr,
+  getIntlLocale,
+  getLanguage,
+  dateTimeLabel,
+} from "../i18n/runtime.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -105,10 +111,10 @@ const hasRowData = (student, subjects) =>
       student.subjects.join("|") !== subjects.slice(0, 1).join("|"),
   );
 function download(name, text, type = "text/plain;charset=utf-8") {
-  const url = URL.createObjectURL(new Blob([text], { type }));
+  const url = URL.createObjectURL(new Blob([tr(text)], { type }));
   const a = document.createElement("a");
   a.href = url;
-  a.download = name;
+  a.download = tr(name);
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
@@ -678,25 +684,26 @@ export default function Registration() {
             className="reg-choice"
             key={e.id}
             onClick={() => chooseEvent(e)}
-            aria-label={"Выбрать олимпиаду в городе " + e.city}
+            aria-label={tr("Выбрать олимпиаду в городе " + e.city)}
           >
             <EventPhoto
               src={e.image}
-              alt={`Олимпиада IQ LAND · ${e.city}`}
+              alt={tr("Олимпиада IQ LAND · {0}", [e.city])}
               className="reg-event-photo"
             />
             <div className="reg-choice-content">
               <span>
-                {e.flag} {e.country}
+                {tr(e.flag)} {tr(e.country)}
               </span>
-              <h2>{e.city}</h2>
-              <p>{e.subjects.join(" · ")}</p>
+              <h2>{tr(e.city)}</h2>
+              <p>{tr(e.subjects.join(" · "))}</p>
               <div className="reg-choice-details">
                 <CalendarDays size={17} />
-                {dateLabel(e.date)}
+                {tr(dateLabel(e.date))}
               </div>
               <span className="reg-choice-action">
-                Зарегистрировать команду <ArrowUpRight size={20} />
+                {tr("Зарегистрировать команду ")}
+                <ArrowUpRight size={20} />
               </span>
             </div>
           </button>
@@ -707,7 +714,7 @@ export default function Registration() {
   function FieldError({ message, id }) {
     return message ? (
       <small id={id} className="reg-field-error">
-        {message}
+        {tr(message)}
       </small>
     ) : null;
   }
@@ -721,15 +728,15 @@ export default function Registration() {
   if (loadError)
     return (
       <main className="container reg-page">
-        <ErrorBox>{loadError}</ErrorBox>
+        <ErrorBox>{tr(loadError)}</ErrorBox>
         <button
           className="btn btn-secondary"
           onClick={() => window.location.reload()}
         >
-          Повторить загрузку
+          {tr("Повторить загрузку")}
         </button>
         <Link className="back-link" to="/#events">
-          К афише
+          {tr("К афише")}
         </Link>
       </main>
     );
@@ -738,13 +745,13 @@ export default function Registration() {
       <main className="container reg-page">
         <header className="reg-heading">
           <span className="eyebrow">
-            Для учителей и образовательных центров
+            {tr("Для учителей и образовательных центров")}
           </span>
-          <h1>
-            Регистрация <span className="accent-text">команды.</span>
-          </h1>
+          <h1>{tr("Регистрация команды.")}</h1>
           <p>
-            Сначала выберите олимпиаду, на которую хотите отправить учеников.
+            {tr(
+              "Сначала выберите олимпиаду, на которую хотите отправить учеников.",
+            )}
           </p>
         </header>
         {events.some(isOpen) ? (
@@ -752,13 +759,15 @@ export default function Registration() {
         ) : (
           <div className="empty-state">
             <CalendarDays size={40} />
-            <h2>Новые олимпиады скоро появятся</h2>
+            <h2>{tr("Новые олимпиады скоро появятся")}</h2>
             <p>
-              Сейчас нет открытых регистраций. Посмотрите афишу и программу
-              событий.
+              {tr(
+                "Сейчас нет открытых регистраций. Посмотрите афишу и программу событий.",
+              )}
             </p>
             <Link className="btn btn-primary" to="/#events">
-              Посмотреть афишу <ArrowUpRight size={20} />
+              {tr("Посмотреть афишу ")}
+              <ArrowUpRight size={20} />
             </Link>
           </div>
         )}
@@ -768,13 +777,15 @@ export default function Registration() {
     return (
       <main className="container reg-page reg-success">
         <CalendarDays size={45} />
-        <h1>Регистрация завершена</h1>
+        <h1>{tr("Регистрация завершена")}</h1>
         <p>
-          Приём заявок на олимпиаду в городе {event.city} завершился{" "}
-          {dateLabel(event.deadline)}.
+          {tr("Приём заявок на олимпиаду в городе ")}
+          {tr(event.city)}
+          {tr(" завершился")} {tr(dateLabel(event.deadline))}.
         </p>
         <Link className="btn btn-primary" to="/register">
-          Выбрать другую олимпиаду <ArrowRight size={20} />
+          {tr("Выбрать другую олимпиаду ")}
+          <ArrowRight size={20} />
         </Link>
       </main>
     );
@@ -784,16 +795,18 @@ export default function Registration() {
         <div className="reg-success-icon">
           <CheckCheck size={38} />
         </div>
-        <span className="eyebrow">Заявка получена</span>
-        <h1>Ваша команда в списке!</h1>
+        <span className="eyebrow">{tr("Заявка получена")}</span>
+        <h1>{tr("Ваша команда в списке!")}</h1>
         <p>
-          Организатор получил данные и свяжется с вами
+          {tr("Организатор получил данные и свяжется с вами")}
           <br />
-          для подтверждения участия. Детали и оплату согласуете с организатором.
+          {tr(
+            "для подтверждения участия. Детали и оплату согласуете с организатором.",
+          )}
         </p>
         <div className="reg-receipt">
-          <span>Номер вашей заявки</span>
-          <strong>{receipt.id}</strong>
+          <span>{tr("Номер вашей заявки")}</span>
+          <strong>{tr(receipt.id)}</strong>
           <button
             className="text-link"
             onClick={async () => {
@@ -805,19 +818,23 @@ export default function Registration() {
               }
             }}
           >
-            <Copy size={17} /> Скопировать номер
+            <Copy size={17} />
+            {tr(" Скопировать номер")}
           </button>
           <div className="reg-receipt-info">
             <div>
-              <small>Олимпиада</small>
-              <strong>{event.city}</strong>
-              <span>{dateLabel(event.date)}</span>
+              <small>{tr("Олимпиада")}</small>
+              <strong>{tr(event.city)}</strong>
+              <span>{tr(dateLabel(event.date))}</span>
             </div>
             <div>
-              <small>Команда</small>
+              <small>{tr("Команда")}</small>
               <strong>{contact.center}</strong>
               <span>
-                {receipt.count} учеников · {teachers.length + 1} педагогов
+                {receipt.count}
+                {tr(" учеников · ")}
+                {tr(teachers.length + 1)}
+                {tr(" педагогов")}
               </span>
             </div>
           </div>
@@ -831,24 +848,31 @@ export default function Registration() {
               <Send size={28} />
             </div>
             <div className="reg-telegram-copy">
-              <span>Следующий шаг</span>
+              <span>{tr("Следующий шаг")}</span>
               <h2 id="reg-telegram-title">
-                Присоединяйтесь к каналу олимпиады
+                {tr("Присоединяйтесь к каналу олимпиады")}
               </h2>
               <p>
-                Расписание, подготовка и важные новости для вашей команды — в
-                Telegram-канале мероприятия «{event.title}».
+                {tr(
+                  "Расписание, подготовка и важные новости для вашей команды — в Telegram-канале мероприятия «",
+                )}
+                {tr(event.title)}».
               </p>
               <a
                 className="btn reg-telegram-link"
                 href={receipt.telegramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Вступить в Telegram-канал олимпиады (откроется в новой вкладке)"
+                aria-label={tr(
+                  "Вступить в Telegram-канал олимпиады (откроется в новой вкладке)",
+                )}
               >
-                Вступить в Telegram-канал <ArrowUpRight size={20} />
+                {tr("Вступить в Telegram-канал ")}
+                <ArrowUpRight size={20} />
               </a>
-              <small>Ссылка также сохранится в скачанном подтверждении.</small>
+              <small>
+                {tr("Ссылка также сохранится в скачанном подтверждении.")}
+              </small>
             </div>
           </section>
         )}
@@ -862,14 +886,18 @@ export default function Registration() {
               )
             }
           >
-            Скачать подтверждение <Download size={18} />
+            {tr("Скачать подтверждение ")}
+            <Download size={18} />
           </button>
           <Link className="btn btn-secondary" to="/#events">
-            Вернуться к олимпиадам <ArrowUpRight size={18} />
+            {tr("Вернуться к олимпиадам ")}
+            <ArrowUpRight size={18} />
           </Link>
         </div>
         <p className="small muted">
-          Сохраните номер заявки — он пригодится при обращении к организатору.
+          {tr(
+            "Сохраните номер заявки — он пригодится при обращении к организатору.",
+          )}
         </p>
       </main>
     );
@@ -877,59 +905,66 @@ export default function Registration() {
   return (
     <main className="container reg-page">
       <Link className="back-link" to="/#events">
-        <ArrowLeft size={17} /> Все олимпиады
+        <ArrowLeft size={17} />
+        {tr(" Все олимпиады")}
       </Link>
       <header className="reg-heading">
         <span className="eyebrow">
-          Участвует команда. Регистрирует учитель.
+          {tr("Участвует команда. Регистрирует учитель.")}
         </span>
-        <h1>
-          Регистрация <span className="accent-text">команды.</span>
-        </h1>
+        <h1>{tr("Регистрация команды.")}</h1>
         <p>
-          Одна заявка на всех учеников. Добавьте состав, расскажите о центре — и
-          можно отправлять.
+          {tr(
+            "Одна заявка на всех учеников. Добавьте состав, расскажите о центре — и можно отправлять.",
+          )}
         </p>
       </header>
-      <section className="reg-event-banner" aria-label="Выбранная олимпиада">
+      <section
+        className="reg-event-banner"
+        aria-label={tr("Выбранная олимпиада")}
+      >
         <EventPhoto
           src={event.image}
-          alt={`Олимпиада IQ LAND · ${event.city}`}
+          alt={tr("Олимпиада IQ LAND · {0}", [event.city])}
           className="reg-event-photo"
         />
         <div className="reg-event-content">
-          <span className="eyebrow">Выбранная олимпиада</span>
+          <span className="eyebrow">{tr("Выбранная олимпиада")}</span>
           <h2>
-            {event.city}
-            <span>{event.flag}</span>
+            {tr(event.city)}
+            <span>{tr(event.flag)}</span>
           </h2>
           <div className="reg-event-meta">
             <span>
               <MapPin size={16} />
-              {event.country}
+              {tr(event.country)}
             </span>
             <span>
               <CalendarDays size={16} />
-              {dateLabel(event.date)}
+              {tr(dateLabel(event.date))}
             </span>
           </div>
         </div>
         <div className="reg-event-side">
-          <strong>{priceLabel(event)}</strong>
-          <small>Заявки до {dateLabel(event.deadline)}</small>
+          <strong>{tr(priceLabel(event))}</strong>
+          <small>
+            {tr("Заявки до ")}
+            {tr(dateLabel(event.deadline))}
+          </small>
           <button
             className="text-link"
             type="button"
             disabled={sending}
             onClick={() => setPicker(true)}
           >
-            Сменить олимпиаду <ChevronDown size={16} />
+            {tr("Сменить олимпиаду ")}
+            <ChevronDown size={16} />
           </button>
         </div>
       </section>
       <div className="reg-layout">
         <div className="reg-main">
-          <nav className="reg-steps" aria-label="Шаги регистрации">
+          <nav className="reg-steps" aria-label={tr("Шаги регистрации")}>
             {steps.map((s, i) => (
               <button
                 type="button"
@@ -942,11 +977,11 @@ export default function Registration() {
                 onClick={() => goTo(i + 1)}
               >
                 <span className="reg-step-number">
-                  {step > i + 1 ? <Check size={17} /> : i + 1}
+                  {tr(step > i + 1 ? <Check size={17} /> : i + 1)}
                 </span>
                 <div>
-                  <strong>{s.title}</strong>
-                  <small>{s.hint}</small>
+                  <strong>{tr(s.title)}</strong>
+                  <small>{tr(s.hint)}</small>
                 </div>
               </button>
             ))}
@@ -956,16 +991,13 @@ export default function Registration() {
               <div>
                 <Save size={19} />
                 <span>
-                  Есть сохранённый черновик
-                  {draft.savedAt
-                    ? " от " +
-                      new Date(draft.savedAt).toLocaleString("ru-RU", {
-                        day: "numeric",
-                        month: "long",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })
-                    : ""}
+                  {tr("Есть сохранённый черновик")}
+                  {draft.savedAt && (
+                    <>
+                      {" "}
+                      {tr("от")} {dateTimeLabel(draft.savedAt)}
+                    </>
+                  )}
                 </span>
               </div>
               <div className="reg-draft-actions">
@@ -975,12 +1007,12 @@ export default function Registration() {
                   disabled={sending}
                   onClick={restoreDraft}
                 >
-                  Восстановить
+                  {tr("Восстановить")}
                 </button>
                 <button
                   type="button"
                   className="icon-btn"
-                  aria-label="Удалить черновик"
+                  aria-label={tr("Удалить черновик")}
                   disabled={sending}
                   onClick={removeDraft}
                 >
@@ -994,11 +1026,12 @@ export default function Registration() {
               <section className="reg-form-card">
                 <div className="reg-panel-head">
                   <div>
-                    <span className="eyebrow">Шаг 1 из 3</span>
-                    <h2>Ученики команды</h2>
+                    <span className="eyebrow">{tr("Шаг 1 из 3")}</span>
+                    <h2>{tr("Ученики команды")}</h2>
                     <p>
-                      Введите данные вручную или вставьте весь список за один
-                      раз.
+                      {tr(
+                        "Введите данные вручную или вставьте весь список за один раз.",
+                      )}
                     </p>
                   </div>
                   <span className="reg-count-badge">
@@ -1015,7 +1048,8 @@ export default function Registration() {
                       setImportErrors([]);
                     }}
                   >
-                    <ClipboardPaste size={18} /> Вставить список
+                    <ClipboardPaste size={18} />
+                    {tr(" Вставить список")}
                   </button>
                   <button
                     type="button"
@@ -1028,7 +1062,8 @@ export default function Registration() {
                       )
                     }
                   >
-                    <Download size={17} /> Шаблон Excel
+                    <Download size={17} />
+                    {tr(" Шаблон Excel")}
                   </button>
                   <button
                     type="button"
@@ -1036,35 +1071,41 @@ export default function Registration() {
                     disabled={!dirty}
                     onClick={saveDraft}
                   >
-                    <Save size={17} /> Сохранить черновик
+                    <Save size={17} />
+                    {tr(" Сохранить черновик")}
                   </button>
                 </div>
                 <details className="reg-bulk-disclosure">
                   <summary>
-                    Общие настройки команды
-                    <span>Класс и дисциплины для всех</span>
+                    {tr("Общие настройки команды")}
+                    <span>{tr("Класс и дисциплины для всех")}</span>
                     <ChevronDown size={18} />
                   </summary>
                   <div className="reg-bulk-settings">
                     <label className="reg-default-grade">
-                      <span>Класс для новых учеников</span>
+                      <span>{tr("Класс для новых учеников")}</span>
                       <select
-                        aria-label="Класс для новых учеников"
+                        aria-label={tr("Класс для новых учеников")}
                         value={defaults.grade}
                         onChange={(e) =>
-                          setDefaults((v) => ({ ...v, grade: e.target.value }))
+                          setDefaults((v) => ({
+                            ...v,
+                            grade: e.target.value,
+                          }))
                         }
                       >
-                        <option value="">Выбрать класс</option>
-                        {Array.from({ length: 13 }, (_, i) => (
-                          <option value={i} key={i}>
-                            {i === 0 ? "Дошкольники" : i + " класс"}
-                          </option>
-                        ))}
+                        <option value="">{tr("Выбрать класс")}</option>
+                        {tr(
+                          Array.from({ length: 13 }, (_, i) => (
+                            <option value={i} key={i}>
+                              {tr(i === 0 ? "Дошкольники" : i + " класс")}
+                            </option>
+                          )),
+                        )}
                       </select>
                     </label>
                     <fieldset className="reg-bulk-subjects">
-                      <legend>Дисциплины для новых учеников</legend>
+                      <legend>{tr("Дисциплины для новых учеников")}</legend>
                       <div className="reg-subject-options">
                         {subjects.map((s) => (
                           <label
@@ -1085,7 +1126,7 @@ export default function Registration() {
                                 }))
                               }
                             />
-                            <span>{s}</span>
+                            <span>{tr(s)}</span>
                           </label>
                         ))}
                       </div>
@@ -1096,16 +1137,17 @@ export default function Registration() {
                       disabled={!students.length || !defaults.subjects.length}
                       onClick={applyDefaults}
                     >
-                      Применить ко всем <ArrowRight size={17} />
+                      {tr("Применить ко всем ")}
+                      <ArrowRight size={17} />
                     </button>
                   </div>
                 </details>
                 {(students.length > 4 || query) && (
                   <label className="field reg-roster-search">
-                    <span>Найти ученика в списке</span>
+                    <span>{tr("Найти ученика в списке")}</span>
                     <input
                       type="search"
-                      placeholder="Имя или фамилия"
+                      placeholder={tr("Имя или фамилия")}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                     />
@@ -1116,184 +1158,209 @@ export default function Registration() {
                     <thead>
                       <tr>
                         <th>№</th>
-                        <th>ФИО ученика</th>
-                        <th>Дата рождения</th>
-                        <th>Класс</th>
-                        <th>Дисциплины</th>
+                        <th>{tr("ФИО ученика")}</th>
+                        <th>{tr("Дата рождения")}</th>
+                        <th>{tr("Класс")}</th>
+                        <th>{tr("Дисциплины")}</th>
                         <th>
-                          <span className="reg-sr-only">Действия</span>
+                          <span className="reg-sr-only">{tr("Действия")}</span>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {shownStudents.map(({ student: s, index: i }) => {
-                        const errors = studentErrors[s.key] || {};
-                        return (
-                          <tr
-                            key={s.key}
-                            className={
-                              Object.keys(errors).length
-                                ? "reg-student-row has-error"
-                                : "reg-student-row"
-                            }
-                          >
-                            <td className="reg-row-number">{i + 1}</td>
-                            <td data-label="ФИО ученика">
-                              <input
-                                aria-label={`ФИО ученика ${i + 1}`}
-                                aria-invalid={Boolean(errors.name)}
-                                aria-describedby={
-                                  errors.name ? s.key + "-name" : undefined
-                                }
-                                autoComplete="off"
-                                placeholder="Фамилия Имя"
-                                value={s.name}
-                                onChange={(e) =>
-                                  updateStudent(s.key, "name", e.target.value)
-                                }
-                                maxLength={150}
-                              />
-                              <FieldError
-                                id={s.key + "-name"}
-                                message={errors.name}
-                              />
-                              {duplicates.has(s.key) && (
-                                <small className="reg-duplicate-note">
-                                  <AlertCircle size={13} /> Имя и дата
-                                  повторяются — проверьте строку
-                                </small>
-                              )}
-                            </td>
-                            <td data-label="Дата рождения">
-                              <input
-                                type="date"
-                                aria-label={`Дата рождения ученика ${i + 1}`}
-                                aria-invalid={Boolean(errors.birth)}
-                                aria-describedby={
-                                  errors.birth ? s.key + "-birth" : undefined
-                                }
-                                min="1990-01-01"
-                                max={yesterday()}
-                                value={s.birth}
-                                onChange={(e) =>
-                                  updateStudent(s.key, "birth", e.target.value)
-                                }
-                              />
-                              <FieldError
-                                id={s.key + "-birth"}
-                                message={errors.birth}
-                              />
-                            </td>
-                            <td data-label="Класс">
-                              <select
-                                aria-label={`Класс ученика ${i + 1}`}
-                                aria-invalid={Boolean(errors.grade)}
-                                aria-describedby={
-                                  errors.grade ? s.key + "-grade" : undefined
-                                }
-                                value={s.grade}
-                                onChange={(e) =>
-                                  updateStudent(s.key, "grade", e.target.value)
-                                }
-                              >
-                                <option value="">—</option>
-                                {Array.from({ length: 13 }, (_, n) => (
-                                  <option value={n} key={n}>
-                                    {n === 0 ? "Дошк." : n}
-                                  </option>
-                                ))}
-                              </select>
-                              <FieldError
-                                id={s.key + "-grade"}
-                                message={errors.grade}
-                              />
-                            </td>
-                            <td data-label="Дисциплины">
-                              <div className="reg-subject-options">
-                                {subjects.map((v) => (
-                                  <label
-                                    className={
-                                      s.subjects.includes(v)
-                                        ? "is-selected"
-                                        : ""
-                                    }
-                                    key={v}
+                      {tr(
+                        shownStudents.map(({ student: s, index: i }) => {
+                          const errors = studentErrors[s.key] || {};
+                          return (
+                            <tr
+                              key={s.key}
+                              className={
+                                Object.keys(errors).length
+                                  ? "reg-student-row has-error"
+                                  : "reg-student-row"
+                              }
+                            >
+                              <td className="reg-row-number">{tr(i + 1)}</td>
+                              <td data-label="ФИО ученика">
+                                <input
+                                  aria-label={tr("ФИО ученика {0}", [i + 1])}
+                                  aria-invalid={Boolean(errors.name)}
+                                  aria-describedby={
+                                    errors.name ? s.key + "-name" : undefined
+                                  }
+                                  autoComplete="off"
+                                  placeholder={tr("Фамилия Имя")}
+                                  value={s.name}
+                                  onChange={(e) =>
+                                    updateStudent(s.key, "name", e.target.value)
+                                  }
+                                  maxLength={150}
+                                />
+                                <FieldError
+                                  id={s.key + "-name"}
+                                  message={errors.name}
+                                />
+                                {duplicates.has(s.key) && (
+                                  <small className="reg-duplicate-note">
+                                    <AlertCircle size={13} />
+                                    {tr(
+                                      " Имя и дата повторяются — проверьте строку",
+                                    )}
+                                  </small>
+                                )}
+                              </td>
+                              <td data-label="Дата рождения">
+                                <input
+                                  type="date"
+                                  aria-label={tr("Дата рождения ученика {0}", [
+                                    i + 1,
+                                  ])}
+                                  aria-invalid={Boolean(errors.birth)}
+                                  aria-describedby={
+                                    errors.birth ? s.key + "-birth" : undefined
+                                  }
+                                  min="1990-01-01"
+                                  max={yesterday()}
+                                  value={s.birth}
+                                  onChange={(e) =>
+                                    updateStudent(
+                                      s.key,
+                                      "birth",
+                                      e.target.value,
+                                    )
+                                  }
+                                />
+                                <FieldError
+                                  id={s.key + "-birth"}
+                                  message={errors.birth}
+                                />
+                              </td>
+                              <td data-label="Класс">
+                                <select
+                                  aria-label={tr("Класс ученика {0}", [i + 1])}
+                                  aria-invalid={Boolean(errors.grade)}
+                                  aria-describedby={
+                                    errors.grade ? s.key + "-grade" : undefined
+                                  }
+                                  value={s.grade}
+                                  onChange={(e) =>
+                                    updateStudent(
+                                      s.key,
+                                      "grade",
+                                      e.target.value,
+                                    )
+                                  }
+                                >
+                                  <option value="">—</option>
+                                  {tr(
+                                    Array.from({ length: 13 }, (_, n) => (
+                                      <option value={n} key={n}>
+                                        {tr(n === 0 ? "Дошк." : n)}
+                                      </option>
+                                    )),
+                                  )}
+                                </select>
+                                <FieldError
+                                  id={s.key + "-grade"}
+                                  message={errors.grade}
+                                />
+                              </td>
+                              <td data-label="Дисциплины">
+                                <div className="reg-subject-options">
+                                  {subjects.map((v) => (
+                                    <label
+                                      className={
+                                        s.subjects.includes(v)
+                                          ? "is-selected"
+                                          : ""
+                                      }
+                                      key={v}
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        checked={s.subjects.includes(v)}
+                                        aria-invalid={Boolean(errors.subjects)}
+                                        aria-describedby={
+                                          errors.subjects
+                                            ? s.key + "-subjects"
+                                            : undefined
+                                        }
+                                        onChange={(e) =>
+                                          updateStudent(
+                                            s.key,
+                                            "subjects",
+                                            e.target.checked
+                                              ? [...s.subjects, v]
+                                              : s.subjects.filter(
+                                                  (x) => x !== v,
+                                                ),
+                                          )
+                                        }
+                                      />
+                                      <span>{tr(v)}</span>
+                                    </label>
+                                  ))}
+                                </div>
+                                <FieldError
+                                  id={s.key + "-subjects"}
+                                  message={errors.subjects}
+                                />
+                              </td>
+                              <td>
+                                <div className="reg-row-actions">
+                                  <button
+                                    type="button"
+                                    className="icon-btn"
+                                    aria-label={tr(
+                                      "Добавить похожего ученика {0}",
+                                      [i + 1],
+                                    )}
+                                    title={tr(
+                                      "Добавить ученика с такими же датой, классом и дисциплинами",
+                                    )}
+                                    disabled={students.length >= 300}
+                                    onClick={() => copyStudent(s)}
                                   >
-                                    <input
-                                      type="checkbox"
-                                      checked={s.subjects.includes(v)}
-                                      aria-invalid={Boolean(errors.subjects)}
-                                      aria-describedby={
-                                        errors.subjects
-                                          ? s.key + "-subjects"
-                                          : undefined
-                                      }
-                                      onChange={(e) =>
-                                        updateStudent(
-                                          s.key,
-                                          "subjects",
-                                          e.target.checked
-                                            ? [...s.subjects, v]
-                                            : s.subjects.filter((x) => x !== v),
-                                        )
-                                      }
-                                    />
-                                    <span>{v}</span>
-                                  </label>
-                                ))}
-                              </div>
-                              <FieldError
-                                id={s.key + "-subjects"}
-                                message={errors.subjects}
-                              />
-                            </td>
-                            <td>
-                              <div className="reg-row-actions">
-                                <button
-                                  type="button"
-                                  className="icon-btn"
-                                  aria-label={`Добавить похожего ученика ${i + 1}`}
-                                  title="Добавить ученика с такими же датой, классом и дисциплинами"
-                                  disabled={students.length >= 300}
-                                  onClick={() => copyStudent(s)}
-                                >
-                                  <Copy size={16} />
-                                </button>
-                                <button
-                                  type="button"
-                                  className="icon-btn delete-btn"
-                                  aria-label={`Удалить ученика ${i + 1}`}
-                                  onClick={() => {
-                                    setStudents((list) =>
-                                      list.filter((v) => v.key !== s.key),
-                                    );
-                                    setStudentErrors((errors) => {
-                                      const next = { ...errors };
-                                      delete next[s.key];
-                                      return next;
-                                    });
-                                  }}
-                                >
-                                  <Trash2 size={16} />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                                    <Copy size={16} />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="icon-btn delete-btn"
+                                    aria-label={tr("Удалить ученика {0}", [
+                                      i + 1,
+                                    ])}
+                                    onClick={() => {
+                                      setStudents((list) =>
+                                        list.filter((v) => v.key !== s.key),
+                                      );
+                                      setStudentErrors((errors) => {
+                                        const next = { ...errors };
+                                        delete next[s.key];
+                                        return next;
+                                      });
+                                    }}
+                                  >
+                                    <Trash2 size={16} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        }),
+                      )}
                     </tbody>
                   </table>
                 </div>
                 {query && !shownStudents.length && (
                   <p className="reg-hint">
-                    Такого ученика нет в списке. Измените поиск.
+                    {tr("Такого ученика нет в списке. Измените поиск.")}
                   </p>
                 )}
                 {!students.length && (
                   <div className="empty-state">
                     <Users size={34} />
-                    <h3>Начнём с первого ученика</h3>
-                    <p>Добавьте строку или вставьте список из Excel.</p>
+                    <h3>{tr("Начнём с первого ученика")}</h3>
+                    <p>{tr("Добавьте строку или вставьте список из Excel.")}</p>
                   </div>
                 )}
                 <div className="reg-add-students">
@@ -1303,7 +1370,8 @@ export default function Registration() {
                     disabled={students.length >= 300}
                     onClick={() => addStudents()}
                   >
-                    <Plus size={19} /> Добавить ученика
+                    <Plus size={19} />
+                    {tr(" Добавить ученика")}
                   </button>
                   <button
                     type="button"
@@ -1311,13 +1379,18 @@ export default function Registration() {
                     disabled={students.length >= 300}
                     onClick={() => addStudents(5)}
                   >
-                    Добавить 5 строк
+                    {tr("Добавить 5 строк")}
                   </button>
-                  <span>{students.length} из 300</span>
+                  <span>
+                    {students.length}
+                    {tr(" из 300")}
+                  </span>
                 </div>
                 <p className="reg-hint">
-                  <ShieldCheck size={17} /> Имена нужны для протокола и
-                  сертификатов. Проверьте написание перед отправкой.
+                  <ShieldCheck size={17} />
+                  {tr(
+                    " Имена нужны для протокола и сертификатов. Проверьте написание перед отправкой.",
+                  )}
                 </p>
               </section>
             )}
@@ -1325,11 +1398,12 @@ export default function Registration() {
               <section className="reg-form-card">
                 <div className="reg-panel-head">
                   <div>
-                    <span className="eyebrow">Шаг 2 из 3</span>
-                    <h2>Центр и учителя</h2>
+                    <span className="eyebrow">{tr("Шаг 2 из 3")}</span>
+                    <h2>{tr("Центр и учителя")}</h2>
                     <p>
-                      Кому сообщить детали участия и подготовить
-                      благодарственные сертификаты?
+                      {tr(
+                        "Кому сообщить детали участия и подготовить благодарственные сертификаты?",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -1356,7 +1430,7 @@ export default function Registration() {
                       key={key}
                     >
                       <span>
-                        {label} <b>*</b>
+                        {tr(label)} <b>*</b>
                       </span>
                       <input
                         type={
@@ -1384,11 +1458,17 @@ export default function Registration() {
                         maxLength={
                           key === "phone" ? 25 : key === "email" ? 200 : 150
                         }
-                        placeholder={placeholder}
+                        placeholder={tr(placeholder)}
                         value={contact[key]}
                         onChange={(e) => {
-                          setContact((v) => ({ ...v, [key]: e.target.value }));
-                          setContactErrors((v) => ({ ...v, [key]: undefined }));
+                          setContact((v) => ({
+                            ...v,
+                            [key]: e.target.value,
+                          }));
+                          setContactErrors((v) => ({
+                            ...v,
+                            [key]: undefined,
+                          }));
                           setError("");
                         }}
                       />
@@ -1402,21 +1482,27 @@ export default function Registration() {
                 <div className="reg-section-heading">
                   <GraduationCap size={26} />
                   <div>
-                    <h3>Благодарственные сертификаты</h3>
+                    <h3>{tr("Благодарственные сертификаты")}</h3>
                     <p>
-                      Ответственный учитель уже включён. Добавьте остальных
-                      педагогов, которым нужен сертификат.
+                      {tr(
+                        "Ответственный учитель уже включён. Добавьте остальных педагогов, которым нужен сертификат.",
+                      )}
                     </p>
                   </div>
                 </div>
                 {teachers.map((teacher, i) => (
                   <div key={i} className="reg-teacher-row">
                     <label className="field">
-                      <span>ФИО педагога {i + 1}</span>
+                      <span>
+                        {tr("ФИО педагога ")}
+                        {tr(i + 1)}
+                      </span>
                       <input
-                        aria-label={`ФИО дополнительного учителя ${i + 1}`}
+                        aria-label={tr("ФИО дополнительного учителя {0}", [
+                          i + 1,
+                        ])}
                         maxLength={150}
-                        placeholder="Фамилия Имя Отчество"
+                        placeholder={tr("Фамилия Имя Отчество")}
                         value={teacher}
                         aria-invalid={Boolean(contactErrors["teachers." + i])}
                         aria-describedby={
@@ -1444,7 +1530,7 @@ export default function Registration() {
                     <button
                       className="icon-btn delete-btn"
                       type="button"
-                      aria-label={`Удалить учителя ${i + 1}`}
+                      aria-label={tr("Удалить учителя {0}", [i + 1])}
                       onClick={() => {
                         setTeachers((list) =>
                           list.filter((_, index) => index !== i),
@@ -1468,16 +1554,20 @@ export default function Registration() {
                   disabled={teachers.length >= 30}
                   onClick={() => setTeachers((list) => [...list, ""])}
                 >
-                  <Plus size={19} /> Добавить педагога
+                  <Plus size={19} />
+                  {tr(" Добавить педагога")}
                 </button>
                 <label className="field reg-note-field">
                   <span>
-                    Комментарий для организатора <small>Необязательно</small>
+                    {tr("Комментарий для организатора ")}
+                    <small>{tr("Необязательно")}</small>
                   </span>
                   <textarea
                     rows={3}
                     maxLength={2000}
-                    placeholder="Например, особые пожелания по программе поездки"
+                    placeholder={tr(
+                      "Например, особые пожелания по программе поездки",
+                    )}
                     value={contact.note}
                     onChange={(e) =>
                       setContact((v) => ({ ...v, note: e.target.value }))
@@ -1486,7 +1576,8 @@ export default function Registration() {
                   <FieldError id="contact-note" message={contactErrors.note} />
                 </label>
                 <button className="text-link" type="button" onClick={saveDraft}>
-                  <Save size={17} /> Сохранить черновик
+                  <Save size={17} />
+                  {tr(" Сохранить черновик")}
                 </button>
               </section>
             )}
@@ -1494,11 +1585,12 @@ export default function Registration() {
               <section className="reg-form-card">
                 <div className="reg-panel-head">
                   <div>
-                    <span className="eyebrow">Шаг 3 из 3</span>
-                    <h2>Проверьте заявку</h2>
+                    <span className="eyebrow">{tr("Шаг 3 из 3")}</span>
+                    <h2>{tr("Проверьте заявку")}</h2>
                     <p>
-                      Проверьте имена учеников и контакты. После отправки заявку
-                      увидит организатор.
+                      {tr(
+                        "Проверьте имена учеников и контакты. После отправки заявку увидит организатор.",
+                      )}
                     </p>
                   </div>
                   <FileCheck2 size={28} />
@@ -1511,20 +1603,20 @@ export default function Registration() {
                     disabled={sending}
                     onClick={() => goTo(2)}
                   >
-                    Изменить контакты
+                    {tr("Изменить контакты")}
                   </button>
                 </div>
                 <div className="reg-review-grid">
                   <div>
-                    <small>Город центра</small>
-                    <strong>{contact.city}</strong>
+                    <small>{tr("Город центра")}</small>
+                    <strong>{tr(contact.city)}</strong>
                   </div>
                   <div>
-                    <small>Ответственный учитель</small>
+                    <small>{tr("Ответственный учитель")}</small>
                     <strong>{contact.teacher}</strong>
                   </div>
                   <div>
-                    <small>Телефон</small>
+                    <small>{tr("Телефон")}</small>
                     <strong>{contact.phone}</strong>
                   </div>
                   <div>
@@ -1533,42 +1625,47 @@ export default function Registration() {
                   </div>
                 </div>
                 <div className="reg-review-heading">
-                  <h3>Ученики · {students.length}</h3>
+                  <h3>
+                    {tr("Ученики · ")}
+                    {students.length}
+                  </h3>
                   <button
                     className="text-link"
                     type="button"
                     disabled={sending}
                     onClick={() => goTo(1)}
                   >
-                    Изменить состав
+                    {tr("Изменить состав")}
                   </button>
                 </div>
                 <div className="reg-review-students">
                   {students.map((s, i) => (
                     <div key={s.key}>
-                      <span>{i + 1}</span>
+                      <span>{tr(i + 1)}</span>
                       <div>
                         <strong>{s.name}</strong>
                         <small>
-                          {Number(s.grade) === 0
-                            ? "Дошкольник"
-                            : s.grade + " класс"}{" "}
-                          · {s.birth.split("-").reverse().join(".")}
+                          {tr(
+                            Number(s.grade) === 0
+                              ? "Дошкольник"
+                              : s.grade + " класс",
+                          )}{" "}
+                          · {tr(s.birth.split("-").reverse().join("."))}
                         </small>
                       </div>
-                      <span>{s.subjects.join(", ")}</span>
+                      <span>{tr(s.subjects.join(", "))}</span>
                     </div>
                   ))}
                 </div>
                 {teachers.length > 0 && (
                   <div className="reg-review-note">
-                    <small>Дополнительные сертификаты педагогам</small>
+                    <small>{tr("Дополнительные сертификаты педагогам")}</small>
                     <p>{teachers.join(", ")}</p>
                   </div>
                 )}
                 {contact.note && (
                   <div className="reg-review-note">
-                    <small>Комментарий</small>
+                    <small>{tr("Комментарий")}</small>
                     <p>{contact.note}</p>
                   </div>
                 )}
@@ -1580,34 +1677,38 @@ export default function Registration() {
                     onChange={(e) => setConsent(e.target.checked)}
                   />
                   <span>
-                    Подтверждаю корректность данных и наличие согласий законных
-                    представителей учеников и педагогов на обработку данных для
-                    участия в олимпиаде.{" "}
+                    {tr(
+                      "Подтверждаю корректность данных и наличие согласий законных представителей учеников и педагогов на обработку данных для участия в олимпиаде.",
+                    )}{" "}
                     <Link to="/privacy" target="_blank">
-                      Условия обработки данных
+                      {tr("Условия обработки данных")}
                     </Link>
                   </span>
                 </label>
               </section>
             )}
-            {error && <ErrorBox>{error}</ErrorBox>}
+            {error && <ErrorBox>{tr(error)}</ErrorBox>}
             <div className="reg-footer-bar">
               <div>
                 <strong>
-                  {step === 1
-                    ? `${stats.ready} из ${stats.total} учеников готовы`
-                    : step === 2
-                      ? `${students.length} учеников в команде`
-                      : "Заявка готова к отправке"}
+                  {tr(
+                    step === 1
+                      ? `${stats.ready} из ${stats.total} учеников готовы`
+                      : step === 2
+                        ? `${students.length} учеников в команде`
+                        : "Заявка готова к отправке",
+                  )}
                 </strong>
                 <p>
-                  {step === 1
-                    ? stats.issues
-                      ? "Заполните данные всех учеников"
-                      : "Можно переходить к контактам"
-                    : step === 2
-                      ? "Контакты нужны для подтверждения участия"
-                      : "Организатор свяжется с вами после получения заявки"}
+                  {tr(
+                    step === 1
+                      ? stats.issues
+                        ? "Заполните данные всех учеников"
+                        : "Можно переходить к контактам"
+                      : step === 2
+                        ? "Контакты нужны для подтверждения участия"
+                        : "Организатор свяжется с вами после получения заявки",
+                  )}
                 </p>
               </div>
               <div className="reg-footer-actions">
@@ -1618,7 +1719,8 @@ export default function Registration() {
                     disabled={sending}
                     onClick={() => goTo(step - 1)}
                   >
-                    <ArrowLeft size={18} /> Назад
+                    <ArrowLeft size={18} />
+                    {tr(" Назад")}
                   </button>
                 )}
                 <button
@@ -1626,11 +1728,13 @@ export default function Registration() {
                   type="submit"
                   disabled={sending}
                 >
-                  {sending
-                    ? "Отправляем…"
-                    : step === 3
-                      ? "Отправить заявку"
-                      : "Продолжить"}
+                  {tr(
+                    sending
+                      ? "Отправляем…"
+                      : step === 3
+                        ? "Отправить заявку"
+                        : "Продолжить",
+                  )}
                   {step === 3 ? <Check size={20} /> : <ArrowRight size={20} />}
                 </button>
               </div>
@@ -1639,28 +1743,31 @@ export default function Registration() {
         </div>
         <aside className="reg-aside">
           <div className="reg-summary-card">
-            <span className="reg-summary-label">Ваша команда</span>
+            <span className="reg-summary-label">{tr("Ваша команда")}</span>
             <div className="reg-total">
-              <strong>{students.length.toString().padStart(2, "0")}</strong>
+              <strong>{tr(students.length.toString().padStart(2, "0"))}</strong>
               <span>
-                учеников
-                <br />в одной заявке
+                {tr("учеников")}
+                <br />
+                {tr("в одной заявке")}
               </span>
             </div>
             <div className="reg-summary-line">
-              <span>Заполнено</span>
+              <span>{tr("Заполнено")}</span>
               <strong>
-                {stats.ready} из {stats.total}
+                {tr(stats.ready)}
+                {tr(" из ")}
+                {tr(stats.total)}
               </strong>
             </div>
             <div className="reg-summary-line">
-              <span>Педагогов</span>
-              <strong>{teachers.filter((v) => v.trim()).length + 1}</strong>
+              <span>{tr("Педагогов")}</span>
+              <strong>{tr(teachers.filter((v) => v.trim()).length + 1)}</strong>
             </div>
             <div className="reg-subject-count">
               {subjects.map((s) => (
                 <div key={s}>
-                  <span>{s}</span>
+                  <span>{tr(s)}</span>
                   <strong>
                     {students.filter((v) => v.subjects.includes(s)).length}
                   </strong>
@@ -1668,37 +1775,44 @@ export default function Registration() {
               ))}
             </div>
             <p className="reg-hint">
-              Один ученик может участвовать в нескольких дисциплинах.
+              {tr("Один ученик может участвовать в нескольких дисциплинах.")}
             </p>
           </div>
           <div className="reg-summary-card">
-            <span className="reg-summary-label">В программе</span>
+            <span className="reg-summary-label">{tr("В программе")}</span>
             <ul className="reg-checklist">
               {event.includes.map((s) => (
                 <li key={s}>
                   <Check size={17} />
-                  {s}
+                  {tr(s)}
                 </li>
               ))}
             </ul>
             <p className="reg-hint">
-              Стоимость и детали организатор подтвердит после заявки.
+              {tr("Стоимость и детали организатор подтвердит после заявки.")}
             </p>
           </div>
           <div className="reg-hint">
             <ShieldCheck size={19} />
             <span>
-              Заявку заполняет учитель. Отдельные аккаунты учеников не нужны.
+              {tr(
+                "Заявку заполняет учитель. Отдельные аккаунты учеников не нужны.",
+              )}
             </span>
           </div>
         </aside>
       </div>
       {picker && (
-        <Modal title="Выберите олимпиаду" onClose={() => setPicker(false)} wide>
+        <Modal
+          title={tr("Выберите олимпиаду")}
+          onClose={() => setPicker(false)}
+          wide
+        >
           {dirty && (
             <p>
-              Состав команды и контакты сохранятся. Дисциплины нужно будет
-              проверить по программе новой олимпиады.
+              {tr(
+                "Состав команды и контакты сохранятся. Дисциплины нужно будет проверить по программе новой олимпиады.",
+              )}
             </p>
           )}
           <EventChoices />
@@ -1706,63 +1820,74 @@ export default function Registration() {
       )}
       {paste && (
         <Modal
-          title="Вставить список учеников"
+          title={tr("Вставить список учеников")}
           onClose={() => setPaste(false)}
           wide
         >
           <p>
-            Скопируйте из Excel столбцы{" "}
-            <strong>ФИО, дата рождения, класс</strong>. Одна строка — один
-            ученик. Четвёртым столбцом можно указать дисциплины через запятую.
+            {tr("Скопируйте из Excel столбцы")}{" "}
+            <strong>{tr("ФИО, дата рождения, класс")}</strong>
+            {tr(
+              ". Одна строка — один ученик. Четвёртым столбцом можно указать дисциплины через запятую.",
+            )}
           </p>
           <div className="reg-import-help">
-            <span>Пример</span>
+            <span>{tr("Пример")}</span>
             <code>
-              Иванов Иван;15.03.2015;5
+              {tr("Иванов Иван;15.03.2015;5")}
               <br />
-              Ахметова Алия;22.07.2016;4
+              {tr("Ахметова Алия;22.07.2016;4")}
             </code>
           </div>
           <label className="field">
-            <span>Список учеников</span>
+            <span>{tr("Список учеников")}</span>
             <textarea
               rows={7}
-              aria-label="Список учеников"
+              aria-label={tr("Список учеников")}
               autoFocus
               value={pasteText}
               onChange={(e) => {
                 setPasteText(e.target.value);
                 setImportErrors([]);
               }}
-              placeholder={
-                "ФИО\tДата рождения\tКласс\nИванов Иван\t15.03.2015\t5"
-              }
+              placeholder={tr(
+                "ФИО\tДата рождения\tКласс\nИванов Иван\t15.03.2015\t5",
+              )}
             />
           </label>
           <p className="small muted">
-            Дата: ДД.ММ.ГГГГ или ГГГГ-ММ-ДД. Класс 0 — дошкольник. Заполненные
-            строки в вашей команде сохранятся.
+            {tr(
+              "Дата: ДД.ММ.ГГГГ или ГГГГ-ММ-ДД. Класс 0 — дошкольник. Заполненные строки в вашей команде сохранятся.",
+            )}
           </p>
           {importErrors.length > 0 && (
             <div className="reg-import-errors" role="alert">
-              <strong>Исправьте список — пока ничего не добавлено</strong>
+              <strong>
+                {tr("Исправьте список — пока ничего не добавлено")}
+              </strong>
               <ul>
                 {importErrors.slice(0, 8).map((issue, index) => (
                   <li key={index}>
-                    {issue.line ? `Строка ${issue.line}: ` : ""}
-                    {issue.message}
+                    {tr(issue.line ? `Строка ${issue.line}: ` : "")}
+                    {issue.messages
+                      ? issue.messages.map((message) => tr(message)).join(" ")
+                      : tr(issue.message)}
                   </li>
                 ))}
               </ul>
               {importErrors.length > 8 && (
-                <p>И ещё ошибок: {importErrors.length - 8}</p>
+                <p>
+                  {tr("И ещё ошибок: ")}
+                  {tr(importErrors.length - 8)}
+                </p>
               )}
             </div>
           )}
           {pasteText.trim() && !imported.errors.length && (
             <p className="reg-import-ready">
-              <Check size={17} /> Готово к добавлению:{" "}
-              {imported.students.length} учеников
+              <Check size={17} />
+              {tr(" Готово к добавлению:")} {imported.students.length}
+              {tr(" учеников")}
             </p>
           )}
           <button
@@ -1770,18 +1895,20 @@ export default function Registration() {
             type="button"
             onClick={importStudents}
           >
-            Добавить учеников <Plus size={19} />
+            {tr("Добавить учеников ")}
+            <Plus size={19} />
           </button>
         </Modal>
       )}
       {leaveTo && (
         <Modal
-          title="Сохранить состав команды?"
+          title={tr("Сохранить состав команды?")}
           onClose={() => setLeaveTo(null)}
         >
           <p>
-            В форме есть заполненные данные. Можно сохранить черновик и
-            вернуться к нему в этой вкладке.
+            {tr(
+              "В форме есть заполненные данные. Можно сохранить черновик и вернуться к нему в этой вкладке.",
+            )}
           </p>
           <div className="reg-leave-actions">
             <button
@@ -1794,7 +1921,8 @@ export default function Registration() {
                 }
               }}
             >
-              Сохранить и выйти <Save size={18} />
+              {tr("Сохранить и выйти ")}
+              <Save size={18} />
             </button>
             <button
               className="btn btn-secondary full-width"
@@ -1804,10 +1932,10 @@ export default function Registration() {
                 navigate(target);
               }}
             >
-              Выйти без сохранения
+              {tr("Выйти без сохранения")}
             </button>
             <button className="text-link" onClick={() => setLeaveTo(null)}>
-              Остаться в форме
+              {tr("Остаться в форме")}
             </button>
           </div>
         </Modal>

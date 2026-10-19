@@ -1,3 +1,4 @@
+import { tr } from "../i18n/runtime.js";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Check, Film, RefreshCw, Trash2, UploadCloud } from "lucide-react";
 import "./EventVideoUploader.css";
@@ -157,7 +158,7 @@ export default function EventVideoUploader({
         (dragging ? " is-dragging" : "") +
         (error ? " has-error" : "")
       }
-      aria-label="Монтаж олимпиады"
+      aria-label={tr("Монтаж олимпиады")}
       aria-busy={uploading}
       onDragOver={(event) => {
         event.preventDefault();
@@ -179,8 +180,10 @@ export default function EventVideoUploader({
       <div className="event-video-upload-heading">
         <Film size={24} />
         <div>
-          <h3>Монтаж олимпиады</h3>
-          <p>Покажите, как прошёл день: участники, эмоции и награждение.</p>
+          <h3>{tr("Монтаж олимпиады")}</h3>
+          <p>
+            {tr("Покажите, как прошёл день: участники, эмоции и награждение.")}
+          </p>
         </div>
       </div>
       <div className="event-video-upload-preview">
@@ -192,20 +195,21 @@ export default function EventVideoUploader({
             muted
             playsInline
             preload="metadata"
-            aria-label="Предпросмотр монтажа олимпиады"
+            aria-label={tr("Предпросмотр монтажа олимпиады")}
             onError={() => setPreviewError(true)}
           />
         ) : (
           <div className="event-video-upload-empty">
             <Film size={38} strokeWidth={1.25} />
-            <span>Ваш день в одном видео</span>
+            <span>{tr("Ваш день в одном видео")}</span>
           </div>
         )}
       </div>
       {previewError && (
         <p className="event-video-preview-error">
-          Браузер не смог воспроизвести предпросмотр. Для MP4 используйте кодек
-          H.264 или выберите WebM.
+          {tr(
+            "Браузер не смог воспроизвести предпросмотр. Для MP4 используйте кодек H.264 или выберите WebM.",
+          )}
         </p>
       )}
       <input
@@ -214,7 +218,7 @@ export default function EventVideoUploader({
         className="event-video-file-input"
         type="file"
         accept={videoTypes.join(",")}
-        aria-label="Загрузить монтаж олимпиады"
+        aria-label={tr("Загрузить монтаж олимпиады")}
         aria-describedby={inputId + "-hint"}
         disabled={disabled}
         tabIndex={-1}
@@ -232,7 +236,7 @@ export default function EventVideoUploader({
           onClick={() => input.current?.click()}
         >
           <UploadCloud size={17} />
-          {source ? "Заменить видео" : "Выбрать видео"}
+          {tr(source ? "Заменить видео" : "Выбрать видео")}
         </button>
         {source && (
           <button
@@ -244,14 +248,17 @@ export default function EventVideoUploader({
               onChange("");
             }}
           >
-            <Trash2 size={16} /> Убрать видео
+            <Trash2 size={16} />
+            {tr(" Убрать видео")}
           </button>
         )}
       </div>
       <p id={inputId + "-hint"} className="event-video-upload-hint">
-        MP4 (H.264) или WebM · до 1 ГБ. Можно перетащить файл сюда.
+        {tr("MP4 (H.264) или WebM · до 1 ГБ. Можно перетащить файл сюда.")}
         <span>
-          Оригинальное качество, включая 1080p60, сохраняется без конвертации.
+          {tr(
+            "Оригинальное качество, включая 1080p60, сохраняется без конвертации.",
+          )}
         </span>
       </p>
       {uploading && (
@@ -259,14 +266,14 @@ export default function EventVideoUploader({
           <div className="event-video-progress-label" role="status">
             <span>
               <RefreshCw size={15} className="spin" />
-              {progress >= 99 ? "Завершаем загрузку…" : "Загружаем видео…"}
+              {tr(progress >= 99 ? "Завершаем загрузку…" : "Загружаем видео…")}
             </span>
-            <strong>{progress}%</strong>
+            <strong>{tr(progress)}%</strong>
           </div>
           <div
             className="event-video-progress-bar"
             role="progressbar"
-            aria-label="Загрузка видео"
+            aria-label={tr("Загрузка видео")}
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={progress}
@@ -277,12 +284,14 @@ export default function EventVideoUploader({
       )}
       {!uploading && fileName && (
         <p className="event-video-upload-success" role="status">
-          <Check size={16} /> Видео загружено <span>{fileName}</span>
+          <Check size={16} />
+          {tr(" Видео загружено ")}
+          <span>{tr(fileName)}</span>
         </p>
       )}
       {error && (
         <p className="event-video-upload-error" role="alert">
-          {error}
+          {tr(error)}
         </p>
       )}
     </section>

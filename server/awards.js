@@ -1,4 +1,5 @@
 import express from "express";
+import { translate, exportLanguage } from "../shared/i18n/index.js";
 import { createHash } from "node:crypto";
 import ExcelJS from "exceljs";
 import { z } from "zod";
@@ -260,6 +261,8 @@ awardsRouter.post(
 awardsRouter.get(
   "/:id/centers/:center/export",
   safely(async (req, res) => {
+    const language = exportLanguage(req.get("Accept-Language"));
+    const t = (value) => translate(value, language);
     const state = snapshot(req.params.id);
     const run = db
       .prepare("SELECT * FROM award_runs WHERE event_id=?")
@@ -272,7 +275,7 @@ awardsRouter.get(
     if (!rows.length) throw fail("Образовательный центр не найден.", 404);
     const book = new ExcelJS.Workbook();
     book.creator = "IQ LAND";
-    const sheet = book.addWorksheet("Результаты", {
+    const sheet = book.addWorksheet(t("Результаты"), {
       views: [{ state: "frozen", ySplit: 4 }],
       pageSetup: {
         orientation: "landscape",
@@ -288,8 +291,9 @@ awardsRouter.get(
     sheet.getCell("A2").value =
       `${rows[0].center} · ${rows[0].city} · ${state.event.date}`;
     sheet.mergeCells("A3:H3");
-    sheet.getCell("A3").value =
-      "Места: золото → серебро → бронза; внутри места — предмет, возрастная категория и баллы.";
+    sheet.getCell("A3").value = t(
+      "Места: золото → серебро → бронза; внутри места — предмет, возрастная категория и баллы.",
+    );
     const headers = [
       "Место",
       "Предмет",
@@ -300,22 +304,22 @@ awardsRouter.get(
       "Баллы",
       "Рейтинг в категории",
     ];
-    sheet.addRow(headers);
+    sheet.addRow(headers.map(t));
     sheet.columns = [16, 29, 25, 37, 12, 12, 15, 24].map((width) => ({
       width,
     }));
     for (const row of rows)
       sheet.addRow([
-        MEDALS[row.medal],
-        row.subject,
-        row.categoryLabel,
+        t(MEDALS[row.medal]),
+        t(row.subject),
+        t(row.categoryLabel),
         row.name,
         row.age,
         row.grade,
         row.score,
         row.rank,
       ]);
-    const fills = { Золото: "FFF5DC", Серебро: "EEF1F6", Бронза: "F8E8DC" };
+    const fills = { gold: "FFF5DC", silver: "EEF1F6", bronze: "F8E8DC" };
     sheet.eachRow((row, i) => {
       row.height = i === 1 ? 36 : i <= 4 ? 30 : 34;
       row.font = {
@@ -330,7 +334,7 @@ awardsRouter.get(
           type: "pattern",
           pattern: "solid",
           fgColor: {
-            argb: i <= 4 ? "FF192851" : "FF" + fills[row.getCell(1).value],
+            argb: i <= 4 ? "FF192851" : "FF" + fills[rows[i - 5].medal],
           },
         };
     });

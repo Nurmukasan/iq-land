@@ -66,7 +66,7 @@ try {
     headless: true,
     args: ["--no-sandbox"],
   });
-  const page = await browser.newPage({
+  const page = await browser.newPage({locale: "ru-RU",
     viewport: { width: 1440, height: 1000 },
   });
   const errors = [];

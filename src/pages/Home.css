@@ -628,3 +628,13 @@
     transform: none !important;
   }
 }
+
+/* Keep the longer English poster caption on two lines in every layout. */
+html[lang="en"] .world-poster > strong {
+  font-size: clamp(56px, 6vw, 96px);
+}
+@media (max-width: 740px) {
+  html[lang="en"] .world-poster > strong {
+    font-size: clamp(48px, 14vw, 90px);
+  }
+}

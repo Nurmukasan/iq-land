@@ -1,3 +1,4 @@
+import { tr, getLanguage } from "../i18n/runtime.js";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -36,11 +37,12 @@ export default function EventRecap() {
   }, [id, reload]);
   useEffect(() => {
     const previous = document.title;
-    if (data) document.title = data.event.title + " · Итоги · IQ LAND";
+    if (data)
+      document.title = data.event.title + " · " + tr("Итоги") + " · IQ LAND";
     return () => {
       document.title = previous;
     };
-  }, [data]);
+  }, [data, getLanguage()]);
   if (loading)
     return (
       <main className="container recap-page">
@@ -51,14 +53,15 @@ export default function EventRecap() {
     return (
       <main className="container recap-page archive-error">
         <Link className="back-link" to="/archive">
-          <ArrowLeft size={16} /> Все прошедшие олимпиады
+          <ArrowLeft size={16} />
+          {tr(" Все прошедшие олимпиады")}
         </Link>
-        <ErrorBox>{error || "Олимпиада не найдена"}</ErrorBox>
+        <ErrorBox>{tr(error || "Олимпиада не найдена")}</ErrorBox>
         <button
           className="btn btn-secondary"
           onClick={() => setReload((v) => v + 1)}
         >
-          Повторить загрузку
+          {tr("Повторить загрузку")}
         </button>
       </main>
     );
@@ -66,70 +69,72 @@ export default function EventRecap() {
   return (
     <main className="container recap-page">
       <Link className="back-link" to="/archive">
-        <ArrowLeft size={16} /> Все прошедшие олимпиады
+        <ArrowLeft size={16} />
+        {tr(" Все прошедшие олимпиады")}
       </Link>
       <MontagePlayer
         key={event.id + event.video}
         src={event.video}
         poster={event.image}
-        title={event.title}
+        title={tr(event.title)}
       />
       <header className="recap-heading">
         <div>
-          <span className="eyebrow">Это было незабываемо.</span>
-          <h1>{event.title}</h1>
+          <span className="eyebrow">{tr("Это было незабываемо.")}</span>
+          <h1>{tr(event.title)}</h1>
           <div className="recap-meta">
             <span>
               <MapPin size={17} />
-              {event.city}, {event.country}
+              {tr(event.city)}, {tr(event.country)}
             </span>
             <span>
               <CalendarDays size={17} />
-              {dateLabel(event.date)}
+              {tr(dateLabel(event.date))}
             </span>
           </div>
         </div>
       </header>
       <section className="recap-story">
         <div>
-          <span className="eyebrow">Об олимпиаде</span>
+          <span className="eyebrow">{tr("Об олимпиаде")}</span>
           <h2>
-            Знания, встречи
+            {tr("Знания, встречи")}
             <br />
-            <span>и открытия.</span>
+            <span>{tr("и открытия.")}</span>
           </h2>
-          <p>{event.description}</p>
+          <p>{tr(event.description)}</p>
           <div className="subject-tags">
             {event.subjects.map((s) => (
-              <span key={s}>{s}</span>
+              <span key={s}>{tr(s)}</span>
             ))}
           </div>
         </div>
         <div className="recap-program">
-          <span className="eyebrow">В программе</span>
+          <span className="eyebrow">{tr("В программе")}</span>
           <ul>
             {event.includes.map((item) => (
               <li key={item}>
                 <Check size={18} />
-                {item}
+                {tr(item)}
               </li>
             ))}
           </ul>
           {event.price !== null && (
             <div className="recap-price">
-              <span>Стоимость участия</span>
-              <strong>{priceLabel(event)}</strong>
+              <span>{tr("Стоимость участия")}</span>
+              <strong>{tr(priceLabel(event))}</strong>
             </div>
           )}
         </div>
       </section>
       <div className="recap-next">
         <div>
-          <span className="eyebrow">Впереди — новые открытия.</span>
-          <p>Увидимся на следующей олимпиаде?</p>
+          <span className="eyebrow">{tr("Впереди — новые открытия.")}</span>
+          <p>{tr("Увидимся на следующей олимпиаде?")}</p>
         </div>
         <Link className="btn btn-primary" to="/#events">
-          Выбрать олимпиаду <ArrowUpRight size={19} />
+          {tr("Выбрать олимпиаду ")}
+          <ArrowUpRight size={19} />
         </Link>
       </div>
     </main>

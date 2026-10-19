@@ -1,3 +1,4 @@
+import { tr } from "../i18n/runtime.js";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -153,38 +154,41 @@ export default function Home() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="hero-eyebrow">
-              <span className="live-dot" /> Международные детские олимпиады
+              <span className="live-dot" />
+              {tr(" Международные детские олимпиады")}
             </p>
             <h1>
-              <span className="hero-line">Думай шире.</span>
-              <span className="hero-line">Открывай</span>
+              <span className="hero-line">{tr("Думай шире.")}</span>
+              <span className="hero-line">{tr("Открывай")}</span>
               <span className="hero-line">
-                <em>целый мир.</em>
+                <em>{tr("целый мир.")}</em>
               </span>
             </h1>
             <p className="hero-description">
-              Математика, английский и ментальная арифметика.
-              <br className="desktop-break" /> Олимпиады в разных странах, новые
-              друзья
-              <br className="desktop-break" /> и впечатления, которые остаются.
+              {tr("Математика, английский и ментальная арифметика.")}
+              <br className="desktop-break" />
+              {tr(" Олимпиады в разных странах, новые друзья")}
+              <br className="desktop-break" />
+              {tr(" и впечатления, которые остаются.")}
             </p>
             <div className="hero-buttons">
               <a className="btn btn-primary" href="#events" data-magnetic>
-                Выбрать олимпиаду{" "}
+                {tr("Выбрать олимпиаду")}{" "}
                 <span className="button-arrow">
                   <ArrowUpRight size={21} />
                 </span>
               </a>
               <a className="text-link" href="#teachers">
-                Как участвовать <ArrowDownIcon />
+                {tr("Как участвовать ")}
+                <ArrowDownIcon />
               </a>
             </div>
             <div className="hero-footnote">
               <span className="footnote-line" />
               <p>
-                Для учителей и образовательных центров.
+                {tr("Для учителей и образовательных центров.")}
                 <br />
-                <strong>Вся команда — в одной заявке.</strong>
+                <strong>{tr("Вся команда — в одной заявке.")}</strong>
               </p>
             </div>
           </div>
@@ -198,7 +202,7 @@ export default function Home() {
                 <EventPhoto
                   key={destination.id + destination.image}
                   src={destination.image}
-                  alt={`Олимпиада IQ LAND · ${destination.city}`}
+                  alt={tr("Олимпиада IQ LAND · {0}", [destination.city])}
                   className="world-stage-photo"
                   fetchPriority="high"
                 />
@@ -223,20 +227,20 @@ export default function Home() {
                     />
                   </svg>
                   <strong>
-                    Весь
+                    {tr("Весь")}
                     <br />
-                    <em>мир.</em>
+                    <em>{tr("мир.")}</em>
                   </strong>
                   <span className="world-poster-note">
-                    начинается
-                    <br />с любопытства.
+                    {tr("начинается с любопытства.")}
                   </span>
                 </div>
               )}
               <div className="world-stage-label">
                 <span>IQ LAND</span>
                 <span>
-                  Олимпиады без границ <ArrowUpRight size={16} />
+                  {tr("Олимпиады без границ ")}
+                  <ArrowUpRight size={16} />
                 </span>
               </div>
               <div
@@ -244,17 +248,17 @@ export default function Home() {
                 key={destination?.id || "world"}
               >
                 <span className="destination-country">
-                  {destination?.country || "Знания. Путешествия. Открытия."}
+                  {tr(destination?.country || "Знания. Путешествия. Открытия.")}
                 </span>
                 <div
                   className="destination-city-row"
                   aria-live="polite"
                   aria-atomic="true"
                 >
-                  <h2>{destination?.city || "Возможности — повсюду."}</h2>
+                  <h2>{tr(destination?.city || "Возможности — повсюду.")}</h2>
                   {destination && (
                     <span className="destination-date">
-                      {dateLabel(destination.date).replace(" г.", "")}
+                      {tr(dateLabel(destination.date).replace(" г.", ""))}
                     </span>
                   )}
                 </div>
@@ -264,12 +268,12 @@ export default function Home() {
               {destination ? (
                 <>
                   <span className="destination-counter">
-                    {String((slide % events.length) + 1).padStart(2, "0")}{" "}
-                    <span>/ {String(events.length).padStart(2, "0")}</span>
+                    {tr(String((slide % events.length) + 1).padStart(2, "0"))}{" "}
+                    <span>/ {tr(String(events.length).padStart(2, "0"))}</span>
                   </span>
                   <div className="destination-nav">
                     <button
-                      aria-label="Предыдущая олимпиада"
+                      aria-label={tr("Предыдущая олимпиада")}
                       disabled={events.length < 2}
                       onClick={() =>
                         setSlide((s) => (s - 1 + events.length) % events.length)
@@ -278,7 +282,7 @@ export default function Home() {
                       <ArrowLeft size={20} />
                     </button>
                     <button
-                      aria-label="Следующая олимпиада"
+                      aria-label={tr("Следующая олимпиада")}
                       disabled={events.length < 2}
                       onClick={() => setSlide((s) => (s + 1) % events.length)}
                     >
@@ -288,11 +292,13 @@ export default function Home() {
                 </>
               ) : (
                 <span className="world-stage-motto">
-                  За пределами привычного <ArrowRight size={17} />
+                  {tr("За пределами привычного ")}
+                  <ArrowRight size={17} />
                 </span>
               )}
               <a href="#events" className="destination-link">
-                Смотреть афишу <ArrowUpRight size={18} />
+                {tr("Смотреть афишу ")}
+                <ArrowUpRight size={18} />
               </a>
             </div>
           </div>
@@ -306,19 +312,20 @@ export default function Home() {
         <div className="landing-section-heading" data-reveal>
           <div>
             <span className="eyebrow">
-              <span className="section-dot" /> Три способа показать, на что ты
-              способен
+              <span className="section-dot" />
+              {tr(" Три способа показать, на что ты способен")}
             </span>
             <h2 id="directions-title">
-              У каждого таланта
+              {tr("У каждого таланта")}
               <br />
-              своё <span className="word-highlight">направление.</span>
+              {tr("своё ")}
+              <span className="word-highlight">{tr("направление.")}</span>
             </h2>
           </div>
           <p>
-            Разные интересы.
+            {tr("Разные интересы.")}
             <br />
-            Одинаково большие возможности.
+            {tr("Одинаково большие возможности.")}
           </p>
         </div>
         <div className="direction-grid">
@@ -333,28 +340,32 @@ export default function Home() {
                 setFilter(direction.name);
                 setCountry("Все страны");
               }}
-              aria-label={"Найти олимпиады: " + direction.name}
+              aria-label={tr("Найти олимпиады: " + direction.name)}
             >
               <div className="direction-card-top">
-                <span>{direction.number} / НАПРАВЛЕНИЕ</span>
+                <span>
+                  {tr(direction.number)}
+                  {tr(" / НАПРАВЛЕНИЕ")}
+                </span>
                 <span className="direction-arrow">
                   <ArrowUpRight size={22} />
                 </span>
               </div>
               <div className="direction-art" aria-hidden="true">
                 <span className="direction-orbit" />
-                <strong>{direction.glyph}</strong>
+                <strong>{tr(direction.glyph)}</strong>
                 <span className="direction-spark">
                   <Asterisk strokeWidth={1.5} />
                 </span>
               </div>
               <div className="direction-card-copy">
-                <span className="direction-kicker">{direction.label}</span>
-                <h3>{direction.name}</h3>
-                <p>{direction.description}</p>
+                <span className="direction-kicker">{tr(direction.label)}</span>
+                <h3>{tr(direction.name)}</h3>
+                <p>{tr(direction.description)}</p>
               </div>
               <span className="direction-card-link">
-                Выбрать олимпиаду <ArrowRight size={18} />
+                {tr("Выбрать олимпиаду ")}
+                <ArrowRight size={18} />
               </span>
             </a>
           ))}
@@ -365,39 +376,44 @@ export default function Home() {
         <div className="section-title-row" data-reveal>
           <div>
             <span className="eyebrow">
-              <span className="section-dot" /> Ближайшие олимпиады
+              <span className="section-dot" />
+              {tr(" Ближайшие олимпиады")}
             </span>
             <h2>
-              Следующая точка
+              {tr("Следующая точка")}
               <br />
-              на{" "}
+              {tr("на")}{" "}
               <span className="word-highlight highlight-blue">
-                вашей карте.
+                {tr("вашей карте.")}
               </span>
             </h2>
           </div>
           <p className="section-aside">
             {events.length ? (
               <>
-                Выберите город и направление.
+                {tr("Выберите город и направление.")}
                 <br />
-                Зарегистрируйте команду —<br />
-                остальное обсудим вместе.
+                {tr("Зарегистрируйте команду —")}
+                <br />
+                {tr("остальное обсудим вместе.")}
               </>
             ) : (
               <>
-                Города, даты и программы
+                {tr("Города, даты и программы")}
                 <br />
-                появятся здесь, когда откроется
+                {tr("появятся здесь, когда откроется")}
                 <br />
-                регистрация на новые события.
+                {tr("регистрация на новые события.")}
               </>
             )}
           </p>
         </div>
         {events.length > 0 && (
           <div className="event-filters">
-            <div className="filter-tabs" aria-label="Направление олимпиады">
+            <div
+              className="filter-tabs"
+              aria-label={tr("Направление олимпиады")}
+            >
               {subjects.map((s) => (
                 <button
                   key={s.name}
@@ -408,20 +424,22 @@ export default function Home() {
                   onClick={() => setFilter(s.name)}
                 >
                   <s.icon size={18} />
-                  {s.name}
+                  {tr(s.name)}
                 </button>
               ))}
             </div>
             <label className="country-select">
               <MapPin size={18} />
               <select
-                aria-label="Страна олимпиады"
+                aria-label={tr("Страна олимпиады")}
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
               >
-                <option>Все страны</option>
+                <option value="Все страны">{tr("Все страны")}</option>
                 {[...new Set(events.map((e) => e.country))].map((c) => (
-                  <option key={c}>{c}</option>
+                  <option key={c} value={c}>
+                    {tr(c)}
+                  </option>
                 ))}
               </select>
             </label>
@@ -431,9 +449,9 @@ export default function Home() {
           <Spinner />
         ) : error ? (
           <div>
-            <ErrorBox>{error}</ErrorBox>
+            <ErrorBox>{tr(error)}</ErrorBox>
             <button className="btn btn-secondary" onClick={load}>
-              Повторить загрузку
+              {tr("Повторить загрузку")}
             </button>
           </div>
         ) : visible.length ? (
@@ -443,16 +461,16 @@ export default function Home() {
                 <button
                   className="event-image-button"
                   onClick={() => setSelected(e)}
-                  aria-label={"Подробнее об олимпиаде в городе " + e.city}
+                  aria-label={tr("Подробнее об олимпиаде в городе " + e.city)}
                 >
                   <EventPhoto
                     src={e.image}
-                    alt={`Олимпиада IQ LAND · ${e.city}`}
+                    alt={tr("Олимпиада IQ LAND · {0}", [e.city])}
                     loading="lazy"
                   />
                   <span className="event-date">
                     <CalendarDays size={17} />
-                    {dateLabel(e.date).replace(" г.", "")}
+                    {tr(dateLabel(e.date).replace(" г.", ""))}
                   </span>
                   <span className="event-photo-arrow">
                     <ArrowUpRight size={24} />
@@ -461,40 +479,46 @@ export default function Home() {
                 <div className="event-card-body">
                   <div className="event-city-row">
                     <div>
-                      <span className="event-country">{e.country}</span>
-                      <h3>{e.city}</h3>
+                      <span className="event-country">{tr(e.country)}</span>
+                      <h3>{tr(e.city)}</h3>
                     </div>
                     <button
                       className="text-link event-program-link"
                       onClick={() => setSelected(e)}
                     >
-                      Программа <ArrowUpRight size={17} />
+                      {tr("Программа ")}
+                      <ArrowUpRight size={17} />
                     </button>
                   </div>
                   <div className="subject-tags">
                     {e.subjects.map((s) => (
-                      <span key={s}>{s}</span>
+                      <span key={s}>{tr(s)}</span>
                     ))}
                   </div>
                   <div className="event-inclusion">
-                    <span>Ещё в программе</span>
+                    <span>{tr("Ещё в программе")}</span>
                     <p>
-                      {e.includes
-                        .filter(
-                          (x) =>
-                            !x.includes("Участие") && !x.includes("Сертификат"),
-                        )
-                        .join(" · ") || "Подробности в программе олимпиады"}
+                      {tr(
+                        e.includes
+                          .filter(
+                            (x) =>
+                              !x.includes("Участие") &&
+                              !x.includes("Сертификат"),
+                          )
+                          .join(" · ") || "Подробности в программе олимпиады",
+                      )}
                     </p>
                   </div>
                   <div className="event-card-bottom">
                     <div>
-                      <strong>{priceLabel(e)}</strong>
+                      <strong>{tr(priceLabel(e))}</strong>
                       <span className="available">
                         <span />
-                        {isOpen(e)
-                          ? "Приём заявок открыт"
-                          : "Регистрация завершена"}
+                        {tr(
+                          isOpen(e)
+                            ? "Приём заявок открыт"
+                            : "Регистрация завершена",
+                        )}
                       </span>
                     </div>
                     {isOpen(e) ? (
@@ -502,7 +526,7 @@ export default function Home() {
                         className="btn btn-primary"
                         to={"/events/" + e.id + "/register"}
                       >
-                        Зарегистрировать команду
+                        {tr("Зарегистрировать команду")}
                         <ArrowUpRight size={20} />
                       </Link>
                     ) : (
@@ -510,7 +534,8 @@ export default function Home() {
                         className="btn btn-secondary"
                         onClick={() => setSelected(e)}
                       >
-                        Смотреть программу <ArrowUpRight size={20} />
+                        {tr("Смотреть программу ")}
+                        <ArrowUpRight size={20} />
                       </button>
                     )}
                   </div>
@@ -525,14 +550,18 @@ export default function Home() {
             </span>
             <div>
               <h3>
-                {events.length
-                  ? "Новые направления впереди"
-                  : "Впереди — новые открытия."}
+                {tr(
+                  events.length
+                    ? "Новые направления впереди"
+                    : "Впереди — новые открытия.",
+                )}
               </h3>
               <p>
-                {events.length
-                  ? "Попробуйте выбрать другую дисциплину или страну."
-                  : "Здесь появятся города, даты и программы ближайших олимпиад. А пока узнайте, как зарегистрировать свою команду."}
+                {tr(
+                  events.length
+                    ? "Попробуйте выбрать другую дисциплину или страну."
+                    : "Здесь появятся города, даты и программы ближайших олимпиад. А пока узнайте, как зарегистрировать свою команду.",
+                )}
               </p>
               {events.length ? (
                 <button
@@ -542,7 +571,8 @@ export default function Home() {
                     setCountry("Все страны");
                   }}
                 >
-                  Показать все олимпиады <ArrowRight size={18} />
+                  {tr("Показать все олимпиады ")}
+                  <ArrowRight size={18} />
                 </button>
               ) : (
                 <a
@@ -551,7 +581,8 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Следить за анонсами <Instagram size={18} />
+                  {tr("Следить за анонсами ")}
+                  <Instagram size={18} />
                 </a>
               )}
             </div>
@@ -564,12 +595,13 @@ export default function Home() {
           <div className="about-grid" data-reveal>
             <div>
               <span className="eyebrow">
-                <span className="section-dot" /> Это больше, чем олимпиада
+                <span className="section-dot" />
+                {tr(" Это больше, чем олимпиада")}
               </span>
               <h2>
-                Мир больше
+                {tr("Мир больше")}
                 <br />
-                <span>учебника.</span>
+                <span>{tr("учебника.")}</span>
               </h2>
             </div>
             <div className="about-copy">
@@ -578,20 +610,21 @@ export default function Home() {
                 <span className="orbit-dot orbit-coral" />
                 <span className="orbit-dot orbit-lime" />
                 <span className="orbit-label">
-                  ЗНАНИЯ БЕЗ ГРАНИЦ <ArrowUpRight size={15} />
+                  {tr("ЗНАНИЯ БЕЗ ГРАНИЦ ")}
+                  <ArrowUpRight size={15} />
                 </span>
               </div>
               <p className="about-statement">
-                Олимпиада — повод поверить в себя.
+                {tr("Олимпиада — повод поверить в себя.")}
                 <br />
-                Путешествие — увидеть, сколько
+                {tr("Путешествие — увидеть, сколько")}
                 <br />
-                всего ещё впереди.
+                {tr("всего ещё впереди.")}
               </p>
               <p>
-                IQ LAND соединяет знания с настоящими впечатлениями. Дети
-                пробуют свои силы, знакомятся с новыми странами и возвращаются с
-                желанием расти дальше.
+                {tr(
+                  "IQ LAND соединяет знания с настоящими впечатлениями. Дети пробуют свои силы, знакомятся с новыми странами и возвращаются с желанием расти дальше.",
+                )}
               </p>
             </div>
           </div>
@@ -618,11 +651,11 @@ export default function Home() {
             ].map((v) => (
               <div key={v.n} data-reveal className="discovery-value">
                 <div className="value-top">
-                  <span className="value-number">{v.n}</span>
+                  <span className="value-number">{tr(v.n)}</span>
                   <v.icon size={25} strokeWidth={1.6} />
                 </div>
-                <h3>{v.t}</h3>
-                <p>{v.p}</p>
+                <h3>{tr(v.t)}</h3>
+                <p>{tr(v.p)}</p>
               </div>
             ))}
           </div>
@@ -633,21 +666,23 @@ export default function Home() {
         <div className="section-title-row" data-reveal>
           <div>
             <span className="eyebrow">
-              <span className="section-dot" /> Учителям — проще
+              <span className="section-dot" />
+              {tr(" Учителям — проще")}
             </span>
             <h2>
-              Большая команда.
+              {tr("Большая команда.")}
               <br />
               <span className="word-highlight highlight-violet">
-                Одна простая заявка.
+                {tr("Одна простая заявка.")}
               </span>
             </h2>
           </div>
           <p className="section-aside">
-            Не нужны аккаунты учеников
-            <br />и десятки отдельных заявок.
+            {tr("Не нужны аккаунты учеников")}
             <br />
-            Вся команда — в одной форме.
+            {tr("и десятки отдельных заявок.")}
+            <br />
+            {tr("Вся команда — в одной форме.")}
           </p>
         </div>
         <div className="steps-grid">
@@ -670,32 +705,36 @@ export default function Home() {
           ].map((s) => (
             <div className="step-card" key={s.n} data-reveal>
               <span className="step-number">
-                {s.n}
+                {tr(s.n)}
                 <ArrowUpRight size={24} />
               </span>
-              <h3>{s.t}</h3>
-              <p>{s.p}</p>
+              <h3>{tr(s.t)}</h3>
+              <p>{tr(s.p)}</p>
             </div>
           ))}
         </div>
         <div className="teacher-shortcuts" data-reveal>
           <span>
-            <Users size={18} /> Вся команда сразу
+            <Users size={18} />
+            {tr(" Вся команда сразу")}
           </span>
           <span>
-            <BadgeCheck size={18} /> Педагоги в одной заявке
+            <BadgeCheck size={18} />
+            {tr(" Педагоги в одной заявке")}
           </span>
           <span>
-            <Send size={18} /> Telegram после регистрации
+            <Send size={18} />
+            {tr(" Telegram после регистрации")}
           </span>
         </div>
         <div className="teacher-bottom">
           <span>
-            <Check size={20} /> Вы отправляете заявку. Организатор подтверждает
-            детали.
+            <Check size={20} />
+            {tr(" Вы отправляете заявку. Организатор подтверждает детали.")}
           </span>
           <a className="btn btn-primary" href="#events">
-            Начать с выбора олимпиады <ArrowUpRight size={20} />
+            {tr("Начать с выбора олимпиады ")}
+            <ArrowUpRight size={20} />
           </a>
         </div>
       </section>
@@ -703,11 +742,11 @@ export default function Home() {
       {promo?.active && (
         <section className="cta-section container next-chapter" data-reveal>
           <div>
-            <span className="eyebrow">{promo.eyebrow}</span>
+            <span className="eyebrow">{tr(promo.eyebrow)}</span>
             <h2>
-              {promo.title}
+              {tr(promo.title)}
               <br />
-              <span>{promo.subtitle}</span>
+              <span>{tr(promo.subtitle)}</span>
             </h2>
             <a
               href={promo.href}
@@ -718,7 +757,7 @@ export default function Home() {
                   : undefined
               }
             >
-              {promo.button}
+              {tr(promo.button)}
               <ArrowUpRight size={21} />
             </a>
           </div>
@@ -735,18 +774,18 @@ export default function Home() {
 
       <section className="section container faq-section" id="faq">
         <div data-reveal>
-          <span className="eyebrow">Перед первым шагом</span>
+          <span className="eyebrow">{tr("Перед первым шагом")}</span>
           <h2>
-            Сначала — вопросы.
+            {tr("Сначала — вопросы.")}
             <br />{" "}
             <span className="word-highlight highlight-coral">
-              Потом — открытия.
+              {tr("Потом — открытия.")}
             </span>
           </h2>
           <p>
-            Ответы, чтобы начать
+            {tr("Ответы, чтобы начать")}
             <br />
-            без лишних сомнений.
+            {tr("без лишних сомнений.")}
           </p>
         </div>
         <div className="faq-list">
@@ -760,7 +799,7 @@ export default function Home() {
                 aria-controls={"faq-" + i}
                 onClick={() => setFaq(faq === i ? -1 : i)}
               >
-                <span>{q}</span>
+                <span>{tr(q)}</span>
                 <span className="faq-toggle">
                   {faq === i ? <Minus size={21} /> : <Plus size={21} />}
                 </span>
@@ -771,7 +810,7 @@ export default function Home() {
                 inert={faq !== i ? true : undefined}
               >
                 <div>
-                  <p>{a}</p>
+                  <p>{tr(a)}</p>
                 </div>
               </div>
             </div>
@@ -787,19 +826,27 @@ export default function Home() {
       >
         <div className="contact-copy">
           <span className="eyebrow">
-            <span className="section-dot" /> На связи — IQ LAND
+            <span className="section-dot" />
+            {tr(" На связи — IQ LAND")}
           </span>
           <h2 id="contacts-title">
-            Знакомство
-            <br />
-            начинается с <span>hello.</span>
+            {tr("Знакомство начинается с hello.")
+              .split("hello")
+              .map((part, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <span>hello</span>}
+                  {part}
+                </React.Fragment>
+              ))}
           </h2>
           <p>
-            Есть вопрос об участии или хотите привезти свою команду? Напишите
-            нам в Instagram. Там же — анонсы и моменты с наших олимпиад.
+            {tr(
+              "Есть вопрос об участии или хотите привезти свою команду? Напишите нам в Instagram. Там же — анонсы и моменты с наших олимпиад.",
+            )}
           </p>
           <a className="contact-event-link" href="#events">
-            А пока — выберите свою олимпиаду <ArrowUpRight size={19} />
+            {tr("А пока — выберите свою олимпиаду ")}
+            <ArrowUpRight size={19} />
           </a>
         </div>
         <a
@@ -811,7 +858,7 @@ export default function Home() {
           data-tilt
         >
           <div className="instagram-contact-top">
-            <span>НАШ INSTAGRAM</span>
+            <span>{tr("НАШ INSTAGRAM")}</span>
             <ArrowUpRight size={25} />
           </div>
           <div className="instagram-art" aria-hidden="true">
@@ -822,45 +869,48 @@ export default function Home() {
           </div>
           <strong>@iqland_competitions</strong>
           <span className="instagram-contact-bottom">
-            Новости, впечатления и ответы <ArrowRight size={19} />
+            {tr("Новости, впечатления и ответы ")}
+            <ArrowRight size={19} />
           </span>
         </a>
       </section>
 
       {selected && (
         <Modal
-          title={selected.city + " · " + selected.country}
+          title={tr(selected.city + " · " + selected.country)}
           onClose={() => setSelected(null)}
         >
           <EventPhoto
             className="detail-image"
             src={selected.image}
-            alt={`Олимпиада IQ LAND · ${selected.city}`}
+            alt={tr("Олимпиада IQ LAND · {0}", [selected.city])}
           />
-          <span className="eyebrow">{dateLabel(selected.date)}</span>
-          <h3>{selected.title}</h3>
-          <p>{selected.description}</p>
+          <span className="eyebrow">{tr(dateLabel(selected.date))}</span>
+          <h3>{tr(selected.title)}</h3>
+          <p>{tr(selected.description)}</p>
           <div className="subject-tags">
             {selected.subjects.map((s) => (
-              <span key={s}>{s}</span>
+              <span key={s}>{tr(s)}</span>
             ))}
           </div>
-          <h4>В программе</h4>
+          <h4>{tr("В программе")}</h4>
           <ul className="check-list">
             {selected.includes.map((s) => (
               <li key={s}>
                 <Check size={18} />
-                {s}
+                {tr(s)}
               </li>
             ))}
           </ul>
           <p>
-            Регистрация до {dateLabel(selected.deadline)}.<br />
-            <strong>{priceLabel(selected)}</strong>
+            {tr("Регистрация до ")}
+            {tr(dateLabel(selected.deadline))}.<br />
+            <strong>{tr(priceLabel(selected))}</strong>
           </p>
           <p className="muted small">
-            Предварительная программа. Организатор подтвердит детали после
-            заявки.
+            {tr(
+              "Предварительная программа. Организатор подтвердит детали после заявки.",
+            )}
           </p>
           <Link
             className="btn btn-primary full-width"
@@ -870,9 +920,11 @@ export default function Home() {
                 : "/register"
             }
           >
-            {isOpen(selected)
-              ? "Зарегистрировать команду"
-              : "Выбрать другую олимпиаду"}
+            {tr(
+              isOpen(selected)
+                ? "Зарегистрировать команду"
+                : "Выбрать другую олимпиаду",
+            )}
             <ArrowUpRight size={20} />
           </Link>
         </Modal>

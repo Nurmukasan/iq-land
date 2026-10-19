@@ -77,7 +77,7 @@ async function stopServer() {
 }
 
 async function newPage() {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const page = await browser.newPage({locale: "ru-RU", viewport: { width: 1440, height: 1000 } });
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("dialog", (dialog) => dialog.accept());
   return page;
