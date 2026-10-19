@@ -30,6 +30,8 @@ import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Dashboard, { Login } from "./pages/Dashboard";
 import InteractionMotion from "./components/InteractionMotion";
+import Archive from "./pages/Archive";
+import EventRecap from "./pages/EventRecap";
 
 export async function api(url, options = {}) {
   let res;
@@ -174,6 +176,14 @@ function Header() {
           aria-label="Главная навигация"
         >
           <Link to="/#events">Олимпиады</Link>
+          <Link
+            to="/archive"
+            aria-current={
+              loc.pathname.startsWith("/archive") ? "page" : undefined
+            }
+          >
+            Прошедшие олимпиады
+          </Link>
           <Link to="/register">Регистрация</Link>
           <Link to="/#teachers">Учителям</Link>
           <Link to="/#about">Зачем IQ LAND</Link>
@@ -220,6 +230,7 @@ export function Footer() {
           </p>
           <div>
             <Link to="/#events">Олимпиады</Link>
+            <Link to="/archive">Прошедшие олимпиады</Link>
             <Link to="/#teachers">Для учителей</Link>
           </div>
           <div>
@@ -323,6 +334,8 @@ function App() {
         <div id="main-content" tabIndex={-1}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/archive" element={<Archive />} />
+            <Route path="/archive/:id" element={<EventRecap />} />
             <Route path="/events/:id/register" element={<Registration />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Login />} />

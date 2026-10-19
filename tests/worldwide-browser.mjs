@@ -383,22 +383,18 @@ try {
   });
   expect(closedEvent.ok()).toBe(true);
   await page.goto(base);
-  await page.locator(".event-card").getByRole("button", {
-    name: "Смотреть программу", exact: true,
-  }).click();
-  const programme = page.getByRole("dialog");
-  await expect(programme).toBeVisible();
+  await expect(page.locator(".event-card")).toHaveCount(0);
+  await page.getByRole("navigation", { name: "Главная навигация", exact: true })
+    .getByRole("link", { name: "Прошедшие олимпиады", exact: true }).click();
+  await expect(page).toHaveURL(base + "/archive");
+  await page.locator(`a[href="/archive/${eventId}"]`).first().click();
+  await expect(page).toHaveURL(base + `/archive/${eventId}`);
+  const programme = page.locator("main");
   await expect(programme).toContainText(currentEvent.title);
   await expect(programme).toContainText(currentEvent.description);
   for (const inclusion of currentEvent.includes)
     await expect(programme).toContainText(inclusion);
-  const anotherEvent = programme.getByRole("link", {
-    name: "Выбрать другую олимпиаду", exact: true,
-  });
-  await expect(anotherEvent).toHaveAttribute("href", "/register");
-  await anotherEvent.click();
-  await expect(page).toHaveURL(base + "/register");
-  console.log("PASS: closed event opens its programme and offers another event instead of closed registration");
+  console.log("PASS: past event leaves the upcoming list and opens its programme through the archive");
 
   expect(errors).toEqual([]);
   console.log("PASS: no browser runtime errors");

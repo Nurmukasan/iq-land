@@ -12,6 +12,7 @@ import {
   Eye,
   EyeOff,
   FileSpreadsheet,
+  Film,
   GraduationCap,
   ImagePlus,
   LayoutDashboard,
@@ -38,6 +39,10 @@ import {
   Modal,
 } from "../main";
 import EventPhoto from "../components/EventPhoto";
+import EventVideoUploader from "../components/EventVideoUploader";
+
+const isPastEvent = (event) =>
+  event.date < new Date().toISOString().slice(0, 10);
 
 const statusNames = {
   new: "Новая",
@@ -175,6 +180,7 @@ export default function Dashboard() {
     [grade, setGrade] = useState(""),
     [detail, setDetail] = useState(null),
     [editing, setEditing] = useState(null),
+    [archiving, setArchiving] = useState(null),
     [exporting, setExporting] = useState(false);
   const load = async () => {
     setBusy(true);
@@ -718,7 +724,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-              {tab === "events" && (
+              {tab === "events" && user.role === "admin" && (
                 <div className="workspace-panel">
                   <div className="workspace-heading">
                     <div>
@@ -753,15 +759,38 @@ export default function Dashboard() {
                               (!e.active ? "inactive" : "")
                             }
                           >
-                            {e.active ? "Опубликовано" : "Скрыто из афиши"}
+                            {e.active
+                              ? isPastEvent(e)
+                                ? "В архиве"
+                                : "Опубликовано"
+                              : "Скрыто с сайта"}
                           </span>
                         </div>
-                        <button
-                          className="btn btn-secondary btn-small"
-                          onClick={() => setEditing(e)}
-                        >
-                          <Pencil size={15} /> Изменить
-                        </button>
+                        <div className="event-manage-actions">
+                          <button
+                            className="btn btn-secondary btn-small"
+                            onClick={() => setEditing(e)}
+                          >
+                            <Pencil size={15} /> Изменить
+                          </button>
+                          {isPastEvent(e) && (
+                            <button
+                              className="btn btn-secondary btn-small event-archive-button"
+                              onClick={() => setArchiving(e)}
+                            >
+                              <Film size={15} /> Итоги и видео
+                            </button>
+                          )}
+                          {isPastEvent(e) && e.active && (
+                            <Link
+                              to={"/archive/" + e.id}
+                              className="text-link event-manage-public-link"
+                            >
+                              Открыть страницу олимпиады{" "}
+                              <ArrowUpRight size={15} />
+                            </Link>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -851,9 +880,165 @@ export default function Dashboard() {
           }}
         />
       )}
+      {archiving && user.role === "admin" && (
+        <ArchiveEditor
+          event={archiving}
+          onClose={() => setArchiving(null)}
+          onSaved={() => {
+            setArchiving(null);
+            load();
+            notify("Итоги олимпиады сохранены");
+          }}
+        />
+      )}
     </main>
   );
 }
+function ArchiveEditor({ event, onClose, onSaved }) {
+  const [video, setVideo] = useState(event.video || ""),
+    [resultsPublished, setResultsPublished] = useState(
+      Boolean(event.resultsPublished),
+    ),
+    [uploading, setUploading] = useState(false),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState("");
+  const detailsId = useId();
+  const mounted = useRef(false),
+    saving = useRef(false),
+    uploadBusy = useRef(false),
+    request = useRef(null);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      request.current?.abort();
+    };
+  }, []);
+
+  async function save(eventObject) {
+    eventObject.preventDefault();
+    if (saving.current || uploadBusy.current) return;
+    saving.current = true;
+    const controller = new AbortController();
+    request.current = controller;
+    setBusy(true);
+    setError("");
+    try {
+      await api("/events/" + event.id + "/archive", {
+        method: "PUT",
+        body: JSON.stringify({ video, resultsPublished }),
+        signal: controller.signal,
+      });
+      if (mounted.current) onSaved();
+    } catch (error) {
+      if (mounted.current) setError(error.message);
+    } finally {
+      saving.current = false;
+      if (mounted.current) setBusy(false);
+    }
+  }
+
+  return (
+    <Modal title={"Итоги олимпиады · " + event.city} onClose={onClose} wide>
+      <form className="archive-editor-form" onSubmit={save}>
+        <div className="archive-editor-event">
+          <EventPhoto
+            src={event.image}
+            alt={event.city}
+            className="archive-editor-photo"
+          />
+          <div className="archive-editor-event-info">
+            <span>
+              {event.flag} {event.country}
+            </span>
+            <strong>{event.title}</strong>
+            <small>
+              <CalendarDays size={14} /> {dateLabel(event.date)}
+            </small>
+          </div>
+        </div>
+        <p className="archive-editor-intro">
+          Соберите воспоминания и результаты в одном месте. Сохранённое видео
+          появится на странице прошедшей олимпиады.
+        </p>
+        <EventVideoUploader
+          value={video}
+          onChange={(value) => {
+            setVideo(value);
+            setError("");
+          }}
+          onBusyChange={(value) => {
+            uploadBusy.current = value;
+            setUploading(value);
+            if (value) setError("");
+          }}
+          disabled={busy}
+        />
+        <section
+          className={
+            "archive-results-publishing" +
+            (resultsPublished ? " is-published" : "")
+          }
+        >
+          <label className="archive-results-toggle">
+            <input
+              type="checkbox"
+              aria-label="Опубликовать результаты"
+              aria-describedby={detailsId}
+              checked={resultsPublished}
+              disabled={busy}
+              onChange={(eventObject) => {
+                setResultsPublished(eventObject.target.checked);
+                setError("");
+              }}
+            />
+            <span>
+              <strong>Опубликовать результаты</strong>
+              <small>
+                Покажите участникам их баллы и места на странице олимпиады.
+              </small>
+            </span>
+          </label>
+          <p id={detailsId}>
+            {resultsPublished
+              ? "Будут видны ФИО, класс, дисциплина, баллы и место участников с выставленными баллами. Отменённые заявки не публикуются."
+              : "Результаты будут скрыты. Вы сможете опубликовать их позже, когда протокол будет готов."}
+          </p>
+        </section>
+        {event.active && isPastEvent(event) && (
+          <Link
+            className="text-link archive-editor-public-link"
+            to={"/archive/" + event.id}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Открыть страницу олимпиады <ArrowUpRight size={17} />
+          </Link>
+        )}
+        {!event.active && (
+          <p className="archive-editor-hidden-note">
+            Олимпиада скрыта с сайта. Видео и результаты станут доступны после
+            публикации мероприятия.
+          </p>
+        )}
+        {error && <ErrorBox>{error}</ErrorBox>}
+        <div className="archive-editor-actions">
+          {uploading && (
+            <p role="status">Дождитесь завершения загрузки видео.</p>
+          )}
+          <button
+            className="btn btn-primary full-width"
+            type="submit"
+            disabled={busy || uploading}
+          >
+            {busy ? "Сохраняем…" : "Сохранить итоги"} <Check size={18} />
+          </button>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
 function ScoreInput({ row, onSave }) {
   const [value, setValue] = useState(String(row.score ?? "")),
     [invalid, setInvalid] = useState(false);
@@ -1139,11 +1324,12 @@ function EventEditor({ event, onClose, onSaved }) {
     setBusy(true);
     setError("");
     try {
+      const { video, resultsPublished, ...details } = form;
       await api("/events" + (event.id ? "/" + event.id : ""), {
         method: event.id ? "PUT" : "POST",
         signal: controller.signal,
         body: JSON.stringify({
-          ...form,
+          ...details,
           includes: form.includes.map((item) => item.trim()).filter(Boolean),
           price:
             form.price === "" || form.price === null

@@ -2770,7 +2770,13 @@ svg {
   }
 }
 
-@media (min-width: 741px) and (max-width: 980px) {
+@media (min-width: 741px) and (max-width: 1320px) {
+  .header-inner {
+    height: 86px;
+  }
+  .header-cta {
+    display: none;
+  }
   .nav-links {
     display: none;
     position: absolute;
@@ -2796,4 +2802,11 @@ svg {
   .mobile-menu {
     display: inline-flex !important;
   }
+}
+
+.nav-links > a[aria-current="page"] {
+  color: #64792a;
+}
+.nav-links > a[aria-current="page"]::after {
+  transform: scaleX(1);
 }

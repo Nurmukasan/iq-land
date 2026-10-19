@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { isExistingEventImage } from "./event-images.js";
+import { isExistingEventVideo } from "./event-videos.js";
 const text = (max = 150) =>
   z
     .string()
@@ -70,3 +71,16 @@ export const eventSchema = z
     message: "Дедлайн должен быть до олимпиады",
     path: ["deadline"],
   });
+
+export const archiveSchema = z
+  .object({
+    video: z
+      .string()
+      .max(255)
+      .refine(
+        isExistingEventVideo,
+        "Загрузите монтаж через форму или оставьте видео пустым",
+      ),
+    resultsPublished: z.boolean(),
+  })
+  .strict();

@@ -20,6 +20,19 @@ const child = spawn(process.execPath, ["server/index.js"], {
 let browser;
 const artifacts = resolve(".data/screenshots");
 mkdirSync(artifacts, { recursive: true });
+async function signIn(page) {
+  const [response] = await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().endsWith("/api/auth/login") &&
+        response.request().method() === "POST",
+      { timeout: 30000 },
+    ),
+    page.getByRole("button", { name: "Войти в кабинет", exact: true }).click(),
+  ]);
+  expect(response.status()).toBe(200);
+  await page.waitForURL(base + "/cabinet", { timeout: 30000 });
+}
 async function revealPage(page) {
   await page.evaluate(() => document.fonts.ready);
   const height = await page.evaluate(() => document.body.scrollHeight);
@@ -150,9 +163,7 @@ try {
   const admin = accounts.find((a) => a.role === "admin");
   await page.getByLabel("Email", { exact: true }).fill(admin.email);
   await page.getByLabel("Пароль", { exact: true }).fill(admin.password);
-  await page
-    .getByRole("button", { name: "Войти в кабинет", exact: true })
-    .click();
+  await signIn(page);
   await expect(page.locator(".manage-table")).toContainText(
     "Демо-центр «Зерде»",
   );
@@ -217,9 +228,7 @@ try {
   const director = accounts.find((a) => a.role === "director");
   await page.getByLabel("Email", { exact: true }).fill(director.email);
   await page.getByLabel("Пароль", { exact: true }).fill(director.password);
-  await page
-    .getByRole("button", { name: "Войти в кабинет", exact: true })
-    .click();
+  await signIn(page);
   await expect(
     page.getByRole("button", { name: "Мероприятия", exact: true }),
   ).toHaveCount(0);
