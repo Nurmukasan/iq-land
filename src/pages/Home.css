@@ -1,0 +1,630 @@
+.home-page .hero {
+  padding-top: 48px;
+  overflow: clip;
+}
+.home-page .hero-grid {
+  grid-template-columns: 1.18fr 1fr;
+  gap: 54px;
+}
+.home-page .hero h1 {
+  font-size: clamp(48px, 5.15vw, 82px);
+  letter-spacing: -0.065em;
+  line-height: 1.2;
+}
+.home-page .hero-description {
+  font-size: 18px;
+  line-height: 1.75;
+}
+.home-page .world-stage {
+  height: 590px;
+  min-width: 0;
+}
+.world-stage-surface {
+  position: absolute;
+  inset: 0 0 74px;
+  border-radius: 28px;
+  isolation: isolate;
+  background: #192851;
+  overflow: hidden;
+  color: var(--paper);
+  animation: world-arrive 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.world-stage-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: photo-enter 0.65s both;
+}
+.world-stage-surface.has-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #101a3a66, transparent 35%, #101a3add);
+  z-index: 0;
+  pointer-events: none;
+}
+.world-stage-label {
+  position: absolute;
+  top: 26px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  z-index: 1;
+  border-bottom: 1px solid #ffffff30;
+  padding-bottom: 17px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+}
+.world-stage-label > span:first-child {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.03em;
+}
+.world-stage-label > span:last-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e8eddb;
+  letter-spacing: 0;
+}
+.world-poster {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.world-poster > strong {
+  position: absolute;
+  left: 36px;
+  top: 114px;
+  font-family: var(--display);
+  font-size: clamp(75px, 7.4vw, 119px);
+  line-height: 1;
+  letter-spacing: -0.075em;
+  font-weight: 450;
+  transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+}
+.world-poster > strong > em {
+  font-style: normal;
+  color: var(--accent);
+}
+.world-asterisk {
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  right: 14px;
+  top: 85px;
+  font-family: Arial, sans-serif;
+  font-size: 210px;
+  line-height: 1;
+  color: var(--accent);
+  transform: rotate(10deg);
+  transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.2, 1);
+  z-index: 0;
+}
+.world-poster-note {
+  position: absolute;
+  right: 30px;
+  bottom: 136px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #cbd3dd;
+  letter-spacing: -0.02em;
+  transition: transform 0.6s;
+}
+.world-poster-lines {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-27deg);
+  opacity: 0.15;
+}
+.world-poster-lines > span {
+  position: absolute;
+  left: -35%;
+  width: 170%;
+  height: 1px;
+  background: #ffffff;
+  top: 59%;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.world-poster-lines > span:nth-child(2) {
+  top: 65%;
+}
+.world-poster-lines > span:nth-child(3) {
+  top: 71%;
+}
+.world-stage-caption {
+  position: absolute;
+  z-index: 1;
+  left: 30px;
+  right: 30px;
+  bottom: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #ffffff30;
+  animation: photo-enter 0.55s both;
+}
+.world-stage-caption .destination-country {
+  font-size: 12px;
+  color: #d6dec9;
+}
+.home-page .world-stage-caption .destination-city-row {
+  align-items: center;
+  margin-top: 8px;
+  min-width: 0;
+}
+.home-page .world-stage-caption h2 {
+  font-family: var(--display);
+  font-size: clamp(22px, 2vw, 31px);
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: -0.045em;
+  overflow-wrap: anywhere;
+  animation: none;
+}
+.home-page .world-stage-caption .destination-date {
+  font-size: 11px;
+  flex-shrink: 0;
+  color: #e3e7df;
+  max-width: 95px;
+  padding: 0;
+}
+.home-page .world-stage .destination-controls {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 54px;
+  height: auto;
+  gap: 15px;
+}
+.home-page .world-stage .destination-link {
+  display: inline-flex;
+  white-space: nowrap;
+  font-size: 12px;
+  gap: 8px;
+}
+.world-stage-motto {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--muted);
+  min-width: 0;
+}
+.world-stage-motto > svg {
+  flex-shrink: 0;
+}
+.home-page .hero-subjects {
+  margin-top: 46px;
+}
+.home-page .event-card {
+  position: relative;
+}
+.home-page .event-image-button > .event-photo-placeholder {
+  height: 100%;
+}
+.home-page .detail-image.event-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 24px;
+}
+.home-page .empty-journey {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 50px;
+  align-items: center;
+  text-align: left;
+  padding: 50px;
+  border: 1px solid #dbe1d2;
+  background: linear-gradient(115deg, #eef3e2, #f8f9f5);
+  border-radius: 24px;
+}
+.empty-journey-index {
+  font-family: var(--display);
+  font-size: 47px;
+  letter-spacing: -0.06em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #687d29;
+}
+.empty-journey-index > svg {
+  transition: transform 0.65s cubic-bezier(0.2, 1.6, 0.3, 1);
+}
+.empty-journey:hover .empty-journey-index > svg {
+  transform: rotate(45deg) translateY(-4px);
+}
+.home-page .empty-journey h3 {
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: -0.04em;
+  font-weight: 450;
+  margin: 0;
+}
+.home-page .empty-journey p {
+  font-size: 16px;
+  max-width: 640px;
+  line-height: 1.8;
+  margin-block: 12px 14px;
+}
+.home-page .event-grid {
+  animation: cards-change 0.45s both;
+}
+.home-page .about-symbol {
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.home-page .about-copy:hover .about-symbol {
+  transform: rotate(-13deg) scale(1.08);
+}
+[data-tilt].will-reveal {
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .world-stage:hover .world-asterisk {
+    transform: rotate(100deg) scale(1.08);
+  }
+  .world-stage:hover .world-poster > strong {
+    transform: translate(-5px, -5px);
+  }
+  .world-stage:hover .world-poster-note {
+    transform: translate(-8px, -3px);
+  }
+  .world-stage:hover .world-poster-lines > span {
+    transform: translateY(-20px);
+  }
+  .world-stage:hover .world-poster-lines > span:nth-child(2) {
+    transform: translateY(-10px);
+  }
+}
+@keyframes world-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+@keyframes cards-change {
+  from {
+    opacity: 0.35;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (min-width: 1600px) {
+  .home-page .world-stage {
+    height: 650px;
+  }
+  .world-poster > strong {
+    top: 135px;
+    font-size: 130px;
+  }
+  .world-asterisk {
+    font-size: 235px;
+    top: 107px;
+    right: 30px;
+  }
+  .world-poster-note {
+    bottom: 157px;
+  }
+}
+@media (max-width: 1200px) {
+  .home-page .hero-grid {
+    gap: 34px;
+  }
+  .home-page .hero h1 {
+    font-size: clamp(42px, 5.1vw, 66px);
+  }
+  .home-page .world-stage {
+    height: 545px;
+  }
+  .world-stage-label {
+    left: 23px;
+    right: 23px;
+    top: 24px;
+  }
+  .world-poster > strong {
+    font-size: 94px;
+    left: 26px;
+    top: 112px;
+  }
+  .world-asterisk {
+    font-size: 165px;
+    top: 95px;
+    right: 7px;
+  }
+  .world-poster-note {
+    font-size: 12px;
+    right: 24px;
+    bottom: 126px;
+  }
+  .world-stage-caption {
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+  }
+  .world-stage-label > span:last-child {
+    font-size: 9px;
+    gap: 7px;
+  }
+  .home-page .hero-description {
+    font-size: 16px;
+  }
+  .home-page .world-stage .destination-controls {
+    gap: 12px;
+  }
+  .home-page .world-stage .destination-nav > button {
+    height: 38px;
+    width: 38px;
+  }
+  .home-page .empty-journey {
+    grid-template-columns: 180px minmax(0, 1fr);
+    padding: 38px;
+    gap: 30px;
+  }
+}
+@media (max-width: 980px) and (min-width: 741px) {
+  .home-page .hero-grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 27px;
+  }
+  .home-page .hero h1 {
+    font-size: clamp(35px, 4.9vw, 48px);
+  }
+  .home-page .world-stage {
+    height: 485px;
+  }
+  .world-poster > strong {
+    font-size: 80px;
+    top: 115px;
+    left: 24px;
+  }
+  .world-asterisk {
+    font-size: 125px;
+    top: 82px;
+    right: 5px;
+  }
+  .world-stage-label {
+    left: 20px;
+    right: 20px;
+  }
+  .world-stage-label > span:last-child {
+    max-width: 130px;
+  }
+  .world-stage-caption {
+    left: 22px;
+    right: 22px;
+    bottom: 24px;
+  }
+  .world-poster-note {
+    font-size: 11px;
+    bottom: 116px;
+    right: 20px;
+  }
+  .home-page .world-stage-caption h2 {
+    font-size: 20px;
+  }
+  .home-page .world-stage-caption .destination-date {
+    font-size: 10px;
+    max-width: 75px;
+  }
+  .world-stage-motto {
+    font-size: 11px;
+  }
+  .world-stage-motto > svg {
+    display: none;
+  }
+  .home-page .world-stage .destination-link {
+    font-size: 11px;
+    gap: 5px;
+  }
+  .home-page .world-stage .destination-controls {
+    gap: 10px;
+  }
+  .home-page .world-stage .destination-nav > button {
+    height: 32px;
+    width: 32px;
+  }
+  .home-page .world-stage .destination-counter {
+    font-size: 12px;
+  }
+  .home-page .world-stage .destination-counter > span {
+    margin-left: 1px;
+  }
+}
+@media (max-width: 740px) {
+  .home-page .hero {
+    padding-top: 32px;
+  }
+  .home-page .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 35px;
+  }
+  .home-page .hero h1 {
+    font-size: clamp(34px, 8.8vw, 64px);
+    line-height: 1.24;
+  }
+  .home-page .hero-description {
+    font-size: 16px;
+    margin-top: 23px;
+    max-width: 500px;
+  }
+  .home-page .world-stage {
+    height: 520px;
+    max-width: 600px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .world-stage-surface {
+    border-radius: 22px;
+    inset: 0 0 65px;
+  }
+  .world-stage-label {
+    top: 24px;
+    left: 24px;
+    right: 24px;
+  }
+  .world-stage-label > span:last-child {
+    font-size: 10px;
+  }
+  .world-poster > strong {
+    font-size: clamp(84px, 19vw, 110px);
+    top: 106px;
+    left: 28px;
+  }
+  .world-asterisk {
+    font-size: clamp(120px, 28vw, 170px);
+    top: 86px;
+    right: 0;
+  }
+  .world-poster-note {
+    right: 25px;
+    bottom: 125px;
+    font-size: 12px;
+  }
+  .world-stage-caption {
+    bottom: 24px;
+  }
+  .home-page .world-stage-caption h2 {
+    font-size: 25px;
+  }
+  .home-page .world-stage-caption .destination-date {
+    font-size: 11px;
+    max-width: 100px;
+  }
+  .home-page .world-stage .destination-controls {
+    gap: 13px;
+  }
+  .world-stage-motto {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .home-page .world-stage .destination-link {
+    font-size: 12px;
+    gap: 7px;
+  }
+  .home-page .hero-subjects {
+    margin-top: 32px;
+  }
+  .home-page .empty-journey {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 30px 25px;
+  }
+  .empty-journey-index {
+    font-size: 35px;
+  }
+  .home-page .empty-journey h3 {
+    font-size: 23px;
+  }
+  .home-page .empty-journey p {
+    font-size: 15px;
+  }
+}
+@media (max-width: 420px) {
+  .home-page .world-stage {
+    height: 500px;
+  }
+  .world-stage-label {
+    left: 22px;
+    right: 22px;
+    font-size: 9px;
+  }
+  .world-stage-label > span:last-child {
+    font-size: 9px;
+  }
+  .world-stage-label > span:first-child {
+    font-size: 12px;
+  }
+  .world-poster > strong {
+    font-size: 84px;
+    left: 23px;
+    top: 111px;
+  }
+  .world-asterisk {
+    font-size: 110px;
+    top: 86px;
+    right: -10px;
+  }
+  .world-poster-note {
+    bottom: 132px;
+    font-size: 11px;
+    right: 23px;
+  }
+  .world-stage-caption {
+    left: 23px;
+    right: 23px;
+    bottom: 22px;
+    padding-top: 14px;
+  }
+  .home-page .world-stage-caption h2 {
+    font-size: 21px;
+  }
+  .world-stage-motto {
+    font-size: 11px;
+  }
+  .world-stage-motto > svg {
+    display: none;
+  }
+  .home-page .world-stage .destination-link {
+    font-size: 11px;
+  }
+  .home-page .world-stage .destination-nav > button {
+    height: 35px;
+    width: 35px;
+  }
+  .home-page .world-stage .destination-controls {
+    gap: 9px;
+  }
+}
+@media (max-width: 350px) {
+  .home-page .hero h1 {
+    font-size: 30px;
+  }
+  .world-poster > strong {
+    font-size: 77px;
+  }
+  .world-asterisk {
+    font-size: 110px;
+    right: 10px;
+  }
+  .world-stage-label > span:last-child {
+    max-width: 125px;
+  }
+  .world-stage-motto {
+    max-width: 130px;
+  }
+  .home-page .world-stage .destination-link {
+    font-size: 10px;
+    gap: 4px;
+  }
+  .home-page .world-stage-caption h2 {
+    font-size: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-stage:hover .world-asterisk,
+  .world-stage:hover .world-poster > strong,
+  .world-stage:hover .world-poster-note,
+  .world-stage:hover .world-poster-lines > span,
+  .home-page .about-copy:hover .about-symbol {
+    transform: none !important;
+  }
+}

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isExistingEventImage } from "./event-images.js";
 const text = (max = 150) =>
   z
     .string()
@@ -53,8 +54,15 @@ export const eventSchema = z
       .min(1),
     includes: z.array(text()).min(1).max(15),
     price: z.number().int().nonnegative().nullable(),
-    currency: z.enum(["KZT", "USD", "AZN"]),
-    image: z.enum(["/images/baku.png", "/images/almaty.png"]),
+    currency: z.enum(["KZT", "USD", "AZN", "EUR", "GBP", "AED", "TRY", "UZS"]),
+    image: z
+      .string()
+      .max(255)
+      .refine(
+        isExistingEventImage,
+        "Загрузите фотографию через форму или оставьте изображение пустым",
+      )
+      .default(""),
     description: text(2000),
     active: z.boolean().default(true),
   })

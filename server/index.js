@@ -9,6 +9,12 @@ import ExcelJS from "exceljs";
 import { z } from "zod";
 import { db, allEvents, eventObject, protocolRows } from "./db.js";
 import { eventSchema, registrationSchema } from "./validation.js";
+import {
+  maxImageBytes,
+  imageTypes,
+  imagePath,
+  storeEventImage,
+} from "./event-images.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
@@ -60,15 +66,13 @@ const admin = (req, res, next) =>
 const parse = (schema, body, res) => {
   const r = schema.safeParse(body);
   if (!r.success) {
-    res
-      .status(400)
-      .json({
-        error: r.error.issues[0].message,
-        fields: r.error.issues.map((i) => ({
-          path: i.path.join("."),
-          message: i.message,
-        })),
-      });
+    res.status(400).json({
+      error: r.error.issues[0].message,
+      fields: r.error.issues.map((i) => ({
+        path: i.path.join("."),
+        message: i.message,
+      })),
+    });
     return null;
   }
   return r.data;
@@ -123,6 +127,59 @@ app.get("/api/events/:id", (req, res) => {
   return e
     ? res.json(e)
     : res.status(404).json({ error: "Мероприятие не найдено" });
+});
+app.post(
+  "/api/event-images",
+  auth,
+  admin,
+  (req, res, next) => {
+    const type = req.headers["content-type"]
+      ?.split(";")[0]
+      .trim()
+      .toLowerCase();
+    if (!Object.hasOwn(imageTypes, type || ""))
+      return res
+        .status(415)
+        .json({ error: "Выберите фотографию в формате JPEG, PNG или WebP" });
+    req.imageType = type;
+    express.raw({ type: () => true, limit: maxImageBytes })(
+      req,
+      res,
+      (error) => {
+        if (error?.status === 413)
+          return res
+            .status(413)
+            .json({
+              error: "Фотография слишком большая. Максимальный размер — 8 МБ",
+            });
+        next(error);
+      },
+    );
+  },
+  (req, res) => {
+    const url = storeEventImage(req.body, req.imageType);
+    if (!url)
+      return res
+        .status(400)
+        .json({
+          error:
+            "Файл повреждён или не соответствует формату JPEG, PNG или WebP",
+        });
+    res.status(201).json({ url });
+  },
+);
+app.get("/api/event-images/:filename", (req, res) => {
+  const path = imagePath(req.params.filename);
+  if (!path) return res.status(404).json({ error: "Фотография не найдена" });
+  const extension = req.params.filename.split(".").at(-1);
+  res.set({
+    "Content-Type": Object.entries(imageTypes).find(
+      ([, ext]) => ext === extension,
+    )[0],
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "public, max-age=31536000, immutable",
+  });
+  res.sendFile(path);
 });
 app.get("/api/auth/me", (req, res) => res.json({ user: req.user || null }));
 app.post(
@@ -318,11 +375,9 @@ app.put("/api/events/:id", auth, admin, (req, res) => {
     .all(req.params.id)
     .map((r) => r.subject);
   if (used.some((s) => !e.subjects.includes(s)))
-    return res
-      .status(400)
-      .json({
-        error: "Нельзя удалить дисциплину с зарегистрированными учениками",
-      });
+    return res.status(400).json({
+      error: "Нельзя удалить дисциплину с зарегистрированными учениками",
+    });
   db.prepare(
     "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=? WHERE id=?",
   ).run(
@@ -516,14 +571,12 @@ if (existsSync(dist)) {
 app.use((err, req, res, next) => {
   console.error(err.message);
   if (!res.headersSent)
-    res
-      .status(err.status === 400 ? 400 : 500)
-      .json({
-        error:
-          err.status === 400
-            ? "Некорректный запрос"
-            : "Не удалось выполнить запрос. Попробуйте ещё раз.",
-      });
+    res.status(err.status === 400 ? 400 : 500).json({
+      error:
+        err.status === 400
+          ? "Некорректный запрос"
+          : "Не удалось выполнить запрос. Попробуйте ещё раз.",
+    });
 });
 app.listen(Number(process.env.PORT || 3001), "0.0.0.0", () =>
   console.log(`IQ LAND API running on port ${process.env.PORT || 3001}`),

@@ -13,9 +13,10 @@ import {
   Calculator,
   Languages,
   Sigma,
-  Compass,
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
+import EventPhoto from "../components/EventPhoto";
+import "./Home.css";
 
 const subjects = [
   { name: "Все направления", icon: Globe2 },
@@ -119,10 +120,10 @@ export default function Home() {
               <span className="live-dot" /> Международные детские олимпиады
             </p>
             <h1>
-              <span className="hero-line">Знания —</span>
-              <span className="hero-line">ваш билет</span>
+              <span className="hero-line">Думай шире.</span>
+              <span className="hero-line">Открывай</span>
               <span className="hero-line">
-                в <em>большой мир.</em>
+                <em>целый мир.</em>
               </span>
             </h1>
             <p className="hero-description">
@@ -132,7 +133,7 @@ export default function Home() {
               <br className="desktop-break" /> и впечатления, которые остаются.
             </p>
             <div className="hero-buttons">
-              <a className="btn btn-primary" href="#events">
+              <a className="btn btn-primary" href="#events" data-magnetic>
                 Выбрать олимпиаду{" "}
                 <span className="button-arrow">
                   <ArrowUpRight size={21} />
@@ -151,70 +152,109 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="hero-visual">
-            <div className="destination-photo" key={destination?.id || "baku"}>
-              <img
-                src={destination?.image || "/images/baku.png"}
-                alt={
-                  destination
-                    ? `Иллюстрация города ${destination.city}`
-                    : "Иллюстрация Баку"
-                }
-                fetchPriority="high"
-              />
-              <div className="photo-gradient" />
-            </div>
-            <span className="destination-kicker">
-              <span /> Учимся. Путешествуем. Растём.
-            </span>
-            <div className="destination-caption">
-              <span className="destination-country">
-                {destination?.country || "Азербайджан"}
-              </span>
-              <div
-                className="destination-city-row"
-                aria-live="polite"
-                aria-atomic="true"
-              >
-                <h2 key={destination?.id}>
-                  {destination?.city || "Баку"}
-                  <ArrowUpRight size={41} aria-hidden="true" />
-                </h2>
-                <span className="destination-date">
-                  {destination
-                    ? dateLabel(destination.date).replace(" г.", "")
-                    : "Откройте новые страны"}
+          <div className="hero-visual world-stage" data-tilt>
+            <div
+              className={
+                "world-stage-surface" + (destination?.image ? " has-photo" : "")
+              }
+            >
+              {destination?.image ? (
+                <EventPhoto
+                  key={destination.id + destination.image}
+                  src={destination.image}
+                  alt={`Олимпиада IQ LAND · ${destination.city}`}
+                  className="world-stage-photo"
+                  fetchPriority="high"
+                />
+              ) : (
+                <div className="world-poster" aria-hidden="true">
+                  <div className="world-poster-lines">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <svg
+                    className="world-asterisk"
+                    viewBox="0 0 200 200"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M100 20v160M20 100h160M43 43l114 114M43 157 157 43"
+                      stroke="currentColor"
+                      strokeWidth="18"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <strong>
+                    Весь
+                    <br />
+                    <em>мир.</em>
+                  </strong>
+                  <span className="world-poster-note">
+                    начинается
+                    <br />с любопытства.
+                  </span>
+                </div>
+              )}
+              <div className="world-stage-label">
+                <span>IQ LAND</span>
+                <span>
+                  Олимпиады без границ <ArrowUpRight size={16} />
                 </span>
+              </div>
+              <div
+                className="world-stage-caption"
+                key={destination?.id || "world"}
+              >
+                <span className="destination-country">
+                  {destination?.country || "Знания. Путешествия. Открытия."}
+                </span>
+                <div
+                  className="destination-city-row"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  <h2>{destination?.city || "Возможности — повсюду."}</h2>
+                  {destination && (
+                    <span className="destination-date">
+                      {dateLabel(destination.date).replace(" г.", "")}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <div className="destination-controls">
-              <span className="destination-counter">
-                {String((slide % Math.max(events.length, 1)) + 1).padStart(
-                  2,
-                  "0",
-                )}{" "}
-                <span>
-                  / {String(Math.max(events.length, 1)).padStart(2, "0")}
+              {destination ? (
+                <>
+                  <span className="destination-counter">
+                    {String((slide % events.length) + 1).padStart(2, "0")}{" "}
+                    <span>/ {String(events.length).padStart(2, "0")}</span>
+                  </span>
+                  <div className="destination-nav">
+                    <button
+                      aria-label="Предыдущая олимпиада"
+                      disabled={events.length < 2}
+                      onClick={() =>
+                        setSlide((s) => (s - 1 + events.length) % events.length)
+                      }
+                    >
+                      <ArrowLeft size={20} />
+                    </button>
+                    <button
+                      aria-label="Следующая олимпиада"
+                      disabled={events.length < 2}
+                      onClick={() => setSlide((s) => (s + 1) % events.length)}
+                    >
+                      <ArrowRight size={20} />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <span className="world-stage-motto">
+                  За пределами привычного <ArrowRight size={17} />
                 </span>
-              </span>
-              <div className="destination-nav">
-                <button
-                  aria-label="Предыдущая олимпиада"
-                  disabled={events.length < 2}
-                  onClick={() =>
-                    setSlide((s) => (s - 1 + events.length) % events.length)
-                  }
-                >
-                  <ArrowLeft size={20} />
-                </button>
-                <button
-                  aria-label="Следующая олимпиада"
-                  disabled={events.length < 2}
-                  onClick={() => setSlide((s) => (s + 1) % events.length)}
-                >
-                  <ArrowRight size={20} />
-                </button>
-              </div>
+              )}
               <a href="#events" className="destination-link">
                 Смотреть афишу <ArrowUpRight size={18} />
               </a>
@@ -256,42 +296,56 @@ export default function Home() {
             </h2>
           </div>
           <p className="section-aside">
-            Выберите город и направление.
-            <br />
-            Зарегистрируйте команду —<br />
-            остальное обсудим вместе.
+            {events.length ? (
+              <>
+                Выберите город и направление.
+                <br />
+                Зарегистрируйте команду —<br />
+                остальное обсудим вместе.
+              </>
+            ) : (
+              <>
+                Города, даты и программы
+                <br />
+                появятся здесь, когда откроется
+                <br />
+                регистрация на новые события.
+              </>
+            )}
           </p>
         </div>
-        <div className="event-filters">
-          <div className="filter-tabs" aria-label="Направление олимпиады">
-            {subjects.map((s) => (
-              <button
-                key={s.name}
-                className={
-                  filter === s.name ? "filter-tab active" : "filter-tab"
-                }
-                aria-pressed={filter === s.name}
-                onClick={() => setFilter(s.name)}
-              >
-                <s.icon size={18} />
-                {s.name}
-              </button>
-            ))}
-          </div>
-          <label className="country-select">
-            <MapPin size={18} />
-            <select
-              aria-label="Страна олимпиады"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            >
-              <option>Все страны</option>
-              {[...new Set(events.map((e) => e.country))].map((c) => (
-                <option key={c}>{c}</option>
+        {events.length > 0 && (
+          <div className="event-filters">
+            <div className="filter-tabs" aria-label="Направление олимпиады">
+              {subjects.map((s) => (
+                <button
+                  key={s.name}
+                  className={
+                    filter === s.name ? "filter-tab active" : "filter-tab"
+                  }
+                  aria-pressed={filter === s.name}
+                  onClick={() => setFilter(s.name)}
+                >
+                  <s.icon size={18} />
+                  {s.name}
+                </button>
               ))}
-            </select>
-          </label>
-        </div>
+            </div>
+            <label className="country-select">
+              <MapPin size={18} />
+              <select
+                aria-label="Страна олимпиады"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                <option>Все страны</option>
+                {[...new Set(events.map((e) => e.country))].map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+        )}
         {loading ? (
           <Spinner />
         ) : error ? (
@@ -302,17 +356,17 @@ export default function Home() {
             </button>
           </div>
         ) : visible.length ? (
-          <div className="event-grid">
+          <div className="event-grid" key={filter + country}>
             {visible.map((e) => (
-              <article className="event-card" key={e.id} data-reveal>
+              <article className="event-card" key={e.id} data-reveal data-tilt>
                 <button
                   className="event-image-button"
                   onClick={() => setSelected(e)}
                   aria-label={"Подробнее об олимпиаде в городе " + e.city}
                 >
-                  <img
+                  <EventPhoto
                     src={e.image}
-                    alt={`Иллюстрация города ${e.city}`}
+                    alt={`Олимпиада IQ LAND · ${e.city}`}
                     loading="lazy"
                   />
                   <span className="event-date">
@@ -362,38 +416,61 @@ export default function Home() {
                           : "Регистрация завершена"}
                       </span>
                     </div>
-                    <Link
-                      className="btn btn-primary"
-                      to={"/events/" + e.id + "/register"}
-                    >
-                      {isOpen(e) ? "Зарегистрировать команду" : "Подробнее"}
-                      <ArrowUpRight size={20} />
-                    </Link>
+                    {isOpen(e) ? (
+                      <Link
+                        className="btn btn-primary"
+                        to={"/events/" + e.id + "/register"}
+                      >
+                        Зарегистрировать команду
+                        <ArrowUpRight size={20} />
+                      </Link>
+                    ) : (
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setSelected(e)}
+                      >
+                        Смотреть программу <ArrowUpRight size={20} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="empty-state">
-            <Compass size={36} />
-            <h3>Новые направления впереди</h3>
-            <p>Попробуйте выбрать другую дисциплину или страну.</p>
-            <button
-              className="text-link"
-              onClick={() => {
-                setFilter("Все направления");
-                setCountry("Все страны");
-              }}
-            >
-              Показать все олимпиады <ArrowRight size={18} />
-            </button>
+          <div className="empty-state empty-journey" data-reveal>
+            <span className="empty-journey-index" aria-hidden="true">
+              NEXT <ArrowUpRight size={30} />
+            </span>
+            <div>
+              <h3>
+                {events.length
+                  ? "Новые направления впереди"
+                  : "Впереди — новые открытия."}
+              </h3>
+              <p>
+                {events.length
+                  ? "Попробуйте выбрать другую дисциплину или страну."
+                  : "Здесь появятся города, даты и программы ближайших олимпиад. А пока узнайте, как зарегистрировать свою команду."}
+              </p>
+              {events.length ? (
+                <button
+                  className="text-link"
+                  onClick={() => {
+                    setFilter("Все направления");
+                    setCountry("Все страны");
+                  }}
+                >
+                  Показать все олимпиады <ArrowRight size={18} />
+                </button>
+              ) : (
+                <a className="text-link" href="#teachers">
+                  Как участвовать <ArrowRight size={18} />
+                </a>
+              )}
+            </div>
           </div>
         )}
-        <p className="demo-note">
-          Предварительная афиша. Даты, программу и стоимость подтвердит
-          организатор.
-        </p>
       </section>
 
       <section className="about-section" id="about">
@@ -590,10 +667,10 @@ export default function Home() {
           title={selected.city + " · " + selected.country}
           onClose={() => setSelected(null)}
         >
-          <img
+          <EventPhoto
             className="detail-image"
             src={selected.image}
-            alt={selected.city}
+            alt={`Олимпиада IQ LAND · ${selected.city}`}
           />
           <span className="eyebrow">{dateLabel(selected.date)}</span>
           <h3>{selected.title}</h3>
@@ -622,9 +699,15 @@ export default function Home() {
           </p>
           <Link
             className="btn btn-primary full-width"
-            to={"/events/" + selected.id + "/register"}
+            to={
+              isOpen(selected)
+                ? "/events/" + selected.id + "/register"
+                : "/register"
+            }
           >
-            {isOpen(selected) ? "Зарегистрировать команду" : "Подробнее"}
+            {isOpen(selected)
+              ? "Зарегистрировать команду"
+              : "Выбрать другую олимпиаду"}
             <ArrowUpRight size={20} />
           </Link>
         </Modal>

@@ -40,6 +40,7 @@ import {
   sanitizeDraft,
 } from "../lib/registration";
 import "./Registration.css";
+import EventPhoto from "../components/EventPhoto";
 
 const emptyContact = () => ({
   center: "",
@@ -624,7 +625,11 @@ export default function Registration() {
             onClick={() => chooseEvent(e)}
             aria-label={"Выбрать олимпиаду в городе " + e.city}
           >
-            <img src={e.image} alt={e.city} />
+            <EventPhoto
+              src={e.image}
+              alt={`Олимпиада IQ LAND · ${e.city}`}
+              className="reg-event-photo"
+            />
             <div className="reg-choice-content">
               <span>
                 {e.flag} {e.country}
@@ -802,7 +807,11 @@ export default function Registration() {
         </p>
       </header>
       <section className="reg-event-banner" aria-label="Выбранная олимпиада">
-        <img src={event.image} alt={event.city} />
+        <EventPhoto
+          src={event.image}
+          alt={`Олимпиада IQ LAND · ${event.city}`}
+          className="reg-event-photo"
+        />
         <div className="reg-event-content">
           <span className="eyebrow">Выбранная олимпиада</span>
           <h2>

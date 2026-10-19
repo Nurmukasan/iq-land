@@ -1,0 +1,202 @@
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 100;
+  pointer-events: none;
+}
+.btn,
+.filter-tab,
+.destination-nav button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.interaction-ripple {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 50%;
+  background: currentColor;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.btn-primary .interaction-ripple {
+  background: var(--accent);
+  mix-blend-mode: normal;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97);
+  transition-duration: 0.12s;
+}
+.icon-btn:active:not(:disabled),
+.destination-nav button:active:not(:disabled),
+.filter-tab:active {
+  transform: scale(0.92);
+}
+[data-tilt] {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  position: relative;
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s;
+}
+[data-tilt].will-reveal.is-visible {
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--pointer-x) var(--pointer-y),
+    #d7ef752b,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 2;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-tilt]:hover::after {
+    opacity: 1;
+  }
+  [data-tilt]:hover {
+    box-shadow: 0 24px 60px #19285120;
+  }
+  [data-magnetic] {
+    transform: translate(var(--magnet-x, 0px), var(--magnet-y, 0px));
+    transition:
+      transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 0.25s,
+      box-shadow 0.25s;
+  }
+  [data-magnetic]:hover {
+    transform: translate(
+      var(--magnet-x, 0px),
+      calc(var(--magnet-y, 0px) - 3px)
+    );
+  }
+}
+.home-page .event-photo-arrow {
+  transition:
+    transform 0.45s cubic-bezier(0.3, 1.7, 0.4, 1),
+    background 0.3s;
+}
+.home-page .event-image-button:hover .event-photo-arrow {
+  transform: rotate(45deg) scale(1.12);
+}
+.nav-links > a {
+  position: relative;
+}
+.nav-links > a::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s;
+}
+.nav-links > a:hover::after,
+.nav-links > a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.home-page .filter-tab.active {
+  animation: filter-select 0.4s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+.home-page .step-card {
+  position: relative;
+  transition:
+    background 0.35s,
+    transform 0.4s,
+    border-color 0.35s;
+  overflow: hidden;
+}
+.home-page .step-card:hover {
+  background: #eaf0d7;
+  transform: translateY(-7px);
+  border-color: #bacb83;
+}
+.home-page .step-number > svg {
+  transition: transform 0.4s cubic-bezier(0.2, 1.6, 0.4, 1);
+}
+.home-page .step-card:hover .step-number > svg {
+  transform: rotate(45deg) scale(1.2);
+}
+.home-page .about-values > div {
+  transition:
+    background 0.4s,
+    padding 0.4s;
+}
+.home-page .about-values > div:hover {
+  background: #ffffff0a;
+  padding-inline: 18px;
+}
+.home-page .value-number {
+  display: inline-block;
+  transition:
+    color 0.35s,
+    transform 0.5s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+.home-page .about-values > div:hover .value-number {
+  color: var(--accent);
+  transform: translateX(6px);
+}
+.home-page .faq-item > button {
+  transition:
+    color 0.25s,
+    padding 0.3s;
+}
+.home-page .faq-item > button:hover {
+  color: #64762a;
+  padding-inline: 10px;
+}
+.home-page .faq-item > button:hover .faq-toggle {
+  transform: rotate(90deg);
+  background: var(--accent);
+}
+.home-page .expanded > button:hover .faq-toggle {
+  transform: rotate(180deg);
+}
+@keyframes filter-select {
+  0% {
+    transform: scale(0.94);
+  }
+  65% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt],
+  [data-tilt].will-reveal.is-visible,
+  [data-magnetic],
+  [data-magnetic]:hover,
+  .btn:active:not(:disabled),
+  .home-page .step-card:hover {
+    transform: none !important;
+  }
+  [data-tilt]::after {
+    display: none;
+  }
+  .home-page .about-values > div:hover,
+  .home-page .faq-item > button:hover {
+    padding-inline: 0;
+  }
+}

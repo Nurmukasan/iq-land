@@ -28,7 +28,7 @@ async function request(path, { cookie, method = "GET", body, origin } = {}) {
 }
 before(async () => {
   child = spawn(process.execPath, ["server/index.js"], {
-    env: { ...process.env, PORT: String(port), DATA_DIR: dir },
+    env: { ...process.env, PORT: String(port), DATA_DIR: dir, IQLAND_SEED_DEMO_EVENTS: "true" },
     stdio: ["ignore", "pipe", "pipe"],
   });
   let logs = "";
@@ -310,7 +310,7 @@ test("database, scores and authenticated sessions survive server restart", async
   child.kill("SIGTERM");
   await new Promise((r) => child.once("exit", r));
   child = spawn(process.execPath, ["server/index.js"], {
-    env: { ...process.env, PORT: String(port), DATA_DIR: dir },
+    env: { ...process.env, PORT: String(port), DATA_DIR: dir, IQLAND_SEED_DEMO_EVENTS: "true" },
     stdio: "ignore",
   });
   let data;

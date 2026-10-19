@@ -29,6 +29,7 @@ import "./styles.css";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Dashboard, { Login } from "./pages/Dashboard";
+import InteractionMotion from "./components/InteractionMotion";
 
 export async function api(url, options = {}) {
   let res;
@@ -317,6 +318,7 @@ function App() {
     <AppContext.Provider value={{ user, setUser, authReady, notify: setToast }}>
       <BrowserRouter>
         <ScrollManager />
+        <InteractionMotion />
         <Header />
         <div id="main-content" tabIndex={-1}>
           <Routes>
