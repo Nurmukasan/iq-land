@@ -22,6 +22,8 @@ import {
 import { receiveEventVideo, videoPath, videoTypes } from "./event-videos.js";
 import { awardsRouter } from "./awards.js";
 import { MAX_SCORE } from "../shared/award-rules.js";
+import { detectLanguage } from "./language.js";
+import { translate, exportLanguage } from "../shared/i18n/index.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
@@ -173,6 +175,10 @@ app.put("/api/promo", auth, admin, (req, res) => {
   res.json({ ok: true });
 });
 const todayUtc = () => new Date().toISOString().slice(0, 10);
+app.get("/api/language", (req, res) => {
+  res.set("Vary", "Accept-Language");
+  res.json(detectLanguage(req.ip, req.get("Accept-Language") || ""));
+});
 app.get("/api/events", (req, res) =>
   res.json(allEvents().filter((e) => e.active && e.date >= todayUtc())),
 );
@@ -501,6 +507,8 @@ app.put("/api/events/:id", auth, organizer, (req, res) => {
   res.json({ ok: true });
 });
 app.get("/api/export", auth, async (req, res, next) => {
+  const language = exportLanguage(req.get("Accept-Language"));
+  const t = (value) => translate(value, language);
   try {
     let rows = protocolRows();
     if (req.query.event)
@@ -514,7 +522,7 @@ app.get("/api/export", auth, async (req, res, next) => {
       cancelled: "Отменена",
     };
     const addSheet = (name, headers, items) => {
-      const sheet = book.addWorksheet(name, {
+      const sheet = book.addWorksheet(t(name), {
         views: [{ state: "frozen", ySplit: 1 }],
         pageSetup: {
           orientation: "landscape",
@@ -524,14 +532,16 @@ app.get("/api/export", auth, async (req, res, next) => {
         },
       });
       sheet.columns = headers.map(([header, key, width]) => ({
-        header,
+        header: t(header),
         key,
         width: width || 25,
       }));
       sheet.addRows(
         items.map((r) => ({
           ...r,
-          ...(r.status ? { status: statusLabel[r.status] } : {}),
+          ...(r.subject ? { subject: t(r.subject) } : {}),
+          ...(r.type ? { type: t(r.type) } : {}),
+          ...(r.status ? { status: t(statusLabel[r.status]) } : {}),
         })),
       );
       sheet.eachRow((row, i) => {

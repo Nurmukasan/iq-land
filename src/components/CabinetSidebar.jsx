@@ -1,3 +1,4 @@
+import { tr } from "../i18n/runtime.js";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -34,19 +35,21 @@ export default function CabinetSidebar({ active, onSection, beforeLeave }) {
   ];
   return (
     <aside className="dashboard-sidebar">
-      <span className="eyebrow">РАБОЧЕЕ ПРОСТРАНСТВО</span>
+      <span className="eyebrow">{tr("РАБОЧЕЕ ПРОСТРАНСТВО")}</span>
       <div className="user-card">
         <div>{user.name[0]}</div>
         <strong>
           {user.name}
           <small>
-            {user.role === "admin"
-              ? "Администратор сайта"
-              : "Руководитель IQ LAND"}
+            {tr(
+              user.role === "admin"
+                ? "Администратор сайта"
+                : "Руководитель IQ LAND",
+            )}
           </small>
         </strong>
       </div>
-      <nav aria-label="Разделы кабинета">
+      <nav aria-label={tr("Разделы кабинета")}>
         {sections.map((section) => (
           <button
             key={section.id}
@@ -58,12 +61,14 @@ export default function CabinetSidebar({ active, onSection, beforeLeave }) {
                   ? navigate("/cabinet/awards")
                   : onSection
                     ? onSection(section.id)
-                    : navigate("/cabinet", { state: { section: section.id } }),
+                    : navigate("/cabinet", {
+                        state: { section: section.id },
+                      }),
               )
             }
           >
             <section.icon size={18} />
-            {section.title}
+            {tr(section.title)}
             <ChevronRight size={15} />
           </button>
         ))}
@@ -71,8 +76,9 @@ export default function CabinetSidebar({ active, onSection, beforeLeave }) {
       <div className="sidebar-foot">
         <ShieldCheck size={22} />
         <p>
-          Все заявки и результаты
-          <br />в одном пространстве.
+          {tr("Все заявки и результаты")}
+          <br />
+          {tr("в одном пространстве.")}
         </p>
         <button
           className="text-link small"
@@ -83,7 +89,8 @@ export default function CabinetSidebar({ active, onSection, beforeLeave }) {
             })
           }
         >
-          <LogOut size={15} /> Выйти из кабинета
+          <LogOut size={15} />
+          {tr(" Выйти из кабинета")}
         </button>
       </div>
     </aside>

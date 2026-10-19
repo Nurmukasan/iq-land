@@ -77,7 +77,7 @@ async function stopServer() {
 }
 
 async function newPage() {
-  const page = await browser.newPage({
+  const page = await browser.newPage({locale: "ru-RU",
     viewport: { width: 1600, height: 1100 },
     locale: "ru-RU",
   });

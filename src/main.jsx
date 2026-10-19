@@ -1,3 +1,7 @@
+import { formatDate } from "../shared/i18n/dates.js";
+import { tr, getIntlLocale, getLanguage } from "./i18n/runtime.js";
+import LanguageProvider, { useLanguage } from "./i18n/LanguageProvider";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 import React, {
   createContext,
   useContext,
@@ -40,7 +44,11 @@ export async function api(url, options = {}) {
   try {
     res = await fetch("/api" + url, {
       ...options,
-      headers: { "Content-Type": "application/json", ...options.headers },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept-Language": getIntlLocale(),
+        ...options.headers,
+      },
       credentials: "same-origin",
     });
   } catch {
@@ -59,16 +67,11 @@ export async function api(url, options = {}) {
   }
   return data;
 }
-export const dateLabel = (v) =>
-  new Date(v + "T12:00:00").toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+export const dateLabel = (value) => formatDate(value, getLanguage());
 export const priceLabel = (e) =>
   e.price === null
-    ? "Стоимость уточняется"
-    : new Intl.NumberFormat("ru-RU", {
+    ? tr("Стоимость уточняется")
+    : new Intl.NumberFormat(getIntlLocale(), {
         style: "currency",
         currency: e.currency,
         maximumFractionDigits: 0,
@@ -78,7 +81,8 @@ export const useApp = () => useContext(AppContext);
 export function Spinner() {
   return (
     <div className="loading" role="status">
-      <LoaderCircle className="spin" /> Загрузка…
+      <LoaderCircle className="spin" />
+      {tr(" Загрузка…")}
     </div>
   );
 }
@@ -86,7 +90,7 @@ export function ErrorBox({ children }) {
   return (
     <div className="error-box" role="alert">
       <AlertCircle size={18} />
-      <span>{children}</span>
+      <span>{tr(children)}</span>
     </div>
   );
 }
@@ -132,16 +136,20 @@ export function Modal({ title, children, onClose, wide = false }) {
         className={"modal " + (wide ? "modal-wide" : "")}
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-label={tr(title)}
         tabIndex={-1}
       >
         <div className="modal-head">
-          <h2>{title}</h2>
-          <button className="icon-btn" onClick={onClose} aria-label="Закрыть">
+          <h2>{tr(title)}</h2>
+          <button
+            className="icon-btn"
+            onClick={onClose}
+            aria-label={tr("Закрыть")}
+          >
             <X />
           </button>
         </div>
-        {children}
+        {tr(children)}
       </section>
     </div>
   );
@@ -167,46 +175,48 @@ function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <a className="skip-link" href="#main-content">
-          К содержимому
+          {tr("К содержимому")}
         </a>
-        <Link to="/" aria-label="IQ LAND — главная" className="brand">
+        <Link to="/" aria-label={tr("IQ LAND — главная")} className="brand">
           <img src="/images/logo.svg" alt="IQ LAND" />
         </Link>
         <nav
           id="primary-navigation"
           className={open ? "nav-links is-open" : "nav-links"}
-          aria-label="Главная навигация"
+          aria-label={tr("Главная навигация")}
         >
-          <Link to="/#events">Олимпиады</Link>
+          <Link to="/#events">{tr("Олимпиады")}</Link>
           <Link
             to="/archive"
             aria-current={
               loc.pathname.startsWith("/archive") ? "page" : undefined
             }
           >
-            Прошедшие олимпиады
+            {tr("Прошедшие олимпиады")}
           </Link>
-          <Link to="/register">Регистрация</Link>
-          <Link to="/#teachers">Учителям</Link>
-          <Link to="/#contacts">Контакты</Link>
+          <Link to="/register">{tr("Регистрация")}</Link>
+          <Link to="/#teachers">{tr("Учителям")}</Link>
+          <Link to="/#contacts">{tr("Контакты")}</Link>
         </nav>
         <div className="header-actions">
+          <LanguageSwitcher />
           <Link className="header-cta" to="/#events">
-            Выбрать олимпиаду <ArrowUpRight size={18} />
+            {tr("Выбрать олимпиаду ")}
+            <ArrowUpRight size={18} />
           </Link>
           <Link
             className="btn-nav"
-            aria-label="Личный кабинет"
+            aria-label={tr("Личный кабинет")}
             to={user ? "/cabinet" : "/login"}
           >
             <LogIn size={19} />
-            <span>Кабинет</span>
+            <span>{tr("Кабинет")}</span>
           </Link>
           <button
             ref={menuButton}
             className="icon-btn mobile-menu"
             onClick={() => setOpen(!open)}
-            aria-label="Открыть меню"
+            aria-label={tr("Открыть меню")}
             aria-expanded={open}
             aria-controls="primary-navigation"
           >
@@ -226,18 +236,18 @@ export function Footer() {
             <img src="/images/logo.svg" alt="IQ LAND" />
           </Link>
           <p>
-            Объединяем знания.
+            {tr("Объединяем знания.")}
             <br />
-            Открываем мир.
+            {tr("Открываем мир.")}
           </p>
           <div>
-            <Link to="/#events">Олимпиады</Link>
-            <Link to="/archive">Прошедшие олимпиады</Link>
-            <Link to="/#teachers">Для учителей</Link>
+            <Link to="/#events">{tr("Олимпиады")}</Link>
+            <Link to="/archive">{tr("Прошедшие олимпиады")}</Link>
+            <Link to="/#teachers">{tr("Для учителей")}</Link>
           </div>
           <div>
-            <Link to="/#faq">Вопросы и ответы</Link>
-            <Link to="/#contacts">Контакты</Link>
+            <Link to="/#faq">{tr("Вопросы и ответы")}</Link>
+            <Link to="/#contacts">{tr("Контакты")}</Link>
             <a
               className="footer-instagram"
               href="https://www.instagram.com/iqland_competitions/"
@@ -247,16 +257,18 @@ export function Footer() {
               <Instagram size={17} /> @iqland_competitions
             </a>
             <Link to="/login">
-              Кабинет организатора <ArrowUpRight size={14} />
+              {tr("Кабинет организатора ")}
+              <ArrowUpRight size={14} />
             </Link>
           </div>
         </div>
         <div className="footer-bottom">
           <span>
-            © {new Date().getFullYear()} IQ LAND. Все права защищены.
+            © {tr(new Date().getFullYear())}
+            {tr(" IQ LAND. Все права защищены.")}
           </span>
-          <Link to="/privacy">Политика конфиденциальности</Link>
-          <span>С заботой о больших мечтах</span>
+          <Link to="/privacy">{tr("Политика конфиденциальности")}</Link>
+          <span>{tr("С заботой о больших мечтах")}</span>
         </div>
       </div>
     </footer>
@@ -266,14 +278,15 @@ function Privacy() {
   return (
     <main className="container prose-page">
       <Link className="back-link" to="/">
-        ← На главную
+        {tr("← На главную")}
       </Link>
       <span className="eyebrow">IQ LAND</span>
-      <h1>Обработка персональных данных</h1>
-      <h2>Организатор и связь</h2>
+      <h1>{tr("Обработка персональных данных")}</h1>
+      <h2>{tr("Организатор и связь")}</h2>
       <p>
-        Олимпиады проводит команда IQ LAND, Казахстан. По вопросам регистрации и
-        обработки данных напишите в Instagram:{" "}
+        {tr(
+          "Олимпиады проводит команда IQ LAND, Казахстан. По вопросам регистрации и обработки данных напишите в Instagram:",
+        )}{" "}
         <a
           href="https://www.instagram.com/iqland_competitions/"
           target="_blank"
@@ -284,43 +297,79 @@ function Privacy() {
         .
       </p>
       <p>
-        Форма регистрации предназначена для совершеннолетних учителей и
-        представителей образовательных центров. Ученик самостоятельно заявку не
-        подаёт.
+        {tr(
+          "Форма регистрации предназначена для совершеннолетних учителей и представителей образовательных центров. Ученик самостоятельно заявку не подаёт.",
+        )}
       </p>
-      <h2>Какие данные используются</h2>
+      <h2>{tr("Какие данные используются")}</h2>
       <p>
-        ФИО, дата рождения, класс и дисциплины учеников, название и город
-        центра, ФИО, телефон и email учителя, а также имена педагогов для
-        благодарственных сертификатов.
+        {tr(
+          "ФИО, дата рождения, класс и дисциплины учеников, название и город центра, ФИО, телефон и email учителя, а также имена педагогов для благодарственных сертификатов.",
+        )}
       </p>
-      <h2>Для чего нужны данные</h2>
+      <h2>{tr("Для чего нужны данные")}</h2>
       <p>
-        Для учёта участников, связи с представителем центра, подготовки
-        протокола олимпиады и сертификатов. Доступ к заявкам получают только
-        авторизованные организаторы.
+        {tr(
+          "Для учёта участников, связи с представителем центра, подготовки протокола олимпиады и сертификатов. Доступ к заявкам получают только авторизованные организаторы.",
+        )}
       </p>
-      <h2>Доступ к результатам</h2>
+      <h2>{tr("Доступ к результатам")}</h2>
       <p>
-        Баллы и награды доступны организаторам в закрытом кабинете. Организатор
-        готовит отдельный Excel с результатами для каждого образовательного
-        центра. Имена учеников, баллы, места, контакты и даты рождения не
-        публикуются в открытом архиве сайта.
+        {tr(
+          "Баллы и награды доступны организаторам в закрытом кабинете. Организатор готовит отдельный Excel с результатами для каждого образовательного центра. Имена учеников, баллы, места, контакты и даты рождения не публикуются в открытом архиве сайта.",
+        )}
       </p>
-      <h2>Согласие представителя</h2>
+      <h2>{tr("Автоматический выбор языка")}</h2>
       <p>
-        Отправляя заявку, представитель подтверждает, что имеет необходимые
-        согласия законных представителей учеников и педагогов на передачу
-        указанных данных организаторам олимпиады.
+        {tr(
+          "Страна определяется приблизительно по IP-адресу на сервере. Точные координаты не запрашиваются. Выбранный вручную язык сохраняется в браузере.",
+        )}
+      </p>
+      <h2>{tr("Согласие представителя")}</h2>
+      <p>
+        {tr(
+          "Отправляя заявку, представитель подтверждает, что имеет необходимые согласия законных представителей учеников и педагогов на передачу указанных данных организаторам олимпиады.",
+        )}
       </p>
       <div className="notice">
-        Для исправления или удаления данных, а также уточнения сроков их
-        хранения напишите в личные сообщения @iqland_competitions. Укажите номер
-        заявки и название образовательного центра, чтобы организатор мог найти
-        нужную запись.
+        {tr(
+          "Для исправления или удаления данных, а также уточнения сроков их хранения напишите в личные сообщения @iqland_competitions. Укажите номер заявки и название образовательного центра, чтобы организатор мог найти нужную запись.",
+        )}
       </div>
     </main>
   );
+}
+function PageMetadata() {
+  const { language } = useLanguage();
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const title =
+      pathname === "/archive"
+        ? "Прошедшие олимпиады"
+        : pathname === "/privacy"
+          ? "Политика конфиденциальности"
+          : pathname === "/login"
+            ? "Кабинет организатора"
+            : pathname === "/cabinet/awards"
+              ? "Присвоение мест"
+              : pathname === "/cabinet"
+                ? "Кабинет организатора"
+                : pathname.includes("register")
+                  ? "Регистрация"
+                  : "";
+    document.title = title
+      ? `${tr(title)} · IQ LAND`
+      : tr("IQ LAND — Большие открытия начинаются здесь");
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        tr(
+          "IQ LAND — международные олимпиады по математике, английскому языку и ментальной арифметике. Зарегистрируйте команду и откройте детям мир возможностей.",
+        ),
+      );
+  }, [language, pathname]);
+  return null;
 }
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -341,6 +390,7 @@ function ScrollManager() {
   return null;
 }
 function App() {
+  const { language } = useLanguage();
   const [user, setUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
   const [toast, setToast] = useState("");
@@ -359,6 +409,7 @@ function App() {
   return (
     <AppContext.Provider value={{ user, setUser, authReady, notify: setToast }}>
       <BrowserRouter>
+        <PageMetadata />
         <ScrollManager />
         <InteractionMotion />
         <Header />
@@ -377,9 +428,10 @@ function App() {
               path="*"
               element={
                 <main className="empty-page">
-                  <h1>Страница не найдена</h1>
+                  <h1>{tr("Страница не найдена")}</h1>
                   <Link to="/" className="btn btn-primary">
-                    На главную <ArrowRight size={18} />
+                    {tr("На главную ")}
+                    <ArrowRight size={18} />
                   </Link>
                 </main>
               }
@@ -390,11 +442,15 @@ function App() {
         {toast && (
           <div className="toast" role="status">
             <Check size={18} />
-            {toast}
+            {tr(toast)}
           </div>
         )}
       </BrowserRouter>
     </AppContext.Provider>
   );
 }
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+  <LanguageProvider>
+    <App />
+  </LanguageProvider>,
+);

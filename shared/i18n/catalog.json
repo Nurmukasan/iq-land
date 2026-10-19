@@ -1,0 +1,4484 @@
+{
+  "Заявки команд": {
+    "en": "Team applications",
+    "kk": "Командалардың өтінімдері",
+    "az": "Komanda müraciətləri",
+    "uz": "Jamoa arizalari"
+  },
+  "Присвоение мест": {
+    "en": "Award assignment",
+    "kk": "Жүлделі орындарды тағайындау",
+    "az": "Mükafatların təyin edilməsi",
+    "uz": "Sovrinli o‘rinlarni belgilash"
+  },
+  "Протокол олимпиады": {
+    "en": "Olympiad protocol",
+    "kk": "Олимпиада хаттамасы",
+    "az": "Olimpiada protokolu",
+    "uz": "Olimpiada bayonnomasi"
+  },
+  "Мероприятия": {
+    "en": "Events",
+    "kk": "Іс-шаралар",
+    "az": "Tədbirlər",
+    "uz": "Tadbirlar"
+  },
+  "Рекламный блок": {
+    "en": "Promotional banner",
+    "kk": "Жарнамалық блок",
+    "az": "Reklam bloku",
+    "uz": "Reklama bloki"
+  },
+  "РАБОЧЕЕ ПРОСТРАНСТВО": {
+    "en": "WORKSPACE",
+    "kk": "ЖҰМЫС КЕҢІСТІГІ",
+    "az": "İŞ SAHƏSİ",
+    "uz": "ISH MAYDONI"
+  },
+  "Администратор сайта": {
+    "en": "Site administrator",
+    "kk": "Сайт әкімшісі",
+    "az": "Sayt administratoru",
+    "uz": "Sayt administratori"
+  },
+  "Руководитель IQ LAND": {
+    "en": "IQ LAND director",
+    "kk": "IQ LAND басшысы",
+    "az": "IQ LAND rəhbəri",
+    "uz": "IQ LAND rahbari"
+  },
+  "Разделы кабинета": {
+    "en": "Cabinet sections",
+    "kk": "Жеке кабинет бөлімдері",
+    "az": "Şəxsi kabinet bölmələri",
+    "uz": "Kabinet bo‘limlari"
+  },
+  "Все заявки и результаты": {
+    "en": "All applications and results",
+    "kk": "Барлық өтінімдер мен нәтижелер",
+    "az": "Bütün müraciətlər və nəticələr",
+    "uz": "Barcha arizalar va natijalar"
+  },
+  "в одном пространстве.": {
+    "en": "in one place.",
+    "kk": "бір жерде.",
+    "az": "bir yerdə.",
+    "uz": "bir joyda."
+  },
+  "Выйти из кабинета": {
+    "en": "Sign out",
+    "kk": "Кабинеттен шығу",
+    "az": "Çıxış",
+    "uz": "Kabinetdan chiqish"
+  },
+  "Выберите видео MP4 (H.264) или WebM.": {
+    "en": "Choose an MP4 (H.264) or WebM video.",
+    "kk": "MP4 (H.264) немесе WebM бейнесін таңдаңыз.",
+    "az": "MP4 (H.264) və ya WebM videosu seçin.",
+    "uz": "MP4 (H.264) yoki WebM videosini tanlang."
+  },
+  "Файл пустой. Выберите другое видео.": {
+    "en": "The file is empty. Choose another video.",
+    "kk": "Файл бос. Басқа бейне таңдаңыз.",
+    "az": "Fayl boşdur. Başqa video seçin.",
+    "uz": "Fayl bo‘sh. Boshqa video tanlang."
+  },
+  "Видео больше 1 ГБ. Выберите файл меньшего размера.": {
+    "en": "The video exceeds 1 GB. Choose a smaller file.",
+    "kk": "Бейне көлемі 1 ГБ-тан асады. Кішірек файл таңдаңыз.",
+    "az": "Video 1 GB-dan böyükdür. Daha kiçik fayl seçin.",
+    "uz": "Video 1 GB dan katta. Kichikroq fayl tanlang."
+  },
+  "Не удалось завершить загрузку. Попробуйте ещё раз.": {
+    "en": "Upload could not finish. Try again.",
+    "kk": "Жүктеу аяқталмады. Қайталап көріңіз.",
+    "az": "Yükləməni tamamlamaq mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "Yuklash tugamadi. Qayta urinib ko‘ring."
+  },
+  "Не удалось загрузить видео. Попробуйте ещё раз.": {
+    "en": "Could not upload the video. Try again.",
+    "kk": "Бейне жүктелмеді. Қайталап көріңіз.",
+    "az": "Videonu yükləmək mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "Video yuklanmadi. Qayta urinib ko‘ring."
+  },
+  "Сервер не вернул видео. Попробуйте загрузить его ещё раз.": {
+    "en": "The server did not return a video. Upload it again.",
+    "kk": "Сервер бейнені қайтармады. Қайта жүктеп көріңіз.",
+    "az": "Server videonu qaytarmadı. Yenidən yükləyin.",
+    "uz": "Server videoni qaytarmadi. Qayta yuklang."
+  },
+  "Загрузка прервалась. Проверьте соединение и попробуйте ещё раз.": {
+    "en": "Upload interrupted. Check your connection and try again.",
+    "kk": "Жүктеу үзілді. Байланысты тексеріп, қайталаңыз.",
+    "az": "Yükləmə kəsildi. Bağlantınızı yoxlayıb yenidən cəhd edin.",
+    "uz": "Yuklash uzildi. Ulanishni tekshirib, qayta urining."
+  },
+  "Не удалось начать загрузку. Попробуйте выбрать файл ещё раз.": {
+    "en": "Could not start uploading. Choose the file again.",
+    "kk": "Жүктеу басталмады. Файлды қайта таңдаңыз.",
+    "az": "Yükləmə başlamadı. Faylı yenidən seçin.",
+    "uz": "Yuklash boshlanmadi. Faylni qayta tanlang."
+  },
+  "Монтаж олимпиады": {
+    "en": "Olympiad highlights",
+    "kk": "Олимпиаданың үздік сәттері",
+    "az": "Olimpiadadan əsas anlar",
+    "uz": "Olimpiadaning yorqin lahzalari"
+  },
+  "Покажите, как прошёл день: участники, эмоции и награждение.": {
+    "en": "Show the day: participants, emotions and awards.",
+    "kk": "Күннің қызығын көрсетіңіз: қатысушылар, әсерлер мен марапаттау.",
+    "az": "Günü göstərin: iştirakçılar, emosiyalar və mükafatlandırma.",
+    "uz": "Kun taassurotlari: ishtirokchilar, his-tuyg‘ular va taqdirlash."
+  },
+  "Предпросмотр монтажа олимпиады": {
+    "en": "Olympiad highlights preview",
+    "kk": "Олимпиада бейнесін алдын ала қарау",
+    "az": "Olimpiada videosuna önbaxış",
+    "uz": "Olimpiada videosini oldindan ko‘rish"
+  },
+  "Ваш день в одном видео": {
+    "en": "Your day in one video",
+    "kk": "Бір бейнедегі ерекше күніңіз",
+    "az": "Gününüz bir videoda",
+    "uz": "Kuningiz bitta videoda"
+  },
+  "Браузер не смог воспроизвести предпросмотр. Для MP4 используйте кодек H.264 или выберите WebM.": {
+    "en": "Your browser cannot play the preview. Use H.264 for MP4 or choose WebM.",
+    "kk": "Браузер бейнені ойната алмады. MP4 үшін H.264 қолданыңыз немесе WebM таңдаңыз.",
+    "az": "Brauzer önbaxışı oynada bilmədi. MP4 üçün H.264 istifadə edin və ya WebM seçin.",
+    "uz": "Brauzer videoni ijro eta olmadi. MP4 uchun H.264 ishlating yoki WebM tanlang."
+  },
+  "Загрузить монтаж олимпиады": {
+    "en": "Upload olympiad highlights",
+    "kk": "Олимпиада бейнесін жүктеу",
+    "az": "Olimpiada videosunu yükləyin",
+    "uz": "Olimpiada videosini yuklash"
+  },
+  "Заменить видео": {
+    "en": "Replace video",
+    "kk": "Бейнені ауыстыру",
+    "az": "Videonu dəyişdirin",
+    "uz": "Videoni almashtirish"
+  },
+  "Выбрать видео": {
+    "en": "Choose video",
+    "kk": "Бейне таңдау",
+    "az": "Video seçin",
+    "uz": "Video tanlash"
+  },
+  "Убрать видео": {
+    "en": "Remove video",
+    "kk": "Бейнені алып тастау",
+    "az": "Videonu silin",
+    "uz": "Videoni olib tashlash"
+  },
+  "MP4 (H.264) или WebM · до 1 ГБ. Можно перетащить файл сюда.": {
+    "en": "MP4 (H.264) or WebM · up to 1 GB. You can drop a file here.",
+    "kk": "MP4 (H.264) немесе WebM · 1 ГБ-қа дейін. Файлды осы жерге сүйреп әкелуге болады.",
+    "az": "MP4 (H.264) və ya WebM · 1 GB-a qədər. Faylı bura sürükləyə bilərsiniz.",
+    "uz": "MP4 (H.264) yoki WebM · 1 GB gacha. Faylni shu yerga olib kelish mumkin."
+  },
+  "Оригинальное качество, включая 1080p60, сохраняется без конвертации.": {
+    "en": "Original quality, including 1080p60, is preserved without conversion.",
+    "kk": "Бастапқы сапа, оның ішінде 1080p60, түрлендірусіз сақталады.",
+    "az": "1080p60 daxil olmaqla orijinal keyfiyyət çevrilmədən saxlanılır.",
+    "uz": "1080p60 hamda asl sifat o‘zgartirilmasdan saqlanadi."
+  },
+  "Завершаем загрузку…": {
+    "en": "Finishing upload…",
+    "kk": "Жүктеу аяқталуда…",
+    "az": "Yükləmə tamamlanır…",
+    "uz": "Yuklash yakunlanmoqda…"
+  },
+  "Загружаем видео…": {
+    "en": "Uploading video…",
+    "kk": "Бейне жүктелуде…",
+    "az": "Video yüklənir…",
+    "uz": "Video yuklanmoqda…"
+  },
+  "Загрузка видео": {
+    "en": "Video upload",
+    "kk": "Бейне жүктеу",
+    "az": "Videonun yüklənməsi",
+    "uz": "Video yuklash"
+  },
+  "Видео загружено": {
+    "en": "Video uploaded",
+    "kk": "Бейне жүктелді",
+    "az": "Video yükləndi",
+    "uz": "Video yuklandi"
+  },
+  "Видео олимпиады:": {
+    "en": "Olympiad video:",
+    "kk": "Олимпиада бейнесі:",
+    "az": "Olimpiada videosu:",
+    "uz": "Olimpiada videosi:"
+  },
+  "Моменты олимпиады": {
+    "en": "Olympiad moments",
+    "kk": "Олимпиада сәттері",
+    "az": "Olimpiada anları",
+    "uz": "Olimpiada lahzalari"
+  },
+  "Включить звук": {
+    "en": "Unmute",
+    "kk": "Дыбысты қосу",
+    "az": "Səsi açın",
+    "uz": "Ovozni yoqish"
+  },
+  "Выключить звук": {
+    "en": "Mute",
+    "kk": "Дыбысты өшіру",
+    "az": "Səsi söndürün",
+    "uz": "Ovozni o‘chirish"
+  },
+  "Звук включён": {
+    "en": "Sound on",
+    "kk": "Дыбыс қосылды",
+    "az": "Səs açıqdır",
+    "uz": "Ovoz yoqilgan"
+  },
+  "Не удалось воспроизвести видео": {
+    "en": "Could not play the video",
+    "kk": "Бейне ойнатылмады",
+    "az": "Videonu oynatmaq mümkün olmadı",
+    "uz": "Videoni ijro etib bo‘lmadi"
+  },
+  "Повторить": {
+    "en": "Try again",
+    "kk": "Қайталау",
+    "az": "Yenidən cəhd edin",
+    "uz": "Qayta urinish"
+  },
+  "Воспроизвести монтаж": {
+    "en": "Play highlights",
+    "kk": "Бейнені ойнату",
+    "az": "Videonu oynadın",
+    "uz": "Videoni ijro etish"
+  },
+  "Олимпиада IQ LAND ·": {
+    "en": "IQ LAND Olympiad ·",
+    "kk": "IQ LAND олимпиадасы ·",
+    "az": "IQ LAND Olimpiadası ·",
+    "uz": "IQ LAND olimpiadasi ·"
+  },
+  "Моменты, которые остаются.": {
+    "en": "Moments that stay with you.",
+    "kk": "Есте қалатын сәттер.",
+    "az": "Yadda qalan anlar.",
+    "uz": "Yodda qoladigan lahzalar."
+  },
+  "История одной олимпиады.": {
+    "en": "The story of an olympiad.",
+    "kk": "Бір олимпиаданың тарихы.",
+    "az": "Bir olimpiadanın hekayəsi.",
+    "uz": "Bir olimpiada tarixi."
+  },
+  "Укажите имя и фамилию: от 2 до 150 символов.": {
+    "en": "Enter a first and last name: 2–150 characters.",
+    "kk": "Аты-жөнін енгізіңіз: 2–150 таңба.",
+    "az": "Ad və soyad daxil edin: 2–150 simvol.",
+    "uz": "Ism va familiyani kiriting: 2–150 belgi."
+  },
+  "Укажите настоящую дату рождения с 1990 года, раньше сегодняшнего дня.": {
+    "en": "Enter a valid birth date from 1990 onwards, before today.",
+    "kk": "1990 жылдан бергі, бүгіннен бұрынғы дұрыс туған күнді енгізіңіз.",
+    "az": "1990-cı ildən bu günədək etibarlı doğum tarixi daxil edin.",
+    "uz": "1990-yildan boshlab, bugungi kundan oldingi haqiqiy tug‘ilgan sanani kiriting."
+  },
+  "Укажите класс от 0 до 12. Для дошкольника выберите 0.": {
+    "en": "Enter a grade from 0 to 12. Choose 0 for preschool.",
+    "kk": "0–12 аралығындағы сыныпты таңдаңыз. Мектепке дейінгі бала үшін 0 таңдаңыз.",
+    "az": "0–12 arası sinif seçin. Məktəbəqədər uşaq üçün 0 seçin.",
+    "uz": "0 dan 12 gacha sinfni tanlang. Maktabgacha yoshdagilar uchun 0 ni tanlang."
+  },
+  "Выберите хотя бы одну дисциплину этой олимпиады.": {
+    "en": "Choose at least one subject offered at this olympiad.",
+    "kk": "Осы олимпиаданың кемінде бір пәнін таңдаңыз.",
+    "az": "Bu olimpiadanın ən azı bir fənnini seçin.",
+    "uz": "Ushbu olimpiadadan kamida bitta fan tanlang."
+  },
+  "В одной заявке может быть не более 300 учеников.": {
+    "en": "One application can contain up to 300 students.",
+    "kk": "Бір өтінімде 300-ге дейін оқушы болуы мүмкін.",
+    "az": "Bir müraciətdə ən çox 300 şagird ola bilər.",
+    "uz": "Bitta arizada 300 nafargacha o‘quvchi bo‘lishi mumkin."
+  },
+  "Нужны три столбца: ФИО, дата рождения, класс. Четвёртый — дисциплины через запятую.": {
+    "en": "Three columns are required: full name, birth date, grade. An optional fourth column lists subjects separated by commas.",
+    "kk": "Үш баған қажет: аты-жөні, туған күні, сыныбы. Төртінші бағанға пәндерді үтірмен бөлуге болады.",
+    "az": "Üç sütun lazımdır: ad və soyad, doğum tarixi, sinif. Dördüncü sütunda fənləri vergüllə ayırın.",
+    "uz": "Uchta ustun kerak: F.I.Sh., tug‘ilgan sana, sinf. To‘rtinchi ustunda fanlarni vergul bilan ajratish mumkin."
+  },
+  "Добавьте хотя бы одну строку с учеником.": {
+    "en": "Add at least one student row.",
+    "kk": "Кемінде бір оқушы жолын қосыңыз.",
+    "az": "Ən azı bir şagird sətri əlavə edin.",
+    "uz": "Kamida bitta o‘quvchi qatorini qo‘shing."
+  },
+  "Заполните поле: от 2 до 150 символов.": {
+    "en": "Complete this field: 2–150 characters.",
+    "kk": "Өрісті толтырыңыз: 2–150 таңба.",
+    "az": "Xananı doldurun: 2–150 simvol.",
+    "uz": "Maydonni to‘ldiring: 2–150 belgi."
+  },
+  "Укажите действующий email, не более 200 символов.": {
+    "en": "Enter a valid email address, up to 200 characters.",
+    "kk": "200 таңбадан аспайтын дұрыс email енгізіңіз.",
+    "az": "200 simvoldan çox olmayan etibarlı email daxil edin.",
+    "uz": "200 belgidan oshmagan to‘g‘ri email manzilini kiriting."
+  },
+  "Проверьте номер телефона: от 7 до 25 символов.": {
+    "en": "Check the phone number: 7–25 characters.",
+    "kk": "Телефон нөмірін тексеріңіз: 7–25 таңба.",
+    "az": "Telefon nömrəsini yoxlayın: 7–25 simvol.",
+    "uz": "Telefon raqamini tekshiring: 7–25 belgi."
+  },
+  "Комментарий должен быть не длиннее 2000 символов.": {
+    "en": "The comment must not exceed 2,000 characters.",
+    "kk": "Пікір 2000 таңбадан аспауы керек.",
+    "az": "Şərh 2000 simvoldan çox olmamalıdır.",
+    "uz": "Izoh 2000 belgidan oshmasligi kerak."
+  },
+  "Можно добавить не более 30 преподавателей.": {
+    "en": "You can add up to 30 teachers.",
+    "kk": "30-ға дейін мұғалім қосуға болады.",
+    "az": "Ən çox 30 müəllim əlavə edə bilərsiniz.",
+    "uz": "30 nafargacha o‘qituvchi qo‘shish mumkin."
+  },
+  "Укажите имя преподавателя: от 2 до 150 символов.": {
+    "en": "Enter the teacher's name: 2–150 characters.",
+    "kk": "Мұғалімнің аты-жөнін енгізіңіз: 2–150 таңба.",
+    "az": "Müəllimin adını daxil edin: 2–150 simvol.",
+    "uz": "O‘qituvchining ismini kiriting: 2–150 belgi."
+  },
+  "Не удалось связаться с сервером. Проверьте подключение и повторите.": {
+    "en": "Could not connect to the server. Check your connection and try again.",
+    "kk": "Сервермен байланыс орнатылмады. Интернетті тексеріп, қайталаңыз.",
+    "az": "Serverlə əlaqə qurulmadı. Bağlantınızı yoxlayıb yenidən cəhd edin.",
+    "uz": "Serverga ulanib bo‘lmadi. Ulanishni tekshirib, qayta urining."
+  },
+  "Сервер временно недоступен": {
+    "en": "The server is temporarily unavailable",
+    "kk": "Сервер уақытша қолжетімсіз",
+    "az": "Server müvəqqəti əlçatan deyil",
+    "uz": "Server vaqtincha ishlamayapti"
+  },
+  "Не удалось выполнить запрос": {
+    "en": "Could not complete the request",
+    "kk": "Сұрау орындалмады",
+    "az": "Sorğunu yerinə yetirmək mümkün olmadı",
+    "uz": "So‘rovni bajarib bo‘lmadi"
+  },
+  "Стоимость уточняется": {
+    "en": "Price to be confirmed",
+    "kk": "Бағасы нақтыланады",
+    "az": "Qiymət dəqiqləşdirilir",
+    "uz": "Narx aniqlashtiriladi"
+  },
+  "Загрузка…": {
+    "en": "Loading…",
+    "kk": "Жүктелуде…",
+    "az": "Yüklənir…",
+    "uz": "Yuklanmoqda…"
+  },
+  "Закрыть": {
+    "en": "Close",
+    "kk": "Жабу",
+    "az": "Bağlayın",
+    "uz": "Yopish"
+  },
+  "К содержимому": {
+    "en": "Skip to content",
+    "kk": "Мазмұнға өту",
+    "az": "Məzmuna keçin",
+    "uz": "Mazmunga o‘tish"
+  },
+  "IQ LAND — главная": {
+    "en": "IQ LAND — home",
+    "kk": "IQ LAND — басты бет",
+    "az": "IQ LAND — ana səhifə",
+    "uz": "IQ LAND — bosh sahifa"
+  },
+  "Главная навигация": {
+    "en": "Main navigation",
+    "kk": "Негізгі навигация",
+    "az": "Əsas naviqasiya",
+    "uz": "Asosiy navigatsiya"
+  },
+  "Олимпиады": {
+    "en": "Olympiads",
+    "kk": "Олимпиадалар",
+    "az": "Olimpiadalar",
+    "uz": "Olimpiadalar"
+  },
+  "Прошедшие олимпиады": {
+    "en": "Past olympiads",
+    "kk": "Өткен олимпиадалар",
+    "az": "Keçmiş olimpiadalar",
+    "uz": "O‘tgan olimpiadalar"
+  },
+  "Регистрация": {
+    "en": "Registration",
+    "kk": "Тіркелу",
+    "az": "Qeydiyyat",
+    "uz": "Ro‘yxatdan o‘tish"
+  },
+  "Учителям": {
+    "en": "For teachers",
+    "kk": "Мұғалімдерге",
+    "az": "Müəllimlər üçün",
+    "uz": "O‘qituvchilarga"
+  },
+  "Контакты": {
+    "en": "Contact",
+    "kk": "Байланыс",
+    "az": "Əlaqə",
+    "uz": "Bog‘lanish"
+  },
+  "Выбрать олимпиаду": {
+    "en": "Choose an olympiad",
+    "kk": "Олимпиаданы таңдау",
+    "az": "Olimpiada seçin",
+    "uz": "Olimpiada tanlash"
+  },
+  "Личный кабинет": {
+    "en": "Personal account",
+    "kk": "Жеке кабинет",
+    "az": "Şəxsi kabinet",
+    "uz": "Shaxsiy kabinet"
+  },
+  "Кабинет": {
+    "en": "Account",
+    "kk": "Кабинет",
+    "az": "Kabinet",
+    "uz": "Kabinet"
+  },
+  "Открыть меню": {
+    "en": "Open menu",
+    "kk": "Мәзірді ашу",
+    "az": "Menyunu açın",
+    "uz": "Menyuni ochish"
+  },
+  "Объединяем знания.": {
+    "en": "Bringing knowledge together.",
+    "kk": "Білімді біріктіреміз.",
+    "az": "Bilikləri birləşdiririk.",
+    "uz": "Bilimlarni birlashtiramiz."
+  },
+  "Открываем мир.": {
+    "en": "Opening up the world.",
+    "kk": "Әлемді ашамыз.",
+    "az": "Dünyanı kəşf edirik.",
+    "uz": "Dunyoni kashf etamiz."
+  },
+  "Для учителей": {
+    "en": "For teachers",
+    "kk": "Мұғалімдер үшін",
+    "az": "Müəllimlər üçün",
+    "uz": "O‘qituvchilar uchun"
+  },
+  "Вопросы и ответы": {
+    "en": "Questions and answers",
+    "kk": "Сұрақтар мен жауаптар",
+    "az": "Suallar və cavablar",
+    "uz": "Savol va javoblar"
+  },
+  "Кабинет организатора": {
+    "en": "Organizer dashboard",
+    "kk": "Ұйымдастырушы кабинеті",
+    "az": "Təşkilatçı kabineti",
+    "uz": "Tashkilotchi kabineti"
+  },
+  "IQ LAND. Все права защищены.": {
+    "en": "IQ LAND. All rights reserved.",
+    "kk": "IQ LAND. Барлық құқықтар қорғалған.",
+    "az": "IQ LAND. Bütün hüquqlar qorunur.",
+    "uz": "IQ LAND. Barcha huquqlar himoyalangan."
+  },
+  "Политика конфиденциальности": {
+    "en": "Privacy policy",
+    "kk": "Құпиялық саясаты",
+    "az": "Məxfilik siyasəti",
+    "uz": "Maxfiylik siyosati"
+  },
+  "С заботой о больших мечтах": {
+    "en": "Caring for big dreams",
+    "kk": "Үлкен армандарға қамқорлықпен",
+    "az": "Böyük arzulara qayğı ilə",
+    "uz": "Katta orzularga g‘amxo‘rlik bilan"
+  },
+  "← На главную": {
+    "en": "← Back to home",
+    "kk": "← Басты бетке",
+    "az": "← Ana səhifəyə",
+    "uz": "← Bosh sahifaga"
+  },
+  "Обработка персональных данных": {
+    "en": "Personal data processing",
+    "kk": "Дербес деректерді өңдеу",
+    "az": "Fərdi məlumatların emalı",
+    "uz": "Shaxsiy ma’lumotlarni qayta ishlash"
+  },
+  "Организатор и связь": {
+    "en": "Organizer and contact",
+    "kk": "Ұйымдастырушы және байланыс",
+    "az": "Təşkilatçı və əlaqə",
+    "uz": "Tashkilotchi va aloqa"
+  },
+  "Олимпиады проводит команда IQ LAND, Казахстан. По вопросам регистрации и обработки данных напишите в Instagram:": {
+    "en": "Olympiads are organized by the IQ LAND team in Kazakhstan. For registration and data questions, contact us on Instagram:",
+    "kk": "Олимпиадаларды Қазақстандағы IQ LAND командасы өткізеді. Тіркелу және деректерді өңдеу сұрақтары бойынша Instagram-ға жазыңыз:",
+    "az": "Olimpiadaları Qazaxıstanda IQ LAND komandası təşkil edir. Qeydiyyat və məlumatlarla bağlı Instagram-da yazın:",
+    "uz": "Olimpiadalarni Qozog‘istondagi IQ LAND jamoasi tashkil qiladi. Ro‘yxatdan o‘tish va ma’lumotlar bo‘yicha Instagram orqali yozing:"
+  },
+  "Форма регистрации предназначена для совершеннолетних учителей и представителей образовательных центров. Ученик самостоятельно заявку не подаёт.": {
+    "en": "The registration form is for adult teachers and educational center representatives. Students do not submit applications themselves.",
+    "kk": "Тіркелу нысаны кәмелетке толған мұғалімдер мен білім беру орталықтарының өкілдеріне арналған. Оқушы өз бетінше өтінім бермейді.",
+    "az": "Qeydiyyat forması yetkin müəllimlər və təhsil mərkəzlərinin nümayəndələri üçündür. Şagirdlər özləri müraciət etmir.",
+    "uz": "Ro‘yxatdan o‘tish shakli voyaga yetgan o‘qituvchilar va ta’lim markazi vakillari uchun. O‘quvchilar mustaqil ariza bermaydi."
+  },
+  "Какие данные используются": {
+    "en": "What data we use",
+    "kk": "Қандай деректер қолданылады",
+    "az": "Hansı məlumatlardan istifadə olunur",
+    "uz": "Qanday ma’lumotlar ishlatiladi"
+  },
+  "ФИО, дата рождения, класс и дисциплины учеников, название и город центра, ФИО, телефон и email учителя, а также имена педагогов для благодарственных сертификатов.": {
+    "en": "Students' full names, birth dates, grades and subjects; the center's name and city; the teacher's name, phone and email; and names of teachers receiving appreciation certificates.",
+    "kk": "Оқушылардың аты-жөні, туған күні, сыныбы мен пәндері; орталық атауы мен қаласы; мұғалімнің аты-жөні, телефоны мен email-ы; алғыс сертификатын алатын педагогтердің аты-жөні.",
+    "az": "Şagirdlərin ad və soyadı, doğum tarixi, sinif və fənləri; mərkəzin adı və şəhəri; müəllimin adı, telefonu və emaili; təşəkkür sertifikatı alacaq müəllimlərin adları.",
+    "uz": "O‘quvchilarning F.I.Sh., tug‘ilgan sanasi, sinfi va fanlari; markaz nomi va shahri; o‘qituvchining F.I.Sh., telefoni va emaili; tashakkurnoma oladigan pedagoglarning ismlari."
+  },
+  "Для чего нужны данные": {
+    "en": "Why we need this data",
+    "kk": "Деректер не үшін қажет",
+    "az": "Məlumatlar nə üçün lazımdır",
+    "uz": "Ma’lumotlar nima uchun kerak"
+  },
+  "Для учёта участников, связи с представителем центра, подготовки протокола олимпиады и сертификатов. Доступ к заявкам получают только авторизованные организаторы.": {
+    "en": "To register participants, contact the center's representative and prepare the olympiad protocol and certificates. Only authorized organizers can access applications.",
+    "kk": "Қатысушыларды есепке алу, орталық өкілімен байланысу, олимпиада хаттамасы мен сертификаттарды дайындау үшін. Өтінімдерге тек уәкілетті ұйымдастырушылар қол жеткізеді.",
+    "az": "İştirakçıların qeydiyyatı, mərkəzin nümayəndəsi ilə əlaqə və protokol və sertifikatların hazırlanması üçün. Müraciətlərə yalnız səlahiyyətli təşkilatçılar baxa bilər.",
+    "uz": "Ishtirokchilarni hisobga olish, markaz vakili bilan bog‘lanish, bayonnoma va sertifikatlarni tayyorlash uchun. Arizalarni faqat vakolatli tashkilotchilar ko‘radi."
+  },
+  "Доступ к результатам": {
+    "en": "Access to results",
+    "kk": "Нәтижелерге қол жеткізу",
+    "az": "Nəticələrə giriş",
+    "uz": "Natijalarga kirish"
+  },
+  "Баллы и награды доступны организаторам в закрытом кабинете. Организатор готовит отдельный Excel с результатами для каждого образовательного центра. Имена учеников, баллы, места, контакты и даты рождения не публикуются в открытом архиве сайта.": {
+    "en": "Scores and awards are available to organizers in the private cabinet. Organizers prepare a separate Excel results file for each center. Students' names, scores, awards, contact details and birth dates are not published in the public archive.",
+    "kk": "Ұпайлар мен наградалар ұйымдастырушылардың жабық кабинетінде қолжетімді. Әр орталыққа нәтижелердің жеке Excel файлы дайындалады. Оқушылардың аты-жөні, ұпайлары, орындары, байланыс деректері мен туған күндері ашық мұрағатта жарияланбайды.",
+    "az": "Ballar və mükafatlar təşkilatçılara qapalı kabinetdə təqdim olunur. Hər mərkəz üçün ayrıca Excel hazırlanır. Şagirdlərin adları, balları, yerləri, əlaqə məlumatları və doğum tarixləri açıq arxivdə yayımlanmır.",
+    "uz": "Ballar va sovrinlar tashkilotchilarning yopiq kabinetida mavjud. Har bir markaz uchun alohida Excel tayyorlanadi. O‘quvchilarning ismlari, ballari, o‘rinlari, aloqa ma’lumotlari va tug‘ilgan sanalari ochiq arxivda e’lon qilinmaydi."
+  },
+  "Согласие представителя": {
+    "en": "Representative's consent",
+    "kk": "Өкілдің келісімі",
+    "az": "Nümayəndənin razılığı",
+    "uz": "Vakilning roziligi"
+  },
+  "Отправляя заявку, представитель подтверждает, что имеет необходимые согласия законных представителей учеников и педагогов на передачу указанных данных организаторам олимпиады.": {
+    "en": "By submitting the application, the representative confirms that they have the required consent from students' legal guardians and teachers to share this data with the organizers.",
+    "kk": "Өтінім жіберген өкіл оқушылардың заңды өкілдері мен педагогтерден деректерді ұйымдастырушыларға беруге қажетті келісім алғанын растайды.",
+    "az": "Müraciəti göndərən nümayəndə məlumatları təşkilatçılara ötürmək üçün şagirdlərin qanuni nümayəndələrinin və müəllimlərin razılığını aldığını təsdiqləyir.",
+    "uz": "Ariza yuboruvchi vakil ushbu ma’lumotlarni tashkilotchilarga berish uchun o‘quvchilarning qonuniy vakillari va pedagoglarning zarur roziligini olganini tasdiqlaydi."
+  },
+  "Для исправления или удаления данных, а также уточнения сроков их хранения напишите в личные сообщения @iqland_competitions. Укажите номер заявки и название образовательного центра, чтобы организатор мог найти нужную запись.": {
+    "en": "To correct or delete data or ask about retention periods, message @iqland_competitions. Include the application number and center name so the organizer can find the record.",
+    "kk": "Деректерді түзету, жою немесе сақтау мерзімін білу үшін @iqland_competitions парақшасына жазыңыз. Жазбаны табу үшін өтінім нөмірі мен орталық атауын көрсетіңіз.",
+    "az": "Məlumatları düzəltmək, silmək və ya saxlanma müddətini öyrənmək üçün @iqland_competitions hesabına yazın. Müraciət nömrəsini və mərkəzin adını göstərin.",
+    "uz": "Ma’lumotlarni tuzatish, o‘chirish yoki saqlash muddatini bilish uchun @iqland_competitions ga yozing. Ariza raqami va markaz nomini ko‘rsating."
+  },
+  "Страница не найдена": {
+    "en": "Page not found",
+    "kk": "Бет табылмады",
+    "az": "Səhifə tapılmadı",
+    "uz": "Sahifa topilmadi"
+  },
+  "На главную": {
+    "en": "Back to home",
+    "kk": "Басты бетке",
+    "az": "Ana səhifəyə",
+    "uz": "Bosh sahifaga"
+  },
+  "Прошедшие олимпиады · IQ LAND": {
+    "en": "Past olympiads · IQ LAND",
+    "kk": "Өткен олимпиадалар · IQ LAND",
+    "az": "Keçmiş olimpiadalar · IQ LAND",
+    "uz": "O‘tgan olimpiadalar · IQ LAND"
+  },
+  "К будущим олимпиадам": {
+    "en": "Upcoming olympiads",
+    "kk": "Алдағы олимпиадаларға",
+    "az": "Gələcək olimpiadalara",
+    "uz": "Kelgusi olimpiadalarga"
+  },
+  "История IQ LAND": {
+    "en": "The IQ LAND story",
+    "kk": "IQ LAND тарихы",
+    "az": "IQ LAND tarixi",
+    "uz": "IQ LAND tarixi"
+  },
+  "Прошедшие": {
+    "en": "Past",
+    "kk": "Өткен",
+    "az": "Keçmiş",
+    "uz": "O‘tgan"
+  },
+  "олимпиады.": {
+    "en": "olympiads.",
+    "kk": "олимпиадалар.",
+    "az": "olimpiadalar.",
+    "uz": "olimpiadalar."
+  },
+  "Каждая олимпиада — своя история.": {
+    "en": "Every olympiad has its own story.",
+    "kk": "Әр олимпиаданың өз тарихы бар.",
+    "az": "Hər olimpiadanın öz hekayəsi var.",
+    "uz": "Har bir olimpiadaning o‘z tarixi bor."
+  },
+  "Здесь — её лучшие моменты": {
+    "en": "Here are its best moments",
+    "kk": "Мұнда оның үздік сәттері",
+    "az": "Burada ən gözəl anlar",
+    "uz": "Bu yerda uning eng yaxshi lahzalari"
+  },
+  "и программы соревнований.": {
+    "en": "and competition programmes.",
+    "kk": "мен жарыс бағдарламалары.",
+    "az": "və yarış proqramları var.",
+    "uz": "va musobaqa dasturlari."
+  },
+  "Найти прошедшую олимпиаду": {
+    "en": "Find a past olympiad",
+    "kk": "Өткен олимпиаданы табу",
+    "az": "Keçmiş olimpiadanı tapın",
+    "uz": "O‘tgan olimpiadani qidirish"
+  },
+  "Название или город": {
+    "en": "Name or city",
+    "kk": "Атауы немесе қаласы",
+    "az": "Ad və ya şəhər",
+    "uz": "Nomi yoki shahri"
+  },
+  "Страна": {
+    "en": "Country",
+    "kk": "Ел",
+    "az": "Ölkə",
+    "uz": "Mamlakat"
+  },
+  "Страна прошедшей олимпиады": {
+    "en": "Past olympiad country",
+    "kk": "Өткен олимпиаданың елі",
+    "az": "Keçmiş olimpiadanın ölkəsi",
+    "uz": "O‘tgan olimpiada mamlakati"
+  },
+  "Все страны": {
+    "en": "All countries",
+    "kk": "Барлық елдер",
+    "az": "Bütün ölkələr",
+    "uz": "Barcha mamlakatlar"
+  },
+  "Год": {
+    "en": "Year",
+    "kk": "Жыл",
+    "az": "İl",
+    "uz": "Yil"
+  },
+  "Год олимпиады": {
+    "en": "Olympiad year",
+    "kk": "Олимпиада жылы",
+    "az": "Olimpiada ili",
+    "uz": "Olimpiada yili"
+  },
+  "Все годы": {
+    "en": "All years",
+    "kk": "Барлық жылдар",
+    "az": "Bütün illər",
+    "uz": "Barcha yillar"
+  },
+  "Повторить загрузку": {
+    "en": "Reload",
+    "kk": "Қайта жүктеу",
+    "az": "Yenidən yükləyin",
+    "uz": "Qayta yuklash"
+  },
+  "Соревнования, которые нас объединили.": {
+    "en": "Competitions that brought us together.",
+    "kk": "Бізді біріктірген жарыстар.",
+    "az": "Bizi birləşdirən yarışlar.",
+    "uz": "Bizni birlashtirgan musobaqalar."
+  },
+  "Итоги олимпиады: {0} · {1} · {2}": {
+    "en": "Olympiad recap: {0} · {1} · {2}",
+    "kk": "Олимпиада қорытындысы: {0} · {1} · {2}",
+    "az": "Olimpiada yekunları: {0} · {1} · {2}",
+    "uz": "Olimpiada yakunlari: {0} · {1} · {2}"
+  },
+  "Олимпиада IQ LAND · {0}": {
+    "en": "IQ LAND Olympiad · {0}",
+    "kk": "IQ LAND олимпиадасы · {0}",
+    "az": "IQ LAND Olimpiadası · {0}",
+    "uz": "IQ LAND olimpiadasi · {0}"
+  },
+  "Видео олимпиады": {
+    "en": "Olympiad video",
+    "kk": "Олимпиада бейнесі",
+    "az": "Olimpiada videosu",
+    "uz": "Olimpiada videosi"
+  },
+  "г.": {
+    "en": "year",
+    "kk": "ж.",
+    "az": "il",
+    "uz": "yil"
+  },
+  "Программа и впечатления": {
+    "en": "Programme and memories",
+    "kk": "Бағдарлама мен әсерлер",
+    "az": "Proqram və təəssüratlar",
+    "uz": "Dastur va taassurotlar"
+  },
+  "Смотреть итоги": {
+    "en": "View recap",
+    "kk": "Қорытындыны көру",
+    "az": "Yekunlara baxın",
+    "uz": "Yakunlarni ko‘rish"
+  },
+  "Такой олимпиады пока нет": {
+    "en": "No matching olympiad yet",
+    "kk": "Мұндай олимпиада әзірге жоқ",
+    "az": "Belə olimpiada hələ yoxdur",
+    "uz": "Bunday olimpiada hozircha yo‘q"
+  },
+  "История только начинается.": {
+    "en": "The story is just beginning.",
+    "kk": "Тарих енді басталады.",
+    "az": "Hekayə yeni başlayır.",
+    "uz": "Tarix endi boshlanmoqda."
+  },
+  "Попробуйте другой город, страну или год.": {
+    "en": "Try another city, country or year.",
+    "kk": "Басқа қала, ел немесе жылды таңдаңыз.",
+    "az": "Başqa şəhər, ölkə və ya il seçin.",
+    "uz": "Boshqa shahar, mamlakat yoki yilni tanlang."
+  },
+  "Здесь появятся прошедшие соревнования, видео и программы. А следующую олимпиаду можно выбрать уже сейчас.": {
+    "en": "Past competitions, videos and programmes will appear here. You can choose your next olympiad now.",
+    "kk": "Мұнда өткен жарыстар, бейнелер мен бағдарламалар пайда болады. Келесі олимпиаданы қазір таңдауға болады.",
+    "az": "Keçmiş yarışlar, videolar və proqramlar burada görünəcək. Növbəti olimpiadanı indi seçə bilərsiniz.",
+    "uz": "Bu yerda o‘tgan musobaqalar, videolar va dasturlar paydo bo‘ladi. Keyingi olimpiadani hozir tanlash mumkin."
+  },
+  "Сбросить фильтры": {
+    "en": "Reset filters",
+    "kk": "Сүзгілерді тазалау",
+    "az": "Filtrləri sıfırlayın",
+    "uz": "Filtrlarni tozalash"
+  },
+  "Проверьте дату рождения": {
+    "en": "Check the birth date",
+    "kk": "Туған күнін тексеріңіз",
+    "az": "Doğum tarixini yoxlayın",
+    "uz": "Tug‘ilgan sanani tekshiring"
+  },
+  "Проверьте баллы: введите число от 0 до 1 000 000.": {
+    "en": "Check the score: enter a number from 0 to 1,000,000.",
+    "kk": "Ұпайды тексеріңіз: 0–1 000 000 аралығындағы сан енгізіңіз.",
+    "az": "Balı yoxlayın: 0–1 000 000 arası rəqəm daxil edin.",
+    "uz": "Ballni tekshiring: 0 dan 1 000 000 gacha son kiriting."
+  },
+  "Места присвоены. Файлы центров готовы.": {
+    "en": "Awards assigned. Center files are ready.",
+    "kk": "Орындар тағайындалды. Орталық файлдары дайын.",
+    "az": "Mükafatlar təyin olundu. Mərkəzlərin faylları hazırdır.",
+    "uz": "O‘rinlar belgilandi. Markazlar fayllari tayyor."
+  },
+  "Не удалось скачать Excel.": {
+    "en": "Could not download Excel.",
+    "kk": "Excel файлы жүктелмеді.",
+    "az": "Excel faylını endirmək mümkün olmadı.",
+    "uz": "Excel faylini yuklab bo‘lmadi."
+  },
+  "ИТОГИ ОЛИМПИАДЫ": {
+    "en": "OLYMPIAD RESULTS",
+    "kk": "ОЛИМПИАДА ҚОРЫТЫНДЫСЫ",
+    "az": "OLİMPİADA NƏTİCƏLƏRİ",
+    "uz": "OLIMPIADA NATIJALARI"
+  },
+  "Каждый предмет. Своя возрастная категория. Честные результаты.": {
+    "en": "Each subject. Its own age category. Fair results.",
+    "kk": "Әр пән. Өз жас санаты. Әділ нәтиже.",
+    "az": "Hər fənn. Öz yaş kateqoriyası. Ədalətli nəticələr.",
+    "uz": "Har bir fan. Alohida yosh toifasi. Adolatli natijalar."
+  },
+  "Олимпиада ещё впереди": {
+    "en": "The olympiad is still ahead",
+    "kk": "Олимпиада әлі алда",
+    "az": "Olimpiada hələ qarşıdadır",
+    "uz": "Olimpiada hali oldinda"
+  },
+  "Здесь появятся мероприятия, которые проходят сегодня или уже завершились.": {
+    "en": "Events taking place today or already completed will appear here.",
+    "kk": "Мұнда бүгін өтетін немесе аяқталған іс-шаралар көрсетіледі.",
+    "az": "Bu gün keçirilən və ya artıq bitmiş tədbirlər burada görünəcək.",
+    "uz": "Bu yerda bugun o‘tayotgan yoki tugagan tadbirlar paydo bo‘ladi."
+  },
+  "К мероприятиям": {
+    "en": "Go to events",
+    "kk": "Іс-шараларға өту",
+    "az": "Tədbirlərə keçin",
+    "uz": "Tadbirlarga o‘tish"
+  },
+  "ОЛИМПИАДА": {
+    "en": "OLYMPIAD",
+    "kk": "ОЛИМПИАДА",
+    "az": "OLİMPİADA",
+    "uz": "OLIMPIADA"
+  },
+  "Олимпиада для присвоения мест": {
+    "en": "Olympiad for award assignment",
+    "kk": "Орын тағайындалатын олимпиада",
+    "az": "Mükafatlar üçün olimpiada",
+    "uz": "O‘rinlar belgilanadigan olimpiada"
+  },
+  "Проходит сегодня": {
+    "en": "Taking place today",
+    "kk": "Бүгін өтеді",
+    "az": "Bu gün keçirilir",
+    "uz": "Bugun o‘tmoqda"
+  },
+  "учеников ·": {
+    "en": "students ·",
+    "kk": "оқушы ·",
+    "az": "şagird ·",
+    "uz": "o‘quvchi ·"
+  },
+  "участий": {
+    "en": "entries",
+    "kk": "қатысу",
+    "az": "iştirak",
+    "uz": "ishtirok"
+  },
+  "Обновить список участников": {
+    "en": "Refresh participant list",
+    "kk": "Қатысушылар тізімін жаңарту",
+    "az": "İştirakçı siyahısını yeniləyin",
+    "uz": "Ishtirokchilar ro‘yxatini yangilash"
+  },
+  "Возрастные категории": {
+    "en": "Age categories",
+    "kk": "Жас санаттары",
+    "az": "Yaş kateqoriyaları",
+    "uz": "Yosh toifalari"
+  },
+  "Сначала задайте возрастные категории": {
+    "en": "Set the age categories first",
+    "kk": "Алдымен жас санаттарын орнатыңыз",
+    "az": "Əvvəlcə yaş kateqoriyalarını təyin edin",
+    "uz": "Avval yosh toifalarini belgilang"
+  },
+  "Например, 12–13 и 14–15 лет. Возраст считаем на дату олимпиады; дети из разных категорий не соревнуются между собой.": {
+    "en": "For example, ages 12–13 and 14–15. Age is calculated on the olympiad date; different categories do not compete with each other.",
+    "kk": "Мысалы, 12–13 және 14–15 жас. Жас олимпиада күніне есептеледі; әр санат өз ішінде жарысады.",
+    "az": "Məsələn, 12–13 və 14–15 yaş. Yaş olimpiada tarixinə hesablanır; fərqli kateqoriyalar bir-biri ilə yarışmır.",
+    "uz": "Masalan, 12–13 va 14–15 yosh. Yosh olimpiada kuniga hisoblanadi; turli toifalar o‘zaro bellashmaydi."
+  },
+  "Настроить": {
+    "en": "Set up",
+    "kk": "Баптау",
+    "az": "Tənzimləyin",
+    "uz": "Sozlash"
+  },
+  "Не попали в возрастные диапазоны:": {
+    "en": "Outside the age ranges:",
+    "kk": "Жас санатына кірмеген:",
+    "az": "Yaş aralığına düşməyən:",
+    "uz": "Yosh oralig‘iga kirmagan:"
+  },
+  "участий. Дополните категории перед расчётом.": {
+    "en": "entries. Add categories before calculating.",
+    "kk": "қатысу. Есептеуден бұрын санаттарды толықтырыңыз.",
+    "az": "iştirak. Hesablamadan əvvəl kateqoriyaları tamamlayın.",
+    "uz": "ishtirok. Hisoblashdan oldin toifalarni to‘ldiring."
+  },
+  "Предметы олимпиады": {
+    "en": "Olympiad subjects",
+    "kk": "Олимпиада пәндері",
+    "az": "Olimpiada fənləri",
+    "uz": "Olimpiada fanlari"
+  },
+  "Поиск ученика или центра": {
+    "en": "Search for a student or center",
+    "kk": "Оқушыны немесе орталықты іздеу",
+    "az": "Şagird və ya mərkəz axtarın",
+    "uz": "O‘quvchi yoki markazni qidirish"
+  },
+  "Ученик или образовательный центр": {
+    "en": "Student or educational center",
+    "kk": "Оқушы немесе білім беру орталығы",
+    "az": "Şagird və ya təhsil mərkəzi",
+    "uz": "O‘quvchi yoki ta’lim markazi"
+  },
+  "Сохраняю баллы": {
+    "en": "Saving scores",
+    "kk": "Ұпайлар сақталуда",
+    "az": "Ballar saxlanılır",
+    "uz": "Ballar saqlanmoqda"
+  },
+  "Есть несохранённые баллы": {
+    "en": "You have unsaved scores",
+    "kk": "Сақталмаған ұпайлар бар",
+    "az": "Saxlanılmamış ballar var",
+    "uz": "Saqlanmagan ballar bor"
+  },
+  "Баллы сохранены": {
+    "en": "Scores saved",
+    "kk": "Ұпайлар сақталды",
+    "az": "Ballar saxlanıldı",
+    "uz": "Ballar saqlandi"
+  },
+  "Ученик": {
+    "en": "Student",
+    "kk": "Оқушы",
+    "az": "Şagird",
+    "uz": "O‘quvchi"
+  },
+  "Образовательный центр": {
+    "en": "Educational center",
+    "kk": "Білім беру орталығы",
+    "az": "Təhsil mərkəzi",
+    "uz": "Ta’lim markazi"
+  },
+  "Баллы": {
+    "en": "Score",
+    "kk": "Ұпай",
+    "az": "Bal",
+    "uz": "Ball"
+  },
+  "Категория {0}": {
+    "en": "Category {0}",
+    "kk": "{0} санаты",
+    "az": "{0} kateqoriyası",
+    "uz": "{0} toifasi"
+  },
+  "Категория не задана": {
+    "en": "Category not set",
+    "kk": "Санат берілмеген",
+    "az": "Kateqoriya təyin edilməyib",
+    "uz": "Toifa belgilanmagan"
+  },
+  "Дошкольник": {
+    "en": "Preschool",
+    "kk": "Мектепке дейінгі",
+    "az": "Məktəbəqədər",
+    "uz": "Maktabgacha"
+  },
+  "{0} класс": {
+    "en": "Grade {0}",
+    "kk": "{0}-сынып",
+    "az": "Sinif {0}",
+    "uz": "{0}-sinf"
+  },
+  "Баллы {0}, {1}": {
+    "en": "Score for {0}, {1}",
+    "kk": "{0}, {1} ұпайы",
+    "az": "{0}, {1} balı",
+    "uz": "{0}, {1} balli"
+  },
+  "Участники не найдены. Измените поиск.": {
+    "en": "No participants found. Change your search.",
+    "kk": "Қатысушылар табылмады. Іздеуді өзгертіңіз.",
+    "az": "İştirakçı tapılmadı. Axtarışı dəyişin.",
+    "uz": "Ishtirokchilar topilmadi. Qidiruvni o‘zgartiring."
+  },
+  "По этому предмету пока нет участников.": {
+    "en": "No participants in this subject yet.",
+    "kk": "Бұл пән бойынша қатысушылар әзірге жоқ.",
+    "az": "Bu fənn üzrə hələ iştirakçı yoxdur.",
+    "uz": "Bu fan bo‘yicha hozircha ishtirokchi yo‘q."
+  },
+  "Заполнено": {
+    "en": "Completed",
+    "kk": "Толтырылғаны",
+    "az": "Doldurulub",
+    "uz": "To‘ldirildi"
+  },
+  "из": {
+    "en": "of",
+    "kk": "/",
+    "az": "/",
+    "uz": "/"
+  },
+  "По всем предметам олимпиады. Пустое поле — без баллов, 0 — результат.": {
+    "en": "Across all olympiad subjects. An empty field means no score; 0 is a result.",
+    "kk": "Барлық пән бойынша. Бос өріс — ұпай жоқ, 0 — нәтиже.",
+    "az": "Bütün fənlər üzrə. Boş xana — bal yoxdur, 0 isə nəticədir.",
+    "uz": "Barcha fanlar bo‘yicha. Bo‘sh maydon — ball yo‘q, 0 — natija."
+  },
+  "Сохранить баллы": {
+    "en": "Save scores",
+    "kk": "Ұпайларды сақтау",
+    "az": "Balları saxlayın",
+    "uz": "Ballarni saqlash"
+  },
+  "Рассчитываю…": {
+    "en": "Calculating…",
+    "kk": "Есептелуде…",
+    "az": "Hesablanır…",
+    "uz": "Hisoblanmoqda…"
+  },
+  "Вывести результаты": {
+    "en": "Calculate results",
+    "kk": "Нәтижелерді шығару",
+    "az": "Nəticələri hesablayın",
+    "uz": "Natijalarni chiqarish"
+  },
+  "Как распределяются награды": {
+    "en": "How awards are distributed",
+    "kk": "Наградалар қалай бөлінеді",
+    "az": "Mükafatlar necə bölüşdürülür",
+    "uz": "Sovrinlar qanday taqsimlanadi"
+  },
+  "В каждом предмете и возрастной категории отдельно: верхние 30% — золото, следующие 30% — серебро, остальные — бронза. Границы 30% и 60% округляются вверх. При одинаковых баллах присваивается одинаковая, более высокая награда: поэтому фактические доли могут отличаться от 30/30/40. Образовательный центр на расчёт места не влияет.": {
+    "en": "Separately for each subject and age category: the top 30% receive gold, the next 30% silver and the rest bronze. The 30% and 60% cutoffs round up. Equal scores receive the same, higher award, so actual shares may differ from 30/30/40. The educational center does not affect the award.",
+    "kk": "Әр пән мен жас санаты ішінде: үздік 30% — алтын, келесі 30% — күміс, қалғандары — қола. 30% және 60% шектері жоғарыға дөңгелектенеді. Ұпайлары тең қатысушылар бірдей жоғары награда алады, сондықтан үлестер 30/30/40-тан өзгеше болуы мүмкін. Орталық атауы орынға әсер етпейді.",
+    "az": "Hər fənn və yaş kateqoriyasında ayrıca: ilk 30% qızıl, növbəti 30% gümüş, qalanlar bürünc alır. 30% və 60% sərhədləri yuxarı yuvarlaqlaşdırılır. Bərabər ballar eyni, daha yüksək mükafat alır; paylar 30/30/40-dan fərqlənə bilər. Mərkəz nəticəyə təsir etmir.",
+    "uz": "Har bir fan va yosh toifasida alohida: yuqori 30% — oltin, keyingi 30% — kumush, qolganlar — bronza. 30% va 60% chegaralari yuqoriga yaxlitlanadi. Teng ballar bir xil yuqori sovrin oladi, shuning uchun ulushlar 30/30/40 dan farq qilishi mumkin. Markaz o‘ringa ta’sir qilmaydi."
+  },
+  "РЕЗУЛЬТАТЫ ПО ЦЕНТРАМ": {
+    "en": "RESULTS BY CENTER",
+    "kk": "ОРТАЛЫҚТАР БОЙЫНША НӘТИЖЕЛЕР",
+    "az": "MƏRKƏZLƏR ÜZRƏ NƏTİCƏLƏR",
+    "uz": "MARKAZLAR BO‘YICHA NATIJALAR"
+  },
+  "Готово. Каждый центр —": {
+    "en": "Ready. Each center —",
+    "kk": "Дайын. Әр орталыққа —",
+    "az": "Hazırdır. Hər mərkəz —",
+    "uz": "Tayyor. Har bir markaz —"
+  },
+  "в отдельном файле.": {
+    "en": "a separate file.",
+    "kk": "жеке файл.",
+    "az": "ayrıca fayl.",
+    "uz": "alohida fayl."
+  },
+  "Нужен пересчёт": {
+    "en": "Recalculation needed",
+    "kk": "Қайта есептеу қажет",
+    "az": "Yenidən hesablama lazımdır",
+    "uz": "Qayta hisoblash kerak"
+  },
+  "Результаты рассчитаны": {
+    "en": "Results calculated",
+    "kk": "Нәтижелер есептелді",
+    "az": "Nəticələr hesablandı",
+    "uz": "Natijalar hisoblandi"
+  },
+  "Баллы, категории или список участников изменились. Нажмите «Вывести результаты», чтобы обновить награды и файлы.": {
+    "en": "Scores, categories or participants have changed. Click “Calculate results” to update awards and files.",
+    "kk": "Ұпайлар, санаттар немесе қатысушылар өзгерді. Наградалар мен файлдарды жаңарту үшін «Нәтижелерді шығару» түймесін басыңыз.",
+    "az": "Ballar, kateqoriyalar və ya iştirakçı siyahısı dəyişib. Faylları yeniləmək üçün “Nəticələri hesablayın” düyməsini basın.",
+    "uz": "Ballar, toifalar yoki ishtirokchilar o‘zgardi. Sovrin va fayllarni yangilash uchun “Natijalarni chiqarish”ni bosing."
+  },
+  "Золото": {
+    "en": "Gold",
+    "kk": "Алтын",
+    "az": "Qızıl",
+    "uz": "Oltin"
+  },
+  "Серебро": {
+    "en": "Silver",
+    "kk": "Күміс",
+    "az": "Gümüş",
+    "uz": "Kumush"
+  },
+  "Бронза": {
+    "en": "Bronze",
+    "kk": "Қола",
+    "az": "Bürünc",
+    "uz": "Bronza"
+  },
+  "результатов": {
+    "en": "results",
+    "kk": "нәтиже",
+    "az": "nəticə",
+    "uz": "natija"
+  },
+  "Готовлю…": {
+    "en": "Preparing…",
+    "kk": "Дайындалуда…",
+    "az": "Hazırlanır…",
+    "uz": "Tayyorlanmoqda…"
+  },
+  "Скачать Excel": {
+    "en": "Download Excel",
+    "kk": "Excel жүктеп алу",
+    "az": "Excel endirin",
+    "uz": "Excel yuklab olish"
+  },
+  "В файле сначала идут золото, серебро и бронза, затем — предметы и возрастные категории. Файлы доступны только организаторам.": {
+    "en": "Files list gold, silver and bronze first, then subjects and age categories. Files are available only to organizers.",
+    "kk": "Файлда алдымен алтын, күміс, қола, содан кейін пәндер мен жас санаттары беріледі. Файлдар тек ұйымдастырушыларға қолжетімді.",
+    "az": "Faylda əvvəl qızıl, gümüş, bürünc, sonra fənlər və yaş kateqoriyaları sıralanır. Fayllar yalnız təşkilatçılar üçündür.",
+    "uz": "Faylda avval oltin, kumush, bronza, so‘ng fanlar va yosh toifalari joylashadi. Fayllar faqat tashkilotchilar uchun."
+  },
+  "Сохранить баллы перед переходом?": {
+    "en": "Save scores before leaving?",
+    "kk": "Шығар алдында ұпайларды сақтау керек пе?",
+    "az": "Çıxmazdan əvvəl ballar saxlanılsın?",
+    "uz": "Chiqishdan oldin ballar saqlansinmi?"
+  },
+  "Сохраните введённые баллы, чтобы продолжить работу с ними позже.": {
+    "en": "Save entered scores to continue later.",
+    "kk": "Кейін жалғастыру үшін ұпайларды сақтаңыз.",
+    "az": "Sonra davam etmək üçün balları saxlayın.",
+    "uz": "Keyin davom etish uchun ballarni saqlang."
+  },
+  "Перейти с черновиком": {
+    "en": "Continue with draft",
+    "kk": "Нобаймен өту",
+    "az": "Qaralama ilə keçin",
+    "uz": "Qoralama bilan o‘tish"
+  },
+  "Сохранить и перейти": {
+    "en": "Save and continue",
+    "kk": "Сақтап, өту",
+    "az": "Saxlayın və keçin",
+    "uz": "Saqlash va davom etish"
+  },
+  "Заполните обе границы каждой категории.": {
+    "en": "Fill in both boundaries of every category.",
+    "kk": "Әр санаттың екі шегін де толтырыңыз.",
+    "az": "Hər kateqoriyanın hər iki sərhədini doldurun.",
+    "uz": "Har bir toifaning ikkala chegarasini to‘ldiring."
+  },
+  "Полный возраст на дату олимпиады. Диапазоны включают обе границы и не должны пересекаться: например, 12–13 и 14–15 лет.": {
+    "en": "Completed age on the olympiad date. Both boundaries are included and ranges must not overlap, for example 12–13 and 14–15.",
+    "kk": "Олимпиада күніндегі толық жас. Екі шек те кіреді, аралықтар қиылыспауы керек: мысалы, 12–13 және 14–15.",
+    "az": "Olimpiada günündə tamamlanmış yaş. Hər iki sərhəd daxildir və aralıqlar kəsişməməlidir: məsələn, 12–13 və 14–15.",
+    "uz": "Olimpiada kunidagi to‘liq yosh. Ikkala chegara ham kiradi, oraliqlar kesishmasligi kerak: masalan, 12–13 va 14–15."
+  },
+  "От": {
+    "en": "From",
+    "kk": "Бастап",
+    "az": "Başlanğıc",
+    "uz": "Dan"
+  },
+  "Минимальный возраст категории {0}": {
+    "en": "Minimum age for category {0}",
+    "kk": "{0}-санаттың ең кіші жасы",
+    "az": "Kateqoriya {0}: minimum yaş",
+    "uz": "{0}-toifaning eng kichik yoshi"
+  },
+  "До включительно": {
+    "en": "To, inclusive",
+    "kk": "Дейін, қоса алғанда",
+    "az": "Daxil olmaqla",
+    "uz": "Gacha, shu jumladan"
+  },
+  "Максимальный возраст категории {0}": {
+    "en": "Maximum age for category {0}",
+    "kk": "{0}-санаттың ең үлкен жасы",
+    "az": "Kateqoriya {0}: maksimum yaş",
+    "uz": "{0}-toifaning eng katta yoshi"
+  },
+  "Удалить категорию {0}": {
+    "en": "Delete category {0}",
+    "kk": "{0}-санатты жою",
+    "az": "Kateqoriya {0} silinsin",
+    "uz": "{0}-toifani o‘chirish"
+  },
+  "Добавить категорию": {
+    "en": "Add category",
+    "kk": "Санат қосу",
+    "az": "Kateqoriya əlavə edin",
+    "uz": "Toifa qo‘shish"
+  },
+  "Сохраняю…": {
+    "en": "Saving…",
+    "kk": "Сақталуда…",
+    "az": "Saxlanılır…",
+    "uz": "Saqlanmoqda…"
+  },
+  "Сохранить категории": {
+    "en": "Save categories",
+    "kk": "Санаттарды сақтау",
+    "az": "Kateqoriyaları saxlayın",
+    "uz": "Toifalarni saqlash"
+  },
+  "Новая": {
+    "en": "New",
+    "kk": "Жаңа",
+    "az": "Yeni",
+    "uz": "Yangi"
+  },
+  "Подтверждена": {
+    "en": "Confirmed",
+    "kk": "Расталған",
+    "az": "Təsdiqlənib",
+    "uz": "Tasdiqlangan"
+  },
+  "Отменена": {
+    "en": "Cancelled",
+    "kk": "Бас тартылған",
+    "az": "Ləğv olunub",
+    "uz": "Bekor qilingan"
+  },
+  "КОМАНДА IQ LAND": {
+    "en": "THE IQ LAND TEAM",
+    "kk": "IQ LAND КОМАНДАСЫ",
+    "az": "IQ LAND KOMANDASI",
+    "uz": "IQ LAND JAMOASI"
+  },
+  "За каждым открытием —": {
+    "en": "Behind every discovery —",
+    "kk": "Әр жаңалықтың артында —",
+    "az": "Hər kəşfin arxasında —",
+    "uz": "Har bir kashfiyot ortida —"
+  },
+  "люди, которые верят.": {
+    "en": "people who believe.",
+    "kk": "сенім артатын адамдар.",
+    "az": "inanan insanlar var.",
+    "uz": "ishonadigan insonlar bor."
+  },
+  "Ваше рабочее пространство для управления олимпиадами, заявками и результатами.": {
+    "en": "Your workspace for managing olympiads, applications and results.",
+    "kk": "Олимпиадаларды, өтінімдер мен нәтижелерді басқаруға арналған жұмыс кеңістігіңіз.",
+    "az": "Olimpiadaları, müraciətləri və nəticələri idarə etmək üçün iş sahəniz.",
+    "uz": "Olimpiadalar, arizalar va natijalarni boshqarish uchun ish maydoningiz."
+  },
+  "С возвращением": {
+    "en": "Welcome back",
+    "kk": "Қайта қош келдіңіз",
+    "az": "Yenidən xoş gəlmisiniz",
+    "uz": "Yana xush kelibsiz"
+  },
+  "Войдите в кабинет организатора": {
+    "en": "Sign in to the organizer dashboard",
+    "kk": "Ұйымдастырушы кабинетіне кіріңіз",
+    "az": "Təşkilatçı kabinetinə daxil olun",
+    "uz": "Tashkilotchi kabinetiga kiring"
+  },
+  "Ваш рабочий email": {
+    "en": "Your work email",
+    "kk": "Жұмыс email-ыңыз",
+    "az": "İş emailiniz",
+    "uz": "Ish emailingiz"
+  },
+  "Пароль": {
+    "en": "Password",
+    "kk": "Құпиясөз",
+    "az": "Şifrə",
+    "uz": "Parol"
+  },
+  "Введите пароль": {
+    "en": "Enter your password",
+    "kk": "Құпиясөзді енгізіңіз",
+    "az": "Şifrənizi daxil edin",
+    "uz": "Parolingizni kiriting"
+  },
+  "Скрыть пароль": {
+    "en": "Hide password",
+    "kk": "Құпиясөзді жасыру",
+    "az": "Şifrəni gizlədin",
+    "uz": "Parolni yashirish"
+  },
+  "Показать пароль": {
+    "en": "Show password",
+    "kk": "Құпиясөзді көрсету",
+    "az": "Şifrəni göstərin",
+    "uz": "Parolni ko‘rsatish"
+  },
+  "Входим…": {
+    "en": "Signing in…",
+    "kk": "Кіруде…",
+    "az": "Daxil olunur…",
+    "uz": "Kirilmoqda…"
+  },
+  "Войти в кабинет": {
+    "en": "Sign in",
+    "kk": "Кабинетке кіру",
+    "az": "Kabinetə daxil olun",
+    "uz": "Kabinetga kirish"
+  },
+  "Доступ для администратора и руководителя.": {
+    "en": "Access for administrators and directors.",
+    "kk": "Әкімші мен басшыға арналған қолжетімділік.",
+    "az": "Administrator və rəhbər üçün giriş.",
+    "uz": "Administrator va rahbar uchun kirish."
+  },
+  "Данные входа выдаёт администратор сайта.": {
+    "en": "Login details are provided by the site administrator.",
+    "kk": "Кіру деректерін сайт әкімшісі береді.",
+    "az": "Giriş məlumatlarını sayt administratoru verir.",
+    "uz": "Kirish ma’lumotlarini sayt administratori beradi."
+  },
+  "Вернуться на сайт": {
+    "en": "Return to website",
+    "kk": "Сайтқа оралу",
+    "az": "Sayta qayıdın",
+    "uz": "Saytga qaytish"
+  },
+  "Статус заявки обновлён": {
+    "en": "Application status updated",
+    "kk": "Өтінім мәртебесі жаңартылды",
+    "az": "Müraciət statusu yeniləndi",
+    "uz": "Ariza holati yangilandi"
+  },
+  "Укажите баллы от 0 до 1 000 000": {
+    "en": "Enter a score from 0 to 1,000,000",
+    "kk": "0–1 000 000 аралығындағы ұпайды енгізіңіз",
+    "az": "0–1 000 000 arası bal daxil edin",
+    "uz": "0 dan 1 000 000 gacha ball kiriting"
+  },
+  "Результат сохранён": {
+    "en": "Result saved",
+    "kk": "Нәтиже сақталды",
+    "az": "Nəticə saxlanıldı",
+    "uz": "Natija saqlandi"
+  },
+  "Не удалось выгрузить файл": {
+    "en": "Could not export the file",
+    "kk": "Файл экспортталмады",
+    "az": "Faylı ixrac etmək mümkün olmadı",
+    "uz": "Faylni eksport qilib bo‘lmadi"
+  },
+  "Excel-файл готов": {
+    "en": "Excel file is ready",
+    "kk": "Excel файлы дайын",
+    "az": "Excel faylı hazırdır",
+    "uz": "Excel fayli tayyor"
+  },
+  "КАБИНЕТ ОРГАНИЗАТОРА": {
+    "en": "ORGANIZER CABINET",
+    "kk": "ҰЙЫМДАСТЫРУШЫ КАБИНЕТІ",
+    "az": "TƏŞKİLATÇI KABİNETİ",
+    "uz": "TASHKILOTCHI KABINETI"
+  },
+  "Всё под контролем": {
+    "en": "Everything under control",
+    "kk": "Бәрі бақылауда",
+    "az": "Hər şey nəzarətdədir",
+    "uz": "Hammasi nazoratda"
+  },
+  "Три листа: участники, протокол и учителя. Экспорт всех данных выбранной олимпиады.": {
+    "en": "Three sheets: participants, protocol and teachers. Exports all data for the selected olympiad.",
+    "kk": "Үш парақ: қатысушылар, хаттама және мұғалімдер. Таңдалған олимпиаданың барлық деректері экспортталады.",
+    "az": "Üç vərəq: iştirakçılar, protokol və müəllimlər. Seçilmiş olimpiadanın bütün məlumatları ixrac olunur.",
+    "uz": "Uchta varaq: ishtirokchilar, bayonnoma va o‘qituvchilar. Tanlangan olimpiadaning barcha ma’lumotlari eksport qilinadi."
+  },
+  "Готовим файл…": {
+    "en": "Preparing file…",
+    "kk": "Файл дайындалуда…",
+    "az": "Fayl hazırlanır…",
+    "uz": "Fayl tayyorlanmoqda…"
+  },
+  "Участников": {
+    "en": "Participants",
+    "kk": "Қатысушылар",
+    "az": "İştirakçılar",
+    "uz": "Ishtirokchilar"
+  },
+  "Заявок команд": {
+    "en": "Team applications",
+    "kk": "Команда өтінімдері",
+    "az": "Komanda müraciətləri",
+    "uz": "Jamoa arizalari"
+  },
+  "Педагогов": {
+    "en": "Teachers",
+    "kk": "Педагогтер",
+    "az": "Müəllimlər",
+    "uz": "Pedagoglar"
+  },
+  "Олимпиад": {
+    "en": "Olympiads",
+    "kk": "Олимпиадалар",
+    "az": "Olimpiadalar",
+    "uz": "Olimpiadalar"
+  },
+  "Новые заявки появляются здесь после отправки формы.": {
+    "en": "New applications appear here after submission.",
+    "kk": "Жаңа өтінімдер жіберілгеннен кейін осында көрсетіледі.",
+    "az": "Yeni müraciətlər göndərildikdən sonra burada görünür.",
+    "uz": "Yangi arizalar yuborilgandan so‘ng shu yerda paydo bo‘ladi."
+  },
+  "Сортировка по олимпиаде, дисциплине, классу, баллам и имени.": {
+    "en": "Sorted by olympiad, subject, grade, score and name.",
+    "kk": "Олимпиада, пән, сынып, ұпай және аты-жөні бойынша сұрыпталған.",
+    "az": "Olimpiada, fənn, sinif, bal və ada görə sıralanır.",
+    "uz": "Olimpiada, fan, sinf, ball va ism bo‘yicha saralanadi."
+  },
+  "Обновить данные": {
+    "en": "Refresh data",
+    "kk": "Деректерді жаңарту",
+    "az": "Məlumatları yeniləyin",
+    "uz": "Ma’lumotlarni yangilash"
+  },
+  "Центр, учитель или номер…": {
+    "en": "Center, teacher or number…",
+    "kk": "Орталық, мұғалім немесе нөмір…",
+    "az": "Mərkəz, müəllim və ya nömrə…",
+    "uz": "Markaz, o‘qituvchi yoki raqam…"
+  },
+  "Ученик, центр или учитель…": {
+    "en": "Student, center or teacher…",
+    "kk": "Оқушы, орталық немесе мұғалім…",
+    "az": "Şagird, mərkəz və ya müəllim…",
+    "uz": "O‘quvchi, markaz yoki o‘qituvchi…"
+  },
+  "Поиск": {
+    "en": "Search",
+    "kk": "Іздеу",
+    "az": "Axtarış",
+    "uz": "Qidirish"
+  },
+  "Олимпиада": {
+    "en": "Olympiad",
+    "kk": "Олимпиада",
+    "az": "Olimpiada",
+    "uz": "Olimpiada"
+  },
+  "Все олимпиады": {
+    "en": "All olympiads",
+    "kk": "Барлық олимпиадалар",
+    "az": "Bütün olimpiadalar",
+    "uz": "Barcha olimpiadalar"
+  },
+  "Статус заявки": {
+    "en": "Application status",
+    "kk": "Өтінім мәртебесі",
+    "az": "Müraciət statusu",
+    "uz": "Ariza holati"
+  },
+  "Все статусы": {
+    "en": "All statuses",
+    "kk": "Барлық мәртебелер",
+    "az": "Bütün statuslar",
+    "uz": "Barcha holatlar"
+  },
+  "Дисциплина": {
+    "en": "Subject",
+    "kk": "Пән",
+    "az": "Fənn",
+    "uz": "Fan"
+  },
+  "Все дисциплины": {
+    "en": "All subjects",
+    "kk": "Барлық пәндер",
+    "az": "Bütün fənlər",
+    "uz": "Barcha fanlar"
+  },
+  "Английский язык": {
+    "en": "English",
+    "kk": "Ағылшын тілі",
+    "az": "İngilis dili",
+    "uz": "Ingliz tili"
+  },
+  "Математика": {
+    "en": "Mathematics",
+    "kk": "Математика",
+    "az": "Riyaziyyat",
+    "uz": "Matematika"
+  },
+  "Ментальная арифметика": {
+    "en": "Mental arithmetic",
+    "kk": "Менталды арифметика",
+    "az": "Mental arifmetika",
+    "uz": "Mental arifmetika"
+  },
+  "Класс": {
+    "en": "Grade",
+    "kk": "Сынып",
+    "az": "Sinif",
+    "uz": "Sinf"
+  },
+  "Все классы": {
+    "en": "All grades",
+    "kk": "Барлық сыныптар",
+    "az": "Bütün siniflər",
+    "uz": "Barcha sinflar"
+  },
+  "Дошкольники": {
+    "en": "Preschoolers",
+    "kk": "Мектепке дейінгі балалар",
+    "az": "Məktəbəqədər uşaqlar",
+    "uz": "Maktabgacha yoshdagilar"
+  },
+  "класс": {
+    "en": "grade",
+    "kk": "сынып",
+    "az": "sinif",
+    "uz": "sinf"
+  },
+  "Команда / центр": {
+    "en": "Team / center",
+    "kk": "Команда / орталық",
+    "az": "Komanda / mərkəz",
+    "uz": "Jamoa / markaz"
+  },
+  "Ученики": {
+    "en": "Students",
+    "kk": "Оқушылар",
+    "az": "Şagirdlər",
+    "uz": "O‘quvchilar"
+  },
+  "Статус": {
+    "en": "Status",
+    "kk": "Мәртебе",
+    "az": "Status",
+    "uz": "Holat"
+  },
+  "Открыть заявку": {
+    "en": "Open application",
+    "kk": "Өтінімді ашу",
+    "az": "Müraciəti açın",
+    "uz": "Arizani ochish"
+  },
+  "Заявки не найдены": {
+    "en": "No applications found",
+    "kk": "Өтінімдер табылмады",
+    "az": "Müraciət tapılmadı",
+    "uz": "Arizalar topilmadi"
+  },
+  "Здесь появится ваша первая команда": {
+    "en": "Your first team will appear here",
+    "kk": "Алғашқы командаңыз осында көрсетіледі",
+    "az": "İlk komandanız burada görünəcək",
+    "uz": "Birinchi jamoangiz shu yerda paydo bo‘ladi"
+  },
+  "Попробуйте изменить условия поиска.": {
+    "en": "Try changing the search filters.",
+    "kk": "Іздеу шарттарын өзгертіп көріңіз.",
+    "az": "Axtarış şərtlərini dəyişin.",
+    "uz": "Qidiruv shartlarini o‘zgartiring."
+  },
+  "Отправленные учителем заявки автоматически попадут в этот список.": {
+    "en": "Teachers' submitted applications appear in this list automatically.",
+    "kk": "Мұғалімдер жіберген өтінімдер бұл тізімге автоматты түрде түседі.",
+    "az": "Müəllimlərin göndərdiyi müraciətlər avtomatik bu siyahıya düşür.",
+    "uz": "O‘qituvchilar yuborgan arizalar bu ro‘yxatga avtomatik tushadi."
+  },
+  "Перейти к афише": {
+    "en": "Go to events",
+    "kk": "Афишаға өту",
+    "az": "Tədbirlər siyahısına keçin",
+    "uz": "Tadbirlar ro‘yxatiga o‘tish"
+  },
+  "Участник": {
+    "en": "Participant",
+    "kk": "Қатысушы",
+    "az": "İştirakçı",
+    "uz": "Ishtirokchi"
+  },
+  "Дисциплина / класс": {
+    "en": "Subject / grade",
+    "kk": "Пән / сынып",
+    "az": "Fənn / sinif",
+    "uz": "Fan / sinf"
+  },
+  "Рейтинг": {
+    "en": "Rank",
+    "kk": "Рейтинг",
+    "az": "Reytinq",
+    "uz": "Reyting"
+  },
+  "Протокол пока пуст": {
+    "en": "The protocol is empty",
+    "kk": "Хаттама әзірге бос",
+    "az": "Protokol hələ boşdur",
+    "uz": "Bayonnoma hozircha bo‘sh"
+  },
+  "Участники появятся после первой заявки. Отменённые заявки в протокол не включаются.": {
+    "en": "Participants will appear after the first application. Cancelled applications are excluded.",
+    "kk": "Қатысушылар алғашқы өтінімнен кейін көрсетіледі. Бас тартылған өтінімдер хаттамаға кірмейді.",
+    "az": "İştirakçılar ilk müraciətdən sonra görünəcək. Ləğv olunmuş müraciətlər daxil edilmir.",
+    "uz": "Ishtirokchilar birinchi arizadan keyin paydo bo‘ladi. Bekor qilingan arizalar kiritilmaydi."
+  },
+  "Найдено заявок: {0}": {
+    "en": "Applications found: {0}",
+    "kk": "Табылған өтінімдер: {0}",
+    "az": "Tapılan müraciətlər: {0}",
+    "uz": "Topilgan arizalar: {0}"
+  },
+  "Участий в дисциплинах: {0}": {
+    "en": "Subject entries: {0}",
+    "kk": "Пәндерге қатысу саны: {0}",
+    "az": "Fənlər üzrə iştirak: {0}",
+    "uz": "Fanlardagi ishtiroklar: {0}"
+  },
+  "Рейтинг по классу и предмету. Медали рассчитываются в разделе «Присвоение мест».": {
+    "en": "Rank by grade and subject. Medals are calculated under “Award assignment”.",
+    "kk": "Рейтинг сынып пен пән бойынша. Медальдар «Жүлделі орындарды тағайындау» бөлімінде есептеледі.",
+    "az": "Reytinq sinif və fənn üzrədir. Medallar “Mükafatların təyin edilməsi” bölməsində hesablanır.",
+    "uz": "Reyting sinf va fan bo‘yicha. Medallar “Sovrinli o‘rinlarni belgilash” bo‘limida hisoblanadi."
+  },
+  "Автообновление каждые 15 секунд. Отменённые заявки сохраняются в списке.": {
+    "en": "Refreshes every 15 seconds. Cancelled applications stay in the list.",
+    "kk": "Әр 15 секунд сайын жаңартылады. Бас тартылған өтінімдер тізімде сақталады.",
+    "az": "Hər 15 saniyədən bir yenilənir. Ləğv edilmiş müraciətlər siyahıda saxlanılır.",
+    "uz": "Har 15 soniyada yangilanadi. Bekor qilingan arizalar ro‘yxatda saqlanadi."
+  },
+  "Афиша, программа, стоимость и канал для участников.": {
+    "en": "Events, programmes, prices and participant channels.",
+    "kk": "Афиша, бағдарлама, құны және қатысушылар арнасы.",
+    "az": "Tədbirlər, proqramlar, qiymətlər və iştirakçı kanalları.",
+    "uz": "Tadbirlar, dasturlar, narxlar va ishtirokchilar kanali."
+  },
+  "Добавить": {
+    "en": "Add",
+    "kk": "Қосу",
+    "az": "Əlavə edin",
+    "uz": "Qo‘shish"
+  },
+  "В архиве": {
+    "en": "Archived",
+    "kk": "Мұрағатта",
+    "az": "Arxivdə",
+    "uz": "Arxivda"
+  },
+  "Опубликовано": {
+    "en": "Published",
+    "kk": "Жарияланған",
+    "az": "Dərc olunub",
+    "uz": "E’lon qilingan"
+  },
+  "Скрыто с сайта": {
+    "en": "Hidden from the website",
+    "kk": "Сайттан жасырылған",
+    "az": "Saytda gizlədilib",
+    "uz": "Saytdan yashirilgan"
+  },
+  "Изменить": {
+    "en": "Edit",
+    "kk": "Өзгерту",
+    "az": "Dəyişdirin",
+    "uz": "Tahrirlash"
+  },
+  "Итоги и видео": {
+    "en": "Recap and video",
+    "kk": "Қорытынды мен бейне",
+    "az": "Yekunlar və video",
+    "uz": "Yakunlar va video"
+  },
+  "Открыть страницу олимпиады": {
+    "en": "Open olympiad page",
+    "kk": "Олимпиада бетін ашу",
+    "az": "Olimpiada səhifəsini açın",
+    "uz": "Olimpiada sahifasini ochish"
+  },
+  "Заявка": {
+    "en": "Application",
+    "kk": "Өтінім",
+    "az": "Müraciət",
+    "uz": "Ariza"
+  },
+  "Ответственный учитель": {
+    "en": "Lead teacher",
+    "kk": "Жауапты мұғалім",
+    "az": "Məsul müəllim",
+    "uz": "Mas’ul o‘qituvchi"
+  },
+  "Дополнительные сертификаты педагогам": {
+    "en": "Additional teacher certificates",
+    "kk": "Педагогтерге қосымша сертификаттар",
+    "az": "Müəllimlər üçün əlavə sertifikatlar",
+    "uz": "Pedagoglarga qo‘shimcha sertifikatlar"
+  },
+  "Не запрошены": {
+    "en": "Not requested",
+    "kk": "Сұралмаған",
+    "az": "Tələb olunmayıb",
+    "uz": "So‘ralmagan"
+  },
+  "Комментарий": {
+    "en": "Comment",
+    "kk": "Пікір",
+    "az": "Şərh",
+    "uz": "Izoh"
+  },
+  "Получена:": {
+    "en": "Received:",
+    "kk": "Қабылданған уақыты:",
+    "az": "Qəbul edilib:",
+    "uz": "Qabul qilindi:"
+  },
+  "Мероприятие сохранено": {
+    "en": "Event saved",
+    "kk": "Іс-шара сақталды",
+    "az": "Tədbir saxlanıldı",
+    "uz": "Tadbir saqlandi"
+  },
+  "Итоги олимпиады сохранены": {
+    "en": "Olympiad recap saved",
+    "kk": "Олимпиада қорытындысы сақталды",
+    "az": "Olimpiada yekunları saxlanıldı",
+    "uz": "Olimpiada yakunlari saqlandi"
+  },
+  "Итоги олимпиады ·": {
+    "en": "Olympiad recap ·",
+    "kk": "Олимпиада қорытындысы ·",
+    "az": "Olimpiada yekunları ·",
+    "uz": "Olimpiada yakunlari ·"
+  },
+  "Сохраните воспоминания об олимпиаде. Сохранённое видео появится на странице прошедшей олимпиады.": {
+    "en": "Keep the memories of your olympiad. The saved video will appear on the past olympiad page.",
+    "kk": "Олимпиада естеліктерін сақтаңыз. Сақталған бейне өткен олимпиада бетінде көрсетіледі.",
+    "az": "Olimpiada xatirələrini saxlayın. Video keçmiş olimpiada səhifəsində görünəcək.",
+    "uz": "Olimpiada xotiralarini saqlang. Video o‘tgan olimpiada sahifasida ko‘rinadi."
+  },
+  "На странице олимпиады публикуется видео и программа. Имена учеников и награды доступны только организаторам.": {
+    "en": "The olympiad page shows the video and programme. Student names and awards are available only to organizers.",
+    "kk": "Олимпиада бетінде бейне мен бағдарлама жарияланады. Оқушылардың аты-жөні мен наградалар тек ұйымдастырушыларға қолжетімді.",
+    "az": "Olimpiada səhifəsində video və proqram göstərilir. Şagird adları və mükafatlar yalnız təşkilatçılara açıqdır.",
+    "uz": "Olimpiada sahifasida video va dastur e’lon qilinadi. O‘quvchi ismlari va sovrinlari faqat tashkilotchilar uchun."
+  },
+  "Олимпиада скрыта с сайта. Видео станет доступно после публикации мероприятия.": {
+    "en": "This event is hidden. The video will be available after the event is published.",
+    "kk": "Олимпиада сайттан жасырылған. Жарияланғаннан кейін бейне қолжетімді болады.",
+    "az": "Olimpiada gizlədilib. Tədbir dərc olunduqdan sonra video görünəcək.",
+    "uz": "Olimpiada yashirilgan. Tadbir e’lon qilingach video mavjud bo‘ladi."
+  },
+  "Дождитесь завершения загрузки видео.": {
+    "en": "Wait for the video upload to finish.",
+    "kk": "Бейненің жүктелуін күтіңіз.",
+    "az": "Video yüklənənədək gözləyin.",
+    "uz": "Video yuklanishi tugashini kuting."
+  },
+  "Сохраняем…": {
+    "en": "Saving…",
+    "kk": "Сақталуда…",
+    "az": "Saxlanılır…",
+    "uz": "Saqlanmoqda…"
+  },
+  "Сохранить итоги": {
+    "en": "Save recap",
+    "kk": "Қорытындыны сақтау",
+    "az": "Yekunları saxlayın",
+    "uz": "Yakunlarni saqlash"
+  },
+  "Выберите фото в формате JPEG, PNG или WebP.": {
+    "en": "Choose a JPEG, PNG or WebP photo.",
+    "kk": "JPEG, PNG немесе WebP фотосын таңдаңыз.",
+    "az": "JPEG, PNG və ya WebP şəkli seçin.",
+    "uz": "JPEG, PNG yoki WebP suratini tanlang."
+  },
+  "Файл пустой. Выберите другое фото.": {
+    "en": "The file is empty. Choose another photo.",
+    "kk": "Файл бос. Басқа фото таңдаңыз.",
+    "az": "Fayl boşdur. Başqa şəkil seçin.",
+    "uz": "Fayl bo‘sh. Boshqa surat tanlang."
+  },
+  "Фото больше 8 МБ. Выберите файл меньшего размера.": {
+    "en": "The photo exceeds 8 MB. Choose a smaller file.",
+    "kk": "Фото көлемі 8 МБ-тан асады. Кішірек файл таңдаңыз.",
+    "az": "Şəkil 8 MB-dan böyükdür. Daha kiçik fayl seçin.",
+    "uz": "Surat 8 MB dan katta. Kichikroq fayl tanlang."
+  },
+  "Сервер не вернул фото. Попробуйте загрузить его ещё раз.": {
+    "en": "The server did not return a photo. Upload it again.",
+    "kk": "Сервер фотосуретті қайтармады. Қайта жүктеңіз.",
+    "az": "Server şəkli qaytarmadı. Yenidən yükləyin.",
+    "uz": "Server suratni qaytarmadi. Qayta yuklang."
+  },
+  "Не удалось загрузить фото. Попробуйте ещё раз.": {
+    "en": "Could not upload the photo. Try again.",
+    "kk": "Фото жүктелмеді. Қайталап көріңіз.",
+    "az": "Şəkli yükləmək mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "Surat yuklanmadi. Qayta urinib ko‘ring."
+  },
+  "Фото мероприятия": {
+    "en": "Event photo",
+    "kk": "Іс-шара фотосы",
+    "az": "Tədbirin şəkli",
+    "uz": "Tadbir surati"
+  },
+  "Необязательно": {
+    "en": "Optional",
+    "kk": "Міндетті емес",
+    "az": "Məcburi deyil",
+    "uz": "Majburiy emas"
+  },
+  "Добавьте настоящий кадр города, площадки или прошлой олимпиады. Он появится на карточке в афише.": {
+    "en": "Add a real photo of the city, venue or a past olympiad. It will appear on the event card.",
+    "kk": "Қаланың, өтетін орынның немесе өткен олимпиаданың шынайы фотосын қосыңыз. Ол афишадағы карточкада көрсетіледі.",
+    "az": "Şəhərin, məkanın və ya keçmiş olimpiadanın real şəklini əlavə edin. Tədbir kartında görünəcək.",
+    "uz": "Shahar, o‘tkaziladigan joy yoki o‘tgan olimpiadaning haqiqiy suratini qo‘shing. U tadbir kartasida ko‘rinadi."
+  },
+  "Загрузить фото мероприятия": {
+    "en": "Upload event photo",
+    "kk": "Іс-шара фотосын жүктеу",
+    "az": "Tədbir şəkli yükləyin",
+    "uz": "Tadbir suratini yuklash"
+  },
+  "Заменить фото": {
+    "en": "Replace photo",
+    "kk": "Фотоны ауыстыру",
+    "az": "Şəkli dəyişdirin",
+    "uz": "Suratni almashtirish"
+  },
+  "Выбрать фото": {
+    "en": "Choose photo",
+    "kk": "Фото таңдау",
+    "az": "Şəkil seçin",
+    "uz": "Surat tanlash"
+  },
+  "Убрать фото": {
+    "en": "Remove photo",
+    "kk": "Фотоны алып тастау",
+    "az": "Şəkli silin",
+    "uz": "Suratni olib tashlash"
+  },
+  "JPEG, PNG или WebP · до 8 МБ. Можно перетащить фото сюда.": {
+    "en": "JPEG, PNG or WebP · up to 8 MB. You can drop a photo here.",
+    "kk": "JPEG, PNG немесе WebP · 8 МБ-қа дейін. Фотоны осы жерге сүйреп әкелуге болады.",
+    "az": "JPEG, PNG və ya WebP · 8 MB-a qədər. Şəkli bura sürükləyə bilərsiniz.",
+    "uz": "JPEG, PNG yoki WebP · 8 MB gacha. Suratni shu yerga olib kelish mumkin."
+  },
+  "Загружаем фото…": {
+    "en": "Uploading photo…",
+    "kk": "Фото жүктелуде…",
+    "az": "Şəkil yüklənir…",
+    "uz": "Surat yuklanmoqda…"
+  },
+  "Фото загружено": {
+    "en": "Photo uploaded",
+    "kk": "Фото жүктелді",
+    "az": "Şəkil yükləndi",
+    "uz": "Surat yuklandi"
+  },
+  "Участие в олимпиаде": {
+    "en": "Olympiad participation",
+    "kk": "Олимпиадаға қатысу",
+    "az": "Olimpiadada iştirak",
+    "uz": "Olimpiadada ishtirok"
+  },
+  "Сертификат участника": {
+    "en": "Participation certificate",
+    "kk": "Қатысушы сертификаты",
+    "az": "İştirakçı sertifikatı",
+    "uz": "Ishtirokchi sertifikati"
+  },
+  "Выберите хотя бы одну дисциплину олимпиады.": {
+    "en": "Choose at least one olympiad subject.",
+    "kk": "Кемінде бір олимпиада пәнін таңдаңыз.",
+    "az": "Ən azı bir olimpiada fənni seçin.",
+    "uz": "Kamida bitta olimpiada fanini tanlang."
+  },
+  "Изменить мероприятие": {
+    "en": "Edit event",
+    "kk": "Іс-шараны өзгерту",
+    "az": "Tədbiri dəyişdirin",
+    "uz": "Tadbirni tahrirlash"
+  },
+  "Новая олимпиада": {
+    "en": "New olympiad",
+    "kk": "Жаңа олимпиада",
+    "az": "Yeni olimpiada",
+    "uz": "Yangi olimpiada"
+  },
+  "Название олимпиады": {
+    "en": "Olympiad title",
+    "kk": "Олимпиада атауы",
+    "az": "Olimpiadanın adı",
+    "uz": "Olimpiada nomi"
+  },
+  "Город": {
+    "en": "City",
+    "kk": "Қала",
+    "az": "Şəhər",
+    "uz": "Shahar"
+  },
+  "Флаг / символ": {
+    "en": "Flag / symbol",
+    "kk": "Жалау / таңба",
+    "az": "Bayraq / simvol",
+    "uz": "Bayroq / belgi"
+  },
+  "Дата олимпиады": {
+    "en": "Olympiad date",
+    "kk": "Олимпиада күні",
+    "az": "Olimpiadanın tarixi",
+    "uz": "Olimpiada sanasi"
+  },
+  "Приём заявок до": {
+    "en": "Applications until",
+    "kk": "Өтінім қабылдау мерзімі",
+    "az": "Son müraciət tarixi",
+    "uz": "Arizalarni qabul qilish muddati"
+  },
+  "Например, Лондон": {
+    "en": "For example, London",
+    "kk": "Мысалы, Лондон",
+    "az": "Məsələn, London",
+    "uz": "Masalan, London"
+  },
+  "Например, Великобритания": {
+    "en": "For example, United Kingdom",
+    "kk": "Мысалы, Ұлыбритания",
+    "az": "Məsələn, Böyük Britaniya",
+    "uz": "Masalan, Buyuk Britaniya"
+  },
+  "Стоимость · пусто, если уточняется": {
+    "en": "Price · leave blank if unconfirmed",
+    "kk": "Құны · нақтыланбаса, бос қалдырыңыз",
+    "az": "Qiymət · məlum deyilsə boş buraxın",
+    "uz": "Narx · aniqlanmagan bo‘lsa bo‘sh qoldiring"
+  },
+  "Валюта": {
+    "en": "Currency",
+    "kk": "Валюта",
+    "az": "Valyuta",
+    "uz": "Valyuta"
+  },
+  "KZT · Казахстанский тенге": {
+    "en": "KZT · Kazakhstani tenge",
+    "kk": "KZT · Қазақстан теңгесі",
+    "az": "KZT · Qazaxıstan təngəsi",
+    "uz": "KZT · Qozog‘iston tengesi"
+  },
+  "USD · Доллар США": {
+    "en": "USD · US dollar",
+    "kk": "USD · АҚШ доллары",
+    "az": "USD · ABŞ dolları",
+    "uz": "USD · AQSh dollari"
+  },
+  "AZN · Азербайджанский манат": {
+    "en": "AZN · Azerbaijani manat",
+    "kk": "AZN · Әзербайжан манаты",
+    "az": "AZN · Azərbaycan manatı",
+    "uz": "AZN · Ozarbayjon manati"
+  },
+  "EUR · Евро": {
+    "en": "EUR · Euro",
+    "kk": "EUR · Еуро",
+    "az": "EUR · Avro",
+    "uz": "EUR · Yevro"
+  },
+  "GBP · Фунт стерлингов": {
+    "en": "GBP · Pound sterling",
+    "kk": "GBP · Фунт стерлинг",
+    "az": "GBP · Funt sterlinq",
+    "uz": "GBP · Funt sterling"
+  },
+  "AED · Дирхам ОАЭ": {
+    "en": "AED · UAE dirham",
+    "kk": "AED · БАӘ дирхамы",
+    "az": "AED · BƏƏ dirhəmi",
+    "uz": "AED · BAA dirhami"
+  },
+  "TRY · Турецкая лира": {
+    "en": "TRY · Turkish lira",
+    "kk": "TRY · Түрік лирасы",
+    "az": "TRY · Türk lirəsi",
+    "uz": "TRY · Turk lirasi"
+  },
+  "UZS · Узбекский сум": {
+    "en": "UZS · Uzbek sum",
+    "kk": "UZS · Өзбек сомы",
+    "az": "UZS · Özbək somu",
+    "uz": "UZS · O‘zbek so‘mi"
+  },
+  "Ссылка на Telegram-канал олимпиады · необязательно": {
+    "en": "Olympiad Telegram channel link · optional",
+    "kk": "Олимпиаданың Telegram арнасы · міндетті емес",
+    "az": "Olimpiadanın Telegram kanalı · məcburi deyil",
+    "uz": "Olimpiada Telegram kanali havolasi · majburiy emas"
+  },
+  "Скопируйте ссылку на канал в Telegram. Учитель увидит ссылку после отправки заявки на эту олимпиаду и в скачанном подтверждении. Чтобы убрать ссылку, очистите поле и сохраните.": {
+    "en": "Copy the Telegram channel link. Teachers will see it after registering for this event and in their downloaded receipt. To remove it, clear the field and save.",
+    "kk": "Telegram арнасының сілтемесін көшіріңіз. Мұғалім оны өтінімнен кейін және жүктелетін растауда көреді. Сілтемені жою үшін өрісті тазалап, сақтаңыз.",
+    "az": "Telegram kanalının linkini köçürün. Müəllim onu qeydiyyatdan sonra və endirilən təsdiqdə görəcək. Silmək üçün xananı boşaldıb saxlayın.",
+    "uz": "Telegram kanali havolasini nusxalang. O‘qituvchi uni ariza yuborgach va yuklangan tasdiqda ko‘radi. Olib tashlash uchun maydonni tozalab saqlang."
+  },
+  "Дисциплины": {
+    "en": "Subjects",
+    "kk": "Пәндер",
+    "az": "Fənlər",
+    "uz": "Fanlar"
+  },
+  "Программа · один пункт на строку": {
+    "en": "Programme · one item per line",
+    "kk": "Бағдарлама · әр тармақ жеке жолда",
+    "az": "Proqram · hər sətirdə bir bənd",
+    "uz": "Dastur · har bir band alohida qatorda"
+  },
+  "Описание": {
+    "en": "Description",
+    "kk": "Сипаттама",
+    "az": "Təsvir",
+    "uz": "Tavsif"
+  },
+  "Показывать в публичной афише": {
+    "en": "Show in public events",
+    "kk": "Ашық афишада көрсету",
+    "az": "Açıq tədbirlərdə göstərin",
+    "uz": "Ochiq tadbirlar ro‘yxatida ko‘rsatish"
+  },
+  "Сохранить мероприятие": {
+    "en": "Save event",
+    "kk": "Іс-шараны сақтау",
+    "az": "Tədbiri saxlayın",
+    "uz": "Tadbirni saqlash"
+  },
+  "Рекламный блок обновлён": {
+    "en": "Promotional banner updated",
+    "kk": "Жарнамалық блок жаңартылды",
+    "az": "Reklam bloku yeniləndi",
+    "uz": "Reklama bloki yangilandi"
+  },
+  "Редактируйте предложение на главной странице.": {
+    "en": "Edit the offer on the home page.",
+    "kk": "Басты беттегі ұсынысты өзгертіңіз.",
+    "az": "Ana səhifədəki təklifi dəyişdirin.",
+    "uz": "Bosh sahifadagi taklifni tahrirlang."
+  },
+  "Надпись над заголовком": {
+    "en": "Text above heading",
+    "kk": "Тақырып үстіндегі мәтін",
+    "az": "Başlığın üstündəki mətn",
+    "uz": "Sarlavha ustidagi matn"
+  },
+  "Заголовок": {
+    "en": "Heading",
+    "kk": "Тақырып",
+    "az": "Başlıq",
+    "uz": "Sarlavha"
+  },
+  "Подзаголовок": {
+    "en": "Subheading",
+    "kk": "Қосымша тақырып",
+    "az": "Alt başlıq",
+    "uz": "Kichik sarlavha"
+  },
+  "Текст кнопки": {
+    "en": "Button text",
+    "kk": "Түйме мәтіні",
+    "az": "Düymə mətni",
+    "uz": "Tugma matni"
+  },
+  "Ссылка (https://… или #events)": {
+    "en": "Link (https://… or #events)",
+    "kk": "Сілтеме (https://… немесе #events)",
+    "az": "Link (https://… və ya #events)",
+    "uz": "Havola (https://… yoki #events)"
+  },
+  "Показывать рекламный блок": {
+    "en": "Show promotional banner",
+    "kk": "Жарнамалық блокты көрсету",
+    "az": "Reklam blokunu göstərin",
+    "uz": "Reklama blokini ko‘rsatish"
+  },
+  "Сохранить": {
+    "en": "Save",
+    "kk": "Сақтау",
+    "az": "Saxlayın",
+    "uz": "Saqlash"
+  },
+  "· Итоги · IQ LAND": {
+    "en": "· Recap · IQ LAND",
+    "kk": "· Қорытынды · IQ LAND",
+    "az": "· Yekunlar · IQ LAND",
+    "uz": "· Yakunlar · IQ LAND"
+  },
+  "Все прошедшие олимпиады": {
+    "en": "All past olympiads",
+    "kk": "Барлық өткен олимпиадалар",
+    "az": "Bütün keçmiş olimpiadalar",
+    "uz": "Barcha o‘tgan olimpiadalar"
+  },
+  "Олимпиада не найдена": {
+    "en": "Olympiad not found",
+    "kk": "Олимпиада табылмады",
+    "az": "Olimpiada tapılmadı",
+    "uz": "Olimpiada topilmadi"
+  },
+  "Это было незабываемо.": {
+    "en": "A day to remember.",
+    "kk": "Ұмытылмас күн.",
+    "az": "Unudulmaz bir gün.",
+    "uz": "Unutilmas kun."
+  },
+  "Об олимпиаде": {
+    "en": "About the olympiad",
+    "kk": "Олимпиада туралы",
+    "az": "Olimpiada haqqında",
+    "uz": "Olimpiada haqida"
+  },
+  "Знания, встречи": {
+    "en": "Knowledge, connections",
+    "kk": "Білім, кездесулер",
+    "az": "Biliklər, görüşlər",
+    "uz": "Bilimlar, uchrashuvlar"
+  },
+  "и открытия.": {
+    "en": "and discoveries.",
+    "kk": "мен жаңалықтар.",
+    "az": "və kəşflər.",
+    "uz": "va kashfiyotlar."
+  },
+  "В программе": {
+    "en": "Programme",
+    "kk": "Бағдарламада",
+    "az": "Proqramda",
+    "uz": "Dasturda"
+  },
+  "Стоимость участия": {
+    "en": "Participation fee",
+    "kk": "Қатысу құны",
+    "az": "İştirak haqqı",
+    "uz": "Ishtirok narxi"
+  },
+  "Впереди — новые открытия.": {
+    "en": "New discoveries ahead.",
+    "kk": "Алда жаңа жаңалықтар.",
+    "az": "Qarşıda yeni kəşflər var.",
+    "uz": "Oldinda yangi kashfiyotlar."
+  },
+  "Увидимся на следующей олимпиаде?": {
+    "en": "See you at the next olympiad?",
+    "kk": "Келесі олимпиадада кездесеміз бе?",
+    "az": "Növbəti olimpiadada görüşək?",
+    "uz": "Keyingi olimpiadada uchrashamizmi?"
+  },
+  "Все направления": {
+    "en": "All subjects",
+    "kk": "Барлық бағыттар",
+    "az": "Bütün istiqamətlər",
+    "uz": "Barcha yo‘nalishlar"
+  },
+  "Думать. Находить. Решать.": {
+    "en": "Think. Discover. Solve.",
+    "kk": "Ойлан. Тап. Шеш.",
+    "az": "Düşün. Tap. Həll et.",
+    "uz": "O‘yla. Top. Yech."
+  },
+  "Логика, смелые идеи и удовольствие от найденного решения.": {
+    "en": "Logic, bold ideas and the joy of finding a solution.",
+    "kk": "Логика, батыл идеялар және шешім табу қуанышы.",
+    "az": "Məntiq, cəsarətli ideyalar və həll tapmağın sevinci.",
+    "uz": "Mantiq, dadil g‘oyalar va yechim topish quvonchi."
+  },
+  "Язык, который помогает знакомиться, путешествовать и понимать мир.": {
+    "en": "A language for making friends, travelling and understanding the world.",
+    "kk": "Достасуға, саяхаттауға және әлемді түсінуге көмектесетін тіл.",
+    "az": "Dostluq, səyahət və dünyanı anlamaq üçün dil.",
+    "uz": "Do‘stlashish, sayohat va dunyoni tushunishga yordam beradigan til."
+  },
+  "Скорость начинается с мысли.": {
+    "en": "Speed begins with a thought.",
+    "kk": "Жылдамдық ойдан басталады.",
+    "az": "Sürət düşüncədən başlayır.",
+    "uz": "Tezlik fikrdan boshlanadi."
+  },
+  "Концентрация, быстрый счёт и уверенность в собственных силах.": {
+    "en": "Focus, fast calculations and confidence in yourself.",
+    "kk": "Зейін, жылдам есептеу және өз күшіне сенім.",
+    "az": "Diqqət, sürətli hesablama və özünə inam.",
+    "uz": "Diqqat, tez hisoblash va o‘ziga ishonch."
+  },
+  "Кто регистрирует учеников?": {
+    "en": "Who registers the students?",
+    "kk": "Оқушыларды кім тіркейді?",
+    "az": "Şagirdləri kim qeydiyyatdan keçirir?",
+    "uz": "O‘quvchilarni kim ro‘yxatdan o‘tkazadi?"
+  },
+  "Заявку подаёт учитель или представитель образовательного центра. Ученик не создаёт аккаунт: всю команду можно зарегистрировать в одной форме.": {
+    "en": "A teacher or educational center representative submits the application. Students do not need accounts: register the whole team in one form.",
+    "kk": "Өтінімді мұғалім немесе білім беру орталығының өкілі береді. Оқушыға аккаунт қажет емес: бүкіл команда бір нысанда тіркеледі.",
+    "az": "Müraciəti müəllim və ya təhsil mərkəzinin nümayəndəsi göndərir. Şagirdlərə hesab lazım deyil: bütün komanda bir formada qeydiyyatdan keçir.",
+    "uz": "Arizani o‘qituvchi yoki ta’lim markazi vakili yuboradi. O‘quvchilarga akkaunt kerak emas: butun jamoa bitta shaklda ro‘yxatdan o‘tadi."
+  },
+  "Можно вставить готовый список из Excel?": {
+    "en": "Can I paste a list from Excel?",
+    "kk": "Дайын Excel тізімін енгізуге бола ма?",
+    "az": "Excel siyahısını yapışdırmaq olar?",
+    "uz": "Excel ro‘yxatini joylashtirish mumkinmi?"
+  },
+  "Да. Скопируйте три столбца: ФИО, дата рождения и класс. В форме нажмите «Вставить список» — каждая строка станет отдельным учеником. Дисциплины можно выбрать для каждого участника.": {
+    "en": "Yes. Copy three columns: full name, birth date and grade. Click “Paste list” in the form — each row becomes a student. You can choose subjects for each participant.",
+    "kk": "Иә. Аты-жөні, туған күні және сыныбы бар үш бағанды көшіріңіз. «Тізімді қою» түймесін басыңыз — әр жол жеке оқушы болады. Әр қатысушыға пән таңдауға болады.",
+    "az": "Bəli. Ad və soyad, doğum tarixi və sinif sütunlarını köçürün. “Siyahını yapışdırın” düyməsini basın — hər sətir bir şagird olacaq. Hər iştirakçı üçün fənn seçə bilərsiniz.",
+    "uz": "Ha. F.I.Sh., tug‘ilgan sana va sinfdan iborat uchta ustunni nusxalang. “Ro‘yxatni joylashtirish”ni bosing — har qator bitta o‘quvchi bo‘ladi. Har bir ishtirokchiga fan tanlash mumkin."
+  },
+  "Что включено в участие?": {
+    "en": "What is included?",
+    "kk": "Қатысуға не кіреді?",
+    "az": "İştiraka nə daxildir?",
+    "uz": "Ishtirok tarkibiga nimalar kiradi?"
+  },
+  "Программа указана в карточке олимпиады. Стоимость и детали организатор подтвердит перед участием. Перелёт и проживание включены только тогда, когда это прямо указано в программе.": {
+    "en": "The programme is shown on the olympiad card. The organizer will confirm prices and details before participation. Flights and accommodation are included only when explicitly stated in the programme.",
+    "kk": "Бағдарлама олимпиада карточкасында көрсетілген. Құны мен мәліметтерін ұйымдастырушы растайды. Ұшу мен тұру бағдарламада нақты көрсетілген жағдайда ғана кіреді.",
+    "az": "Proqram olimpiada kartında göstərilir. Qiymət və detalları təşkilatçı təsdiqləyəcək. Uçuş və yaşayış yalnız proqramda açıq göstərildikdə daxildir.",
+    "uz": "Dastur olimpiada kartasida ko‘rsatilgan. Narx va tafsilotlarni tashkilotchi tasdiqlaydi. Aviachipta va turar joy faqat dasturda aniq ko‘rsatilganida kiritiladi."
+  },
+  "Учителя получат благодарственные сертификаты?": {
+    "en": "Will teachers receive appreciation certificates?",
+    "kk": "Мұғалімдер алғыс сертификатын ала ма?",
+    "az": "Müəllimlər təşəkkür sertifikatı alacaq?",
+    "uz": "O‘qituvchilarga tashakkurnoma beriladimi?"
+  },
+  "В форме можно добавить педагогов, которым нужен сертификат. Ответственный учитель уже включён. Имена попадут организатору для подготовки документов.": {
+    "en": "Add teachers who need a certificate in the form. The lead teacher is already included. Their names are sent to the organizer to prepare the documents.",
+    "kk": "Нысанға сертификат қажет педагогтерді қосуға болады. Жауапты мұғалім автоматты түрде қосылған. Аты-жөндері құжат дайындау үшін ұйымдастырушыға жіберіледі.",
+    "az": "Formaya sertifikat istəyən müəllimləri əlavə edin. Məsul müəllim artıq daxildir. Sənədlərin hazırlanması üçün adlar təşkilatçıya göndərilir.",
+    "uz": "Shaklga sertifikat kerak bo‘lgan pedagoglarni qo‘shing. Mas’ul o‘qituvchi allaqachon kiritilgan. Ismlar hujjatlarni tayyorlash uchun tashkilotchiga yuboriladi."
+  },
+  "Что будет после отправки заявки?": {
+    "en": "What happens after submission?",
+    "kk": "Өтінім жіберілгеннен кейін не болады?",
+    "az": "Müraciətdən sonra nə baş verir?",
+    "uz": "Ariza yuborilgandan keyin nima bo‘ladi?"
+  },
+  "Сохраните номер заявки. Если у олимпиады есть Telegram-канал, ссылка появится сразу после отправки — присоединяйтесь, чтобы получать новости мероприятия. Организатор получит список команды и свяжется с вами для подтверждения участия.": {
+    "en": "Save your application number. If the olympiad has a Telegram channel, its link appears after submission. Join for event updates. The organizer receives your team list and contacts you to confirm participation.",
+    "kk": "Өтінім нөмірін сақтаңыз. Олимпиаданың Telegram арнасы болса, сілтеме өтінімнен кейін көрсетіледі. Жаңалықтар үшін арнаға қосылыңыз. Ұйымдастырушы тізімді алып, қатысуды растау үшін хабарласады.",
+    "az": "Müraciət nömrəsini saxlayın. Telegram kanalı varsa, link göndərişdən sonra görünür. Xəbərlər üçün qoşulun. Təşkilatçı siyahını alıb iştirakı təsdiqləmək üçün sizinlə əlaqə saxlayacaq.",
+    "uz": "Ariza raqamini saqlang. Telegram kanali bo‘lsa, havola yuborilgandan keyin ko‘rinadi. Yangiliklar uchun qo‘shiling. Tashkilotchi ro‘yxatni olib, ishtirokni tasdiqlash uchun bog‘lanadi."
+  },
+  "Международные детские олимпиады": {
+    "en": "International olympiads for children",
+    "kk": "Балаларға арналған халықаралық олимпиадалар",
+    "az": "Uşaqlar üçün beynəlxalq olimpiadalar",
+    "uz": "Bolalar uchun xalqaro olimpiadalar"
+  },
+  "Думай шире.": {
+    "en": "Think bigger.",
+    "kk": "Кеңірек ойла.",
+    "az": "Daha geniş düşün.",
+    "uz": "Kengroq o‘yla."
+  },
+  "Открывай": {
+    "en": "Discover",
+    "kk": "Бүкіл әлемді",
+    "az": "Kəşf et",
+    "uz": "Kashf et"
+  },
+  "целый мир.": {
+    "en": "the whole world.",
+    "kk": "танып біл.",
+    "az": "bütün dünyanı.",
+    "uz": "butun dunyoni."
+  },
+  "Математика, английский и ментальная арифметика.": {
+    "en": "Mathematics, English and mental arithmetic.",
+    "kk": "Математика, ағылшын тілі және менталды арифметика.",
+    "az": "Riyaziyyat, ingilis dili və mental arifmetika.",
+    "uz": "Matematika, ingliz tili va mental arifmetika."
+  },
+  "Олимпиады в разных странах, новые друзья": {
+    "en": "Olympiads in different countries, new friends",
+    "kk": "Әртүрлі елдердегі олимпиадалар, жаңа достар",
+    "az": "Müxtəlif ölkələrdə olimpiadalar, yeni dostlar",
+    "uz": "Turli mamlakatlardagi olimpiadalar, yangi do‘stlar"
+  },
+  "и впечатления, которые остаются.": {
+    "en": "and memories that stay with you.",
+    "kk": "және есте қалар әсерлер.",
+    "az": "və unudulmaz təəssüratlar.",
+    "uz": "va unutilmas taassurotlar."
+  },
+  "Как участвовать": {
+    "en": "How to take part",
+    "kk": "Қалай қатысуға болады",
+    "az": "Necə iştirak etməli",
+    "uz": "Qanday qatnashish mumkin"
+  },
+  "Для учителей и образовательных центров.": {
+    "en": "For teachers and educational centers.",
+    "kk": "Мұғалімдер мен білім беру орталықтарына.",
+    "az": "Müəllimlər və təhsil mərkəzləri üçün.",
+    "uz": "O‘qituvchilar va ta’lim markazlari uchun."
+  },
+  "Вся команда — в одной заявке.": {
+    "en": "The whole team in one application.",
+    "kk": "Бүкіл команда — бір өтінімде.",
+    "az": "Bütün komanda bir müraciətdə.",
+    "uz": "Butun jamoa — bitta arizada."
+  },
+  "Весь": {
+    "en": "The",
+    "kk": "Бүкіл",
+    "az": "Bütün",
+    "uz": "Butun"
+  },
+  "мир.": {
+    "en": "world.",
+    "kk": "әлем.",
+    "az": "dünya.",
+    "uz": "dunyo."
+  },
+  "начинается": {
+    "en": "begins",
+    "kk": "басталады",
+    "az": "başlayır",
+    "uz": "boshlanadi"
+  },
+  "с любопытства.": {
+    "en": "with curiosity.",
+    "kk": "қызығушылықтан.",
+    "az": "maraqdan.",
+    "uz": "qiziqishdan."
+  },
+  "Олимпиады без границ": {
+    "en": "Olympiads without borders",
+    "kk": "Шекарасыз олимпиадалар",
+    "az": "Sərhədsiz olimpiadalar",
+    "uz": "Chegarasiz olimpiadalar"
+  },
+  "Знания. Путешествия. Открытия.": {
+    "en": "Knowledge. Travel. Discovery.",
+    "kk": "Білім. Саяхат. Жаңалық.",
+    "az": "Bilik. Səyahət. Kəşf.",
+    "uz": "Bilim. Sayohat. Kashfiyot."
+  },
+  "Возможности — повсюду.": {
+    "en": "Opportunities are everywhere.",
+    "kk": "Мүмкіндіктер барлық жерде.",
+    "az": "İmkanlar hər yerdədir.",
+    "uz": "Imkoniyatlar hamma joyda."
+  },
+  "Предыдущая олимпиада": {
+    "en": "Previous olympiad",
+    "kk": "Алдыңғы олимпиада",
+    "az": "Əvvəlki olimpiada",
+    "uz": "Oldingi olimpiada"
+  },
+  "Следующая олимпиада": {
+    "en": "Next olympiad",
+    "kk": "Келесі олимпиада",
+    "az": "Növbəti olimpiada",
+    "uz": "Keyingi olimpiada"
+  },
+  "За пределами привычного": {
+    "en": "Beyond the familiar",
+    "kk": "Үйреншіктіден тыс",
+    "az": "Tanış sərhədlərdən kənarda",
+    "uz": "Odatiy chegaralardan tashqarida"
+  },
+  "Смотреть афишу": {
+    "en": "Explore events",
+    "kk": "Афишаны көру",
+    "az": "Tədbirlərə baxın",
+    "uz": "Tadbirlarni ko‘rish"
+  },
+  "Три способа показать, на что ты способен": {
+    "en": "Three ways to show what you can do",
+    "kk": "Қабілетіңді көрсетудің үш жолы",
+    "az": "Bacarığını göstərməyin üç yolu",
+    "uz": "Qobiliyatingni ko‘rsatishning uch yo‘li"
+  },
+  "У каждого таланта": {
+    "en": "Every talent has",
+    "kk": "Әр таланттың",
+    "az": "Hər istedadın",
+    "uz": "Har bir iste’dodning"
+  },
+  "своё": {
+    "en": "its own",
+    "kk": "өз",
+    "az": "öz",
+    "uz": "o‘z"
+  },
+  "направление.": {
+    "en": "direction.",
+    "kk": "бағыты бар.",
+    "az": "istiqaməti var.",
+    "uz": "yo‘nalishi bor."
+  },
+  "Разные интересы.": {
+    "en": "Different interests.",
+    "kk": "Қызығушылықтар әртүрлі.",
+    "az": "Maraqlar fərqlidir.",
+    "uz": "Qiziqishlar turlicha."
+  },
+  "Одинаково большие возможности.": {
+    "en": "Equally big opportunities.",
+    "kk": "Үлкен мүмкіндіктер бәріне ортақ.",
+    "az": "Böyük imkanlar hamı üçün.",
+    "uz": "Katta imkoniyatlar hammaga teng."
+  },
+  "Найти олимпиады:": {
+    "en": "Find olympiads:",
+    "kk": "Олимпиадаларды табу:",
+    "az": "Olimpiadaları tapın:",
+    "uz": "Olimpiadalarni topish:"
+  },
+  "/ НАПРАВЛЕНИЕ": {
+    "en": "/ SUBJECT",
+    "kk": "/ БАҒЫТ",
+    "az": "/ İSTİQAMƏT",
+    "uz": "/ YO‘NALISH"
+  },
+  "Ближайшие олимпиады": {
+    "en": "Upcoming olympiads",
+    "kk": "Алдағы олимпиадалар",
+    "az": "Gələcək olimpiadalar",
+    "uz": "Kelgusi olimpiadalar"
+  },
+  "Следующая точка": {
+    "en": "The next stop",
+    "kk": "Картаңыздағы",
+    "az": "Xəritənizdə",
+    "uz": "Xaritangizdagi"
+  },
+  "на": {
+    "en": "on",
+    "kk": "келесі",
+    "az": "növbəti",
+    "uz": "keyingi"
+  },
+  "вашей карте.": {
+    "en": "your map.",
+    "kk": "нүкте.",
+    "az": "dayanacaq.",
+    "uz": "manzil."
+  },
+  "Выберите город и направление.": {
+    "en": "Choose a city and subject.",
+    "kk": "Қала мен бағытты таңдаңыз.",
+    "az": "Şəhər və istiqamət seçin.",
+    "uz": "Shahar va yo‘nalishni tanlang."
+  },
+  "Зарегистрируйте команду —": {
+    "en": "Register your team —",
+    "kk": "Командаңызды тіркеңіз —",
+    "az": "Komandanızı qeydiyyatdan keçirin —",
+    "uz": "Jamoangizni ro‘yxatdan o‘tkazing —"
+  },
+  "остальное обсудим вместе.": {
+    "en": "we'll discuss the rest together.",
+    "kk": "қалғанын бірге талқылаймыз.",
+    "az": "qalanını birlikdə danışarıq.",
+    "uz": "qolganini birga muhokama qilamiz."
+  },
+  "Города, даты и программы": {
+    "en": "Cities, dates and programmes",
+    "kk": "Қалалар, күндер мен бағдарламалар",
+    "az": "Şəhərlər, tarixlər və proqramlar",
+    "uz": "Shaharlar, sanalar va dasturlar"
+  },
+  "появятся здесь, когда откроется": {
+    "en": "will appear here when",
+    "kk": "жаңа іс-шараларға",
+    "az": "yeni tədbirlərə qeydiyyat",
+    "uz": "yangi tadbirlarga ro‘yxatdan o‘tish"
+  },
+  "регистрация на новые события.": {
+    "en": "registration opens for new events.",
+    "kk": "тіркелу ашылғанда көрсетіледі.",
+    "az": "açılanda burada görünəcək.",
+    "uz": "ochilganda shu yerda paydo bo‘ladi."
+  },
+  "Направление олимпиады": {
+    "en": "Olympiad subject",
+    "kk": "Олимпиада бағыты",
+    "az": "Olimpiada istiqaməti",
+    "uz": "Olimpiada yo‘nalishi"
+  },
+  "Страна олимпиады": {
+    "en": "Olympiad country",
+    "kk": "Олимпиада елі",
+    "az": "Olimpiada ölkəsi",
+    "uz": "Olimpiada mamlakati"
+  },
+  "Подробнее об олимпиаде в городе": {
+    "en": "More about the olympiad in",
+    "kk": "Олимпиада туралы толығырақ:",
+    "az": "Şəhərdəki olimpiada haqqında:",
+    "uz": "Shahardagi olimpiada haqida:"
+  },
+  "Программа": {
+    "en": "Programme",
+    "kk": "Бағдарлама",
+    "az": "Proqram",
+    "uz": "Dastur"
+  },
+  "Ещё в программе": {
+    "en": "Also in the programme",
+    "kk": "Бағдарламада тағы",
+    "az": "Proqramda həmçinin",
+    "uz": "Dasturda yana"
+  },
+  "Участие": {
+    "en": "Participation",
+    "kk": "Қатысу",
+    "az": "İştirak",
+    "uz": "Ishtirok"
+  },
+  "Сертификат": {
+    "en": "Certificate",
+    "kk": "Сертификат",
+    "az": "Sertifikat",
+    "uz": "Sertifikat"
+  },
+  "Подробности в программе олимпиады": {
+    "en": "Details in the olympiad programme",
+    "kk": "Мәліметтер олимпиада бағдарламасында",
+    "az": "Təfərrüatlar olimpiada proqramında",
+    "uz": "Tafsilotlar olimpiada dasturida"
+  },
+  "Приём заявок открыт": {
+    "en": "Registration open",
+    "kk": "Өтінім қабылдау ашық",
+    "az": "Qeydiyyat açıqdır",
+    "uz": "Ro‘yxatdan o‘tish ochiq"
+  },
+  "Регистрация завершена": {
+    "en": "Registration closed",
+    "kk": "Тіркелу аяқталды",
+    "az": "Qeydiyyat bitib",
+    "uz": "Ro‘yxatdan o‘tish tugagan"
+  },
+  "Зарегистрировать команду": {
+    "en": "Register a team",
+    "kk": "Команданы тіркеу",
+    "az": "Komandanı qeydiyyatdan keçirin",
+    "uz": "Jamoani ro‘yxatdan o‘tkazish"
+  },
+  "Смотреть программу": {
+    "en": "View programme",
+    "kk": "Бағдарламаны көру",
+    "az": "Proqrama baxın",
+    "uz": "Dasturni ko‘rish"
+  },
+  "Новые направления впереди": {
+    "en": "New destinations ahead",
+    "kk": "Алда жаңа бағыттар",
+    "az": "Qarşıda yeni istiqamətlər",
+    "uz": "Oldinda yangi yo‘nalishlar"
+  },
+  "Попробуйте выбрать другую дисциплину или страну.": {
+    "en": "Try another subject or country.",
+    "kk": "Басқа пәнді немесе елді таңдаңыз.",
+    "az": "Başqa fənn və ya ölkə seçin.",
+    "uz": "Boshqa fan yoki mamlakatni tanlang."
+  },
+  "Здесь появятся города, даты и программы ближайших олимпиад. А пока узнайте, как зарегистрировать свою команду.": {
+    "en": "Cities, dates and programmes of upcoming olympiads will appear here. Meanwhile, learn how to register your team.",
+    "kk": "Мұнда алдағы олимпиадалардың қалалары, күндері мен бағдарламалары көрсетіледі. Әзірге команданы қалай тіркеуге болатынын біліңіз.",
+    "az": "Gələcək olimpiadaların şəhərləri, tarixləri və proqramları burada görünəcək. Hələlik komandanızı necə qeydiyyatdan keçirəcəyinizi öyrənin.",
+    "uz": "Bu yerda kelgusi olimpiadalar shaharlari, sanalari va dasturlari paydo bo‘ladi. Hozircha jamoani ro‘yxatdan o‘tkazishni bilib oling."
+  },
+  "Показать все олимпиады": {
+    "en": "Show all olympiads",
+    "kk": "Барлық олимпиадаларды көрсету",
+    "az": "Bütün olimpiadaları göstərin",
+    "uz": "Barcha olimpiadalarni ko‘rsatish"
+  },
+  "Следить за анонсами": {
+    "en": "Follow announcements",
+    "kk": "Хабарландыруларды қадағалау",
+    "az": "Elanları izləyin",
+    "uz": "E’lonlarni kuzatish"
+  },
+  "Это больше, чем олимпиада": {
+    "en": "More than an olympiad",
+    "kk": "Олимпиададан да артық",
+    "az": "Olimpiadadan daha çox",
+    "uz": "Olimpiadadan ham ko‘proq"
+  },
+  "Мир больше": {
+    "en": "The world is bigger",
+    "kk": "Әлем",
+    "az": "Dünya",
+    "uz": "Dunyo"
+  },
+  "учебника.": {
+    "en": "than a textbook.",
+    "kk": "оқулықтан кең.",
+    "az": "dərslikdən böyükdür.",
+    "uz": "darslikdan kengroq."
+  },
+  "ЗНАНИЯ БЕЗ ГРАНИЦ": {
+    "en": "KNOWLEDGE WITHOUT BORDERS",
+    "kk": "ШЕКАРАСЫЗ БІЛІМ",
+    "az": "SƏRHƏDSİZ BİLİK",
+    "uz": "CHEGARASIZ BILIM"
+  },
+  "Олимпиада — повод поверить в себя.": {
+    "en": "An olympiad is a reason to believe in yourself.",
+    "kk": "Олимпиада — өзіңе сенуге себеп.",
+    "az": "Olimpiada özünə inanmaq üçün səbəbdir.",
+    "uz": "Olimpiada — o‘zingga ishonish uchun imkoniyat."
+  },
+  "Путешествие — увидеть, сколько": {
+    "en": "A journey shows how much",
+    "kk": "Саяхат — алда қаншама",
+    "az": "Səyahət qarşıda nə qədər",
+    "uz": "Sayohat oldinda qancha"
+  },
+  "всего ещё впереди.": {
+    "en": "there is still to discover.",
+    "kk": "жаңалық барын көру.",
+    "az": "kəşf olduğunu görməkdir.",
+    "uz": "kashfiyot borligini ko‘rsatadi."
+  },
+  "IQ LAND соединяет знания с настоящими впечатлениями. Дети пробуют свои силы, знакомятся с новыми странами и возвращаются с желанием расти дальше.": {
+    "en": "IQ LAND connects knowledge with real experiences. Children test their skills, discover new countries and return eager to keep growing.",
+    "kk": "IQ LAND білімді шынайы әсерлермен біріктіреді. Балалар өз күшін сынап, жаңа елдермен танысады және өсуге деген ынтамен оралады.",
+    "az": "IQ LAND biliyi real təcrübə ilə birləşdirir. Uşaqlar güclərini sınayır, yeni ölkələrlə tanış olur və inkişaf etmək həvəsi ilə qayıdır.",
+    "uz": "IQ LAND bilimni haqiqiy taassurotlar bilan birlashtiradi. Bolalar o‘z kuchini sinaydi, yangi mamlakatlarni taniydi va o‘sishga ishtiyoq bilan qaytadi."
+  },
+  "Поверить в себя": {
+    "en": "Believe in yourself",
+    "kk": "Өзіңе сен",
+    "az": "Özünə inan",
+    "uz": "O‘zingga ishon"
+  },
+  "Решить непростую задачу. Сделать шаг вперёд. Почувствовать: «Я могу».": {
+    "en": "Solve a tough problem. Take a step forward. Feel: “I can”.",
+    "kk": "Күрделі есепті шеш. Алға қадам жаса. «Менің қолымнан келеді» деп сезін.",
+    "az": "Çətin məsələni həll et. İrəli addım at. Hiss et: “Bacarıram”.",
+    "uz": "Murakkab masalani yech. Oldinga qadam qo‘y. “Men uddalayman” deb his qil."
+  },
+  "Увидеть больше": {
+    "en": "See more",
+    "kk": "Көбірек көр",
+    "az": "Daha çox gör",
+    "uz": "Ko‘proq ko‘r"
+  },
+  "Новые города, культура и университеты — чтобы мечты стали конкретнее.": {
+    "en": "New cities, cultures and universities — bringing dreams into focus.",
+    "kk": "Жаңа қалалар, мәдениет пен университеттер — армандарды нақтылау үшін.",
+    "az": "Yeni şəhərlər, mədəniyyət və universitetlər — arzuları konkretləşdirmək üçün.",
+    "uz": "Yangi shaharlar, madaniyat va universitetlar — orzularni aniqroq qilish uchun."
+  },
+  "Найти своих": {
+    "en": "Find your people",
+    "kk": "Ойы ортақ достарды тап",
+    "az": "Öz çevrəni tap",
+    "uz": "Hamfikr do‘stlarni top"
+  },
+  "Встретить детей, которым тоже интересно думать, учиться и открывать.": {
+    "en": "Meet children who also love thinking, learning and exploring.",
+    "kk": "Ойлануды, үйренуді және жаңалық ашуды ұнататын балалармен таныс.",
+    "az": "Düşünməyi, öyrənməyi və kəşf etməyi sevən uşaqlarla tanış ol.",
+    "uz": "Fikrlash, o‘rganish va kashf etishni yoqtiradigan bolalar bilan tanish."
+  },
+  "Учителям — проще": {
+    "en": "Easier for teachers",
+    "kk": "Мұғалімдерге оңай",
+    "az": "Müəllimlər üçün daha asan",
+    "uz": "O‘qituvchilar uchun osonroq"
+  },
+  "Большая команда.": {
+    "en": "A big team.",
+    "kk": "Үлкен команда.",
+    "az": "Böyük komanda.",
+    "uz": "Katta jamoa."
+  },
+  "Одна простая заявка.": {
+    "en": "One simple application.",
+    "kk": "Бір қарапайым өтінім.",
+    "az": "Bir sadə müraciət.",
+    "uz": "Bitta oddiy ariza."
+  },
+  "Не нужны аккаунты учеников": {
+    "en": "No student accounts",
+    "kk": "Оқушы аккаунттары",
+    "az": "Şagird hesablarına",
+    "uz": "O‘quvchi akkauntlari"
+  },
+  "и десятки отдельных заявок.": {
+    "en": "or dozens of separate forms.",
+    "kk": "мен жеке-жеке өтінімдер қажет емес.",
+    "az": "və onlarla ayrıca müraciətə ehtiyac yoxdur.",
+    "uz": "va o‘nlab alohida arizalar kerak emas."
+  },
+  "Вся команда — в одной форме.": {
+    "en": "The whole team in one form.",
+    "kk": "Бүкіл команда — бір нысанда.",
+    "az": "Bütün komanda bir formada.",
+    "uz": "Butun jamoa — bitta shaklda."
+  },
+  "Выберите олимпиаду": {
+    "en": "Choose an olympiad",
+    "kk": "Олимпиаданы таңдаңыз",
+    "az": "Olimpiada seçin",
+    "uz": "Olimpiadani tanlang"
+  },
+  "Город, дата и дисциплины — всё важное уже в карточке.": {
+    "en": "City, date and subjects — all key details are on the card.",
+    "kk": "Қала, күн және пәндер — барлық маңызды ақпарат карточкада.",
+    "az": "Şəhər, tarix və fənlər — əsas məlumatlar kartdadır.",
+    "uz": "Shahar, sana va fanlar — barcha muhim ma’lumot kartada."
+  },
+  "Соберите команду": {
+    "en": "Build your team",
+    "kk": "Команданы жинаңыз",
+    "az": "Komandanızı toplayın",
+    "uz": "Jamoani yig‘ing"
+  },
+  "Добавляйте учеников строками или вставьте готовый список из Excel.": {
+    "en": "Add students row by row or paste a list from Excel.",
+    "kk": "Оқушыларды жолмен қосыңыз немесе Excel тізімін енгізіңіз.",
+    "az": "Şagirdləri sətirlərlə əlavə edin və ya Excel siyahısını yapışdırın.",
+    "uz": "O‘quvchilarni qatorlab qo‘shing yoki Excel ro‘yxatini joylashtiring."
+  },
+  "Будьте на связи": {
+    "en": "Stay in touch",
+    "kk": "Байланыста болыңыз",
+    "az": "Əlaqədə qalın",
+    "uz": "Aloqada bo‘ling"
+  },
+  "Укажите контакты и отправьте заявку. Ссылку на канал мероприятия покажем, если организатор её добавил.": {
+    "en": "Enter your contact details and submit the application. The event channel link appears if the organizer has added it.",
+    "kk": "Байланыс деректерін енгізіп, өтінімді жіберіңіз. Ұйымдастырушы қосқан болса, іс-шара арнасының сілтемесі көрсетіледі.",
+    "az": "Əlaqə məlumatlarını daxil edib müraciəti göndərin. Təşkilatçı əlavə edibsə, tədbir kanalının linki görünəcək.",
+    "uz": "Aloqa ma’lumotlarini kiritib, ariza yuboring. Tashkilotchi qo‘shgan bo‘lsa, tadbir kanali havolasi ko‘rinadi."
+  },
+  "Вся команда сразу": {
+    "en": "The whole team at once",
+    "kk": "Бүкіл команда бірден",
+    "az": "Bütün komanda birdən",
+    "uz": "Butun jamoa birdaniga"
+  },
+  "Педагоги в одной заявке": {
+    "en": "Teachers in one application",
+    "kk": "Педагогтер бір өтінімде",
+    "az": "Müəllimlər bir müraciətdə",
+    "uz": "Pedagoglar bitta arizada"
+  },
+  "Telegram после регистрации": {
+    "en": "Telegram after registration",
+    "kk": "Тіркелуден кейін Telegram",
+    "az": "Qeydiyyatdan sonra Telegram",
+    "uz": "Ro‘yxatdan keyin Telegram"
+  },
+  "Вы отправляете заявку. Организатор подтверждает детали.": {
+    "en": "You submit the application. The organizer confirms the details.",
+    "kk": "Сіз өтінім жібересіз. Ұйымдастырушы мәліметтерді растайды.",
+    "az": "Siz müraciəti göndərirsiniz. Təşkilatçı detalları təsdiqləyir.",
+    "uz": "Siz ariza yuborasiz. Tashkilotchi tafsilotlarni tasdiqlaydi."
+  },
+  "Начать с выбора олимпиады": {
+    "en": "Start by choosing an olympiad",
+    "kk": "Олимпиаданы таңдаудан бастаңыз",
+    "az": "Olimpiada seçməklə başlayın",
+    "uz": "Olimpiada tanlashdan boshlang"
+  },
+  "Перед первым шагом": {
+    "en": "Before your first step",
+    "kk": "Алғашқы қадам алдында",
+    "az": "İlk addımdan əvvəl",
+    "uz": "Birinchi qadamdan oldin"
+  },
+  "Сначала — вопросы.": {
+    "en": "First, questions.",
+    "kk": "Алдымен — сұрақтар.",
+    "az": "Əvvəl suallar.",
+    "uz": "Avval — savollar."
+  },
+  "Потом — открытия.": {
+    "en": "Then, discoveries.",
+    "kk": "Содан кейін — жаңалықтар.",
+    "az": "Sonra kəşflər.",
+    "uz": "So‘ng — kashfiyotlar."
+  },
+  "Ответы, чтобы начать": {
+    "en": "Answers to get started",
+    "kk": "Бастауға көмектесетін жауаптар",
+    "az": "Başlamaq üçün cavablar",
+    "uz": "Boshlash uchun javoblar"
+  },
+  "без лишних сомнений.": {
+    "en": "with confidence.",
+    "kk": "сенімді қадам үшін.",
+    "az": "inamla.",
+    "uz": "ishonch bilan."
+  },
+  "На связи — IQ LAND": {
+    "en": "IQ LAND is here for you",
+    "kk": "IQ LAND байланыста",
+    "az": "IQ LAND sizinlədir",
+    "uz": "IQ LAND aloqada"
+  },
+  "Знакомство": {
+    "en": "It all",
+    "kk": "Таныстық",
+    "az": "Tanışlıq",
+    "uz": "Tanishuv"
+  },
+  "начинается с": {
+    "en": "starts with",
+    "kk": "басталады",
+    "az": "başlayır",
+    "uz": "boshlanadi"
+  },
+  "Есть вопрос об участии или хотите привезти свою команду? Напишите нам в Instagram. Там же — анонсы и моменты с наших олимпиад.": {
+    "en": "Questions about participation or bringing your team? Message us on Instagram. Find announcements and olympiad highlights there too.",
+    "kk": "Қатысу туралы сұрақ бар ма немесе командаңызды әкелгіңіз келе ме? Instagram-ға жазыңыз. Онда хабарландырулар мен олимпиада сәттері де бар.",
+    "az": "İştirak və ya komandanızı gətirmək barədə sualınız var? Instagram-da yazın. Elanlar və olimpiada anları da oradadır.",
+    "uz": "Ishtirok haqida savolingiz bormi yoki jamoangizni olib kelmoqchimisiz? Instagram orqali yozing. E’lonlar va olimpiada lahzalari ham o‘sha yerda."
+  },
+  "А пока — выберите свою олимпиаду": {
+    "en": "Meanwhile, choose your olympiad",
+    "kk": "Әзірге өз олимпиадаңызды таңдаңыз",
+    "az": "Hələlik olimpiadanızı seçin",
+    "uz": "Hozircha olimpiadangizni tanlang"
+  },
+  "НАШ INSTAGRAM": {
+    "en": "OUR INSTAGRAM",
+    "kk": "БІЗДІҢ INSTAGRAM",
+    "az": "BİZİM INSTAGRAM",
+    "uz": "BIZNING INSTAGRAM"
+  },
+  "Новости, впечатления и ответы": {
+    "en": "News, memories and answers",
+    "kk": "Жаңалықтар, әсерлер мен жауаптар",
+    "az": "Xəbərlər, təəssüratlar və cavablar",
+    "uz": "Yangiliklar, taassurotlar va javoblar"
+  },
+  "Регистрация до": {
+    "en": "Register by",
+    "kk": "Тіркелу мерзімі",
+    "az": "Son qeydiyyat tarixi",
+    "uz": "Ro‘yxatdan o‘tish muddati"
+  },
+  "Предварительная программа. Организатор подтвердит детали после заявки.": {
+    "en": "Preliminary programme. The organizer will confirm details after your application.",
+    "kk": "Алдын ала бағдарлама. Өтінімнен кейін ұйымдастырушы мәліметтерді растайды.",
+    "az": "İlkin proqramdır. Müraciətdən sonra təşkilatçı detalları təsdiqləyəcək.",
+    "uz": "Dastlabki dastur. Arizadan keyin tashkilotchi tafsilotlarni tasdiqlaydi."
+  },
+  "Выбрать другую олимпиаду": {
+    "en": "Choose another olympiad",
+    "kk": "Басқа олимпиаданы таңдау",
+    "az": "Başqa olimpiada seçin",
+    "uz": "Boshqa olimpiada tanlash"
+  },
+  "Состав команды": {
+    "en": "Team roster",
+    "kk": "Команда құрамы",
+    "az": "Komanda tərkibi",
+    "uz": "Jamoa tarkibi"
+  },
+  "Центр и учителя": {
+    "en": "Center and teachers",
+    "kk": "Орталық пен мұғалімдер",
+    "az": "Mərkəz və müəllimlər",
+    "uz": "Markaz va o‘qituvchilar"
+  },
+  "Контакты и сертификаты": {
+    "en": "Contacts and certificates",
+    "kk": "Байланыс пен сертификаттар",
+    "az": "Əlaqə və sertifikatlar",
+    "uz": "Aloqa va sertifikatlar"
+  },
+  "Проверка заявки": {
+    "en": "Review application",
+    "kk": "Өтінімді тексеру",
+    "az": "Müraciətin yoxlanması",
+    "uz": "Arizani tekshirish"
+  },
+  "Всё ли верно?": {
+    "en": "Is everything correct?",
+    "kk": "Бәрі дұрыс па?",
+    "az": "Hər şey düzgündür?",
+    "uz": "Hammasi to‘g‘rimi?"
+  },
+  "Команда сохранена. Проверьте дисциплины новой олимпиады.": {
+    "en": "Team saved. Check the new olympiad's subjects.",
+    "kk": "Команда сақталды. Жаңа олимпиаданың пәндерін тексеріңіз.",
+    "az": "Komanda saxlanıldı. Yeni olimpiadanın fənlərini yoxlayın.",
+    "uz": "Jamoa saqlandi. Yangi olimpiada fanlarini tekshiring."
+  },
+  "Заявка отправляется. Дождитесь подтверждения.": {
+    "en": "Submitting application. Please wait for confirmation.",
+    "kk": "Өтінім жіберілуде. Растауды күтіңіз.",
+    "az": "Müraciət göndərilir. Təsdiqi gözləyin.",
+    "uz": "Ariza yuborilmoqda. Tasdiqlashni kuting."
+  },
+  "Выберите дисциплину для команды": {
+    "en": "Choose a subject for the team",
+    "kk": "Командаға пән таңдаңыз",
+    "az": "Komanda üçün fənn seçin",
+    "uz": "Jamoa uchun fan tanlang"
+  },
+  "Общие настройки применены ко всем ученикам": {
+    "en": "Team settings applied to all students",
+    "kk": "Ортақ баптаулар барлық оқушыға қолданылды",
+    "az": "Ümumi parametrlər bütün şagirdlərə tətbiq edildi",
+    "uz": "Umumiy sozlamalar barcha o‘quvchilarga qo‘llandi"
+  },
+  "Проверьте отмеченные поля учеников.": {
+    "en": "Check the highlighted student fields.",
+    "kk": "Оқушылардың белгіленген өрістерін тексеріңіз.",
+    "az": "Şagirdlərin işarələnmiş xanalarını yoxlayın.",
+    "uz": "O‘quvchilarning belgilangan maydonlarini tekshiring."
+  },
+  "Добавьте хотя бы одного ученика.": {
+    "en": "Add at least one student.",
+    "kk": "Кемінде бір оқушы қосыңыз.",
+    "az": "Ən azı bir şagird əlavə edin.",
+    "uz": "Kamida bitta o‘quvchi qo‘shing."
+  },
+  "Проверьте контакты центра и имена педагогов.": {
+    "en": "Check the center's contact details and teachers' names.",
+    "kk": "Орталықтың байланыс деректері мен педагогтердің аты-жөнін тексеріңіз.",
+    "az": "Mərkəzin əlaqə məlumatlarını və müəllim adlarını yoxlayın.",
+    "uz": "Markaz aloqa ma’lumotlari va pedagoglar ismlarini tekshiring."
+  },
+  "Черновик сохранён. Он доступен в этой вкладке.": {
+    "en": "Draft saved. Available in this tab.",
+    "kk": "Нобай сақталды. Осы қойындыда қолжетімді.",
+    "az": "Qaralama saxlanıldı. Bu vərəqdə mövcuddur.",
+    "uz": "Qoralama saqlandi. Shu oynada mavjud."
+  },
+  "Не удалось сохранить черновик в браузере. Оставьте вкладку открытой.": {
+    "en": "Could not save the draft in this browser. Keep the tab open.",
+    "kk": "Браузерде нобай сақталмады. Қойындыны жаппаңыз.",
+    "az": "Qaralamanı brauzerdə saxlamaq mümkün olmadı. Vərəqi açıq saxlayın.",
+    "uz": "Brauzerda qoralama saqlanmadi. Oynani ochiq qoldiring."
+  },
+  "Черновик восстановлен": {
+    "en": "Draft restored",
+    "kk": "Нобай қалпына келтірілді",
+    "az": "Qaralama bərpa edildi",
+    "uz": "Qoralama tiklandi"
+  },
+  "Добавлено учеников: {0}": {
+    "en": "Students added: {0}",
+    "kk": "Қосылған оқушылар: {0}",
+    "az": "Əlavə edilən şagirdlər: {0}",
+    "uz": "Qo‘shilgan o‘quvchilar: {0}"
+  },
+  "Подтвердите согласие на обработку данных.": {
+    "en": "Confirm consent to data processing.",
+    "kk": "Деректерді өңдеуге келісімді растаңыз.",
+    "az": "Məlumatların emalına razılığı təsdiqləyin.",
+    "uz": "Ma’lumotlarni qayta ishlashga rozilikni tasdiqlang."
+  },
+  "Заявка {0} в городе {1} получена. Сохраните её номер.": {
+    "en": "Application {0} for {1} received. Save its number.",
+    "kk": "{1} қаласындағы {0} өтінімі қабылданды. Нөмірін сақтаңыз.",
+    "az": "{1} üçün {0} müraciəti qəbul edildi. Nömrəsini saxlayın.",
+    "uz": "{1} uchun {0} ariza qabul qilindi. Raqamini saqlang."
+  },
+  "Заявку в городе {0} отправить не удалось: {1}": {
+    "en": "Could not submit the application for {0}: {1}",
+    "kk": "{0} қаласына өтінім жіберілмеді: {1}",
+    "az": "{0} üçün müraciət göndərilmədi: {1}",
+    "uz": "{0} uchun ariza yuborilmadi: {1}"
+  },
+  "Выбрать олимпиаду в городе": {
+    "en": "Choose olympiad in",
+    "kk": "Олимпиада қаласын таңдау:",
+    "az": "Şəhərdə olimpiada seçin:",
+    "uz": "Shahardagi olimpiadani tanlash:"
+  },
+  "К афише": {
+    "en": "Back to events",
+    "kk": "Афишаға",
+    "az": "Tədbirlər siyahısına",
+    "uz": "Tadbirlar ro‘yxatiga"
+  },
+  "Для учителей и образовательных центров": {
+    "en": "For teachers and educational centers",
+    "kk": "Мұғалімдер мен білім беру орталықтарына",
+    "az": "Müəllimlər və təhsil mərkəzləri üçün",
+    "uz": "O‘qituvchilar va ta’lim markazlari uchun"
+  },
+  "команды.": {
+    "en": "for your team.",
+    "kk": "командаңыз үшін.",
+    "az": "komandanız üçün.",
+    "uz": "jamoangiz uchun."
+  },
+  "Сначала выберите олимпиаду, на которую хотите отправить учеников.": {
+    "en": "First, choose the olympiad you want your students to attend.",
+    "kk": "Алдымен оқушылар қатысатын олимпиаданы таңдаңыз.",
+    "az": "Əvvəlcə şagirdlərinizin iştirak edəcəyi olimpiadanı seçin.",
+    "uz": "Avval o‘quvchilaringiz qatnashadigan olimpiadani tanlang."
+  },
+  "Новые олимпиады скоро появятся": {
+    "en": "New olympiads coming soon",
+    "kk": "Жаңа олимпиадалар жақында жарияланады",
+    "az": "Tezliklə yeni olimpiadalar",
+    "uz": "Tez orada yangi olimpiadalar"
+  },
+  "Сейчас нет открытых регистраций. Посмотрите афишу и программу событий.": {
+    "en": "There are no open registrations now. Explore the events and programmes.",
+    "kk": "Қазір ашық тіркелу жоқ. Афиша мен бағдарламаларды қараңыз.",
+    "az": "Hazırda açıq qeydiyyat yoxdur. Tədbir və proqramlara baxın.",
+    "uz": "Hozir ochiq ro‘yxatdan o‘tish yo‘q. Tadbirlar va dasturlarni ko‘ring."
+  },
+  "Посмотреть афишу": {
+    "en": "Explore events",
+    "kk": "Афишаны қарау",
+    "az": "Tədbirlərə baxın",
+    "uz": "Tadbirlarni ko‘rish"
+  },
+  "Приём заявок на олимпиаду в городе": {
+    "en": "Registration for the olympiad in",
+    "kk": "Олимпиадаға тіркелу:",
+    "az": "Şəhərdəki olimpiadaya qeydiyyat:",
+    "uz": "Shahardagi olimpiadaga ro‘yxatdan o‘tish:"
+  },
+  "завершился": {
+    "en": "has closed",
+    "kk": "аяқталды",
+    "az": "bağlanıb",
+    "uz": "tugagan"
+  },
+  "Заявка получена": {
+    "en": "Application received",
+    "kk": "Өтінім қабылданды",
+    "az": "Müraciət qəbul edildi",
+    "uz": "Ariza qabul qilindi"
+  },
+  "Ваша команда в списке!": {
+    "en": "Your team is on the list!",
+    "kk": "Командаңыз тізімде!",
+    "az": "Komandanız siyahıdadır!",
+    "uz": "Jamoangiz ro‘yxatda!"
+  },
+  "Организатор получил данные и свяжется с вами": {
+    "en": "The organizer has received your details and will contact you",
+    "kk": "Ұйымдастырушы деректерді алды және сізбен байланысады",
+    "az": "Təşkilatçı məlumatları aldı və sizinlə əlaqə saxlayacaq",
+    "uz": "Tashkilotchi ma’lumotlarni oldi va siz bilan bog‘lanadi"
+  },
+  "для подтверждения участия. Детали и оплату согласуете с организатором.": {
+    "en": "to confirm participation. Arrange details and payment with the organizer.",
+    "kk": "қатысуды растау үшін. Мәліметтер мен төлемді ұйымдастырушымен келісесіз.",
+    "az": "iştirakı təsdiqləmək üçün. Detallar və ödənişi təşkilatçı ilə razılaşdırın.",
+    "uz": "ishtirokni tasdiqlash uchun. Tafsilotlar va to‘lovni tashkilotchi bilan kelishasiz."
+  },
+  "Номер вашей заявки": {
+    "en": "Your application number",
+    "kk": "Өтінім нөміріңіз",
+    "az": "Müraciət nömrəniz",
+    "uz": "Ariza raqamingiz"
+  },
+  "Номер заявки скопирован": {
+    "en": "Application number copied",
+    "kk": "Өтінім нөмірі көшірілді",
+    "az": "Müraciət nömrəsi köçürüldü",
+    "uz": "Ariza raqami nusxalandi"
+  },
+  "Сохраните номер заявки из карточки": {
+    "en": "Save the application number shown on the card",
+    "kk": "Карточкадағы өтінім нөмірін сақтаңыз",
+    "az": "Kartdakı müraciət nömrəsini saxlayın",
+    "uz": "Kartadagi ariza raqamini saqlang"
+  },
+  "Скопировать номер": {
+    "en": "Copy number",
+    "kk": "Нөмірді көшіру",
+    "az": "Nömrəni köçürün",
+    "uz": "Raqamni nusxalash"
+  },
+  "Команда": {
+    "en": "Team",
+    "kk": "Команда",
+    "az": "Komanda",
+    "uz": "Jamoa"
+  },
+  "педагогов": {
+    "en": "teachers",
+    "kk": "педагог",
+    "az": "müəllim",
+    "uz": "pedagog"
+  },
+  "Следующий шаг": {
+    "en": "Next step",
+    "kk": "Келесі қадам",
+    "az": "Növbəti addım",
+    "uz": "Keyingi qadam"
+  },
+  "Присоединяйтесь к каналу олимпиады": {
+    "en": "Join the olympiad channel",
+    "kk": "Олимпиада арнасына қосылыңыз",
+    "az": "Olimpiada kanalına qoşulun",
+    "uz": "Olimpiada kanaliga qo‘shiling"
+  },
+  "Расписание, подготовка и важные новости для вашей команды — в Telegram-канале мероприятия «": {
+    "en": "Schedule, preparation and key updates for your team — in the Telegram channel for “",
+    "kk": "Командаға арналған кесте, дайындық пен маңызды жаңалықтар — Telegram арнасында: «",
+    "az": "Komandanız üçün cədvəl, hazırlıq və xəbərlər Telegram kanalındadır: “",
+    "uz": "Jamoangiz uchun jadval, tayyorgarlik va muhim yangiliklar Telegram kanalida: “"
+  },
+  "Вступить в Telegram-канал олимпиады (откроется в новой вкладке)": {
+    "en": "Join the olympiad Telegram channel (opens in a new tab)",
+    "kk": "Олимпиаданың Telegram арнасына қосылу (жаңа қойындыда ашылады)",
+    "az": "Olimpiadanın Telegram kanalına qoşulun (yeni vərəqdə açılır)",
+    "uz": "Olimpiada Telegram kanaliga qo‘shilish (yangi oynada ochiladi)"
+  },
+  "Вступить в Telegram-канал": {
+    "en": "Join the Telegram channel",
+    "kk": "Telegram арнасына қосылу",
+    "az": "Telegram kanalına qoşulun",
+    "uz": "Telegram kanaliga qo‘shilish"
+  },
+  "Ссылка также сохранится в скачанном подтверждении.": {
+    "en": "The link is also included in the downloaded receipt.",
+    "kk": "Сілтеме жүктелетін растауда да сақталады.",
+    "az": "Link endirilən təsdiqə də daxildir.",
+    "uz": "Havola yuklab olingan tasdiqda ham saqlanadi."
+  },
+  "IQ LAND Номер заявки: {0} Олимпиада: {1}, {2} Центр: {3} Учитель: {4} Учеников: {5} Статус: получена, ожидает подтверждения организатором.{6}": {
+    "en": "IQ LAND\nApplication number: {0}\nOlympiad: {1}, {2}\nCenter: {3}\nTeacher: {4}\nStudents: {5}\nStatus: received, awaiting organizer confirmation.{6}",
+    "kk": "IQ LAND\nӨтінім нөмірі: {0}\nОлимпиада: {1}, {2}\nОрталық: {3}\nМұғалім: {4}\nОқушылар: {5}\nМәртебе: қабылданды, ұйымдастырушы растауы күтілуде.{6}",
+    "az": "IQ LAND\nMüraciət nömrəsi: {0}\nOlimpiada: {1}, {2}\nMərkəz: {3}\nMüəllim: {4}\nŞagirdlər: {5}\nStatus: qəbul edildi, təşkilatçının təsdiqi gözlənilir.{6}",
+    "uz": "IQ LAND\nAriza raqami: {0}\nOlimpiada: {1}, {2}\nMarkaz: {3}\nO‘qituvchi: {4}\nO‘quvchilar: {5}\nHolat: qabul qilindi, tashkilotchi tasdig‘i kutilmoqda.{6}"
+  },
+  "Telegram-канал олимпиады: {0}": {
+    "en": "Olympiad Telegram channel: {0}",
+    "kk": "Олимпиаданың Telegram арнасы: {0}",
+    "az": "Olimpiadanın Telegram kanalı: {0}",
+    "uz": "Olimpiada Telegram kanali: {0}"
+  },
+  "Скачать подтверждение": {
+    "en": "Download receipt",
+    "kk": "Растауды жүктеп алу",
+    "az": "Təsdiqi endirin",
+    "uz": "Tasdiqni yuklab olish"
+  },
+  "Вернуться к олимпиадам": {
+    "en": "Back to olympiads",
+    "kk": "Олимпиадаларға оралу",
+    "az": "Olimpiadalara qayıdın",
+    "uz": "Olimpiadalarga qaytish"
+  },
+  "Сохраните номер заявки — он пригодится при обращении к организатору.": {
+    "en": "Save your application number — you will need it when contacting the organizer.",
+    "kk": "Өтінім нөмірін сақтаңыз — ұйымдастырушыға хабарласқанда қажет болады.",
+    "az": "Müraciət nömrəsini saxlayın — təşkilatçıya yazarkən lazım olacaq.",
+    "uz": "Ariza raqamini saqlang — tashkilotchiga murojaatda kerak bo‘ladi."
+  },
+  "Участвует команда. Регистрирует учитель.": {
+    "en": "The team participates. The teacher registers.",
+    "kk": "Команда қатысады. Мұғалім тіркейді.",
+    "az": "Komanda iştirak edir. Müəllim qeydiyyatdan keçirir.",
+    "uz": "Jamoa qatnashadi. O‘qituvchi ro‘yxatdan o‘tkazadi."
+  },
+  "Одна заявка на всех учеников. Добавьте состав, расскажите о центре — и можно отправлять.": {
+    "en": "One application for all students. Add your roster, tell us about the center — and you're ready to submit.",
+    "kk": "Барлық оқушыға бір өтінім. Құрамды қосып, орталық туралы жазыңыз — жіберуге дайын.",
+    "az": "Bütün şagirdlər üçün bir müraciət. Tərkibi əlavə edin, mərkəz haqqında yazın — göndərməyə hazırsınız.",
+    "uz": "Barcha o‘quvchilar uchun bitta ariza. Tarkibni qo‘shing, markaz haqida yozing — yuborish mumkin."
+  },
+  "Выбранная олимпиада": {
+    "en": "Selected olympiad",
+    "kk": "Таңдалған олимпиада",
+    "az": "Seçilmiş olimpiada",
+    "uz": "Tanlangan olimpiada"
+  },
+  "Заявки до": {
+    "en": "Applications by",
+    "kk": "Өтінім мерзімі",
+    "az": "Son müraciət",
+    "uz": "Ariza muddati"
+  },
+  "Сменить олимпиаду": {
+    "en": "Change olympiad",
+    "kk": "Олимпиаданы ауыстыру",
+    "az": "Olimpiadanı dəyişin",
+    "uz": "Olimpiadani almashtirish"
+  },
+  "Шаги регистрации": {
+    "en": "Registration steps",
+    "kk": "Тіркелу қадамдары",
+    "az": "Qeydiyyat addımları",
+    "uz": "Ro‘yxatdan o‘tish bosqichlari"
+  },
+  "Есть сохранённый черновик": {
+    "en": "You have a saved draft",
+    "kk": "Сақталған нобай бар",
+    "az": "Saxlanılmış qaralama var",
+    "uz": "Saqlangan qoralama bor"
+  },
+  "от": {
+    "en": "from",
+    "kk": "күні",
+    "az": "tarixli",
+    "uz": "sanasidan"
+  },
+  "Восстановить": {
+    "en": "Restore",
+    "kk": "Қалпына келтіру",
+    "az": "Bərpa edin",
+    "uz": "Tiklash"
+  },
+  "Удалить черновик": {
+    "en": "Delete draft",
+    "kk": "Нобайды жою",
+    "az": "Qaralamanı silin",
+    "uz": "Qoralamani o‘chirish"
+  },
+  "Шаг 1 из 3": {
+    "en": "Step 1 of 3",
+    "kk": "3 қадамның 1-қадамы",
+    "az": "3 addımdan 1-ci",
+    "uz": "3 bosqichdan 1-bosqich"
+  },
+  "Ученики команды": {
+    "en": "Team students",
+    "kk": "Команда оқушылары",
+    "az": "Komanda şagirdləri",
+    "uz": "Jamoa o‘quvchilari"
+  },
+  "Введите данные вручную или вставьте весь список за один раз.": {
+    "en": "Enter details manually or paste the entire list at once.",
+    "kk": "Деректерді қолмен енгізіңіз немесе бүкіл тізімді бірден қойыңыз.",
+    "az": "Məlumatları əl ilə daxil edin və ya bütün siyahını bir dəfəyə yapışdırın.",
+    "uz": "Ma’lumotlarni qo‘lda kiriting yoki butun ro‘yxatni birdan joylashtiring."
+  },
+  "Вставить список": {
+    "en": "Paste list",
+    "kk": "Тізімді қою",
+    "az": "Siyahını yapışdırın",
+    "uz": "Ro‘yxatni joylashtirish"
+  },
+  "IQ-LAND-шаблон.csv": {
+    "en": "IQ-LAND-template.csv",
+    "kk": "IQ-LAND-үлгі.csv",
+    "az": "IQ-LAND-şablon.csv",
+    "uz": "IQ-LAND-namuna.csv"
+  },
+  "ФИО;Дата рождения;Класс;Дисциплины Иванов Иван;15.03.2015;5;{0}": {
+    "en": "Full name;Birth date;Grade;Subjects\nIvan Ivanov;15.03.2015;5;{0}",
+    "kk": "Аты-жөні;Туған күні;Сыныбы;Пәндер\nИван Иванов;15.03.2015;5;{0}",
+    "az": "Ad və soyad;Doğum tarixi;Sinif;Fənlər\nIvan Ivanov;15.03.2015;5;{0}",
+    "uz": "F.I.Sh.;Tug‘ilgan sana;Sinf;Fanlar\nIvan Ivanov;15.03.2015;5;{0}"
+  },
+  "Шаблон Excel": {
+    "en": "Excel template",
+    "kk": "Excel үлгісі",
+    "az": "Excel şablonu",
+    "uz": "Excel namunasi"
+  },
+  "Сохранить черновик": {
+    "en": "Save draft",
+    "kk": "Нобайды сақтау",
+    "az": "Qaralamanı saxlayın",
+    "uz": "Qoralamani saqlash"
+  },
+  "Общие настройки команды": {
+    "en": "Team defaults",
+    "kk": "Команданың ортақ баптаулары",
+    "az": "Komandanın ümumi parametrləri",
+    "uz": "Jamoaning umumiy sozlamalari"
+  },
+  "Класс и дисциплины для всех": {
+    "en": "Grade and subjects for everyone",
+    "kk": "Барлығына ортақ сынып пен пәндер",
+    "az": "Hamı üçün sinif və fənlər",
+    "uz": "Barcha uchun sinf va fanlar"
+  },
+  "Класс для новых учеников": {
+    "en": "Grade for new students",
+    "kk": "Жаңа оқушылардың сыныбы",
+    "az": "Yeni şagirdlər üçün sinif",
+    "uz": "Yangi o‘quvchilar sinfi"
+  },
+  "Выбрать класс": {
+    "en": "Choose grade",
+    "kk": "Сыныпты таңдау",
+    "az": "Sinif seçin",
+    "uz": "Sinf tanlash"
+  },
+  "Дисциплины для новых учеников": {
+    "en": "Subjects for new students",
+    "kk": "Жаңа оқушылардың пәндері",
+    "az": "Yeni şagirdlər üçün fənlər",
+    "uz": "Yangi o‘quvchilar fanlari"
+  },
+  "Применить ко всем": {
+    "en": "Apply to everyone",
+    "kk": "Барлығына қолдану",
+    "az": "Hamıya tətbiq edin",
+    "uz": "Barchaga qo‘llash"
+  },
+  "Найти ученика в списке": {
+    "en": "Find student in list",
+    "kk": "Тізімнен оқушыны табу",
+    "az": "Siyahıda şagird tapın",
+    "uz": "Ro‘yxatdan o‘quvchini topish"
+  },
+  "Имя или фамилия": {
+    "en": "First or last name",
+    "kk": "Аты немесе тегі",
+    "az": "Ad və ya soyad",
+    "uz": "Ism yoki familiya"
+  },
+  "ФИО ученика": {
+    "en": "Student's full name",
+    "kk": "Оқушының аты-жөні",
+    "az": "Şagirdin ad və soyadı",
+    "uz": "O‘quvchining F.I.Sh."
+  },
+  "Дата рождения": {
+    "en": "Birth date",
+    "kk": "Туған күні",
+    "az": "Doğum tarixi",
+    "uz": "Tug‘ilgan sana"
+  },
+  "Действия": {
+    "en": "Actions",
+    "kk": "Әрекеттер",
+    "az": "Əməliyyatlar",
+    "uz": "Amallar"
+  },
+  "ФИО ученика {0}": {
+    "en": "Full name of student {0}",
+    "kk": "{0}-оқушының аты-жөні",
+    "az": "Şagird {0}: ad və soyad",
+    "uz": "{0}-o‘quvchining F.I.Sh."
+  },
+  "Фамилия Имя": {
+    "en": "Last name First name",
+    "kk": "Тегі Аты",
+    "az": "Soyad Ad",
+    "uz": "Familiya Ism"
+  },
+  "Имя и дата повторяются — проверьте строку": {
+    "en": "Name and birth date are repeated — check this row",
+    "kk": "Аты-жөні мен туған күні қайталанады — жолды тексеріңіз",
+    "az": "Ad və tarix təkrarlanır — sətri yoxlayın",
+    "uz": "Ism va sana takrorlangan — qatorni tekshiring"
+  },
+  "Дата рождения ученика {0}": {
+    "en": "Birth date of student {0}",
+    "kk": "{0}-оқушының туған күні",
+    "az": "Şagird {0}: doğum tarixi",
+    "uz": "{0}-o‘quvchining tug‘ilgan sanasi"
+  },
+  "Класс ученика {0}": {
+    "en": "Grade of student {0}",
+    "kk": "{0}-оқушының сыныбы",
+    "az": "Şagird {0}: sinif",
+    "uz": "{0}-o‘quvchining sinfi"
+  },
+  "Дошк.": {
+    "en": "Pre-K",
+    "kk": "Мект. дейінгі",
+    "az": "Məktəbəq.",
+    "uz": "Maktabgacha"
+  },
+  "Добавить похожего ученика {0}": {
+    "en": "Add a similar student {0}",
+    "kk": "{0}-оқушыға ұқсасын қосу",
+    "az": "Şagird {0} kimi əlavə edin",
+    "uz": "{0}-o‘quvchiga o‘xshashini qo‘shish"
+  },
+  "Добавить ученика с такими же датой, классом и дисциплинами": {
+    "en": "Add a student with the same birth date, grade and subjects",
+    "kk": "Туған күні, сыныбы мен пәндері бірдей оқушы қосу",
+    "az": "Eyni tarix, sinif və fənlərlə şagird əlavə edin",
+    "uz": "Tug‘ilgan sanasi, sinfi va fanlari bir xil o‘quvchi qo‘shish"
+  },
+  "Удалить ученика {0}": {
+    "en": "Delete student {0}",
+    "kk": "{0}-оқушыны жою",
+    "az": "Şagird {0} silinsin",
+    "uz": "{0}-o‘quvchini o‘chirish"
+  },
+  "Такого ученика нет в списке. Измените поиск.": {
+    "en": "No matching student. Change your search.",
+    "kk": "Оқушы табылмады. Іздеуді өзгертіңіз.",
+    "az": "Belə şagird yoxdur. Axtarışı dəyişin.",
+    "uz": "Bunday o‘quvchi yo‘q. Qidiruvni o‘zgartiring."
+  },
+  "Начнём с первого ученика": {
+    "en": "Let's start with the first student",
+    "kk": "Алғашқы оқушыдан бастайық",
+    "az": "İlk şagirddən başlayaq",
+    "uz": "Birinchi o‘quvchidan boshlaymiz"
+  },
+  "Добавьте строку или вставьте список из Excel.": {
+    "en": "Add a row or paste a list from Excel.",
+    "kk": "Жол қосыңыз немесе Excel тізімін қойыңыз.",
+    "az": "Sətir əlavə edin və ya Excel siyahısını yapışdırın.",
+    "uz": "Qator qo‘shing yoki Excel ro‘yxatini joylashtiring."
+  },
+  "Добавить ученика": {
+    "en": "Add student",
+    "kk": "Оқушы қосу",
+    "az": "Şagird əlavə edin",
+    "uz": "O‘quvchi qo‘shish"
+  },
+  "Добавить 5 строк": {
+    "en": "Add 5 rows",
+    "kk": "5 жол қосу",
+    "az": "5 sətir əlavə edin",
+    "uz": "5 qator qo‘shish"
+  },
+  "из 300": {
+    "en": "of 300",
+    "kk": "/ 300",
+    "az": "/ 300",
+    "uz": "/ 300"
+  },
+  "Имена нужны для протокола и сертификатов. Проверьте написание перед отправкой.": {
+    "en": "Names are used for the protocol and certificates. Check spelling before submission.",
+    "kk": "Аты-жөндері хаттама мен сертификаттарға қажет. Жібермес бұрын жазылуын тексеріңіз.",
+    "az": "Adlar protokol və sertifikatlar üçün lazımdır. Göndərməzdən əvvəl yazılışı yoxlayın.",
+    "uz": "Ismlar bayonnoma va sertifikatlar uchun kerak. Yuborishdan oldin yozilishini tekshiring."
+  },
+  "Шаг 2 из 3": {
+    "en": "Step 2 of 3",
+    "kk": "3 қадамның 2-қадамы",
+    "az": "3 addımdan 2-ci",
+    "uz": "3 bosqichdan 2-bosqich"
+  },
+  "Кому сообщить детали участия и подготовить благодарственные сертификаты?": {
+    "en": "Who should receive participation details and appreciation certificates?",
+    "kk": "Қатысу мәліметтері мен алғыс сертификаттарын кімге дайындау керек?",
+    "az": "İştirak detalları və təşəkkür sertifikatları kimə hazırlanmalıdır?",
+    "uz": "Ishtirok tafsilotlari va tashakkurnomalar kimga tayyorlansin?"
+  },
+  "Например, центр «Зерде»": {
+    "en": "For example, Zerde Center",
+    "kk": "Мысалы, «Зерде» орталығы",
+    "az": "Məsələn, Zerde mərkəzi",
+    "uz": "Masalan, «Zerde» markazi"
+  },
+  "Город центра": {
+    "en": "Center city",
+    "kk": "Орталық қаласы",
+    "az": "Mərkəzin şəhəri",
+    "uz": "Markaz shahri"
+  },
+  "Например, Алматы": {
+    "en": "For example, Almaty",
+    "kk": "Мысалы, Алматы",
+    "az": "Məsələn, Almatı",
+    "uz": "Masalan, Olmaota"
+  },
+  "ФИО ответственного учителя": {
+    "en": "Lead teacher's full name",
+    "kk": "Жауапты мұғалімнің аты-жөні",
+    "az": "Məsul müəllimin ad və soyadı",
+    "uz": "Mas’ul o‘qituvchining F.I.Sh."
+  },
+  "Фамилия Имя Отчество": {
+    "en": "Last name First name Middle name",
+    "kk": "Тегі Аты Әкесінің аты",
+    "az": "Soyad Ad Ata adı",
+    "uz": "Familiya Ism Otasining ismi"
+  },
+  "Контактный телефон": {
+    "en": "Contact phone",
+    "kk": "Байланыс телефоны",
+    "az": "Əlaqə telefonu",
+    "uz": "Aloqa telefoni"
+  },
+  "Благодарственные сертификаты": {
+    "en": "Appreciation certificates",
+    "kk": "Алғыс сертификаттары",
+    "az": "Təşəkkür sertifikatları",
+    "uz": "Tashakkurnomalar"
+  },
+  "Ответственный учитель уже включён. Добавьте остальных педагогов, которым нужен сертификат.": {
+    "en": "The lead teacher is already included. Add other teachers who need certificates.",
+    "kk": "Жауапты мұғалім енгізілген. Сертификат қажет басқа педагогтерді қосыңыз.",
+    "az": "Məsul müəllim artıq daxildir. Sertifikat istəyən digər müəllimləri əlavə edin.",
+    "uz": "Mas’ul o‘qituvchi kiritilgan. Sertifikat kerak bo‘lgan boshqa pedagoglarni qo‘shing."
+  },
+  "ФИО педагога": {
+    "en": "Teacher's full name",
+    "kk": "Педагогтің аты-жөні",
+    "az": "Müəllimin ad və soyadı",
+    "uz": "Pedagogning F.I.Sh."
+  },
+  "ФИО дополнительного учителя {0}": {
+    "en": "Full name of additional teacher {0}",
+    "kk": "{0}-қосымша мұғалімнің аты-жөні",
+    "az": "Əlavə müəllim {0}: ad və soyad",
+    "uz": "{0}-qo‘shimcha o‘qituvchining F.I.Sh."
+  },
+  "Удалить учителя {0}": {
+    "en": "Delete teacher {0}",
+    "kk": "{0}-мұғалімді жою",
+    "az": "Müəllim {0} silinsin",
+    "uz": "{0}-o‘qituvchini o‘chirish"
+  },
+  "Добавить педагога": {
+    "en": "Add teacher",
+    "kk": "Педагог қосу",
+    "az": "Müəllim əlavə edin",
+    "uz": "Pedagog qo‘shish"
+  },
+  "Комментарий для организатора": {
+    "en": "Comment for the organizer",
+    "kk": "Ұйымдастырушыға пікір",
+    "az": "Təşkilatçıya şərh",
+    "uz": "Tashkilotchiga izoh"
+  },
+  "Например, особые пожелания по программе поездки": {
+    "en": "For example, special requests for the travel programme",
+    "kk": "Мысалы, сапар бағдарламасына ерекше тілектер",
+    "az": "Məsələn, səfər proqramı üçün xüsusi istəklər",
+    "uz": "Masalan, sayohat dasturiga maxsus istaklar"
+  },
+  "Шаг 3 из 3": {
+    "en": "Step 3 of 3",
+    "kk": "3 қадамның 3-қадамы",
+    "az": "3 addımdan 3-cü",
+    "uz": "3 bosqichdan 3-bosqich"
+  },
+  "Проверьте заявку": {
+    "en": "Review your application",
+    "kk": "Өтінімді тексеріңіз",
+    "az": "Müraciətinizi yoxlayın",
+    "uz": "Arizangizni tekshiring"
+  },
+  "Проверьте имена учеников и контакты. После отправки заявку увидит организатор.": {
+    "en": "Check student names and contact details. The organizer will see the application after submission.",
+    "kk": "Оқушылардың аты-жөні мен байланыс деректерін тексеріңіз. Өтінімді жібергеннен кейін ұйымдастырушы көреді.",
+    "az": "Şagird adlarını və əlaqə məlumatlarını yoxlayın. Göndərildikdən sonra təşkilatçı müraciəti görəcək.",
+    "uz": "O‘quvchilarning ismlari va aloqa ma’lumotlarini tekshiring. Yuborilgach arizani tashkilotchi ko‘radi."
+  },
+  "Изменить контакты": {
+    "en": "Edit contacts",
+    "kk": "Байланыс деректерін өзгерту",
+    "az": "Əlaqə məlumatlarını dəyişin",
+    "uz": "Aloqa ma’lumotlarini tahrirlash"
+  },
+  "Телефон": {
+    "en": "Phone",
+    "kk": "Телефон",
+    "az": "Telefon",
+    "uz": "Telefon"
+  },
+  "Ученики ·": {
+    "en": "Students ·",
+    "kk": "Оқушылар ·",
+    "az": "Şagirdlər ·",
+    "uz": "O‘quvchilar ·"
+  },
+  "Изменить состав": {
+    "en": "Edit roster",
+    "kk": "Құрамды өзгерту",
+    "az": "Tərkibi dəyişin",
+    "uz": "Tarkibni tahrirlash"
+  },
+  "Подтверждаю корректность данных и наличие согласий законных представителей учеников и педагогов на обработку данных для участия в олимпиаде.": {
+    "en": "I confirm that the details are correct and that I have the consent of students' legal representatives and teachers to process their data for this olympiad.",
+    "kk": "Деректердің дұрыстығын және оқушылардың заңды өкілдері мен педагогтердің олимпиадаға қатысу үшін деректерін өңдеуге келісімі бар екенін растаймын.",
+    "az": "Məlumatların düzgünlüyünü və şagirdlərin qanuni nümayəndələrinin və müəllimlərin bu olimpiada üçün məlumatların emalına razılığını təsdiqləyirəm.",
+    "uz": "Ma’lumotlar to‘g‘riligini va o‘quvchilarning qonuniy vakillari hamda pedagoglarning olimpiada uchun ma’lumotlarini qayta ishlashga roziligi borligini tasdiqlayman."
+  },
+  "Условия обработки данных": {
+    "en": "Data processing terms",
+    "kk": "Деректерді өңдеу шарттары",
+    "az": "Məlumatların emalı şərtləri",
+    "uz": "Ma’lumotlarni qayta ishlash shartlari"
+  },
+  "{0} из {1} учеников готовы": {
+    "en": "{0} of {1} students ready",
+    "kk": "{1} оқушының {0}-і дайын",
+    "az": "{1} şagirddən {0} hazırdır",
+    "uz": "{1} o‘quvchidan {0} nafari tayyor"
+  },
+  "{0} учеников в команде": {
+    "en": "{0} students in your team",
+    "kk": "Командада {0} оқушы",
+    "az": "Komandada {0} şagird",
+    "uz": "Jamoada {0} o‘quvchi"
+  },
+  "Заявка готова к отправке": {
+    "en": "Application ready to submit",
+    "kk": "Өтінім жіберуге дайын",
+    "az": "Müraciət göndərilməyə hazırdır",
+    "uz": "Ariza yuborishga tayyor"
+  },
+  "Заполните данные всех учеников": {
+    "en": "Complete every student's details",
+    "kk": "Барлық оқушының деректерін толтырыңыз",
+    "az": "Bütün şagirdlərin məlumatlarını doldurun",
+    "uz": "Barcha o‘quvchilar ma’lumotlarini to‘ldiring"
+  },
+  "Можно переходить к контактам": {
+    "en": "Ready to continue to contacts",
+    "kk": "Байланыс деректеріне өтуге болады",
+    "az": "Əlaqə məlumatlarına keçə bilərsiniz",
+    "uz": "Aloqa ma’lumotlariga o‘tish mumkin"
+  },
+  "Контакты нужны для подтверждения участия": {
+    "en": "Contacts are needed to confirm participation",
+    "kk": "Байланыс деректері қатысуды растау үшін қажет",
+    "az": "İştirakı təsdiqləmək üçün əlaqə məlumatları lazımdır",
+    "uz": "Aloqa ma’lumotlari ishtirokni tasdiqlash uchun kerak"
+  },
+  "Организатор свяжется с вами после получения заявки": {
+    "en": "The organizer will contact you after receiving the application",
+    "kk": "Өтінімнен кейін ұйымдастырушы сізбен байланысады",
+    "az": "Müraciət alındıqdan sonra təşkilatçı sizinlə əlaqə saxlayacaq",
+    "uz": "Ariza olingach tashkilotchi siz bilan bog‘lanadi"
+  },
+  "Назад": {
+    "en": "Back",
+    "kk": "Артқа",
+    "az": "Geri",
+    "uz": "Orqaga"
+  },
+  "Отправляем…": {
+    "en": "Submitting…",
+    "kk": "Жіберілуде…",
+    "az": "Göndərilir…",
+    "uz": "Yuborilmoqda…"
+  },
+  "Отправить заявку": {
+    "en": "Submit application",
+    "kk": "Өтінімді жіберу",
+    "az": "Müraciəti göndərin",
+    "uz": "Arizani yuborish"
+  },
+  "Продолжить": {
+    "en": "Continue",
+    "kk": "Жалғастыру",
+    "az": "Davam edin",
+    "uz": "Davom etish"
+  },
+  "Ваша команда": {
+    "en": "Your team",
+    "kk": "Сіздің командаңыз",
+    "az": "Komandanız",
+    "uz": "Jamoangiz"
+  },
+  "учеников": {
+    "en": "students",
+    "kk": "оқушы",
+    "az": "şagird",
+    "uz": "o‘quvchi"
+  },
+  "в одной заявке": {
+    "en": "in one application",
+    "kk": "бір өтінімде",
+    "az": "bir müraciətdə",
+    "uz": "bitta arizada"
+  },
+  "Один ученик может участвовать в нескольких дисциплинах.": {
+    "en": "One student can take part in several subjects.",
+    "kk": "Бір оқушы бірнеше пәнге қатыса алады.",
+    "az": "Bir şagird bir neçə fənn üzrə iştirak edə bilər.",
+    "uz": "Bitta o‘quvchi bir nechta fanda qatnashishi mumkin."
+  },
+  "Стоимость и детали организатор подтвердит после заявки.": {
+    "en": "The organizer will confirm prices and details after your application.",
+    "kk": "Өтінімнен кейін ұйымдастырушы құны мен мәліметтерін растайды.",
+    "az": "Müraciətdən sonra təşkilatçı qiymət və detalları təsdiqləyəcək.",
+    "uz": "Arizadan keyin tashkilotchi narx va tafsilotlarni tasdiqlaydi."
+  },
+  "Заявку заполняет учитель. Отдельные аккаунты учеников не нужны.": {
+    "en": "The teacher completes the application. Students do not need separate accounts.",
+    "kk": "Өтінімді мұғалім толтырады. Оқушыларға жеке аккаунттар қажет емес.",
+    "az": "Müraciəti müəllim doldurur. Şagirdlərə ayrıca hesab lazım deyil.",
+    "uz": "Arizani o‘qituvchi to‘ldiradi. O‘quvchilarga alohida akkaunt kerak emas."
+  },
+  "Состав команды и контакты сохранятся. Дисциплины нужно будет проверить по программе новой олимпиады.": {
+    "en": "Your roster and contact details will be kept. Check subjects against the new olympiad programme.",
+    "kk": "Команда құрамы мен байланыс деректері сақталады. Пәндерді жаңа олимпиада бағдарламасымен салыстырыңыз.",
+    "az": "Tərkib və əlaqə məlumatları saxlanılacaq. Fənləri yeni olimpiada proqramı ilə yoxlayın.",
+    "uz": "Jamoa tarkibi va aloqa ma’lumotlari saqlanadi. Fanlarni yangi olimpiada dasturiga moslab tekshiring."
+  },
+  "Вставить список учеников": {
+    "en": "Paste student list",
+    "kk": "Оқушылар тізімін қою",
+    "az": "Şagird siyahısını yapışdırın",
+    "uz": "O‘quvchilar ro‘yxatini joylashtirish"
+  },
+  "Скопируйте из Excel столбцы": {
+    "en": "Copy these Excel columns:",
+    "kk": "Excel бағандарын көшіріңіз:",
+    "az": "Excel sütunlarını köçürün:",
+    "uz": "Excel ustunlarini nusxalang:"
+  },
+  "ФИО, дата рождения, класс": {
+    "en": "full name, birth date, grade",
+    "kk": "аты-жөні, туған күні, сыныбы",
+    "az": "ad və soyad, doğum tarixi, sinif",
+    "uz": "F.I.Sh., tug‘ilgan sana, sinf"
+  },
+  ". Одна строка — один ученик. Четвёртым столбцом можно указать дисциплины через запятую.": {
+    "en": ". One row per student. Optionally add subjects separated by commas in a fourth column.",
+    "kk": ". Әр жол — бір оқушы. Төртінші бағанда пәндерді үтірмен бөлуге болады.",
+    "az": ". Hər sətir bir şagirddir. Dördüncü sütunda fənləri vergüllə ayırmaq olar.",
+    "uz": ". Har bir qator — bitta o‘quvchi. To‘rtinchi ustunda fanlarni vergul bilan ajratish mumkin."
+  },
+  "Пример": {
+    "en": "Example",
+    "kk": "Мысал",
+    "az": "Nümunə",
+    "uz": "Namuna"
+  },
+  "Иванов Иван;15.03.2015;5": {
+    "en": "Ivan Ivanov;15.03.2015;5",
+    "kk": "Иван Иванов;15.03.2015;5",
+    "az": "Ivan Ivanov;15.03.2015;5",
+    "uz": "Ivan Ivanov;15.03.2015;5"
+  },
+  "Ахметова Алия;22.07.2016;4": {
+    "en": "Aliya Akhmetova;22.07.2016;4",
+    "kk": "Ахметова Алия;22.07.2016;4",
+    "az": "Aliya Axmetova;22.07.2016;4",
+    "uz": "Aliya Axmetova;22.07.2016;4"
+  },
+  "Список учеников": {
+    "en": "Student list",
+    "kk": "Оқушылар тізімі",
+    "az": "Şagird siyahısı",
+    "uz": "O‘quvchilar ro‘yxati"
+  },
+  "ФИО Дата рождения Класс Иванов Иван 15.03.2015 5": {
+    "en": "Full name\tBirth date\tGrade\nIvan Ivanov\t15.03.2015\t5",
+    "kk": "Аты-жөні\tТуған күні\tСыныбы\nИван Иванов\t15.03.2015\t5",
+    "az": "Ad və soyad\tDoğum tarixi\tSinif\nIvan Ivanov\t15.03.2015\t5",
+    "uz": "F.I.Sh.\tTug‘ilgan sana\tSinf\nIvan Ivanov\t15.03.2015\t5"
+  },
+  "Дата: ДД.ММ.ГГГГ или ГГГГ-ММ-ДД. Класс 0 — дошкольник. Заполненные строки в вашей команде сохранятся.": {
+    "en": "Date: DD.MM.YYYY or YYYY-MM-DD. Grade 0 means preschool. Existing filled rows will be kept.",
+    "kk": "Күн: КК.АА.ЖЖЖЖ немесе ЖЖЖЖ-АА-КК. 0 — мектепке дейінгі. Толтырылған жолдар сақталады.",
+    "az": "Tarix: GG.AA.İİİİ və ya İİİİ-AA-GG. Sinif 0 — məktəbəqədər. Doldurulmuş sətirlər saxlanılacaq.",
+    "uz": "Sana: KK.OO.YYYY yoki YYYY-OO-KK. 0-sinf — maktabgacha. To‘ldirilgan qatorlar saqlanadi."
+  },
+  "Исправьте список — пока ничего не добавлено": {
+    "en": "Fix the list — nothing added yet",
+    "kk": "Тізімді түзетіңіз — әзірге ештеңе қосылмады",
+    "az": "Siyahını düzəldin — hələ heç nə əlavə edilməyib",
+    "uz": "Ro‘yxatni tuzating — hali hech narsa qo‘shilmadi"
+  },
+  "Строка {0}:": {
+    "en": "Row {0}:",
+    "kk": "{0}-жол:",
+    "az": "Sətir {0}:",
+    "uz": "{0}-qator:"
+  },
+  "И ещё ошибок:": {
+    "en": "More errors:",
+    "kk": "Тағы қателер:",
+    "az": "Digər səhvlər:",
+    "uz": "Yana xatolar:"
+  },
+  "Готово к добавлению:": {
+    "en": "Ready to add:",
+    "kk": "Қосуға дайын:",
+    "az": "Əlavə etməyə hazır:",
+    "uz": "Qo‘shishga tayyor:"
+  },
+  "Добавить учеников": {
+    "en": "Add students",
+    "kk": "Оқушыларды қосу",
+    "az": "Şagirdləri əlavə edin",
+    "uz": "O‘quvchilarni qo‘shish"
+  },
+  "Сохранить состав команды?": {
+    "en": "Save team roster?",
+    "kk": "Команда құрамын сақтау керек пе?",
+    "az": "Komanda tərkibi saxlanılsın?",
+    "uz": "Jamoa tarkibi saqlansinmi?"
+  },
+  "В форме есть заполненные данные. Можно сохранить черновик и вернуться к нему в этой вкладке.": {
+    "en": "You have entered data. Save a draft to return to it in this tab.",
+    "kk": "Нысанда деректер бар. Осы қойындыда оралу үшін нобайды сақтаңыз.",
+    "az": "Formada məlumat var. Bu vərəqdə qayıtmaq üçün qaralamanı saxlayın.",
+    "uz": "Shaklda ma’lumotlar bor. Shu oynada qaytish uchun qoralamani saqlang."
+  },
+  "Сохранить и выйти": {
+    "en": "Save and leave",
+    "kk": "Сақтап, шығу",
+    "az": "Saxlayın və çıxın",
+    "uz": "Saqlash va chiqish"
+  },
+  "Выйти без сохранения": {
+    "en": "Leave without saving",
+    "kk": "Сақтамай шығу",
+    "az": "Saxlamadan çıxın",
+    "uz": "Saqlamasdan chiqish"
+  },
+  "Остаться в форме": {
+    "en": "Stay on this form",
+    "kk": "Нысанда қалу",
+    "az": "Formada qalın",
+    "uz": "Shaklda qolish"
+  },
+  "Баллы можно вносить начиная с даты олимпиады.": {
+    "en": "Scores can be entered from the olympiad date onwards.",
+    "kk": "Ұпайларды олимпиада күнінен бастап енгізуге болады.",
+    "az": "Balları olimpiada tarixindən daxil etmək olar.",
+    "uz": "Ballarni olimpiada sanasidan boshlab kiritish mumkin."
+  },
+  "Без категории": {
+    "en": "No category",
+    "kk": "Санатсыз",
+    "az": "Kateqoriyasız",
+    "uz": "Toifasiz"
+  },
+  "Проверьте баллы: число от 0 до 1 000 000 или пустое поле.": {
+    "en": "Check scores: a number from 0 to 1,000,000 or an empty field.",
+    "kk": "Ұпайларды тексеріңіз: 0–1 000 000 аралығындағы сан немесе бос өріс.",
+    "az": "Balları yoxlayın: 0–1 000 000 arası rəqəm və ya boş xana.",
+    "uz": "Ballarni tekshiring: 0 dan 1 000 000 gacha son yoki bo‘sh maydon."
+  },
+  "Участник повторяется в запросе.": {
+    "en": "A participant appears twice in this request.",
+    "kk": "Сұрауда қатысушы қайталанады.",
+    "az": "Sorğuda iştirakçı təkrarlanır.",
+    "uz": "So‘rovda ishtirokchi takrorlangan."
+  },
+  "Участник не найден в активном списке этой олимпиады.": {
+    "en": "Participant not found in this olympiad's active list.",
+    "kk": "Қатысушы осы олимпиаданың белсенді тізімінде табылмады.",
+    "az": "İştirakçı bu olimpiadanın aktiv siyahısında tapılmadı.",
+    "uz": "Ishtirokchi ushbu olimpiadaning faol ro‘yxatida topilmadi."
+  },
+  "Баллы уже изменены другим организатором. Обновите список перед сохранением.": {
+    "en": "Another organizer has changed these scores. Refresh the list before saving.",
+    "kk": "Ұпайларды басқа ұйымдастырушы өзгерткен. Сақтамас бұрын тізімді жаңартыңыз.",
+    "az": "Balları başqa təşkilatçı dəyişib. Saxlamazdan əvvəl siyahını yeniləyin.",
+    "uz": "Ballarni boshqa tashkilotchi o‘zgartirgan. Saqlashdan oldin ro‘yxatni yangilang."
+  },
+  "Обновите список перед расчётом результатов.": {
+    "en": "Refresh the list before calculating results.",
+    "kk": "Нәтижелерді есептемес бұрын тізімді жаңартыңыз.",
+    "az": "Nəticələri hesablamazdan əvvəl siyahını yeniləyin.",
+    "uz": "Natijalarni hisoblashdan oldin ro‘yxatni yangilang."
+  },
+  "Список или баллы изменились. Обновите страницу и повторите расчёт.": {
+    "en": "The list or scores have changed. Refresh and calculate again.",
+    "kk": "Тізім не ұпайлар өзгерген. Жаңартып, қайта есептеңіз.",
+    "az": "Siyahı və ya ballar dəyişib. Səhifəni yeniləyib hesablayın.",
+    "uz": "Ro‘yxat yoki ballar o‘zgargan. Yangilab, qayta hisoblang."
+  },
+  "Сначала выведите актуальные результаты олимпиады.": {
+    "en": "Calculate up-to-date olympiad results first.",
+    "kk": "Алдымен олимпиаданың өзекті нәтижелерін шығарыңыз.",
+    "az": "Əvvəlcə aktual olimpiada nəticələrini hesablayın.",
+    "uz": "Avval olimpiadaning dolzarb natijalarini hisoblang."
+  },
+  "Образовательный центр не найден.": {
+    "en": "Educational center not found.",
+    "kk": "Білім беру орталығы табылмады.",
+    "az": "Təhsil mərkəzi tapılmadı.",
+    "uz": "Ta’lim markazi topilmadi."
+  },
+  "Результаты": {
+    "en": "Results",
+    "kk": "Нәтижелер",
+    "az": "Nəticələr",
+    "uz": "Natijalar"
+  },
+  "Места: золото → серебро → бронза; внутри места — предмет, возрастная категория и баллы.": {
+    "en": "Awards: gold → silver → bronze; within each award: subject, age category and score.",
+    "kk": "Наградалар: алтын → күміс → қола; әр награда ішінде — пән, жас санаты және ұпай.",
+    "az": "Mükafatlar: qızıl → gümüş → bürünc; hər mükafat daxilində — fənn, yaş kateqoriyası və bal.",
+    "uz": "Sovrinlar: oltin → kumush → bronza; har bir sovrin ichida — fan, yosh toifasi va ball."
+  },
+  "Место": {
+    "en": "Award",
+    "kk": "Орын",
+    "az": "Mükafat",
+    "uz": "O‘rin"
+  },
+  "Предмет": {
+    "en": "Subject",
+    "kk": "Пән",
+    "az": "Fənn",
+    "uz": "Fan"
+  },
+  "Возрастная категория": {
+    "en": "Age category",
+    "kk": "Жас санаты",
+    "az": "Yaş kateqoriyası",
+    "uz": "Yosh toifasi"
+  },
+  "Возраст": {
+    "en": "Age",
+    "kk": "Жасы",
+    "az": "Yaş",
+    "uz": "Yosh"
+  },
+  "Рейтинг в категории": {
+    "en": "Rank within category",
+    "kk": "Санат ішіндегі рейтинг",
+    "az": "Kateqoriya daxilində reytinq",
+    "uz": "Toifa ichidagi reyting"
+  },
+  "ДЛЯ ТЕХ, КТО МЕЧТАЕТ О БОЛЬШЕМ": {
+    "en": "FOR THOSE WHO DREAM BIG",
+    "kk": "ҮЛКЕН АРМАНЫ БАРЛАРҒА",
+    "az": "BÖYÜK ARZULARI OLANLAR ÜÇÜN",
+    "uz": "KATTA ORZU QILUVCHILAR UCHUN"
+  },
+  "Следующее большое открытие —": {
+    "en": "The next big discovery —",
+    "kk": "Келесі үлкен жаңалық —",
+    "az": "Növbəti böyük kəşf —",
+    "uz": "Keyingi katta kashfiyot —"
+  },
+  "вашей команды.": {
+    "en": "belongs to your team.",
+    "kk": "сіздің командаңыздікі.",
+    "az": "komandanızındır.",
+    "uz": "jamoangizniki."
+  },
+  "Найти свою олимпиаду": {
+    "en": "Find your olympiad",
+    "kk": "Өз олимпиадаңды тап",
+    "az": "Öz olimpiadanı tap",
+    "uz": "O‘z olimpiadangni top"
+  },
+  "Администратор": {
+    "en": "Administrator",
+    "kk": "Әкімші",
+    "az": "Administrator",
+    "uz": "Administrator"
+  },
+  "Руководитель": {
+    "en": "Director",
+    "kk": "Басшы",
+    "az": "Rəhbər",
+    "uz": "Rahbar"
+  },
+  "Баку": {
+    "en": "Baku",
+    "kk": "Баку",
+    "az": "Bakı",
+    "uz": "Boku"
+  },
+  "Азербайджан": {
+    "en": "Azerbaijan",
+    "kk": "Әзербайжан",
+    "az": "Azərbaycan",
+    "uz": "Ozarbayjon"
+  },
+  "Посещение цирка": {
+    "en": "Circus visit",
+    "kk": "Циркке бару",
+    "az": "Sirkə səfər",
+    "uz": "Sirkka tashrif"
+  },
+  "Новые знания, новые друзья и город, в который хочется вернуться. Объедините интеллектуальное соревнование с открытием удивительного Баку.": {
+    "en": "New knowledge, new friends and a city you'll want to return to. Combine an intellectual competition with discovering beautiful Baku.",
+    "kk": "Жаңа білім, жаңа достар және қайта оралғың келетін қала. Зияткерлік жарысты керемет Бакуды танумен біріктіріңіз.",
+    "az": "Yeni biliklər, yeni dostlar və qayıtmaq istədiyiniz şəhər. İntellektual yarışı Bakını kəşf etməklə birləşdirin.",
+    "uz": "Yangi bilim, yangi do‘stlar va qaytgisi keladigan shahar. Intellektual musobaqani go‘zal Bokuni kashf etish bilan birlashtiring."
+  },
+  "Алматы": {
+    "en": "Almaty",
+    "kk": "Алматы",
+    "az": "Almatı",
+    "uz": "Olmaota"
+  },
+  "Казахстан": {
+    "en": "Kazakhstan",
+    "kk": "Қазақстан",
+    "az": "Qazaxıstan",
+    "uz": "Qozog‘iston"
+  },
+  "Посещение КБТУ и ЖЕНПУ": {
+    "en": "Visits to KBTU and ZhenPU",
+    "kk": "ҚБТУ және ЖЕНПУ университеттеріне бару",
+    "az": "KBTU və JENPU universitetlərinə səfər",
+    "uz": "KBTU va JENPU universitetlariga tashrif"
+  },
+  "Ментальная арифметика у подножия гор. Познакомьтесь с университетами Алматы и подарите детям вдохновение для будущих открытий.": {
+    "en": "Mental arithmetic at the foot of the mountains. Discover Almaty's universities and inspire children to make new discoveries.",
+    "kk": "Тау бөктеріндегі менталды арифметика. Алматы университеттерімен танысып, балаларды болашақ жаңалықтарға шабыттандырыңыз.",
+    "az": "Dağların ətəyində mental arifmetika. Almatı universitetləri ilə tanış olun və uşaqları yeni kəşflərə ruhlandırın.",
+    "uz": "Tog‘lar etagida mental arifmetika. Olmaota universitetlari bilan tanishing va bolalarni kelajak kashfiyotlariga ilhomlantiring."
+  },
+  "Файл повреждён или не является видео MP4/WebM.": {
+    "en": "The file is damaged or is not an MP4/WebM video.",
+    "kk": "Файл бүлінген немесе MP4/WebM бейнесі емес.",
+    "az": "Fayl zədəlidir və ya MP4/WebM videosu deyil.",
+    "uz": "Fayl buzilgan yoki MP4/WebM videosi emas."
+  },
+  "Загрузите видео в формате MP4 или WebM.": {
+    "en": "Upload an MP4 or WebM video.",
+    "kk": "MP4 немесе WebM бейнесін жүктеңіз.",
+    "az": "MP4 və ya WebM videosu yükləyin.",
+    "uz": "MP4 yoki WebM videosini yuklang."
+  },
+  "Размер видео не должен превышать 1 ГБ.": {
+    "en": "Video size must not exceed 1 GB.",
+    "kk": "Бейне көлемі 1 ГБ-тан аспауы керек.",
+    "az": "Video 1 GB-dan çox olmamalıdır.",
+    "uz": "Video hajmi 1 GB dan oshmasligi kerak."
+  },
+  "Загрузка видео прервана.": {
+    "en": "Video upload interrupted.",
+    "kk": "Бейне жүктеу үзілді.",
+    "az": "Video yüklənməsi kəsildi.",
+    "uz": "Video yuklash uzildi."
+  },
+  "Не удалось завершить загрузку видео.": {
+    "en": "Could not finish the video upload.",
+    "kk": "Бейнені жүктеу аяқталмады.",
+    "az": "Video yüklənməsini tamamlamaq mümkün olmadı.",
+    "uz": "Video yuklashni yakunlab bo‘lmadi."
+  },
+  "Не удалось сохранить видео. Попробуйте загрузить его ещё раз.": {
+    "en": "Could not save the video. Upload it again.",
+    "kk": "Бейне сақталмады. Қайта жүктеңіз.",
+    "az": "Videonu saxlamaq mümkün olmadı. Yenidən yükləyin.",
+    "uz": "Video saqlanmadi. Qayta yuklang."
+  },
+  "Запрос с другого сайта отклонён": {
+    "en": "Request from another website rejected",
+    "kk": "Басқа сайттан келген сұрау қабылданбады",
+    "az": "Başqa saytdan gələn sorğu rədd edildi",
+    "uz": "Boshqa saytdan kelgan so‘rov rad etildi"
+  },
+  "Некорректный источник запроса": {
+    "en": "Invalid request origin",
+    "kk": "Сұрау көзі дұрыс емес",
+    "az": "Sorğunun mənbəyi yanlışdır",
+    "uz": "So‘rov manbasi noto‘g‘ri"
+  },
+  "Войдите в кабинет": {
+    "en": "Sign in to your cabinet",
+    "kk": "Кабинетке кіріңіз",
+    "az": "Kabinetə daxil olun",
+    "uz": "Kabinetga kiring"
+  },
+  "Доступно администратору": {
+    "en": "Administrator access required",
+    "kk": "Әкімшіге қолжетімді",
+    "az": "Yalnız administrator üçün",
+    "uz": "Administrator uchun"
+  },
+  "Доступно организаторам": {
+    "en": "Organizer access required",
+    "kk": "Ұйымдастырушыларға қолжетімді",
+    "az": "Yalnız təşkilatçılar üçün",
+    "uz": "Tashkilotchilar uchun"
+  },
+  "Не удалось сохранить видео. Попробуйте ещё раз.": {
+    "en": "Could not save the video. Try again.",
+    "kk": "Бейне сақталмады. Қайталап көріңіз.",
+    "az": "Videonu saxlamaq mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "Video saqlanmadi. Qayta urinib ko‘ring."
+  },
+  "Видео не найдено": {
+    "en": "Video not found",
+    "kk": "Бейне табылмады",
+    "az": "Video tapılmadı",
+    "uz": "Video topilmadi"
+  },
+  "Используйте https://… или #events": {
+    "en": "Use https://… or #events",
+    "kk": "https://… немесе #events қолданыңыз",
+    "az": "https://… və ya #events istifadə edin",
+    "uz": "https://… yoki #events ishlating"
+  },
+  "Прошедшая олимпиада не найдена": {
+    "en": "Past olympiad not found",
+    "kk": "Өткен олимпиада табылмады",
+    "az": "Keçmiş olimpiada tapılmadı",
+    "uz": "O‘tgan olimpiada topilmadi"
+  },
+  "Мероприятие не найдено": {
+    "en": "Event not found",
+    "kk": "Іс-шара табылмады",
+    "az": "Tədbir tapılmadı",
+    "uz": "Tadbir topilmadi"
+  },
+  "Выберите фотографию в формате JPEG, PNG или WebP": {
+    "en": "Choose a JPEG, PNG or WebP photo",
+    "kk": "JPEG, PNG немесе WebP фотосын таңдаңыз",
+    "az": "JPEG, PNG və ya WebP şəkli seçin",
+    "uz": "JPEG, PNG yoki WebP suratini tanlang"
+  },
+  "Фотография слишком большая. Максимальный размер — 8 МБ": {
+    "en": "The photo is too large. Maximum size is 8 MB",
+    "kk": "Фото тым үлкен. Ең үлкен көлем — 8 МБ",
+    "az": "Şəkil çox böyükdür. Maksimum 8 MB",
+    "uz": "Surat juda katta. Eng katta hajm — 8 MB"
+  },
+  "Файл повреждён или не соответствует формату JPEG, PNG или WebP": {
+    "en": "The file is damaged or is not a JPEG, PNG or WebP image",
+    "kk": "Файл бүлінген немесе JPEG, PNG, WebP форматына сәйкес емес",
+    "az": "Fayl zədəlidir və ya JPEG, PNG, WebP formatına uyğun deyil",
+    "uz": "Fayl buzilgan yoki JPEG, PNG, WebP formatiga mos emas"
+  },
+  "Фотография не найдена": {
+    "en": "Photo not found",
+    "kk": "Фото табылмады",
+    "az": "Şəkil tapılmadı",
+    "uz": "Surat topilmadi"
+  },
+  "Слишком много попыток. Попробуйте через 15 минут.": {
+    "en": "Too many attempts. Try again in 15 minutes.",
+    "kk": "Талпыныс саны тым көп. 15 минуттан кейін қайталаңыз.",
+    "az": "Çox sayda cəhd. 15 dəqiqədən sonra yenidən cəhd edin.",
+    "uz": "Urinishlar juda ko‘p. 15 daqiqadan keyin qayta urining."
+  },
+  "Укажите email и пароль": {
+    "en": "Enter email and password",
+    "kk": "Email мен құпиясөзді енгізіңіз",
+    "az": "Email və şifrə daxil edin",
+    "uz": "Email va parolni kiriting"
+  },
+  "Неверный email или пароль": {
+    "en": "Incorrect email or password",
+    "kk": "Email немесе құпиясөз дұрыс емес",
+    "az": "Email və ya şifrə yanlışdır",
+    "uz": "Email yoki parol noto‘g‘ri"
+  },
+  "Достигнут лимит заявок. Повторите позже.": {
+    "en": "Application limit reached. Try later.",
+    "kk": "Өтінім шегіне жетті. Кейінірек қайталаңыз.",
+    "az": "Müraciət limiti dolub. Sonra cəhd edin.",
+    "uz": "Arizalar chegarasiga yetildi. Keyinroq urining."
+  },
+  "Регистрация на это мероприятие завершена": {
+    "en": "Registration for this event has closed",
+    "kk": "Бұл іс-шараға тіркелу аяқталды",
+    "az": "Bu tədbirə qeydiyyat bitib",
+    "uz": "Ushbu tadbirga ro‘yxatdan o‘tish tugagan"
+  },
+  "Выбрана дисциплина, которой нет на этой олимпиаде": {
+    "en": "A selected subject is not offered at this olympiad",
+    "kk": "Бұл олимпиадада таңдалған пән жоқ",
+    "az": "Seçilmiş fənn bu olimpiadada yoxdur",
+    "uz": "Tanlangan fan ushbu olimpiadada yo‘q"
+  },
+  "Неизвестный статус": {
+    "en": "Unknown status",
+    "kk": "Белгісіз мәртебе",
+    "az": "Naməlum status",
+    "uz": "Noma’lum holat"
+  },
+  "Заявка не найдена": {
+    "en": "Application not found",
+    "kk": "Өтінім табылмады",
+    "az": "Müraciət tapılmadı",
+    "uz": "Ariza topilmadi"
+  },
+  "Баллы должны быть от 0 до 1 000 000": {
+    "en": "Scores must be from 0 to 1,000,000",
+    "kk": "Ұпайлар 0–1 000 000 аралығында болуы керек",
+    "az": "Ballar 0–1 000 000 arası olmalıdır",
+    "uz": "Ballar 0 dan 1 000 000 gacha bo‘lishi kerak"
+  },
+  "Участник не найден": {
+    "en": "Participant not found",
+    "kk": "Қатысушы табылмады",
+    "az": "İştirakçı tapılmadı",
+    "uz": "Ishtirokchi topilmadi"
+  },
+  "Нельзя удалить дисциплину с зарегистрированными учениками": {
+    "en": "Cannot remove a subject with registered students",
+    "kk": "Тіркелген оқушылар бар пәнді жоюға болмайды",
+    "az": "Qeydiyyatlı şagirdləri olan fənni silmək olmaz",
+    "uz": "Ro‘yxatdan o‘tgan o‘quvchilari bor fanni o‘chirib bo‘lmaydi"
+  },
+  "Участники": {
+    "en": "Participants",
+    "kk": "Қатысушылар",
+    "az": "İştirakçılar",
+    "uz": "Ishtirokchilar"
+  },
+  "Мероприятие": {
+    "en": "Event",
+    "kk": "Іс-шара",
+    "az": "Tədbir",
+    "uz": "Tadbir"
+  },
+  "Дата": {
+    "en": "Date",
+    "kk": "Күні",
+    "az": "Tarix",
+    "uz": "Sana"
+  },
+  "Центр": {
+    "en": "Center",
+    "kk": "Орталық",
+    "az": "Mərkəz",
+    "uz": "Markaz"
+  },
+  "Учитель": {
+    "en": "Teacher",
+    "kk": "Мұғалім",
+    "az": "Müəllim",
+    "uz": "O‘qituvchi"
+  },
+  "Протокол": {
+    "en": "Protocol",
+    "kk": "Хаттама",
+    "az": "Protokol",
+    "uz": "Bayonnoma"
+  },
+  "ФИО": {
+    "en": "Full name",
+    "kk": "Аты-жөні",
+    "az": "Ad və soyad",
+    "uz": "F.I.Sh."
+  },
+  "Благодарность": {
+    "en": "Appreciation",
+    "kk": "Алғыс",
+    "az": "Təşəkkür",
+    "uz": "Tashakkurnoma"
+  },
+  "Руководитель команды": {
+    "en": "Team leader",
+    "kk": "Команда жетекшісі",
+    "az": "Komanda rəhbəri",
+    "uz": "Jamoa rahbari"
+  },
+  "Учителя": {
+    "en": "Teachers",
+    "kk": "Мұғалімдер",
+    "az": "Müəllimlər",
+    "uz": "O‘qituvchilar"
+  },
+  "Email контакта": {
+    "en": "Contact email",
+    "kk": "Байланыс email-ы",
+    "az": "Əlaqə emaili",
+    "uz": "Aloqa emaili"
+  },
+  "Телефон контакта": {
+    "en": "Contact phone",
+    "kk": "Байланыс телефоны",
+    "az": "Əlaqə telefonu",
+    "uz": "Aloqa telefoni"
+  },
+  "Маршрут не найден": {
+    "en": "Route not found",
+    "kk": "Бағыт табылмады",
+    "az": "Marşrut tapılmadı",
+    "uz": "Yo‘nalish topilmadi"
+  },
+  "Некорректный запрос": {
+    "en": "Invalid request",
+    "kk": "Сұрау дұрыс емес",
+    "az": "Yanlış sorğu",
+    "uz": "Noto‘g‘ri so‘rov"
+  },
+  "Не удалось выполнить запрос. Попробуйте ещё раз.": {
+    "en": "Could not complete the request. Try again.",
+    "kk": "Сұрау орындалмады. Қайталап көріңіз.",
+    "az": "Sorğunu yerinə yetirmək mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "So‘rov bajarilmadi. Qayta urinib ko‘ring."
+  },
+  "Заполните поле (минимум 2 символа)": {
+    "en": "Complete this field (at least 2 characters)",
+    "kk": "Өрісті толтырыңыз (кемінде 2 таңба)",
+    "az": "Xananı doldurun (ən azı 2 simvol)",
+    "uz": "Maydonni to‘ldiring (kamida 2 belgi)"
+  },
+  "Не более {0} символов": {
+    "en": "No more than {0} characters",
+    "kk": "{0} таңбадан аспауы керек",
+    "az": "Ən çox {0} simvol",
+    "uz": "Ko‘pi bilan {0} belgi"
+  },
+  "Укажите дату": {
+    "en": "Enter a date",
+    "kk": "Күнді көрсетіңіз",
+    "az": "Tarix daxil edin",
+    "uz": "Sanani kiriting"
+  },
+  "Некорректная дата": {
+    "en": "Invalid date",
+    "kk": "Күн дұрыс емес",
+    "az": "Yanlış tarix",
+    "uz": "Noto‘g‘ri sana"
+  },
+  "Вставьте HTTPS-ссылку на Telegram-канал вида https://t.me/… или оставьте поле пустым": {
+    "en": "Paste an HTTPS Telegram channel link, https://t.me/…, or leave blank",
+    "kk": "https://t.me/… түріндегі HTTPS Telegram арнасының сілтемесін енгізіңіз немесе бос қалдырыңыз",
+    "az": "https://t.me/… formatında HTTPS Telegram kanalı linkini daxil edin və ya boş buraxın",
+    "uz": "https://t.me/… ko‘rinishidagi HTTPS Telegram kanali havolasini kiriting yoki bo‘sh qoldiring"
+  },
+  "Проверьте email": {
+    "en": "Check email",
+    "kk": "Email-ды тексеріңіз",
+    "az": "Emaili yoxlayın",
+    "uz": "Emailni tekshiring"
+  },
+  "Проверьте номер телефона": {
+    "en": "Check phone number",
+    "kk": "Телефон нөмірін тексеріңіз",
+    "az": "Telefon nömrəsini yoxlayın",
+    "uz": "Telefon raqamini tekshiring"
+  },
+  "Подтвердите согласие на обработку данных": {
+    "en": "Confirm consent to data processing",
+    "kk": "Деректерді өңдеуге келісімді растаңыз",
+    "az": "Məlumatların emalına razılığı təsdiqləyin",
+    "uz": "Ma’lumotlarni qayta ishlashga rozilikni tasdiqlang"
+  },
+  "Выберите дисциплину": {
+    "en": "Choose a subject",
+    "kk": "Пәнді таңдаңыз",
+    "az": "Fənn seçin",
+    "uz": "Fan tanlang"
+  },
+  "Добавьте ученика": {
+    "en": "Add a student",
+    "kk": "Оқушыны қосыңыз",
+    "az": "Şagird əlavə edin",
+    "uz": "O‘quvchi qo‘shing"
+  },
+  "Не более 300 учеников в одной заявке": {
+    "en": "Up to 300 students per application",
+    "kk": "Бір өтінімде 300 оқушыдан аспауы керек",
+    "az": "Bir müraciətdə ən çox 300 şagird",
+    "uz": "Bitta arizada ko‘pi bilan 300 o‘quvchi"
+  },
+  "Загрузите фотографию через форму или оставьте изображение пустым": {
+    "en": "Upload a photo using the form or leave the image blank",
+    "kk": "Нысан арқылы фото жүктеңіз немесе бос қалдырыңыз",
+    "az": "Formadan şəkil yükləyin və ya boş buraxın",
+    "uz": "Shakl orqali surat yuklang yoki bo‘sh qoldiring"
+  },
+  "Дедлайн должен быть до олимпиады": {
+    "en": "The deadline must not be after the olympiad",
+    "kk": "Соңғы мерзім олимпиададан кеш болмауы керек",
+    "az": "Son tarix olimpiadadan sonra olmamalıdır",
+    "uz": "Oxirgi muddat olimpiadadan keyin bo‘lmasligi kerak"
+  },
+  "Загрузите монтаж через форму или оставьте видео пустым": {
+    "en": "Upload highlights using the form or leave the video blank",
+    "kk": "Нысан арқылы бейне жүктеңіз немесе бос қалдырыңыз",
+    "az": "Formadan video yükləyin və ya boş buraxın",
+    "uz": "Shakl orqali video yuklang yoki bo‘sh qoldiring"
+  },
+  "{0}–{1} лет": {
+    "en": "{0}–{1} years",
+    "kk": "{0}–{1} жас",
+    "az": "{0}–{1} yaş",
+    "uz": "{0}–{1} yosh"
+  },
+  "лет": {
+    "en": "years",
+    "kk": "жас",
+    "az": "yaş",
+    "uz": "yosh"
+  },
+  "год": {
+    "en": "year",
+    "kk": "жас",
+    "az": "yaş",
+    "uz": "yosh"
+  },
+  "года": {
+    "en": "years",
+    "kk": "жас",
+    "az": "yaş",
+    "uz": "yosh"
+  },
+  "Добавьте хотя бы одну возрастную категорию.": {
+    "en": "Add at least one age category.",
+    "kk": "Кемінде бір жас санатын қосыңыз.",
+    "az": "Ən azı bir yaş kateqoriyası əlavə edin.",
+    "uz": "Kamida bitta yosh toifasini qo‘shing."
+  },
+  "Возраст: целые числа от 0 до 99, нижняя граница не больше верхней.": {
+    "en": "Ages must be integers from 0 to 99, with the lower boundary not above the upper.",
+    "kk": "Жас 0–99 аралығындағы бүтін сан болуы керек, төменгі шек жоғарғыдан аспайды.",
+    "az": "Yaş 0–99 arası tam ədəd olmalı, aşağı sərhəd yuxarıdan böyük olmamalıdır.",
+    "uz": "Yosh 0 dan 99 gacha butun son bo‘lishi va quyi chegara yuqoridan oshmasligi kerak."
+  },
+  "Возрастные категории пересекаются. Каждый возраст должен входить только в одну категорию.": {
+    "en": "Age categories overlap. Each age must belong to only one category.",
+    "kk": "Жас санаттары қиылысады. Әр жас тек бір санатқа кіруі керек.",
+    "az": "Yaş kateqoriyaları kəsişir. Hər yaş yalnız bir kateqoriyaya aid olmalıdır.",
+    "uz": "Yosh toifalari kesishmoqda. Har bir yosh faqat bitta toifaga kirishi kerak."
+  },
+  "В этой олимпиаде пока нет участников.": {
+    "en": "This olympiad has no participants yet.",
+    "kk": "Бұл олимпиадада қатысушылар әзірге жоқ.",
+    "az": "Bu olimpiadada hələ iştirakçı yoxdur.",
+    "uz": "Bu olimpiadada hozircha ishtirokchilar yo‘q."
+  },
+  "Сначала заполните баллы всех участников по всем предметам. Ноль тоже считается результатом.": {
+    "en": "Enter scores for every participant and subject first. Zero also counts as a result.",
+    "kk": "Алдымен барлық қатысушы мен пәннің ұпайларын толтырыңыз. Нөл де нәтиже болып саналады.",
+    "az": "Əvvəlcə bütün iştirakçı və fənlərin ballarını doldurun. Sıfır da nəticədir.",
+    "uz": "Avval barcha ishtirokchi va fanlar ballarini kiriting. Nol ham natija hisoblanadi."
+  },
+  "Для некоторых участников не задана возрастная категория. Проверьте диапазоны возраста.": {
+    "en": "Some participants have no age category. Check the age ranges.",
+    "kk": "Кейбір қатысушыларға жас санаты берілмеген. Аралықтарды тексеріңіз.",
+    "az": "Bəzi iştirakçıların yaş kateqoriyası yoxdur. Yaş aralıqlarını yoxlayın.",
+    "uz": "Ba’zi ishtirokchilarga yosh toifasi belgilanmagan. Yosh oraliqlarini tekshiring."
+  },
+  "Язык сайта": {
+    "en": "Website language",
+    "kk": "Сайт тілі",
+    "az": "Saytın dili",
+    "uz": "Sayt tili"
+  },
+  "Выбрать язык": {
+    "en": "Choose language",
+    "kk": "Тілді таңдау",
+    "az": "Dil seçin",
+    "uz": "Til tanlash"
+  },
+  "{0} лет": {
+    "en": "Age {0}",
+    "kk": "{0} жас",
+    "az": "{0} yaş",
+    "uz": "{0} yosh"
+  },
+  "Итоги": {
+    "en": "Recap",
+    "kk": "Қорытынды",
+    "az": "Yekunlar",
+    "uz": "Yakunlar"
+  },
+  "Say hello to the world.": {
+    "en": "Say hello to the world.",
+    "kk": "Әлемге сәлем айт.",
+    "az": "Dünyaya salam de.",
+    "uz": "Dunyoga salom ayt."
+  },
+  "IQ LAND — Большие открытия начинаются здесь": {
+    "en": "IQ LAND — Great discoveries start here",
+    "kk": "IQ LAND — Үлкен жаңалықтар осы жерден басталады",
+    "az": "IQ LAND — Böyük kəşflər buradan başlayır",
+    "uz": "IQ LAND — Buyuk kashfiyotlar shu yerdan boshlanadi"
+  },
+  "IQ LAND — международные олимпиады по математике, английскому языку и ментальной арифметике. Зарегистрируйте команду и откройте детям мир возможностей.": {
+    "en": "IQ LAND — international olympiads in mathematics, English and mental arithmetic. Register your team and open a world of opportunities for children.",
+    "kk": "IQ LAND — математика, ағылшын тілі және менталды арифметика бойынша халықаралық олимпиадалар. Команданы тіркеп, балаларға мүмкіндіктер әлемін ашыңыз.",
+    "az": "IQ LAND — riyaziyyat, ingilis dili və mental arifmetika üzrə beynəlxalq olimpiadalar. Komandanızı qeydiyyatdan keçirin və uşaqlara imkanlar dünyasını açın.",
+    "uz": "IQ LAND — matematika, ingliz tili va mental arifmetika bo‘yicha xalqaro olimpiadalar. Jamoangizni ro‘yxatdan o‘tkazing va bolalarga imkoniyatlar dunyosini oching."
+  },
+  "Автоматический выбор языка": {
+    "en": "Automatic language selection",
+    "kk": "Тілді автоматты таңдау",
+    "az": "Avtomatik dil seçimi",
+    "uz": "Tilni avtomatik tanlash"
+  },
+  "Страна определяется приблизительно по IP-адресу на сервере. Точные координаты не запрашиваются. Выбранный вручную язык сохраняется в браузере.": {
+    "en": "The server estimates your country from your IP address. Precise coordinates are not requested. Your manual language choice is stored in your browser.",
+    "kk": "Сервер елді IP мекенжайы бойынша шамамен анықтайды. Нақты координаттар сұралмайды. Қолмен таңдалған тіл браузерде сақталады.",
+    "az": "Server ölkəni IP ünvanı əsasında təxmini müəyyən edir. Dəqiq koordinatlar tələb olunmur. Əl ilə seçilmiş dil brauzerdə saxlanılır.",
+    "uz": "Server mamlakatni IP manzil bo‘yicha taxminan aniqlaydi. Aniq koordinatalar so‘ralmaydi. Qo‘lda tanlangan til brauzerda saqlanadi."
+  },
+  "Регистрация команды.": {
+    "en": "Team registration.",
+    "kk": "Команданы тіркеу.",
+    "az": "Komanda qeydiyyatı.",
+    "uz": "Jamoani ro‘yxatdan o‘tkazish."
+  },
+  "начинается с любопытства.": {
+    "en": "begins with curiosity.",
+    "kk": "қызығушылықтан басталады.",
+    "az": "maraqdan başlayır.",
+    "uz": "qiziqishdan boshlanadi."
+  },
+  "Знакомство начинается с hello.": {
+    "en": "It all starts with hello.",
+    "kk": "Таныстық hello сөзінен басталады.",
+    "az": "Tanışlıq hello ilə başlayır.",
+    "uz": "Tanishuv hello so‘zidan boshlanadi."
+  }
+}

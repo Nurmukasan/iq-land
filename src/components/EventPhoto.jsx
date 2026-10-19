@@ -1,3 +1,4 @@
+import { tr } from "../i18n/runtime.js";
 import React, { useState } from "react";
 import "./EventPhoto.css";
 
@@ -18,7 +19,7 @@ export default function EventPhoto({
         {...imgProps}
         key={source}
         src={source}
-        alt={alt}
+        alt={tr(alt)}
         className={classes}
         onError={(event) => {
           setFailedSource(source);
@@ -45,7 +46,7 @@ export default function EventPhoto({
       {...placeholderProps}
       className={`${classes} event-photo-placeholder`}
       role={alt ? "img" : undefined}
-      aria-label={alt || undefined}
+      aria-label={tr(alt || undefined)}
       aria-hidden={alt ? undefined : true}
       style={{
         ...(width !== undefined ? { width } : {}),

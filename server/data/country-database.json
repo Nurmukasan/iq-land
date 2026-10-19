@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/sapics/ip-location-db/releases/download/latest/user-country.mmdb",
+  "project": "https://github.com/sapics/ip-location-db",
+  "snapshot": "2026-10-18 22:50:53 UTC",
+  "license": "PDDL-1.0",
+  "licenseUrl": "https://opendatacommons.org/licenses/pddl/1-0/",
+  "sha256": "45380c83024ef6d7a924252864ccd15155eec08586dea8398b522b24dc447dfb",
+  "gzipSha256": "632d7b3d789bc6252c672a034c9c2394317aea1def876462f7fe34927d25d382",
+  "size": 7775939
+}

@@ -13,7 +13,8 @@
     "test:worldwide": "npm run build && node tests/worldwide-browser.mjs",
     "test:archive": "npm run build && node tests/archive-browser.mjs",
     "test:awards": "npm run build && node tests/awards-browser.mjs",
-    "test:launch": "npm run build && node tests/launch-browser.mjs"
+    "test:launch": "npm run build && node tests/launch-browser.mjs",
+    "test:i18n": "npm run build && node tests/i18n-browser.mjs"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -32,12 +33,14 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "lucide-react": "^0.468.0",
+    "maxmind": "5.0.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@babel/parser": "7.29.9",
     "@playwright/test": "^1.56.1",
     "@vitejs/plugin-react": "^5.0.4",
     "concurrently": "^9.2.1",

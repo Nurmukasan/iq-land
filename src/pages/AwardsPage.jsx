@@ -1,3 +1,4 @@
+import { tr, getIntlLocale } from "../i18n/runtime.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -276,7 +277,10 @@ export default function AwardsPage() {
     try {
       const response = await fetch(
         `/api/awards/${eventId}/centers/${center.id}/export`,
-        { credentials: "same-origin" },
+        {
+          credentials: "same-origin",
+          headers: { "Accept-Language": getIntlLocale() },
+        },
       );
       if (!response.ok) {
         if (response.status === 401) setUser(null);
@@ -335,17 +339,19 @@ export default function AwardsPage() {
         <section className="dashboard-content aw-content">
           <header className="aw-heading">
             <div>
-              <span className="eyebrow">ИТОГИ ОЛИМПИАДЫ</span>
-              <h1>Присвоение мест</h1>
+              <span className="eyebrow">{tr("ИТОГИ ОЛИМПИАДЫ")}</span>
+              <h1>{tr("Присвоение мест")}</h1>
               <p>
-                Каждый предмет. Своя возрастная категория. Честные результаты.
+                {tr(
+                  "Каждый предмет. Своя возрастная категория. Честные результаты.",
+                )}
               </p>
             </div>
             <span className="aw-heading-symbol" aria-hidden="true">
               <Medal size={30} strokeWidth={1.4} />
             </span>
           </header>
-          {error && <ErrorBox>{error}</ErrorBox>}
+          {error && <ErrorBox>{tr(error)}</ErrorBox>}
           {!events ? (
             error ? (
               <button
@@ -355,7 +361,7 @@ export default function AwardsPage() {
                   setReload((n) => n + 1);
                 }}
               >
-                Повторить загрузку
+                {tr("Повторить загрузку")}
               </button>
             ) : (
               <Spinner />
@@ -363,10 +369,11 @@ export default function AwardsPage() {
           ) : !events.length ? (
             <div className="workspace-panel aw-empty">
               <CalendarDays size={36} />
-              <h2>Олимпиада ещё впереди</h2>
+              <h2>{tr("Олимпиада ещё впереди")}</h2>
               <p>
-                Здесь появятся мероприятия, которые проходят сегодня или уже
-                завершились.
+                {tr(
+                  "Здесь появятся мероприятия, которые проходят сегодня или уже завершились.",
+                )}
               </p>
               <button
                 className="btn btn-secondary"
@@ -374,7 +381,8 @@ export default function AwardsPage() {
                   navigate("/cabinet", { state: { section: "events" } })
                 }
               >
-                К мероприятиям <ArrowRight size={18} />
+                {tr("К мероприятиям ")}
+                <ArrowRight size={18} />
               </button>
             </div>
           ) : (
@@ -382,9 +390,9 @@ export default function AwardsPage() {
               <div className="aw-event-bar">
                 <CalendarDays size={22} />
                 <label>
-                  <span>ОЛИМПИАДА</span>
+                  <span>{tr("ОЛИМПИАДА")}</span>
                   <select
-                    aria-label="Олимпиада для присвоения мест"
+                    aria-label={tr("Олимпиада для присвоения мест")}
                     value={eventId}
                     disabled={saving > 0 || generating}
                     onChange={async (event) => {
@@ -397,7 +405,8 @@ export default function AwardsPage() {
                   >
                     {events.map((event) => (
                       <option key={event.id} value={event.id}>
-                        {event.title} · {event.city} · {dateLabel(event.date)}
+                        {tr(event.title)} · {tr(event.city)} ·{" "}
+                        {tr(dateLabel(event.date))}
                       </option>
                     ))}
                   </select>
@@ -410,7 +419,7 @@ export default function AwardsPage() {
                     className="btn btn-secondary"
                     onClick={() => setReload((n) => n + 1)}
                   >
-                    Повторить загрузку
+                    {tr("Повторить загрузку")}
                   </button>
                 ) : (
                   <Spinner />
@@ -419,18 +428,22 @@ export default function AwardsPage() {
                 <>
                   <div className="aw-toolbar">
                     <span>
-                      {data.event.date === new Date().toISOString().slice(0, 10)
-                        ? "Проходит сегодня"
-                        : dateLabel(data.event.date)}
+                      {tr(
+                        data.event.date ===
+                          new Date().toISOString().slice(0, 10)
+                          ? "Проходит сегодня"
+                          : dateLabel(data.event.date),
+                      )}
                       <i />
-                      {data.summary.participants} учеников · {data.rows.length}{" "}
-                      участий
+                      {data.summary.participants}
+                      {tr(" учеников · ")}
+                      {data.rows.length} {tr("участий")}
                     </span>
                     <div className="aw-toolbar-actions">
                       <button
                         className="aw-settings aw-refresh"
-                        aria-label="Обновить список участников"
-                        title="Обновить список участников"
+                        aria-label={tr("Обновить список участников")}
+                        title={tr("Обновить список участников")}
                         disabled={saving > 0 || generating}
                         onClick={async () => {
                           try {
@@ -447,48 +460,51 @@ export default function AwardsPage() {
                         onClick={() => setCategoriesOpen(true)}
                       >
                         <Settings2 size={17} />
-                        Возрастные категории
+                        {tr("Возрастные категории")}
                       </button>
                     </div>
                   </div>
                   {!data.categories.length && (
                     <div className="aw-setup">
                       <div>
-                        <strong>Сначала задайте возрастные категории</strong>
+                        <strong>
+                          {tr("Сначала задайте возрастные категории")}
+                        </strong>
                         <p>
-                          Например, 12–13 и 14–15 лет. Возраст считаем на дату
-                          олимпиады; дети из разных категорий не соревнуются
-                          между собой.
+                          {tr(
+                            "Например, 12–13 и 14–15 лет. Возраст считаем на дату олимпиады; дети из разных категорий не соревнуются между собой.",
+                          )}
                         </p>
                       </div>
                       <button
                         className="btn btn-secondary btn-small"
                         onClick={() => setCategoriesOpen(true)}
                       >
-                        Настроить <ArrowRight size={17} />
+                        {tr("Настроить ")}
+                        <ArrowRight size={17} />
                       </button>
                     </div>
                   )}
                   {data.summary.uncategorized > 0 &&
                     data.categories.length > 0 && (
                       <div className="aw-warning">
-                        Не попали в возрастные диапазоны:{" "}
-                        {data.summary.uncategorized} участий. Дополните
-                        категории перед расчётом.
+                        {tr("Не попали в возрастные диапазоны:")}{" "}
+                        {tr(data.summary.uncategorized)}
+                        {tr(" участий. Дополните категории перед расчётом.")}
                       </div>
                     )}
                   <div className="aw-panel">
                     <nav
                       className="aw-tabs"
                       role="tablist"
-                      aria-label="Предметы олимпиады"
+                      aria-label={tr("Предметы олимпиады")}
                     >
                       {AWARD_SUBJECTS.map((name, i) => (
                         <button
                           key={name}
                           role="tab"
                           id={`aw-tab-${i}`}
-                          aria-label={name}
+                          aria-label={tr(name)}
                           aria-selected={subject === name}
                           aria-controls="aw-roster"
                           tabIndex={subject === name ? 0 : -1}
@@ -527,7 +543,7 @@ export default function AwardsPage() {
                             tabs[next].focus();
                           }}
                         >
-                          {name}
+                          {tr(name)}
                           <span>
                             {effective.filter((r) => r.subject === name).length}
                           </span>
@@ -538,26 +554,28 @@ export default function AwardsPage() {
                       <label className="aw-search">
                         <Search size={17} />
                         <input
-                          aria-label="Поиск ученика или центра"
-                          placeholder="Ученик или образовательный центр"
+                          aria-label={tr("Поиск ученика или центра")}
+                          placeholder={tr("Ученик или образовательный центр")}
                           type="search"
                           value={query}
                           onChange={(e) => setQuery(e.target.value)}
                         />
                       </label>
                       <span className="aw-save-state" role="status">
-                        {saving ? (
-                          <>
-                            <RefreshCw size={14} className="spin" />
-                            Сохраняю баллы
-                          </>
-                        ) : dirty ? (
-                          "Есть несохранённые баллы"
-                        ) : (
-                          <>
-                            <Check size={15} />
-                            Баллы сохранены
-                          </>
+                        {tr(
+                          saving ? (
+                            <>
+                              <RefreshCw size={14} className="spin" />
+                              {tr("Сохраняю баллы")}
+                            </>
+                          ) : dirty ? (
+                            "Есть несохранённые баллы"
+                          ) : (
+                            <>
+                              <Check size={15} />
+                              {tr("Баллы сохранены")}
+                            </>
+                          ),
                         )}
                       </span>
                     </div>
@@ -571,9 +589,9 @@ export default function AwardsPage() {
                         <table className="aw-table">
                           <thead>
                             <tr>
-                              <th>Ученик</th>
-                              <th>Образовательный центр</th>
-                              <th>Баллы</th>
+                              <th>{tr("Ученик")}</th>
+                              <th>{tr("Образовательный центр")}</th>
+                              <th>{tr("Баллы")}</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -583,11 +601,13 @@ export default function AwardsPage() {
                                   row.age !== visible[i - 1].age) && (
                                   <tr className="aw-age-row">
                                     <th colSpan={3}>
-                                      <strong>{ageText(row.age)}</strong>
+                                      <strong>{tr(ageText(row.age))}</strong>
                                       <span>
-                                        {row.categoryId
-                                          ? `Категория ${row.categoryLabel}`
-                                          : "Категория не задана"}
+                                        {tr(
+                                          row.categoryId
+                                            ? `Категория ${row.categoryLabel}`
+                                            : "Категория не задана",
+                                        )}
                                       </span>
                                     </th>
                                   </tr>
@@ -596,14 +616,16 @@ export default function AwardsPage() {
                                   <td>
                                     <strong>{row.name}</strong>
                                     <small>
-                                      {row.grade === 0
-                                        ? "Дошкольник"
-                                        : `${row.grade} класс`}
+                                      {tr(
+                                        row.grade === 0
+                                          ? "Дошкольник"
+                                          : `${row.grade} класс`,
+                                      )}
                                     </small>
                                   </td>
                                   <td>
                                     <span>{row.center}</span>
-                                    <small>{row.city}</small>
+                                    <small>{tr(row.city)}</small>
                                   </td>
                                   <td>
                                     <input
@@ -617,7 +639,10 @@ export default function AwardsPage() {
                                       max={MAX_SCORE}
                                       step="any"
                                       placeholder="—"
-                                      aria-label={`Баллы ${row.name}, ${row.subject}`}
+                                      aria-label={tr("Баллы {0}, {1}", [
+                                        row.name,
+                                        row.subject,
+                                      ])}
                                       aria-invalid={!row.valid}
                                       disabled={generating}
                                       value={row.text}
@@ -665,9 +690,11 @@ export default function AwardsPage() {
                       ) : (
                         <div className="aw-empty aw-empty-small">
                           <p>
-                            {query
-                              ? "Участники не найдены. Измените поиск."
-                              : "По этому предмету пока нет участников."}
+                            {tr(
+                              query
+                                ? "Участники не найдены. Измените поиск."
+                                : "По этому предмету пока нет участников.",
+                            )}
                           </p>
                         </div>
                       )}
@@ -675,12 +702,14 @@ export default function AwardsPage() {
                     <footer className="aw-completion">
                       <div>
                         <strong>
-                          Заполнено {effective.length - remaining} из{" "}
-                          {effective.length}
+                          {tr("Заполнено ")}
+                          {tr(effective.length - remaining)}
+                          {tr(" из")} {effective.length}
                         </strong>
                         <span>
-                          По всем предметам олимпиады. Пустое поле — без баллов,
-                          0 — результат.
+                          {tr(
+                            "По всем предметам олимпиады. Пустое поле — без баллов, 0 — результат.",
+                          )}
                         </span>
                         <div className="aw-progress">
                           <span
@@ -696,7 +725,7 @@ export default function AwardsPage() {
                           disabled={!dirty || saving > 0 || generating}
                           onClick={() => saveBeforeLeave().catch(() => {})}
                         >
-                          Сохранить баллы
+                          {tr("Сохранить баллы")}
                         </button>
                         <button
                           className="btn btn-primary"
@@ -709,21 +738,20 @@ export default function AwardsPage() {
                           }
                           onClick={generate}
                         >
-                          {generating ? "Рассчитываю…" : "Вывести результаты"}
+                          {tr(
+                            generating ? "Рассчитываю…" : "Вывести результаты",
+                          )}
                           <ArrowRight size={18} />
                         </button>
                       </div>
                     </footer>
                   </div>
                   <details className="aw-rules">
-                    <summary>Как распределяются награды</summary>
+                    <summary>{tr("Как распределяются награды")}</summary>
                     <p>
-                      В каждом предмете и возрастной категории отдельно: верхние
-                      30% — золото, следующие 30% — серебро, остальные — бронза.
-                      Границы 30% и 60% округляются вверх. При одинаковых баллах
-                      присваивается одинаковая, более высокая награда: поэтому
-                      фактические доли могут отличаться от 30/30/40.
-                      Образовательный центр на расчёт места не влияет.
+                      {tr(
+                        "В каждом предмете и возрастной категории отдельно: верхние 30% — золото, следующие 30% — серебро, остальные — бронза. Границы 30% и 60% округляются вверх. При одинаковых баллах присваивается одинаковая, более высокая награда: поэтому фактические доли могут отличаться от 30/30/40. Образовательный центр на расчёт места не влияет.",
+                      )}
                     </p>
                   </details>
                   {data.result && (
@@ -734,9 +762,13 @@ export default function AwardsPage() {
                     >
                       <div className="aw-results-heading">
                         <div>
-                          <span className="eyebrow">РЕЗУЛЬТАТЫ ПО ЦЕНТРАМ</span>
+                          <span className="eyebrow">
+                            {tr("РЕЗУЛЬТАТЫ ПО ЦЕНТРАМ")}
+                          </span>
                           <h2 id="center-results-title">
-                            Готово. Каждый центр —<br />в отдельном файле.
+                            {tr("Готово. Каждый центр —")}
+                            <br />
+                            {tr("в отдельном файле.")}
                           </h2>
                         </div>
                         <span
@@ -744,14 +776,16 @@ export default function AwardsPage() {
                             "aw-result-status" + (stale ? " stale" : "")
                           }
                         >
-                          {stale ? "Нужен пересчёт" : "Результаты рассчитаны"}
+                          {tr(
+                            stale ? "Нужен пересчёт" : "Результаты рассчитаны",
+                          )}
                         </span>
                       </div>
                       {stale && (
                         <div className="aw-warning">
-                          Баллы, категории или список участников изменились.
-                          Нажмите «Вывести результаты», чтобы обновить награды и
-                          файлы.
+                          {tr(
+                            "Баллы, категории или список участников изменились. Нажмите «Вывести результаты», чтобы обновить награды и файлы.",
+                          )}
                         </div>
                       )}
                       <div className="aw-medal-summary">
@@ -762,8 +796,8 @@ export default function AwardsPage() {
                         ].map(([key, name]) => (
                           <span className={"aw-medal " + key} key={key}>
                             <Medal size={17} />
-                            {name}
-                            <strong>{data.result.counts[key]}</strong>
+                            {tr(name)}
+                            <strong>{tr(data.result.counts[key])}</strong>
                           </span>
                         ))}
                       </div>
@@ -776,16 +810,22 @@ export default function AwardsPage() {
                             <div>
                               <h3>{center.name}</h3>
                               <p>
-                                {center.city} · {center.participants} учеников ·{" "}
-                                {center.entries} результатов
+                                {tr(center.city)} · {center.participants}
+                                {tr(" учеников ·")} {center.entries}
+                                {tr(" результатов")}
                               </p>
                               <div className="aw-center-medals">
                                 <span className="gold">
-                                  Золото {center.gold}
+                                  {tr("Золото ")}
+                                  {center.gold}
                                 </span>
-                                <span>Серебро {center.silver}</span>
+                                <span>
+                                  {tr("Серебро ")}
+                                  {center.silver}
+                                </span>
                                 <span className="bronze">
-                                  Бронза {center.bronze}
+                                  {tr("Бронза ")}
+                                  {center.bronze}
                                 </span>
                               </div>
                             </div>
@@ -800,17 +840,19 @@ export default function AwardsPage() {
                               onClick={() => download(center)}
                             >
                               <Download size={17} />
-                              {downloading === center.id
-                                ? "Готовлю…"
-                                : "Скачать Excel"}
+                              {tr(
+                                downloading === center.id
+                                  ? "Готовлю…"
+                                  : "Скачать Excel",
+                              )}
                             </button>
                           </article>
                         ))}
                       </div>
                       <p className="aw-export-note">
-                        В файле сначала идут золото, серебро и бронза, затем —
-                        предметы и возрастные категории. Файлы доступны только
-                        организаторам.
+                        {tr(
+                          "В файле сначала идут золото, серебро и бронза, затем — предметы и возрастные категории. Файлы доступны только организаторам.",
+                        )}
                       </p>
                     </section>
                   )}
@@ -835,11 +877,13 @@ export default function AwardsPage() {
           )}
           {leaveTo && (
             <Modal
-              title="Сохранить баллы перед переходом?"
+              title={tr("Сохранить баллы перед переходом?")}
               onClose={() => setLeaveTo(null)}
             >
               <p>
-                Сохраните введённые баллы, чтобы продолжить работу с ними позже.
+                {tr(
+                  "Сохраните введённые баллы, чтобы продолжить работу с ними позже.",
+                )}
               </p>
               <div className="aw-leave-actions">
                 <button
@@ -850,7 +894,7 @@ export default function AwardsPage() {
                     navigate(to);
                   }}
                 >
-                  Перейти с черновиком
+                  {tr("Перейти с черновиком")}
                 </button>
                 <button
                   className="btn btn-primary"
@@ -863,7 +907,7 @@ export default function AwardsPage() {
                     } catch {}
                   }}
                 >
-                  Сохранить и перейти
+                  {tr("Сохранить и перейти")}
                 </button>
               </div>
             </Modal>
@@ -889,7 +933,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
     [error, setError] = useState("");
   return (
     <Modal
-      title="Возрастные категории"
+      title={tr("Возрастные категории")}
       onClose={() => {
         if (!busy) onClose();
       }}
@@ -922,21 +966,24 @@ function CategoriesEditor({ data, onClose, onSave }) {
         }}
       >
         <p>
-          Полный возраст на дату олимпиады. Диапазоны включают обе границы и не
-          должны пересекаться: например, 12–13 и 14–15 лет.
+          {tr(
+            "Полный возраст на дату олимпиады. Диапазоны включают обе границы и не должны пересекаться: например, 12–13 и 14–15 лет.",
+          )}
         </p>
-        {error && <ErrorBox>{error}</ErrorBox>}
+        {error && <ErrorBox>{tr(error)}</ErrorBox>}
         <div className="aw-category-items">
           {items.map((category, index) => (
             <div className="aw-category-row" key={index}>
               <label>
-                <span>От</span>
+                <span>{tr("От")}</span>
                 <input
                   type="number"
                   min="0"
                   max="99"
                   step="1"
-                  aria-label={`Минимальный возраст категории ${index + 1}`}
+                  aria-label={tr("Минимальный возраст категории {0}", [
+                    index + 1,
+                  ])}
                   value={category.minAge}
                   disabled={busy}
                   onChange={(e) =>
@@ -950,13 +997,15 @@ function CategoriesEditor({ data, onClose, onSave }) {
               </label>
               <span>—</span>
               <label>
-                <span>До включительно</span>
+                <span>{tr("До включительно")}</span>
                 <input
                   type="number"
                   min="0"
                   max="99"
                   step="1"
-                  aria-label={`Максимальный возраст категории ${index + 1}`}
+                  aria-label={tr("Максимальный возраст категории {0}", [
+                    index + 1,
+                  ])}
                   value={category.maxAge}
                   disabled={busy}
                   onChange={(e) =>
@@ -971,7 +1020,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
               <button
                 className="icon-btn"
                 type="button"
-                aria-label={`Удалить категорию ${index + 1}`}
+                aria-label={tr("Удалить категорию {0}", [index + 1])}
                 disabled={busy}
                 onClick={() =>
                   setItems((list) => list.filter((_, i) => i !== index))
@@ -991,14 +1040,14 @@ function CategoriesEditor({ data, onClose, onSave }) {
           }
         >
           <Plus size={17} />
-          Добавить категорию
+          {tr("Добавить категорию")}
         </button>
         <button
           className="btn btn-primary full-width"
           type="submit"
           disabled={busy}
         >
-          {busy ? "Сохраняю…" : "Сохранить категории"}
+          {tr(busy ? "Сохраняю…" : "Сохранить категории")}
           <Check size={18} />
         </button>
       </form>
