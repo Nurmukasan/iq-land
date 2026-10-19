@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   ArrowUpRight,
   CalendarDays,
-  Check,
   Globe2,
   Play,
   Search,
@@ -87,8 +86,8 @@ export default function Archive() {
         <p>
           Каждая олимпиада — своя история.
           <br />
-          Здесь её лучшие моменты, программа
-          <br />и результаты участников.
+          Здесь — её лучшие моменты
+          <br />и программы соревнований.
         </p>
       </header>
       {events.length > 0 && (
@@ -198,17 +197,10 @@ export default function Archive() {
                     ))}
                   </div>
                   <div className="archive-card-bottom">
-                    <span
-                      className={
-                        event.resultsPublished
-                          ? "archive-results-ready"
-                          : "archive-results-soon"
-                      }
-                    >
-                      {event.resultsPublished && <Check size={15} />}
-                      {event.resultsPublished
-                        ? "Результаты опубликованы"
-                        : "Итоги готовятся"}
+                    <span className="archive-results-soon">
+                      {event.video
+                        ? "Монтаж олимпиады"
+                        : "Программа и впечатления"}
                     </span>
                     <strong>
                       Смотреть итоги <ArrowUpRight size={18} />
@@ -230,7 +222,7 @@ export default function Archive() {
           <p>
             {events.length
               ? "Попробуйте другой город, страну или год."
-              : "Здесь появятся прошедшие соревнования, видео и результаты. А следующую олимпиаду можно выбрать уже сейчас."}
+              : "Здесь появятся прошедшие соревнования, видео и программы. А следующую олимпиаду можно выбрать уже сейчас."}
           </p>
           {events.length ? (
             <button className="text-link" onClick={() => setParams({})}>

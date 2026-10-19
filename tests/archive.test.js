@@ -250,7 +250,7 @@ test("upcoming and archive lists split at UTC today, hide inactive events, and s
     );
 });
 
-test("archive results stay private until published, rank ties per subject and grade, and expose only public fields", async (t) => {
+test("archive hides every student even when a legacy client requests publication", async (t) => {
   const api = await temporaryServer(t);
   const id = await api.createEvent();
   await api.stop();
@@ -322,31 +322,15 @@ test("archive results stay private until published, rank ties per subject and gr
   });
   assert.equal(publish.response.status, 200);
   const published = await api.request(`/api/archive/${id}`);
-  assert.equal(published.data.resultsPublished, true);
-  assert.equal(published.data.event.resultsPublished, true);
+  assert.equal(published.data.resultsPublished, false);
+  assert.equal(published.data.event.resultsPublished, false);
   assert.deepEqual(Object.keys(published.data.event).sort(), publicEventKeys);
-  assert.equal(published.data.results.length, 6);
-  const resultByName = Object.fromEntries(
-    published.data.results.map((row) => [row.name, row]),
-  );
-  for (const [name, place] of [
-    ["Первый Ученик", 1],
-    ["Второй Ученик", 1],
-    ["Третий Ученик", 3],
-    ["Другой Класс", 1],
-    ["Другой Предмет", 1],
-    ["Нулевой Балл", 4],
-  ])
-    assert.equal(resultByName[name].place, place, name);
-  assert.equal(resultByName["Нулевой Балл"].score, 0);
-  for (const row of published.data.results)
-    assert.deepEqual(Object.keys(row).sort(), [
-      "grade",
-      "name",
-      "place",
-      "score",
-      "subject",
-    ]);
+  assert.deepEqual(published.data.results, []);
+  const privateRows = (
+    await api.request("/api/manage", { cookie: api.director })
+  ).data.entries;
+  assert.equal(privateRows.length, 8, "Scores remain available to organizers");
+  assert.equal(privateRows.find((r) => r.name === "Нулевой Балл").score, 0);
   const json = JSON.stringify(published.data);
   for (const privateValue of [
     "private@example.com",
@@ -458,7 +442,7 @@ test("only admins can edit archive settings; invalid URLs are rejected and ordin
   const detail = (await api.request(`/api/archive/${id}`)).data;
   assert.equal(detail.event.title, "Обновлённая олимпиада");
   assert.equal(detail.event.video, upload.data.url);
-  assert.equal(detail.resultsPublished, true);
+  assert.equal(detail.resultsPublished, false);
   await api.stop();
   await api.start();
   assert.equal(

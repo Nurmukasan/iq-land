@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { isExistingEventImage } from "./event-images.js";
 import { isExistingEventVideo } from "./event-videos.js";
+import { normalizeTelegramUrl } from "../shared/telegram.js";
+export { normalizeTelegramUrl } from "../shared/telegram.js";
 const text = (max = 150) =>
   z
     .string()
@@ -15,44 +17,15 @@ const date = z
     return !isNaN(d) && d.toISOString().slice(0, 10) === v;
   }, "Некорректная дата");
 
-// WhatsApp app share links may add tracking parameters. Store only the fixed,
-// trusted invite destination so neither query strings nor fragments are exposed.
-export function normalizeWhatsAppUrl(value) {
-  if (typeof value !== "string") return null;
-  const trimmed = value.trim();
-  if (!trimmed) return "";
-  if (
-    trimmed.length > 2048 ||
-    !/^https:\/\//i.test(trimmed) ||
-    /[\s\\]/.test(trimmed)
-  )
-    return null;
-  try {
-    const url = new URL(trimmed);
-    if (
-      url.protocol !== "https:" ||
-      url.hostname !== "chat.whatsapp.com" ||
-      url.username ||
-      url.password ||
-      url.port ||
-      !/^\/[A-Za-z0-9]{22}$/.test(url.pathname)
-    )
-      return null;
-    return `https://chat.whatsapp.com${url.pathname}`;
-  } catch {
-    return null;
-  }
-}
-
-const whatsappUrl = z
+const telegramUrl = z
   .string()
   .trim()
   .max(2048)
   .refine(
-    (value) => normalizeWhatsAppUrl(value) !== null,
-    "Вставьте ссылку-приглашение вида https://chat.whatsapp.com/… или оставьте поле пустым",
+    (value) => normalizeTelegramUrl(value) !== null,
+    "Вставьте HTTPS-ссылку на Telegram-канал вида https://t.me/… или оставьте поле пустым",
   )
-  .transform(normalizeWhatsAppUrl)
+  .transform(normalizeTelegramUrl)
   .optional();
 export const registrationSchema = z.object({
   eventId: text(),
@@ -104,7 +77,7 @@ export const eventSchema = z
         "Загрузите фотографию через форму или оставьте изображение пустым",
       )
       .default(""),
-    whatsappUrl,
+    telegramUrl,
     description: text(2000),
     active: z.boolean().default(true),
   })

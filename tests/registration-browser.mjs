@@ -501,7 +501,7 @@ try {
     "Центр Асинхронной Заявки",
   );
   await expect(racePage.locator(".reg-receipt-info")).toContainText("Алматы");
-  await expect(racePage.locator(".reg-whatsapp-link")).toHaveCount(0);
+  await expect(racePage.locator(".reg-telegram-link")).toHaveCount(0);
   expect(
     await racePage.evaluate(() =>
       sessionStorage.getItem("iqland:pending-receipt:almaty-2027"),
@@ -510,7 +510,7 @@ try {
 
   // Returning before the delayed response must recover immediately, including
   // when navigation unmounted Registration and created a new component instance.
-  const invite = "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv";
+  const invite = "https://t.me/+AbCdEfGhIjKlMnOpQrStUv";
   for (const remount of [false, true]) {
     const latePage = await newPage();
     const id = remount ? "IQ-LATE-REMOUNT" : "IQ-LATE-SAME";
@@ -549,7 +549,7 @@ try {
       await route.fulfill({
         status: 201,
         contentType: "application/json",
-        body: JSON.stringify({ id, count: 1, whatsappUrl: invite }),
+        body: JSON.stringify({ id, count: 1, telegramUrl: invite }),
       });
     });
     await latePage
@@ -572,7 +572,7 @@ try {
         .getByRole("button", { name: "Сохранить черновик", exact: true })
         .click();
     }
-    await expect(latePage.locator(".reg-whatsapp-link")).toHaveCount(0);
+    await expect(latePage.locator(".reg-telegram-link")).toHaveCount(0);
     await latePage.goForward();
     await expect(latePage).toHaveURL(base + "/events/almaty-2027/register");
     await expect(
@@ -588,8 +588,8 @@ try {
       "Центр Позднего Подтверждения",
     );
     await expect(latePage.locator(".reg-receipt-info")).toContainText("Алматы");
-    await expect(latePage.locator(".reg-whatsapp-link")).toHaveCount(1);
-    await expect(latePage.locator(".reg-whatsapp-link")).toHaveAttribute(
+    await expect(latePage.locator(".reg-telegram-link")).toHaveCount(1);
+    await expect(latePage.locator(".reg-telegram-link")).toHaveAttribute(
       "href",
       invite,
     );
@@ -616,7 +616,7 @@ try {
     "PASS: zero-roster draft keeps contacts; delayed success stays with its event and restores the correct receipt",
   );
   console.log(
-    "PASS: returning before a late success restores its snapshot and WhatsApp group, across route reuse/remount, without touching another event's draft",
+    "PASS: returning before a late success restores its snapshot and Telegram channel, across route reuse/remount, without touching another event's draft",
   );
 } finally {
   releasePost?.();

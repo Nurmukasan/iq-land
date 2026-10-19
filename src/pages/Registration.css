@@ -980,42 +980,42 @@
   margin-bottom: 24px;
 }
 
-.reg-whatsapp {
+.reg-telegram {
   display: flex;
   align-items: flex-start;
   gap: 20px;
   margin: 0 0 28px;
   padding: 28px;
-  border: 1px solid #b4d5be;
+  border: 1px solid #b9d9ef;
   border-radius: 20px;
-  background: #edf8ee;
+  background: #edf6fc;
   text-align: left;
 }
 
-.reg-whatsapp-icon {
+.reg-telegram-icon {
   display: grid;
   flex: 0 0 52px;
   width: 52px;
   height: 52px;
   place-items: center;
   border-radius: 16px;
-  background: #d3efd8;
-  color: #176b3b;
+  background: #d9edfa;
+  color: #216e9d;
 }
 
-.reg-whatsapp-copy {
+.reg-telegram-copy {
   min-width: 0;
 }
 
-.reg-whatsapp-copy > span {
-  color: #276044;
+.reg-telegram-copy > span {
+  color: #296687;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.reg-whatsapp h2 {
+.reg-telegram h2 {
   margin: 8px 0 10px;
   font-size: clamp(21px, 2.7vw, 26px);
   font-weight: 550;
@@ -1023,44 +1023,44 @@
   line-height: 1.4;
 }
 
-.reg-whatsapp p {
+.reg-telegram p {
   margin: 0 0 20px;
-  color: #385c48;
+  color: #46677e;
   font-size: 15px;
   line-height: 1.7;
   overflow-wrap: anywhere;
 }
 
-.reg-whatsapp .reg-whatsapp-link {
+.reg-telegram .reg-telegram-link {
   min-height: 54px;
-  border-color: #176b3b;
-  background: #176b3b;
+  border-color: #216e9d;
+  background: #216e9d;
   color: #fff;
   font-size: 15px;
   white-space: normal;
 }
 
-.reg-whatsapp .reg-whatsapp-link:hover {
-  border-color: #0d512a;
-  background: #0d512a;
+.reg-telegram .reg-telegram-link:hover {
+  border-color: #19577d;
+  background: #19577d;
 }
 
-.reg-whatsapp-copy > small {
+.reg-telegram-copy > small {
   display: block;
   margin-top: 12px;
-  color: #476c54;
+  color: #5d7d93;
   font-size: 12px;
   line-height: 1.6;
 }
 
 @media (max-width: 540px) {
-  .reg-whatsapp {
+  .reg-telegram {
     flex-direction: column;
     gap: 16px;
     padding: 22px;
   }
 
-  .reg-whatsapp .reg-whatsapp-link {
+  .reg-telegram .reg-telegram-link {
     width: 100%;
   }
 }

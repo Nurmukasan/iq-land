@@ -8,10 +8,10 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { setTimeout as delay } from "node:timers/promises";
-import { normalizeWhatsAppUrl } from "../server/validation.js";
+import { normalizeTelegramUrl } from "../server/validation.js";
 
-const invite = "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv";
-const secondInvite = "https://chat.whatsapp.com/ZyXwVuTsRqPoNmLkJiHgFe";
+const invite = "https://t.me/+AbCdEfGhIjKlMnOpQrStUv";
+const secondInvite = "https://t.me/+ZyXwVuTsRqPoNmLkJiHgFe";
 const event = (overrides = {}) => ({
   title: "Тестовая олимпиада организатора",
   city: "Астана",
@@ -44,7 +44,7 @@ const registration = (eventId) => ({
 });
 
 async function temporaryServer(t) {
-  const dir = mkdtempSync(join(tmpdir(), "iqland-whatsapp-"));
+  const dir = mkdtempSync(join(tmpdir(), "iqland-telegram-"));
   const socket = createServer();
   socket.listen(0, "127.0.0.1");
   await once(socket, "listening");
@@ -92,7 +92,7 @@ async function temporaryServer(t) {
       if (child.exitCode !== null) break;
       await delay(100);
     }
-    assert.fail("Isolated WhatsApp API failed to start: " + logs);
+    assert.fail("Isolated Telegram API failed to start: " + logs);
   };
   t.after(async () => {
     await stop();
@@ -121,43 +121,47 @@ async function temporaryServer(t) {
   return { dir, request, start, stop, create, ...cookies };
 }
 
-test("WhatsApp invites use the exact trusted host and normalize real share parameters", () => {
+test("Telegram channels accept trusted public and private URLs and reject deceptive hosts", () => {
   for (const suffix of [
     "",
-    "?mode=ac_t",
-    "?mode=gi_t",
-    "?mode=ems_copy_t",
-    "?mode=ac_t&other=https://example.com/#tracking",
+    "?mode=copy",
+    "?other=https://example.test/#tracking",
   ]) {
-    assert.equal(normalizeWhatsAppUrl(invite + suffix), invite);
+    assert.equal(normalizeTelegramUrl(invite + suffix), invite);
   }
-  assert.equal(normalizeWhatsAppUrl(" " + invite + " "), invite);
+  assert.equal(normalizeTelegramUrl(" " + invite + " "), invite);
   assert.equal(
-    normalizeWhatsAppUrl(invite.replace(".com/", ".com:443/")),
-    invite,
+    normalizeTelegramUrl("https://telegram.me/iqland_competitions"),
+    "https://t.me/iqland_competitions",
   );
-  assert.equal(normalizeWhatsAppUrl(""), "");
+  assert.equal(
+    normalizeTelegramUrl("https://t.me/joinchat/AbCdEfGhIjKlMnOp"),
+    "https://t.me/joinchat/AbCdEfGhIjKlMnOp",
+  );
+  assert.equal(normalizeTelegramUrl(""), "");
   for (const value of [
     null,
     false,
     {},
     "javascript:alert(1)",
-    invite.replace("https:", "http:"),
-    invite.replace("https://", "https:"),
-    invite.replace("chat.whatsapp.com", "chat.whatsapp.com.evil.test"),
-    invite.replace("chat.whatsapp.com", "evil.chat.whatsapp.com"),
-    invite.replace("chat.whatsapp.com", "chat.whatsapp.com@evil.test"),
-    invite.replace("chat.whatsapp.com", "user:pass@chat.whatsapp.com"),
-    invite.replace(".com/", ".com:8443/"),
-    invite.replace(".com/", ".com\\"),
-    invite + "/",
-    invite + "a",
-    invite.slice(0, -1),
-    "https://chat.whatsapp.com/?invite=" + invite.split("/").at(-1),
-    invite.replace("Ab", "%41b"),
-    invite + "\n?mode=ac_t",
-  ])
-    assert.equal(normalizeWhatsAppUrl(value), null, String(value));
+    "http://t.me/iqland",
+    "https:t.me/iqland",
+    "https://t.me.evil.test/iqland",
+    "https://evil.t.me/iqland",
+    "https://t.me@evil.test/iqland",
+    "https://user:pass@t.me/iqland",
+    "https://t.me:8443/iqland",
+    "https://t.me/share",
+    "https://t.me/proxy",
+    "https://t.me/c/123",
+    "https://t.me/iqland/123",
+    "https://t.me/+short",
+    "https://chat.whatsapp.com/AbCdEfGhIjKlMnOpQrStUv",
+    "https://t.me/iqland\\evil",
+    invite + "\n?mode=copy",
+  ]) {
+    assert.equal(normalizeTelegramUrl(value), null, String(value));
+  }
 });
 
 test("directors create/edit event invitations while admin-only archive and promotions stay protected", async (t) => {
@@ -168,11 +172,11 @@ test("directors create/edit event invitations while admin-only archive and promo
     401,
   );
   const id = await api.create(
-    event({ whatsappUrl: invite + "?mode=gi_t" }),
+    event({ telegramUrl: invite + "?mode=gi_t" }),
     api.director,
   );
   let managed = (await api.request("/manage", { cookie: api.director })).data;
-  assert.equal(managed.events[0].whatsappUrl, invite);
+  assert.equal(managed.events[0].telegramUrl, invite);
   assert.equal(
     (
       await api.request(`/events/${id}`, {
@@ -180,7 +184,7 @@ test("directors create/edit event invitations while admin-only archive and promo
         cookie: api.director,
         body: event({
           title: "Изменено руководителем",
-          whatsappUrl: secondInvite,
+          telegramUrl: secondInvite,
         }),
       })
     ).response.status,
@@ -198,7 +202,7 @@ test("directors create/edit event invitations while admin-only archive and promo
   );
   managed = (await api.request("/manage", { cookie: api.admin })).data;
   assert.equal(
-    managed.events[0].whatsappUrl,
+    managed.events[0].telegramUrl,
     secondInvite,
     "Legacy event clients must not erase an invitation",
   );
@@ -218,7 +222,7 @@ test("directors create/edit event invitations while admin-only archive and promo
         method: "PUT",
         cookie: api.director,
         body: event({
-          whatsappUrl: "",
+          telegramUrl: "",
           video: "unowned.mp4",
           resultsPublished: true,
         }),
@@ -227,14 +231,14 @@ test("directors create/edit event invitations while admin-only archive and promo
     200,
   );
   managed = (await api.request("/manage", { cookie: api.director })).data;
-  assert.equal(managed.events[0].whatsappUrl, "");
+  assert.equal(managed.events[0].telegramUrl, "");
   assert.equal(managed.events[0].video, "");
   assert.equal(managed.events[0].resultsPublished, false);
 
-  for (const whatsappUrl of [
+  for (const telegramUrl of [
     "https://example.com/group",
-    invite.replace(".com/", ".com:8080/"),
-    invite.replace(".com/", ".com/invite/"),
+    "https://t.me:8080/iqland",
+    "https://t.me/iqland/123",
   ]) {
     for (const [path, method] of [
       ["/events", "POST"],
@@ -243,11 +247,11 @@ test("directors create/edit event invitations while admin-only archive and promo
       const result = await api.request(path, {
         method,
         cookie: api.director,
-        body: event({ whatsappUrl }),
+        body: event({ telegramUrl }),
       });
       assert.equal(result.response.status, 400);
       assert.ok(
-        result.data.fields.some((field) => field.path === "whatsappUrl"),
+        result.data.fields.some((field) => field.path === "telegramUrl"),
       );
     }
   }
@@ -259,11 +263,11 @@ test("directors create/edit event invitations while admin-only archive and promo
 
 test("each successful team receives only its event invitation; public listings and recaps omit invitations", async (t) => {
   const api = await temporaryServer(t);
-  const first = await api.create(event({ whatsappUrl: invite }));
-  const second = await api.create(event({ whatsappUrl: secondInvite }));
+  const first = await api.create(event({ telegramUrl: invite }));
+  const second = await api.create(event({ telegramUrl: secondInvite }));
   const without = await api.create(event());
   const past = await api.create(
-    event({ date: "2000-01-01", deadline: "2000-01-01", whatsappUrl: invite }),
+    event({ date: "2000-01-01", deadline: "2000-01-01", telegramUrl: invite }),
   );
 
   for (const [id, expected] of [
@@ -276,7 +280,7 @@ test("each successful team receives only its event invitation; public listings a
       body: registration(id),
     });
     assert.equal(registered.response.status, 201);
-    assert.equal(registered.data.whatsappUrl, expected);
+    assert.equal(registered.data.telegramUrl, expected);
     assert.equal(registered.data.count, 1);
   }
   const invalid = await api.request("/registrations", {
@@ -284,7 +288,7 @@ test("each successful team receives only its event invitation; public listings a
     body: { ...registration(first), consent: false },
   });
   assert.equal(invalid.response.status, 400);
-  assert.ok(!Object.hasOwn(invalid.data, "whatsappUrl"));
+  assert.ok(!Object.hasOwn(invalid.data, "telegramUrl"));
 
   for (const path of [
     "/events",
@@ -297,7 +301,7 @@ test("each successful team receives only its event invitation; public listings a
     assert.equal(result.response.status, 200);
     const json = JSON.stringify(result.data);
     assert.ok(
-      !json.includes("whatsapp"),
+      !json.includes("telegram"),
       path + " must not expose invitation fields",
     );
     assert.ok(!json.includes(invite) && !json.includes(secondInvite));
@@ -320,15 +324,15 @@ test("existing databases gain empty invitations without losing accounts/teams; e
   );
   await api.stop();
   const legacy = new DatabaseSync(join(api.dir, "iqland.sqlite"));
-  legacy.exec("ALTER TABLE events DROP COLUMN whatsapp_url");
+  legacy.exec("ALTER TABLE events DROP COLUMN telegram_url");
   legacy.prepare("UPDATE events SET results_published=1 WHERE id=?").run(id);
   legacy.close();
 
   await api.start();
   const migrated = (await api.request("/manage", { cookie: api.director }))
     .data;
-  assert.equal(migrated.events[0].whatsappUrl, "");
-  assert.equal(migrated.events[0].resultsPublished, true);
+  assert.equal(migrated.events[0].telegramUrl, "");
+  assert.equal(migrated.events[0].resultsPublished, false);
   assert.deepEqual(migrated.registrations, before.registrations);
   assert.deepEqual(migrated.entries, before.entries);
   assert.equal(
@@ -340,7 +344,7 @@ test("existing databases gain empty invitations without losing accounts/teams; e
       await api.request(`/events/${id}`, {
         method: "PUT",
         cookie: api.director,
-        body: event({ whatsappUrl: invite + "?mode=ems_copy_t" }),
+        body: event({ telegramUrl: invite + "?mode=ems_copy_t" }),
       })
     ).response.status,
     200,
@@ -349,11 +353,11 @@ test("existing databases gain empty invitations without losing accounts/teams; e
   await api.start();
   const persisted = (await api.request("/manage", { cookie: api.director }))
     .data;
-  assert.equal(persisted.events[0].whatsappUrl, invite);
+  assert.equal(persisted.events[0].telegramUrl, invite);
   assert.equal(
     persisted.events[0].resultsPublished,
-    true,
-    "Normal event edit preserves archive metadata",
+    false,
+    "Legacy public-result flags stay disabled",
   );
   assert.deepEqual(persisted.entries, before.entries);
   assert.equal(

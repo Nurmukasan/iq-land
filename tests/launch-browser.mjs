@@ -26,9 +26,9 @@ mkdirSync(artifacts, { recursive: true });
 const port = 62000 + Math.floor(Math.random() * 2000);
 const base = `http://127.0.0.1:${port}`;
 const subjects = ["Математика", "Английский язык", "Ментальная арифметика"];
-const inviteA = "https://chat.whatsapp.com/TestOnlyInvite00000001";
-const inviteB = "https://chat.whatsapp.com/TestOnlyInvite00000002";
-const whatsappLabel = "Ссылка на WhatsApp-группу олимпиады · необязательно";
+const inviteA = "https://t.me/+TestOnlyInvite00000001";
+const inviteB = "https://t.me/+TestOnlyInvite00000002";
+const telegramLabel = "Ссылка на Telegram-канал олимпиады · необязательно";
 const errors = [],
   failedRequests = [],
   unexpectedResponses = [],
@@ -143,7 +143,7 @@ function eventData(overrides = {}) {
     price: 25000,
     currency: "KZT",
     image: "",
-    whatsappUrl: inviteA,
+    telegramUrl: inviteA,
     description:
       "ТЕСТОВЫЕ ДАННЫЕ. Вымышленная олимпиада для проверки заявок, сортировки и экспорта. Это не действующее мероприятие IQ LAND.",
     active: true,
@@ -165,7 +165,7 @@ async function createInDirectorUi(page, event) {
     ["Дата олимпиады", event.date],
     ["Приём заявок до", event.deadline],
     ["Стоимость · пусто, если уточняется", String(event.price)],
-    [whatsappLabel, inviteA + "?mode=ac_t"],
+    [telegramLabel, inviteA + "?mode=ac_t"],
     ["Описание", event.description],
   ])
     await modal.getByLabel(label, { exact: true }).fill(value);
@@ -218,7 +218,7 @@ function batch(index) {
 
 async function registerUi(page, event, data) {
   await page.goto(base + `/events/${event.id}/register`);
-  await expect(page.locator(".reg-whatsapp-link")).toHaveCount(0);
+  await expect(page.locator(".reg-telegram-link")).toHaveCount(0);
   await page
     .getByRole("button", { name: "Вставить список", exact: true })
     .click();
@@ -461,10 +461,10 @@ async function verifyPrivacy(page) {
   ).toHaveText("@iqland_competitions");
   await expect(main).not.toContainText("Эта версия предназначена");
   await expect(
-    main.getByRole("heading", { name: "Публикация результатов", exact: true }),
+    main.getByRole("heading", { name: "Доступ к результатам", exact: true }),
   ).toBeVisible();
   await expect(main).toContainText(
-    "Контакты учителя, даты рождения учеников и примечания к заявке в публичные результаты не входят.",
+    "Имена учеников, баллы, места, контакты и даты рождения не публикуются в открытом архиве сайта.",
   );
   for (const unsupportedLegalEntity of ["ООО", "ТОО", "БИН", "LLC", "Ltd."])
     await expect(main).not.toContainText(unsupportedLegalEntity);
@@ -495,7 +495,7 @@ async function runChecks() {
   console.log("PASS: director signed in and created test event through UI");
   expect(
     (await api(director, "/manage")).events.find((e) => e.id === mainEvent.id)
-      .whatsappUrl,
+      .telegramUrl,
   ).toBe(inviteA);
 
   // A director may edit the invite, not just add it during creation.
@@ -504,16 +504,16 @@ async function runChecks() {
     .filter({ hasText: mainEvent.city })
     .getByRole("button", { name: "Изменить", exact: true })
     .click();
-  await director.getByLabel(whatsappLabel, { exact: true }).fill(inviteB);
+  await director.getByLabel(telegramLabel, { exact: true }).fill(inviteB);
   await director
-    .getByLabel(whatsappLabel, { exact: true })
+    .getByLabel(telegramLabel, { exact: true })
     .scrollIntoViewIfNeeded();
   await labelTestScreenshot(
     director,
-    "ТЕСТОВЫЕ ДАННЫЕ · руководитель добавляет WhatsApp-группу мероприятия",
+    "ТЕСТОВЫЕ ДАННЫЕ · руководитель добавляет Telegram-канал мероприятия",
   );
   await director.screenshot({
-    path: join(artifacts, "director-whatsapp-field.png"),
+    path: join(artifacts, "director-telegram-field.png"),
     fullPage: false,
   });
   const edited = director.waitForResponse(
@@ -528,7 +528,7 @@ async function runChecks() {
   await expect(director.getByRole("dialog")).toHaveCount(0);
   expect(
     (await api(director, "/manage")).events.find((e) => e.id === mainEvent.id)
-      .whatsappUrl,
+      .telegramUrl,
   ).toBe(inviteB);
   await api(director, `/events/${mainEvent.id}`, {
     method: "PUT",
@@ -539,7 +539,7 @@ async function runChecks() {
       title: "ТЕСТ · Другая группа",
       city: "Тестоград Второй",
       date: "2037-06-14",
-      whatsappUrl: inviteB,
+      telegramUrl: inviteB,
     }),
     ...(await api(director, "/events", {
       method: "POST",
@@ -547,7 +547,7 @@ async function runChecks() {
         title: "ТЕСТ · Другая группа",
         city: "Тестоград Второй",
         date: "2037-06-14",
-        whatsappUrl: inviteB,
+        telegramUrl: inviteB,
       }),
     })),
   };
@@ -556,7 +556,7 @@ async function runChecks() {
       title: "ТЕСТ · Без группы",
       city: "Тестоград Третий",
       date: "2037-07-14",
-      whatsappUrl: "",
+      telegramUrl: "",
     }),
     ...(await api(director, "/events", {
       method: "POST",
@@ -564,19 +564,19 @@ async function runChecks() {
         title: "ТЕСТ · Без группы",
         city: "Тестоград Третий",
         date: "2037-07-14",
-        whatsappUrl: "",
+        telegramUrl: "",
       }),
     })),
   };
   const publicEvents = await api(teacher, "/events");
   for (const event of publicEvents)
-    expect(Object.hasOwn(event, "whatsappUrl")).toBe(false);
+    expect(Object.hasOwn(event, "telegramUrl")).toBe(false);
   expect(
     JSON.stringify(await api(teacher, `/events/${mainEvent.id}`)),
   ).not.toContain(inviteA);
   expect(
     JSON.stringify(await api(teacher, `/events/${mainEvent.id}`)),
-  ).not.toContain("whatsapp");
+  ).not.toContain("telegram");
   expect(
     (
       await director.request.put(base + `/api/events/${mainEvent.id}/archive`, {
@@ -617,12 +617,12 @@ async function runChecks() {
   const firstData = batch(0);
   const first = await registerUi(teacher, mainEvent, firstData);
   registrations.push(first);
-  expect(first.whatsappUrl).toBe(inviteA);
-  await expect(teacher.locator(".reg-whatsapp-link")).toHaveAttribute(
+  expect(first.telegramUrl).toBe(inviteA);
+  await expect(teacher.locator(".reg-telegram-link")).toHaveAttribute(
     "href",
     inviteA,
   );
-  await expect(teacher.locator(".reg-whatsapp-link")).toHaveAttribute(
+  await expect(teacher.locator(".reg-telegram-link")).toHaveAttribute(
     "target",
     "_blank",
   );
@@ -635,7 +635,7 @@ async function runChecks() {
   );
   await labelTestScreenshot(
     teacher,
-    "ТЕСТОВЫЕ ДАННЫЕ · вымышленная команда · WhatsApp после регистрации",
+    "ТЕСТОВЫЕ ДАННЫЕ · вымышленная команда · Telegram после регистрации",
   );
   await teacher.locator(".toast").waitFor({ state: "hidden", timeout: 6000 });
   await teacher.evaluate(() =>
@@ -643,21 +643,21 @@ async function runChecks() {
   );
   await teacher.evaluate(() => document.fonts.ready);
   await teacher.screenshot({
-    path: join(artifacts, "registration-whatsapp.png"),
+    path: join(artifacts, "registration-telegram.png"),
     fullPage: true,
     animations: "disabled",
   });
   await noOverflow(
     teacher,
     [320, 390, 768, 1024, 1440],
-    "Registration success with WhatsApp",
+    "Registration success with Telegram",
   );
   for (let b = 1; b < 12; b++) {
     const result = await api(teacher, "/registrations", {
       method: "POST",
       data: { ...batch(b), eventId: mainEvent.id },
     });
-    expect(result).toMatchObject({ count: 21, whatsappUrl: inviteA });
+    expect(result).toMatchObject({ count: 21, telegramUrl: inviteA });
     registrations.push(result);
   }
   const otherData = {
@@ -673,8 +673,8 @@ async function runChecks() {
     ],
   };
   const secondReceipt = await registerUi(teacher, secondary, otherData);
-  expect(secondReceipt.whatsappUrl).toBe(inviteB);
-  await expect(teacher.locator(".reg-whatsapp-link")).toHaveAttribute(
+  expect(secondReceipt.telegramUrl).toBe(inviteB);
+  await expect(teacher.locator(".reg-telegram-link")).toHaveAttribute(
     "href",
     inviteB,
   );
@@ -683,8 +683,8 @@ async function runChecks() {
     center: "ТЕСТ · Без группы",
     students: [{ ...otherData.students[0], name: "Тестовый Нет Группы" }],
   });
-  expect(emptyReceipt.whatsappUrl).toBe("");
-  await expect(teacher.locator(".reg-whatsapp")).toHaveCount(0);
+  expect(emptyReceipt.telegramUrl).toBe("");
+  await expect(teacher.locator(".reg-telegram")).toHaveCount(0);
   checks.push(
     "Three real browser registration flows: 21-student team with invite and receipt TXT, another event's distinct invite, and no group.",
   );
@@ -941,7 +941,7 @@ async function runChecks() {
   const past = { ...mainEvent, date: "2020-05-14", deadline: "2020-05-01" };
   await api(admin, `/events/${mainEvent.id}`, { method: "PUT", data: past });
   expect(JSON.stringify(await api(teacher, "/archive"))).not.toContain(
-    "whatsapp",
+    "telegram",
   );
   expect(
     JSON.stringify(await api(teacher, `/archive/${mainEvent.id}`)),
@@ -951,25 +951,26 @@ async function runChecks() {
     data: { video: "", resultsPublished: true },
   });
   const recap = await api(teacher, `/archive/${mainEvent.id}`);
-  expect(recap.results.length).toBe(378);
-  expect(recap.results.filter((r) => r.score === 0).length).toBe(21);
+  expect(recap.results).toEqual([]);
+  expect(recap.resultsPublished).toBe(false);
+
   for (const forbidden of [
     "@example.test",
     "+00000000",
     "Тестовый Педагог",
-    "whatsappUrl",
+    "telegramUrl",
     inviteA,
     "2013-04-",
   ])
     expect(JSON.stringify(recap)).not.toContain(forbidden);
   await teacher.goto(base + `/archive/${mainEvent.id}`);
   await expect(teacher.locator(".recap-results-table tbody tr")).toHaveCount(
-    378,
+    0,
   );
   await noOverflow(
     teacher,
     [320, 390, 768, 1024, 1440],
-    "Published archive with 378 scores",
+    "Archive keeps 378 scored participants private",
   );
   await api(admin, `/events/${mainEvent.id}/archive`, {
     method: "PUT",
@@ -980,7 +981,7 @@ async function runChecks() {
     data: mainEvent,
   });
   checks.push(
-    "Archive publication includes only 378 scored active entries; cancelled/unscored excluded, zero scores retained; no teacher contacts, birth dates or WhatsApp invite in public archive.",
+    "Archive hides every student and score even if a legacy client requests publication; no teacher contacts, birth dates or Telegram invite in public archive.",
   );
 
   // Unmount dashboard polling before our deliberate outage. Its automatic
@@ -996,7 +997,7 @@ async function runChecks() {
   expect(
     persisted.entries.filter((r) => r.event_id === mainEvent.id).length,
   ).toBe(504);
-  expect(persisted.events.find((e) => e.id === mainEvent.id).whatsappUrl).toBe(
+  expect(persisted.events.find((e) => e.id === mainEvent.id).telegramUrl).toBe(
     inviteA,
   );
   expect(

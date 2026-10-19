@@ -18,6 +18,7 @@ db.exec(`
  CREATE TABLE IF NOT EXISTS students (id TEXT PRIMARY KEY, registration_id TEXT REFERENCES registrations(id) ON DELETE CASCADE, name TEXT NOT NULL, birth TEXT NOT NULL, grade INTEGER NOT NULL);
  CREATE TABLE IF NOT EXISTS entries (id TEXT PRIMARY KEY, student_id TEXT REFERENCES students(id) ON DELETE CASCADE, subject TEXT NOT NULL, score REAL);
  CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+ CREATE TABLE IF NOT EXISTS award_runs (event_id TEXT PRIMARY KEY REFERENCES events(id), input_hash TEXT NOT NULL, generated_at TEXT NOT NULL, generated_by INTEGER REFERENCES users(id), results TEXT NOT NULL);
 `);
 const eventColumns = new Set(
   db
@@ -34,6 +35,14 @@ if (!eventColumns.has("results_published"))
 if (!eventColumns.has("whatsapp_url"))
   db.exec(
     "ALTER TABLE events ADD COLUMN whatsapp_url TEXT NOT NULL DEFAULT ''",
+  );
+if (!eventColumns.has("telegram_url"))
+  db.exec(
+    "ALTER TABLE events ADD COLUMN telegram_url TEXT NOT NULL DEFAULT ''",
+  );
+if (!eventColumns.has("award_categories"))
+  db.exec(
+    "ALTER TABLE events ADD COLUMN award_categories TEXT NOT NULL DEFAULT '[]'",
   );
 db.prepare("INSERT OR IGNORE INTO settings VALUES(?,?)").run(
   "promo",
@@ -102,38 +111,10 @@ export function eventObject(e, { includePrivate = false } = {}) {
         description: e.description,
         active: Boolean(e.active),
         video: e.video || "",
-        resultsPublished: Boolean(e.results_published),
-        ...(includePrivate ? { whatsappUrl: e.whatsapp_url || "" } : {}),
+        resultsPublished: false,
+        ...(includePrivate ? { telegramUrl: e.telegram_url || "" } : {}),
       }
     : null;
-}
-export function publicResults(eventId) {
-  return db
-    .prepare(
-      `
-    SELECT s.name, s.grade, en.subject, en.score,
-      RANK() OVER (PARTITION BY en.subject, s.grade ORDER BY en.score DESC) AS place
-    FROM entries en
-    JOIN students s ON s.id=en.student_id
-    JOIN registrations r ON r.id=s.registration_id
-    WHERE r.event_id=? AND r.status!='cancelled' AND en.score IS NOT NULL
-  `,
-    )
-    .all(eventId)
-    .map((row) => ({
-      name: row.name,
-      grade: row.grade,
-      subject: row.subject,
-      score: row.score,
-      place: row.place,
-    }))
-    .sort(
-      (a, b) =>
-        a.subject.localeCompare(b.subject, "ru") ||
-        a.grade - b.grade ||
-        b.score - a.score ||
-        a.name.localeCompare(b.name, "ru"),
-    );
 }
 export function allEvents(options) {
   return db

@@ -500,14 +500,14 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.event-whatsapp-field {
+.event-telegram-field {
   padding: 20px;
   border: 1px solid #c6ddcd;
   border-radius: 14px;
   background: #f3faf3;
 }
 
-.event-whatsapp-field > small {
+.event-telegram-field > small {
   color: #4c6653;
   font-size: 13px;
   line-height: 1.7;

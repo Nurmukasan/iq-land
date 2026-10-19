@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -7,23 +7,18 @@ import {
   Building2,
   CalendarDays,
   Check,
-  ChevronRight,
   Download,
   Eye,
   EyeOff,
-  FileSpreadsheet,
   Film,
   GraduationCap,
   ImagePlus,
-  LayoutDashboard,
   ListChecks,
-  LogOut,
   Pencil,
   Plus,
   RefreshCw,
   Search,
   ShieldCheck,
-  SlidersHorizontal,
   Trophy,
   Trash2,
   UploadCloud,
@@ -40,6 +35,7 @@ import {
 } from "../main";
 import EventPhoto from "../components/EventPhoto";
 import EventVideoUploader from "../components/EventVideoUploader";
+import CabinetSidebar from "../components/CabinetSidebar";
 
 const isPastEvent = (event) =>
   event.date < new Date().toISOString().slice(0, 10);
@@ -168,11 +164,12 @@ function GlobeIcon() {
   );
 }
 export default function Dashboard() {
+  const location = useLocation();
   const { user, setUser, authReady, notify } = useApp();
   const [data, setData] = useState(null),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
-    [tab, setTab] = useState("registrations"),
+    [tab, setTab] = useState(location.state?.section || "registrations"),
     [eventId, setEventId] = useState(""),
     [query, setQuery] = useState(""),
     [status, setStatus] = useState(""),
@@ -237,9 +234,9 @@ export default function Dashboard() {
     const score = value === "" ? null : Number(value);
     if (
       score !== null &&
-      (!Number.isFinite(score) || score < 0 || score > 100)
+      (!Number.isFinite(score) || score < 0 || score > 1000000)
     ) {
-      notify("Укажите баллы от 0 до 100");
+      notify("Укажите баллы от 0 до 1 000 000");
       return false;
     }
     try {
@@ -335,64 +332,14 @@ export default function Dashboard() {
   return (
     <main className="dashboard-page">
       <div className="container dashboard-layout">
-        <aside className="dashboard-sidebar">
-          <span className="eyebrow">РАБОЧЕЕ ПРОСТРАНСТВО</span>
-          <div className="user-card">
-            <div>{user.name[0]}</div>
-            <strong>
-              {user.name}
-              <small>
-                {user.role === "admin"
-                  ? "Администратор сайта"
-                  : "Руководитель IQ LAND"}
-              </small>
-            </strong>
-          </div>
-          <nav aria-label="Разделы кабинета">
-            {[
-              { id: "registrations", title: "Заявки команд", icon: Users },
-              { id: "protocol", title: "Протокол олимпиады", icon: ListChecks },
-              { id: "events", title: "Мероприятия", icon: CalendarDays },
-              ...(user.role === "admin"
-                ? [{ id: "promo", title: "Рекламный блок", icon: Trophy }]
-                : []),
-            ].map((t) => (
-              <button
-                key={t.id}
-                className={tab === t.id ? "active" : ""}
-                onClick={() => {
-                  setTab(t.id);
-                  setQuery("");
-                  setError("");
-                }}
-              >
-                <t.icon size={18} />
-                {t.title}
-                <ChevronRight size={15} />
-              </button>
-            ))}
-          </nav>
-          <div className="sidebar-foot">
-            <ShieldCheck size={22} />
-            <p>
-              Все заявки и результаты
-              <br />в одном пространстве.
-            </p>
-            <button
-              className="text-link small"
-              onClick={async () => {
-                try {
-                  await api("/auth/logout", { method: "POST" });
-                  setUser(null);
-                } catch (e) {
-                  notify(e.message);
-                }
-              }}
-            >
-              <LogOut size={15} /> Выйти из кабинета
-            </button>
-          </div>
-        </aside>
+        <CabinetSidebar
+          active={tab}
+          onSection={(id) => {
+            setTab(id);
+            setQuery("");
+            setError("");
+          }}
+        />
         <section className="dashboard-content">
           <div className="dashboard-title">
             <div>
@@ -659,7 +606,7 @@ export default function Dashboard() {
                             <th>Участник</th>
                             <th>Дисциплина / класс</th>
                             <th>Баллы</th>
-                            <th>Место</th>
+                            <th>Рейтинг</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -716,7 +663,7 @@ export default function Dashboard() {
                     </span>
                     <span>
                       {tab === "protocol"
-                        ? "Баллы сохраняются после выхода из поля. Равные баллы — равное место."
+                        ? "Рейтинг по классу и предмету. Медали рассчитываются в разделе «Присвоение мест»."
                         : "Автообновление каждые 15 секунд. Отменённые заявки сохраняются в списке."}
                     </span>
                   </div>
@@ -727,9 +674,7 @@ export default function Dashboard() {
                   <div className="workspace-heading">
                     <div>
                       <h2>Мероприятия</h2>
-                      <p>
-                        Афиша, программа, стоимость и группа для участников.
-                      </p>
+                      <p>Афиша, программа, стоимость и канал для участников.</p>
                     </div>
                     <button
                       className="btn btn-primary btn-small"
@@ -896,13 +841,9 @@ export default function Dashboard() {
 }
 function ArchiveEditor({ event, onClose, onSaved }) {
   const [video, setVideo] = useState(event.video || ""),
-    [resultsPublished, setResultsPublished] = useState(
-      Boolean(event.resultsPublished),
-    ),
     [uploading, setUploading] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
-  const detailsId = useId();
   const mounted = useRef(false),
     saving = useRef(false),
     uploadBusy = useRef(false),
@@ -926,7 +867,7 @@ function ArchiveEditor({ event, onClose, onSaved }) {
     try {
       await api("/events/" + event.id + "/archive", {
         method: "PUT",
-        body: JSON.stringify({ video, resultsPublished }),
+        body: JSON.stringify({ video, resultsPublished: false }),
         signal: controller.signal,
       });
       if (mounted.current) onSaved();
@@ -958,8 +899,8 @@ function ArchiveEditor({ event, onClose, onSaved }) {
           </div>
         </div>
         <p className="archive-editor-intro">
-          Соберите воспоминания и результаты в одном месте. Сохранённое видео
-          появится на странице прошедшей олимпиады.
+          Сохраните воспоминания об олимпиаде. Сохранённое видео появится на
+          странице прошедшей олимпиады.
         </p>
         <EventVideoUploader
           value={video}
@@ -974,37 +915,10 @@ function ArchiveEditor({ event, onClose, onSaved }) {
           }}
           disabled={busy}
         />
-        <section
-          className={
-            "archive-results-publishing" +
-            (resultsPublished ? " is-published" : "")
-          }
-        >
-          <label className="archive-results-toggle">
-            <input
-              type="checkbox"
-              aria-label="Опубликовать результаты"
-              aria-describedby={detailsId}
-              checked={resultsPublished}
-              disabled={busy}
-              onChange={(eventObject) => {
-                setResultsPublished(eventObject.target.checked);
-                setError("");
-              }}
-            />
-            <span>
-              <strong>Опубликовать результаты</strong>
-              <small>
-                Покажите участникам их баллы и места на странице олимпиады.
-              </small>
-            </span>
-          </label>
-          <p id={detailsId}>
-            {resultsPublished
-              ? "Будут видны ФИО, класс, дисциплина, баллы и место участников с выставленными баллами. Отменённые заявки не публикуются."
-              : "Результаты будут скрыты. Вы сможете опубликовать их позже, когда протокол будет готов."}
-          </p>
-        </section>
+        <div className="notice">
+          На странице олимпиады публикуется видео и программа. Имена учеников и
+          награды доступны только организаторам.
+        </div>
         {event.active && isPastEvent(event) && (
           <Link
             className="text-link archive-editor-public-link"
@@ -1017,8 +931,8 @@ function ArchiveEditor({ event, onClose, onSaved }) {
         )}
         {!event.active && (
           <p className="archive-editor-hidden-note">
-            Олимпиада скрыта с сайта. Видео и результаты станут доступны после
-            публикации мероприятия.
+            Олимпиада скрыта с сайта. Видео станет доступно после публикации
+            мероприятия.
           </p>
         )}
         {error && <ErrorBox>{error}</ErrorBox>}
@@ -1048,7 +962,7 @@ function ScoreInput({ row, onSave }) {
       className={"score-input " + (invalid ? "invalid" : "")}
       type="number"
       min="0"
-      max="100"
+      max="1000000"
       step="0.5"
       aria-label={"Баллы " + row.name + ", " + row.subject}
       value={value}
@@ -1292,7 +1206,7 @@ function EventEditor({ event, onClose, onSaved }) {
       price: null,
       currency: "KZT",
       image: "",
-      whatsappUrl: "",
+      telegramUrl: "",
       description: "",
       active: true,
       ...event,
@@ -1331,7 +1245,7 @@ function EventEditor({ event, onClose, onSaved }) {
         signal: controller.signal,
         body: JSON.stringify({
           ...details,
-          whatsappUrl: (form.whatsappUrl || "").trim(),
+          telegramUrl: (form.telegramUrl || "").trim(),
           includes: form.includes.map((item) => item.trim()).filter(Boolean),
           price:
             form.price === "" || form.price === null
@@ -1427,24 +1341,24 @@ function EventEditor({ event, onClose, onSaved }) {
             </select>
           </label>
         </div>
-        <label className="field event-whatsapp-field">
-          <span id="event-whatsapp-label">
-            Ссылка на WhatsApp-группу олимпиады · необязательно
+        <label className="field event-telegram-field">
+          <span id="event-telegram-label">
+            Ссылка на Telegram-канал олимпиады · необязательно
           </span>
           <input
             type="url"
             maxLength={2048}
-            placeholder="https://chat.whatsapp.com/…"
+            placeholder="https://t.me/…"
             autoComplete="off"
-            value={form.whatsappUrl}
-            aria-labelledby="event-whatsapp-label"
-            aria-describedby="event-whatsapp-help"
-            onChange={(e) => set("whatsappUrl", e.target.value)}
+            value={form.telegramUrl}
+            aria-labelledby="event-telegram-label"
+            aria-describedby="event-telegram-help"
+            onChange={(e) => set("telegramUrl", e.target.value)}
           />
-          <small id="event-whatsapp-help">
-            Скопируйте приглашение из настроек группы в WhatsApp. Учитель увидит
-            ссылку после отправки заявки на эту олимпиаду и в скачанном
-            подтверждении. Чтобы убрать группу, очистите поле и сохраните.
+          <small id="event-telegram-help">
+            Скопируйте ссылку на канал в Telegram. Учитель увидит ссылку после
+            отправки заявки на эту олимпиаду и в скачанном подтверждении. Чтобы
+            убрать ссылку, очистите поле и сохраните.
           </small>
         </label>
         <label className="field">
