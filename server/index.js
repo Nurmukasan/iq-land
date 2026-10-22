@@ -375,6 +375,19 @@ app.post(
   (req, res) => {
     const data = parse(registrationSchema, req.body, res);
     if (!data) return;
+    const requestKey = req.get("Idempotency-Key");
+    if (requestKey && !/^[A-Za-z0-9_-]{16,128}$/.test(requestKey))
+      return res.status(400).json({ error: "Не удалось проверить отправку. Обновите страницу." });
+    const requestHash = digest(JSON.stringify(data));
+    const respondToRetry = (previous) => {
+      if (previous.request_hash !== requestHash)
+        return res.status(409).json({ error: "Данные заявки изменились. Обновите страницу и проверьте список перед отправкой." });
+      return res.status(201).json(JSON.parse(previous.receipt));
+    };
+    if (requestKey) {
+      const previous = db.prepare("SELECT * FROM registration_requests WHERE request_key=?").get(requestKey);
+      if (previous) return respondToRetry(previous);
+    }
     const e = eventObject(
       db
         .prepare("SELECT * FROM events WHERE id=? AND active=1")
@@ -393,8 +406,13 @@ app.post(
         .status(400)
         .json({ error: "Выбрана дисциплина, которой нет на этой олимпиаде" });
     const id = "IQ-" + randomBytes(5).toString("hex").toUpperCase();
-    db.exec("BEGIN");
+    const receipt = { id, count: data.students.length, telegramUrl: e.telegramUrl, documents: e.documents };
+    db.exec("BEGIN IMMEDIATE");
     try {
+      if (requestKey) {
+        const previous = db.prepare("SELECT * FROM registration_requests WHERE request_key=?").get(requestKey);
+        if (previous) { db.exec("COMMIT"); return respondToRetry(previous); }
+      }
       db.prepare(
         "INSERT INTO registrations(id,event_id,center,city,teacher,email,phone,teachers,note,created) VALUES(?,?,?,?,?,?,?,?,?,?)",
       ).run(
@@ -425,6 +443,7 @@ app.post(
             subject,
           );
       }
+      if (requestKey) db.prepare("INSERT INTO registration_requests VALUES(?,?,?,?)").run(requestKey, requestHash, id, JSON.stringify(receipt));
       db.exec("COMMIT");
     } catch (err) {
       db.exec("ROLLBACK");
@@ -432,7 +451,7 @@ app.post(
     }
     res
       .status(201)
-      .json({ id, count: data.students.length, telegramUrl: e.telegramUrl, documents: e.documents });
+      .json(receipt);
   },
 );
 app.get("/api/manage", auth, (req, res) => {

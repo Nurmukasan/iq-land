@@ -173,7 +173,7 @@ export function rosterStats(
 
 export function findDuplicates(students) {
   const signatures = students.map((student) => {
-    const name = student.name?.trim().toLocaleLowerCase("ru-RU");
+    const name = student.name?.normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase("ru-RU");
     return name && student.birth ? JSON.stringify([name, student.birth]) : null;
   });
   const counts = new Map();
@@ -205,7 +205,7 @@ export function validateContact(contact, teachers = []) {
     errors.email = "Укажите действующий email, не более 200 символов.";
 
   const phone = typeof contact?.phone === "string" ? contact.phone.trim() : "";
-  if (!/^\+?[\d\s()\-]{7,25}$/.test(phone))
+  if (!/^\+?[\d\s()\-]{7,25}$/.test(phone) || phone.replace(/\D/g, "").length < 7 || phone.replace(/\D/g, "").length > 15)
     errors.phone = "Проверьте номер телефона: от 7 до 25 символов.";
 
   if (
