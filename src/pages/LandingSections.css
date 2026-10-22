@@ -678,6 +678,106 @@
 .contact-event-link:hover {
   color: white;
 }
+.contact-phone {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding-block: 8px;
+  color: #d7ef75;
+}
+.contact-phone > span {
+  display: grid;
+  gap: 6px;
+}
+.contact-phone-label {
+  color: #c8d1e7;
+  font-size: 13px;
+}
+.contact-phone strong {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.academic-contacts {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding-top: 28px;
+  border-top: 1px solid #ffffff26;
+}
+.academic-contacts > h3 {
+  margin: 0 0 20px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+}
+.academic-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.academic-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #ffffff26;
+  border-radius: 16px;
+  background: #ffffff08;
+  transition: background 0.2s, border-color 0.2s;
+}
+.academic-contact > div {
+  min-width: 0;
+}
+.academic-contact-subject {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c8d1e7;
+}
+.academic-contact h4 {
+  margin: 10px 0 8px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.academic-contact-phone {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #d7ef75;
+  font-variant-numeric: tabular-nums;
+}
+.academic-contact > svg {
+  flex-shrink: 0;
+  color: #d7ef75;
+}
+.academic-contact:hover {
+  background: #ffffff10;
+  border-color: #d7ef7580;
+}
+.contact-phone:focus-visible,
+.academic-contact:focus-visible {
+  outline: 2px solid #d7ef75;
+  outline-offset: 5px;
+  border-radius: 12px;
+}
+@media (max-width: 900px) {
+  .academic-contact {
+    padding: 20px;
+  }
+}
+@media (max-width: 640px) {
+  .academic-contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .academic-contact {
+    transition: none;
+  }
+}
 .instagram-contact {
   position: relative;
   display: flex;

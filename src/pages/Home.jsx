@@ -15,6 +15,7 @@ import {
   Languages,
   Sigma,
   Instagram,
+  Phone,
   Sparkles,
   MoveUpRight,
   Send,
@@ -24,6 +25,7 @@ import {
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
 import EventPhoto from "../components/EventPhoto";
+import { academicContacts, generalContact } from "../lib/contacts.js";
 import "./Home.css";
 import "./LandingSections.css";
 
@@ -841,9 +843,16 @@ export default function Home() {
           </h2>
           <p>
             {tr(
-              "Есть вопрос об участии или хотите привезти свою команду? Напишите нам в Instagram. Там же — анонсы и моменты с наших олимпиад.",
+              "Есть вопрос об участии или хотите привезти свою команду? Позвоните нам. Анонсы и моменты с наших олимпиад — в Instagram.",
             )}
           </p>
+          <a className="contact-phone" href={generalContact.href}>
+            <Phone size={22} aria-hidden="true" />
+            <span>
+              <span className="contact-phone-label">{tr("Общие вопросы")}</span>
+              <strong>{generalContact.phone}</strong>
+            </span>
+          </a>
           <a className="contact-event-link" href="#events">
             {tr("А пока — выберите свою олимпиаду ")}
             <ArrowUpRight size={19} />
@@ -873,6 +882,21 @@ export default function Home() {
             <ArrowRight size={19} />
           </span>
         </a>
+        <div className="academic-contacts" aria-labelledby="academic-contacts-title">
+          <h3 id="academic-contacts-title">{tr("Вопросы по учебной части")}</h3>
+          <div className="academic-contact-grid">
+            {academicContacts.map((contact) => (
+              <a className="academic-contact" href={contact.href} key={contact.href}>
+                <div>
+                  <span className="academic-contact-subject">{tr(contact.subject)}</span>
+                  <h4>{contact.name}</h4>
+                  <span className="academic-contact-phone">{contact.phone}</span>
+                </div>
+                <Phone size={21} aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </div>
       </section>
 
       {selected && (
