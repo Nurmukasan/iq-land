@@ -534,6 +534,8 @@ try {
         .click();
     }
     await expect(latePage).toHaveURL(base + "/events/almaty-2027/register");
+    // The URL changes before the selected event finishes loading.
+    await expect(latePage.locator(".reg-event-banner")).toContainText("Алматы");
     await fillStudent(latePage, 1, "Отправленный Ученик", "2015-06-19", 5);
     await continueButton(latePage).click();
     await fillContact(latePage, "Центр Позднего Подтверждения");

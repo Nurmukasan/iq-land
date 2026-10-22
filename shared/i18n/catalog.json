@@ -1,4 +1,114 @@
 {
+  "Добавить файлы": {
+    "en": "Add files",
+    "kk": "Файлдарды қосу",
+    "az": "Fayl əlavə et",
+    "uz": "Fayllarni qo‘shish"
+  },
+  "Критерии и документы олимпиады": {
+    "en": "Olympiad criteria and documents",
+    "kk": "Олимпиада критерийлері мен құжаттары",
+    "az": "Olimpiadanın meyarları və sənədləri",
+    "uz": "Olimpiada mezonlari va hujjatlari"
+  },
+  "Файлы откроются в новой вкладке. Word и другие офисные документы могут скачиваться.": {
+    "en": "Files open in a new tab. Word and other office documents may download instead.",
+    "kk": "Файлдар жаңа қойындыда ашылады. Word және басқа кеңсе құжаттары жүктелуі мүмкін.",
+    "az": "Fayllar yeni vərəqdə açılır. Word və digər ofis sənədləri endirilə bilər.",
+    "uz": "Fayllar yangi varaqda ochiladi. Word va boshqa ofis hujjatlari yuklab olinishi mumkin."
+  },
+  "Открыть файл {0} в новой вкладке": {
+    "en": "Open {0} in a new tab",
+    "kk": "{0} файлын жаңа қойындыда ашу",
+    "az": "{0} faylını yeni vərəqdə aç",
+    "uz": "{0} faylini yangi varaqda ochish"
+  },
+  "Убрать файл {0}": {
+    "en": "Remove {0}",
+    "kk": "{0} файлын алып тастау",
+    "az": "{0} faylını sil",
+    "uz": "{0} faylini olib tashlash"
+  },
+  "МБ": { "en": "MB", "kk": "МБ", "az": "MB", "uz": "MB" },
+  "КБ": { "en": "KB", "kk": "КБ", "az": "KB", "uz": "KB" },
+  "Файлы с критериями · необязательно": {
+    "en": "Criteria files · optional",
+    "kk": "Критерийлер файлдары · міндетті емес",
+    "az": "Meyar faylları · istəyə bağlı",
+    "uz": "Mezonlar fayllari · ixtiyoriy"
+  },
+  "Добавьте критерии, положение или инструкцию. До 10 файлов, каждый до 20 МБ. Они появятся в афише и после регистрации на эту олимпиаду.": {
+    "en": "Add criteria, rules or instructions. Up to 10 files, 20 MB each. They will appear in the event listing and after registration for this olympiad.",
+    "kk": "Критерийлерді, ережені немесе нұсқаулықты қосыңыз. Әрқайсысы 20 МБ-қа дейінгі 10 файлға дейін. Олар осы олимпиаданың афишасында және тіркелгеннен кейін көрсетіледі.",
+    "az": "Meyarları, qaydaları və ya təlimatları əlavə edin. Hər biri 20 MB-dək olmaqla 10 fayla qədər. Onlar bu olimpiadanın elanında və qeydiyyatdan sonra görünəcək.",
+    "uz": "Mezonlar, nizom yoki yo‘riqnomani qo‘shing. Har biri 20 MB gacha bo‘lgan 10 tagacha fayl. Ular shu olimpiada afishasida va ro‘yxatdan o‘tgandan keyin ko‘rinadi."
+  },
+  "Загружаю файлы…": {
+    "en": "Uploading files…",
+    "kk": "Файлдар жүктелуде…",
+    "az": "Fayllar yüklənir…",
+    "uz": "Fayllar yuklanmoqda…"
+  },
+  "Чтобы убрать файл с сайта, удалите его из списка и сохраните мероприятие.": {
+    "en": "To remove a file from the site, remove it from this list and save the event.",
+    "kk": "Файлды сайттан алып тастау үшін оны тізімнен өшіріп, іс-шараны сақтаңыз.",
+    "az": "Faylı saytdan silmək üçün onu siyahıdan çıxarın və tədbiri yadda saxlayın.",
+    "uz": "Faylni saytdan olib tashlash uchun uni ro‘yxatdan o‘chiring va tadbirni saqlang."
+  },
+  "Не более 10 файлов для одной олимпиады.": {
+    "en": "No more than 10 files per olympiad.",
+    "kk": "Бір олимпиадаға 10 файлдан артық қосуға болмайды.",
+    "az": "Bir olimpiadaya ən çox 10 fayl əlavə edilə bilər.",
+    "uz": "Bitta olimpiada uchun 10 tadan ko‘p fayl mumkin emas."
+  },
+  "Поддерживаются PDF, Word, Excel, PowerPoint, RTF и TXT.": {
+    "en": "PDF, Word, Excel, PowerPoint, RTF and TXT are supported.",
+    "kk": "PDF, Word, Excel, PowerPoint, RTF және TXT қолдау табады.",
+    "az": "PDF, Word, Excel, PowerPoint, RTF və TXT dəstəklənir.",
+    "uz": "PDF, Word, Excel, PowerPoint, RTF va TXT qo‘llab-quvvatlanadi."
+  },
+  "Файл пуст, повреждён или не соответствует указанному формату.": {
+    "en": "The file is empty, damaged or does not match its format.",
+    "kk": "Файл бос, бүлінген немесе көрсетілген пішімге сәйкес келмейді.",
+    "az": "Fayl boşdur, zədələnib və ya göstərilən formata uyğun deyil.",
+    "uz": "Fayl bo‘sh, buzilgan yoki ko‘rsatilgan formatga mos emas."
+  },
+  "Файл слишком большой. Максимальный размер — 20 МБ.": {
+    "en": "The file is too large. Maximum size: 20 MB.",
+    "kk": "Файл тым үлкен. Ең үлкен көлем — 20 МБ.",
+    "az": "Fayl çox böyükdür. Maksimum ölçü 20 MB-dır.",
+    "uz": "Fayl juda katta. Eng katta hajm — 20 MB."
+  },
+  "Проверьте название файла.": {
+    "en": "Check the file name.",
+    "kk": "Файл атауын тексеріңіз.",
+    "az": "Faylın adını yoxlayın.",
+    "uz": "Fayl nomini tekshiring."
+  },
+  "Загрузите файл через форму мероприятия.": {
+    "en": "Upload the file through the event form.",
+    "kk": "Файлды іс-шара формасы арқылы жүктеңіз.",
+    "az": "Faylı tədbir forması vasitəsilə yükləyin.",
+    "uz": "Faylni tadbir shakli orqali yuklang."
+  },
+  "Один и тот же файл добавлен несколько раз.": {
+    "en": "The same file was added more than once.",
+    "kk": "Бір файл бірнеше рет қосылған.",
+    "az": "Eyni fayl bir neçə dəfə əlavə edilib.",
+    "uz": "Bir fayl bir necha marta qo‘shilgan."
+  },
+  "Не удалось сохранить файл. Попробуйте ещё раз.": {
+    "en": "Could not save the file. Please try again.",
+    "kk": "Файлды сақтау мүмкін болмады. Қайталап көріңіз.",
+    "az": "Faylı yadda saxlamaq mümkün olmadı. Yenidən cəhd edin.",
+    "uz": "Faylni saqlab bo‘lmadi. Qayta urinib ko‘ring."
+  },
+  "Файл не найден.": {
+    "en": "File not found.",
+    "kk": "Файл табылмады.",
+    "az": "Fayl tapılmadı.",
+    "uz": "Fayl topilmadi."
+  },
   "Сначала баллы — затем возрастные группы": {
     "en": "Scores first, then age groups",
     "kk": "Алдымен ұпайлар, содан кейін жас топтары",

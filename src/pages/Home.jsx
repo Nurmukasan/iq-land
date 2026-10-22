@@ -16,6 +16,7 @@ import {
   Sigma,
   Instagram,
   Phone,
+  FileText,
   Sparkles,
   MoveUpRight,
   Send,
@@ -25,6 +26,7 @@ import {
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
 import EventPhoto from "../components/EventPhoto";
+import EventDocuments from "../components/EventDocuments";
 import { academicContacts, generalContact, technicalContact } from "../lib/contacts.js";
 import "./Home.css";
 import "./LandingSections.css";
@@ -511,6 +513,11 @@ export default function Home() {
                       )}
                     </p>
                   </div>
+                  {e.documents?.length > 0 && (
+                    <button type="button" className="text-link event-card-documents" onClick={() => setSelected(e)}>
+                      <FileText size={17} /> {tr("Критерии и документы олимпиады")} <ArrowUpRight size={17} />
+                    </button>
+                  )}
                   <div className="event-card-bottom">
                     <div>
                       <strong>{tr(priceLabel(e))}</strong>
@@ -950,6 +957,7 @@ export default function Home() {
               "Предварительная программа. Организатор подтвердит детали после заявки.",
             )}
           </p>
+          <EventDocuments documents={selected.documents} />
           <Link
             className="btn btn-primary full-width"
             to={

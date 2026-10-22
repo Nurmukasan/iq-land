@@ -23,6 +23,8 @@ import { receiveEventVideo, videoPath, videoTypes } from "./event-videos.js";
 import { awardsRouter } from "./awards.js";
 import { MAX_SCORE } from "../shared/award-rules.js";
 import { detectLanguage } from "./language.js";
+import { documentFile, storeEventDocument } from "./event-documents.js";
+import { DOCUMENT_TYPES, documentExtension, MAX_DOCUMENT_BYTES } from "../shared/event-documents.js";
 import { translate, exportLanguage } from "../shared/i18n/index.js";
 
 const app = express();
@@ -127,6 +129,51 @@ app.get("/api/event-videos/:filename", (req, res, next) => {
     "Cache-Control": "public, max-age=31536000, immutable",
   });
   res.sendFile(path, (error) => {
+    if (!error) return;
+    if (error.status === 416 && !res.headersSent) {
+      if (error.headers) res.set(error.headers);
+      return res.status(416).end();
+    }
+    next(error);
+  });
+});
+app.post("/api/event-documents", auth, organizer, (req, res, next) => {
+  express.raw({ type: () => true, limit: MAX_DOCUMENT_BYTES })(req, res, (error) => {
+    if (error?.status === 413) return res.status(413).json({ error: "Файл слишком большой. Максимальный размер — 20 МБ." });
+    next(error);
+  });
+}, (req, res) => {
+  try {
+    let name;
+    try { name = decodeURIComponent(req.get("X-File-Name") || ""); }
+    catch { return res.status(400).json({ error: "Проверьте название файла." }); }
+    res.status(201).json(storeEventDocument(req.body, name));
+  } catch (error) {
+    const status = [400, 413, 415].includes(error.status) ? error.status : 500;
+    res.status(status).json({ error: status === 500 ? "Не удалось сохранить файл. Попробуйте ещё раз." : error.message });
+  }
+});
+app.get("/api/event-documents/:filename", (req, res, next) => {
+  const file = documentFile(req.params.filename);
+  if (!file) return res.status(404).json({ error: "Файл не найден." });
+  const staff = ["admin", "director"].includes(req.user?.role);
+  const doc = db.prepare(`SELECT json_extract(d.value,'$.name') AS name
+    FROM events e, json_each(e.documents) d
+    WHERE json_extract(d.value,'$.url')=? AND (e.active=1 OR ?) LIMIT 1`)
+    .get(`/api/event-documents/${req.params.filename}`, Number(staff));
+  if (!doc && !staff) return res.status(404).json({ error: "Файл не найден." });
+  const ext = documentExtension(req.params.filename);
+  const disposition = ["pdf", "txt"].includes(ext) ? "inline" : "attachment";
+  const name = doc?.name || `document.${ext}`;
+  const encoded = encodeURIComponent(name).replace(/['()*]/g, (char) => `%${char.charCodeAt(0).toString(16).toUpperCase()}`);
+  res.set({
+    "Content-Type": DOCUMENT_TYPES[ext],
+    "Content-Disposition": `${disposition}; filename="document.${ext}"; filename*=UTF-8''${encoded}`,
+    "Content-Security-Policy": "sandbox; default-src 'none'; base-uri 'none'",
+    "X-Content-Type-Options": "nosniff",
+    "Cache-Control": "no-store",
+  });
+  res.sendFile(file.path, (error) => {
     if (!error) return;
     if (error.status === 416 && !res.headersSent) {
       if (error.headers) res.set(error.headers);
@@ -385,7 +432,7 @@ app.post(
     }
     res
       .status(201)
-      .json({ id, count: data.students.length, telegramUrl: e.telegramUrl });
+      .json({ id, count: data.students.length, telegramUrl: e.telegramUrl, documents: e.documents });
   },
 );
 app.get("/api/manage", auth, (req, res) => {
@@ -436,7 +483,7 @@ app.post("/api/events", auth, organizer, (req, res) => {
   if (!e) return;
   const id = randomUUID();
   db.prepare(
-    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active,telegram_url) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "INSERT INTO events(id,title,city,country,flag,date,deadline,subjects,includes,price,currency,image,description,active,telegram_url,documents) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
   ).run(
     id,
     e.title,
@@ -453,6 +500,7 @@ app.post("/api/events", auth, organizer, (req, res) => {
     e.description,
     Number(e.active),
     e.telegramUrl ?? "",
+    JSON.stringify(e.documents || []),
   );
   res.status(201).json({ id });
 });
@@ -486,7 +534,7 @@ app.put("/api/events/:id", auth, organizer, (req, res) => {
       error: "Нельзя удалить дисциплину с зарегистрированными учениками",
     });
   db.prepare(
-    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=?,telegram_url=? WHERE id=?",
+    "UPDATE events SET title=?,city=?,country=?,flag=?,date=?,deadline=?,subjects=?,includes=?,price=?,currency=?,image=?,description=?,active=?,telegram_url=?,documents=? WHERE id=?",
   ).run(
     e.title,
     e.city,
@@ -502,6 +550,7 @@ app.put("/api/events/:id", auth, organizer, (req, res) => {
     e.description,
     Number(e.active),
     e.telegramUrl ?? previous.telegramUrl,
+    JSON.stringify(e.documents ?? previous.documents),
     req.params.id,
   );
   res.json({ ok: true });

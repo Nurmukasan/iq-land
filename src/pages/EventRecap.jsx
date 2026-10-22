@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { api, dateLabel, priceLabel, ErrorBox, Spinner } from "../main";
 import MontagePlayer from "../components/MontagePlayer";
+import EventDocuments from "../components/EventDocuments";
 import "./Archive.css";
 
 export default function EventRecap() {
@@ -127,6 +128,7 @@ export default function EventRecap() {
           )}
         </div>
       </section>
+      <EventDocuments documents={event.documents} />
       <div className="recap-next">
         <div>
           <span className="eyebrow">{tr("Впереди — новые открытия.")}</span>
