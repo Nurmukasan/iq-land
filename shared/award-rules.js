@@ -6,13 +6,6 @@ export const AWARD_SUBJECTS = [
 export const MEDALS = { gold: "Золото", silver: "Серебро", bronze: "Бронза" };
 export const MEDAL_ORDER = { gold: 0, silver: 1, bronze: 2 };
 export const MAX_SCORE = 1_000_000;
-export const DEFAULT_CATEGORIES = [
-  [6, 7],
-  [8, 9],
-  [10, 11],
-  [12, 13],
-  [14, 15],
-].map(([minAge, maxAge]) => ({ id: `${minAge}-${maxAge}`, minAge, maxAge }));
 
 export function ageOn(birth, date) {
   if (

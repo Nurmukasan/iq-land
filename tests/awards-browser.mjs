@@ -141,31 +141,10 @@ try {
   checks.push(
     "Zero and decimal scores save on blur/Enter; Enter moves down, keyboard tabs work, scores survive reload.",
   );
-  await page
-    .getByRole("button", { name: "Возрастные категории", exact: true })
-    .click();
-  const modal = page.getByRole("dialog", {
-    name: "Возрастные категории",
-    exact: true,
-  });
-  await expect(modal.locator(".aw-category-row")).toHaveCount(5);
-  await modal
-    .getByLabel("Максимальный возраст категории 1", { exact: true })
-    .fill("8");
-  await modal
-    .getByRole("button", { name: "Сохранить категории", exact: true })
-    .click();
-  await expect(modal).toContainText("пересекаются");
-  await modal
-    .getByLabel("Максимальный возраст категории 1", { exact: true })
-    .fill("7");
-  await modal
-    .getByRole("button", { name: "Сохранить категории", exact: true })
-    .click();
-  await expect(modal).toHaveCount(0);
-  checks.push(
-    "Default age ranges 6–7 through 14–15 are editable; shared endpoints reject without closing or losing data.",
-  );
+  expect((await request("/awards/" + eventId)).categories).toEqual([]);
+  expect((await request("/awards/" + eventId)).result).toBeNull();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  checks.push("Saving scores never selects age groups or assigns awards automatically.");
   // Simulate a retained unsaved draft, then save through the actual interface.
   await page.evaluate(
     ({ id, key }) =>
@@ -224,6 +203,46 @@ try {
   await page
     .getByRole("button", { name: "Вывести результаты", exact: true })
     .click();
+  const modal = page.getByRole("dialog", { name: "Возрастные категории", exact: true });
+  await expect(modal.locator(".aw-category-row")).toHaveCount(1);
+  const min = (n) => modal.getByLabel(`Минимальный возраст категории ${n}`, { exact: true });
+  const max = (n) => modal.getByLabel(`Максимальный возраст категории ${n}`, { exact: true });
+  const confirm = modal.getByRole("button", { name: "Рассчитать места", exact: true });
+  await expect(min(1)).toHaveValue("");
+  await expect(max(1)).toHaveValue("");
+  expect((await request("/awards/" + eventId)).result).toBeNull();
+  await min(1).fill("9");
+  await modal.getByRole("button", { name: "Закрыть", exact: true }).click();
+  await expect(modal).toHaveCount(0);
+  expect((await request("/awards/" + eventId)).categories).toEqual([]);
+  expect((await request("/awards/" + eventId)).result).toBeNull();
+  await page.getByRole("button", { name: "Вывести результаты", exact: true }).click();
+  await expect(min(1)).toHaveValue("");
+  await confirm.click();
+  await expect(modal).toContainText("Заполните обе границы");
+  await min(1).fill("6");
+  await max(1).fill("9");
+  await modal.getByRole("button", { name: "Добавить категорию", exact: true }).click();
+  await min(2).fill("9");
+  await max(2).fill("15");
+  await confirm.click();
+  await expect(modal).toContainText("пересекаются");
+  expect((await request("/awards/" + eventId)).categories).toEqual([]);
+  await max(1).fill("8");
+  await max(2).fill("11");
+  await confirm.click();
+  await expect(modal).toContainText("не задана возрастная категория");
+  await modal.getByRole("button", { name: "Добавить категорию", exact: true }).click();
+  await min(3).fill("12");
+  await max(3).fill("15");
+  await page.setViewportSize({ width: 390, height: 900 });
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await modal.screenshot({ path: join(artifacts, "manual-age-groups-mobile.png") });
+  await page.setViewportSize({ width: 1600, height: 1100 });
+  await modal.screenshot({ path: join(artifacts, "manual-age-groups.png") });
+  await confirm.click();
+  await expect(modal).toHaveCount(0);
+  checks.push("Final dialog starts blank; organizer manually enters 6–8, 9–11 and 12–15 inclusive. Missing bounds, overlaps and uncovered ages block calculation without saving groups.");
   await expect(page.locator(".aw-center")).toHaveCount(4);
   await expect(page.locator(".aw-result-status")).toHaveText(
     "Результаты рассчитаны",
@@ -261,7 +280,7 @@ try {
     await expect(page.locator(".aw-center button").nth(i)).toBeEnabled();
   }
   checks.push(
-    "200 pupils / 600 entries generate 180 gold, 180 silver and 240 bronze awards in 15 independent groups; four real Excel downloads contain 150 rows each.",
+    "200 pupils / 600 entries generate 180 gold, 180 silver and 240 bronze awards in 9 independent groups; four real Excel downloads contain 150 rows each.",
   );
   // Editing scores makes every old download unavailable until regeneration.
   await page.locator(".aw-score-input").first().fill("9999");
@@ -272,6 +291,11 @@ try {
   await page
     .getByRole("button", { name: "Вывести результаты", exact: true })
     .click();
+  await expect(modal.locator(".aw-category-row")).toHaveCount(3);
+  await expect(min(2)).toHaveValue("9");
+  await expect(max(2)).toHaveValue("11");
+  await confirm.click();
+  await expect(modal).toHaveCount(0);
   await expect(page.locator(".aw-result-status")).toHaveText(
     "Результаты рассчитаны",
   );

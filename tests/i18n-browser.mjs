@@ -330,6 +330,14 @@ try {
   await staff
     .getByRole("button", { name: "Calculate results", exact: true })
     .click();
+  const categoriesModal = staff.getByRole("dialog", { name: "Age categories", exact: true });
+  await expect(categoriesModal.locator('.aw-category-row')).toHaveCount(1);
+  await expect(categoriesModal.getByLabel("Minimum age for category 1", { exact: true })).toHaveValue("");
+  await expect(categoriesModal.getByLabel("Maximum age for category 1", { exact: true })).toHaveValue("");
+  await categoriesModal.getByLabel("Minimum age for category 1", { exact: true }).fill("0");
+  await categoriesModal.getByLabel("Maximum age for category 1", { exact: true }).fill("99");
+  await categoriesModal.getByRole("button", { name: "Assign awards", exact: true }).click();
+  await expect(categoriesModal).toHaveCount(0);
   await expect(staff.locator(".aw-center")).toHaveCount(1);
   await expect(staff.locator(".aw-center h3")).toHaveText("Математика");
   await expect(
