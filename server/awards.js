@@ -12,7 +12,6 @@ import {
   compareAwardRows,
   MEDALS,
   MAX_SCORE,
-  DEFAULT_CATEGORIES,
 } from "../shared/award-rules.js";
 
 export const awardsRouter = express.Router();
@@ -41,10 +40,7 @@ function readEvent(id) {
 }
 function snapshot(id) {
   const raw = readEvent(id);
-  const savedCategories = JSON.parse(raw.award_categories || "[]");
-  const categories = savedCategories.length
-    ? savedCategories
-    : DEFAULT_CATEGORIES;
+  const categories = JSON.parse(raw.award_categories || "[]");
   const rows = db
     .prepare(
       `SELECT en.id,s.id AS studentId,s.name,s.birth,s.grade,en.subject,en.score,r.center,r.city
@@ -228,7 +224,7 @@ awardsRouter.post(
       throw fail("Обновите список перед расчётом результатов.");
     db.exec("BEGIN IMMEDIATE");
     try {
-      const state = snapshot(req.params.id);
+      let state = snapshot(req.params.id);
       if (req.body.expectedHash !== state.inputHash)
         throw fail(
           "Список или баллы изменились. Обновите страницу и повторите расчёт.",
@@ -236,7 +232,17 @@ awardsRouter.post(
         );
       let results;
       try {
-        results = assignMedals(state.rows, state.categories);
+        const categories = Object.hasOwn(req.body, "categories")
+          ? normalizeCategories(req.body.categories)
+          : state.categories;
+        results = assignMedals(state.rows, categories);
+        if (Object.hasOwn(req.body, "categories")) {
+          db.prepare("UPDATE events SET award_categories=? WHERE id=?").run(
+            JSON.stringify(categories),
+            req.params.id,
+          );
+          state = snapshot(req.params.id);
+        }
       } catch (error) {
         throw fail(error.message);
       }

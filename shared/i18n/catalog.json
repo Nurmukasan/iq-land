@@ -1,4 +1,28 @@
 {
+  "Сначала баллы — затем возрастные группы": {
+    "en": "Scores first, then age groups",
+    "kk": "Алдымен ұпайлар, содан кейін жас топтары",
+    "az": "Əvvəl ballar, sonra yaş qrupları",
+    "uz": "Avval ballar, keyin yosh guruhlari"
+  },
+  "Готовых групп нет. Заполните баллы по всем предметам и нажмите «Вывести результаты». В открывшемся окне вы сами укажете, какие возраста соревнуются вместе.": {
+    "en": "There are no preset groups. Enter scores for all subjects and click “Calculate results”. In the window that opens, you decide which ages compete together.",
+    "kk": "Дайын топтар жоқ. Барлық пән бойынша ұпайларды енгізіп, «Нәтижелерді шығару» түймесін басыңыз. Ашылған терезеде қай жастағы балалар бірге сайысатынын өзіңіз көрсетесіз.",
+    "az": "Hazır qruplar yoxdur. Bütün fənlər üzrə balları daxil edin və “Nəticələri hesabla” düyməsinə basın. Açılan pəncərədə hansı yaşların birlikdə yarışacağını özünüz müəyyən edirsiniz.",
+    "uz": "Tayyor guruhlar yo‘q. Barcha fanlar bo‘yicha ballarni kiriting va “Natijalarni hisoblash” tugmasini bosing. Ochilgan oynada qaysi yoshdagilar birga bellashishini o‘zingiz belgilaysiz."
+  },
+  "Укажите группы вручную: например, от 9 до 11 — это 9, 10 и 11 лет включительно. Возраст считаем на дату олимпиады. Группы не должны пересекаться и должны охватывать всех участников. Каждый предмет оценивается отдельно.": {
+    "en": "Enter the groups manually: for example, 9 to 11 includes ages 9, 10 and 11. Age is calculated on the olympiad date. Groups must not overlap and must cover all participants. Each subject is assessed separately.",
+    "kk": "Топтарды қолмен енгізіңіз: мысалы, 9-дан 11-ге дейінгі топқа 9, 10 және 11 жастағы балалар кіреді. Жас олимпиада өтетін күнге есептеледі. Топтар қиылыспай, барлық қатысушыны қамтуы керек. Әр пән бөлек бағаланады.",
+    "az": "Qrupları əl ilə daxil edin: məsələn, 9-dan 11-ə qədər qrupa 9, 10 və 11 yaş daxildir. Yaş olimpiadanın keçirildiyi tarixə görə hesablanır. Qruplar üst-üstə düşməməli və bütün iştirakçıları əhatə etməlidir. Hər fənn ayrıca qiymətləndirilir.",
+    "uz": "Guruhlarni qo‘lda kiriting: masalan, 9 dan 11 gacha bo‘lgan guruhga 9, 10 va 11 yosh kiradi. Yosh olimpiada sanasiga qarab hisoblanadi. Guruhlar kesishmasligi va barcha ishtirokchilarni qamrab olishi kerak. Har bir fan alohida baholanadi."
+  },
+  "Рассчитать места": {
+    "en": "Assign awards",
+    "kk": "Жүлделі орындарды есептеу",
+    "az": "Yerləri hesabla",
+    "uz": "O‘rinlarni hisoblash"
+  },
   "Автор сайта и техническая поддержка": {
     "en": "Website creator & technical support",
     "kk": "Сайт авторы және техникалық қолдау",

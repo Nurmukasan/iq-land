@@ -31,11 +31,11 @@ test("director awards workflow: 200 pupils, independent age categories, atomic s
     assert.equal(r.res.status, 200);
     return r.data;
   };
-  const generate = async (expectedHash) =>
+  const generate = async (expectedHash, categories) =>
     await api.request(`/awards/${id}/generate`, {
       ...auth,
       method: "POST",
-      body: { expectedHash },
+      body: { expectedHash, ...(categories ? { categories } : {}) },
     });
   await t.test(
     "both organizer roles are admitted; unauthenticated and future-event scoring is rejected",
@@ -100,8 +100,9 @@ test("director awards workflow: 200 pupils, independent age categories, atomic s
       state = await get();
       assert.equal(state.summary.participants, 200);
       assert.equal(state.rows.length, 600);
-      assert.equal(state.categories.length, 5);
-      assert.equal(state.summary.uncategorized, 0);
+      assert.deepEqual(state.categories, []);
+      assert.equal(state.summary.uncategorized, 600);
+      assert.equal(state.result, null);
       assert.equal(
         new Set(state.rows.map((r) => r.centerId)).size,
         4,
@@ -125,7 +126,7 @@ test("director awards workflow: 200 pupils, independent age categories, atomic s
     },
   );
   await t.test(
-    "category overlaps and malformed objects are rejected without changing the defaults",
+    "category overlaps and malformed objects are rejected without introducing any groups",
     async () => {
       for (const categories of [
         [
@@ -210,7 +211,13 @@ test("director awards workflow: 200 pupils, independent age categories, atomic s
   await t.test(
     "generation yields exactly 30/30/40 for each of 15 subject/category groups and four center files",
     async () => {
-      const result = await generate(state.inputHash);
+      const result = await generate(state.inputHash, [
+        { minAge: 6, maxAge: 7 },
+        { minAge: 8, maxAge: 9 },
+        { minAge: 10, maxAge: 11 },
+        { minAge: 12, maxAge: 13 },
+        { minAge: 14, maxAge: 15 },
+      ]);
       assert.equal(result.res.status, 200, JSON.stringify(result.data));
       state = result.data;
       assert.deepEqual(state.result.counts, {
@@ -478,7 +485,7 @@ test("legacy migration adds categories and Telegram without reusing WhatsApp lin
   );
   const state = (await api.request("/awards/" + id, { cookie: api.director }))
     .data;
-  assert.equal(state.categories.length, 5);
+  assert.deepEqual(state.categories, []);
   assert.equal(state.rows.length, 1);
   assert.equal(state.result, null);
   assert.equal(
@@ -490,4 +497,75 @@ test("legacy migration adds categories and Telegram without reusing WhatsApp lin
     "https://chat.whatsapp.com/LegacyInvite0000000000",
     "Historical field is preserved, never reinterpreted as Telegram",
   );
+});
+
+test("organizer-defined final groups are required, inclusive and committed atomically with results", async (t) => {
+  const api = await awardsFixture();
+  t.after(() => api.close());
+  const id = await api.create();
+  const auth = { cookie: api.director };
+  const get = async () => (await api.request(`/awards/${id}`, auth)).data;
+  const generate = (state, categories) => api.request(`/awards/${id}/generate`, {
+    ...auth, method: "POST", body: { expectedHash: state.inputHash, categories },
+  });
+  const registration = await api.request("/registrations", {
+    method: "POST",
+    body: teamPayload(id, {
+      students: Array.from({ length: 20 }, (_, i) => ({
+        name: `ТЕСТ Финальная группа ${String(i).padStart(2, "0")}`,
+        birth: `${Number(today.slice(0, 4)) - (i < 10 ? 9 + i % 3 : 12 + i % 3)}-01-01`,
+        grade: 5,
+        subjects,
+      })),
+    }),
+  });
+  assert.equal(registration.res.status, 201);
+  let state = await get();
+  assert.deepEqual(state.categories, []);
+  const categories = [{ minAge: 9, maxAge: 11 }, { minAge: 12, maxAge: 14 }];
+  assert.equal((await generate(state, categories)).res.status, 400, "No awards or categories saved while scores are missing");
+  assert.deepEqual((await get()).categories, []);
+  const scored = await api.request(`/awards/${id}/scores`, {
+    ...auth, method: "PUT", body: {
+      scores: state.rows.map((row) => ({ id: row.id, score: 100 - Number(row.name.slice(-2)), previous: null })),
+    },
+  });
+  assert.equal(scored.res.status, 200);
+  state = scored.data;
+  assert.equal(state.summary.missingScores, 0);
+  assert.deepEqual(state.categories, []);
+  assert.equal(state.result, null, "Saving every score never generates awards automatically");
+  for (const invalid of [
+    undefined, [], null,
+    [{ minAge: 9, maxAge: 11 }, { minAge: 11, maxAge: 14 }],
+    [{ minAge: 10, maxAge: 14 }],
+  ]) {
+    assert.equal((await generate(state, invalid)).res.status, 400);
+    assert.deepEqual(await get(), state, "Failed calculation must not save groups or results");
+  }
+  const stale = await generate({ ...state, inputHash: "0".repeat(64) }, categories);
+  assert.equal(stale.res.status, 409);
+  assert.deepEqual(await get(), state);
+  const result = await generate(state, categories);
+  assert.equal(result.res.status, 200, JSON.stringify(result.data));
+  state = result.data;
+  assert.deepEqual(state.categories.map(({ minAge, maxAge }) => ({ minAge, maxAge })), categories);
+  assert.equal(state.result.stale, false);
+  assert.equal(state.summary.uncategorized, 0);
+  assert.deepEqual(state.result.counts, { gold: 18, silver: 18, bronze: 24 });
+  const awards = api.withDb((db) => JSON.parse(db.prepare("SELECT results FROM award_runs WHERE event_id=?").get(id).results));
+  const group = awards.filter((row) => row.categoryId === "9-11" && row.subject === subjects[0]);
+  assert.equal(group.length, 10);
+  assert.deepEqual([...new Set(group.map((row) => row.age))].sort((a, b) => a - b), [9, 10, 11]);
+  assert.deepEqual(group.map((row) => row.medal), ["gold", "gold", "gold", "silver", "silver", "silver", "bronze", "bronze", "bronze", "bronze"]);
+  assert.equal((await generate(state, [{ minAge: 9, maxAge: 10 }])).res.status, 400);
+  assert.deepEqual(await get(), state, "Failed regrouping preserves previously calculated results and groups");
+  const regenerated = await generate(state, [{ minAge: 9, maxAge: 14 }]);
+  assert.equal(regenerated.res.status, 200);
+  assert.notEqual(regenerated.data.inputHash, state.inputHash);
+  assert.equal(regenerated.data.result.stale, false);
+  assert.equal(regenerated.data.categories.length, 1);
+  await api.stop();
+  await api.start();
+  assert.deepEqual(await get(), regenerated.data, "Explicit groups and awards survive restart");
 });

@@ -5,9 +5,15 @@ import {
   normalizeCategories,
   assignMedals,
   compareAwardRows,
-  DEFAULT_CATEGORIES,
   MAX_SCORE,
 } from "../shared/award-rules.js";
+const TEST_CATEGORIES = normalizeCategories([
+  { minAge: 6, maxAge: 7 },
+  { minAge: 8, maxAge: 9 },
+  { minAge: 10, maxAge: 11 },
+  { minAge: 12, maxAge: 13 },
+  { minAge: 14, maxAge: 15 },
+]);
 const rows = (n, extra = {}) =>
   Array.from({ length: n }, (_, i) => ({
     id: `entry-${i}`,
@@ -59,6 +65,17 @@ test("categories sort, allow adjacent nonoverlapping ranges and reject shared en
   ])
     assert.throws(() => normalizeCategories(c));
 });
+test("manually entered 9–11 includes both endpoints and compares all three ages together", () => {
+  const input = rows(10).map((row, index) => ({ ...row, age: 9 + (index % 3) }));
+  assert.throws(() => assignMedals(input, []));
+  const result = assignMedals(input, [{ minAge: 9, maxAge: 11 }]);
+  assert.deepEqual(counts(result), { gold: 3, silver: 3, bronze: 4 });
+  assert.deepEqual([...new Set(result.map((row) => row.age))].sort((a, b) => a - b), [9, 10, 11]);
+  assert.ok(result.every((row) => row.categoryId === "9-11"));
+  for (const age of [8, 12]) {
+    assert.throws(() => assignMedals([...input, ...rows(1, { age })], [{ minAge: 9, maxAge: 11 }]));
+  }
+});
 test("30/30/40 is calculated independently for every subject and category, irrespective of center or class", () => {
   const input = [
     ...rows(10),
@@ -79,7 +96,7 @@ test("30/30/40 is calculated independently for every subject and category, irres
       center: i % 2 ? "Центр 1" : "Центр 2",
       grade: (i % 3) + 4,
     })),
-    DEFAULT_CATEGORIES,
+    TEST_CATEGORIES,
   );
   assert.deepEqual(counts(result), { gold: 9, silver: 9, bronze: 12 });
   for (const group of [
@@ -91,7 +108,7 @@ test("30/30/40 is calculated independently for every subject and category, irres
   assert.equal(result.find((r) => r.id === "entry-0").medal, "gold");
   assert.equal(result.find((r) => r.id === "entry-3").medal, "silver");
   assert.equal(result.find((r) => r.id === "entry-6").medal, "bronze");
-  assert.deepEqual(counts(assignMedals(rows(100), DEFAULT_CATEGORIES)), {
+  assert.deepEqual(counts(assignMedals(rows(100), TEST_CATEGORIES)), {
     gold: 30,
     silver: 30,
     bronze: 40,
@@ -102,27 +119,27 @@ test("ties at boundaries share the higher medal; cutoffs round up for small grou
     ...r,
     score: i === 3 ? 8 : i === 6 ? 5 : r.score,
   }));
-  const result = assignMedals(input, DEFAULT_CATEGORIES);
+  const result = assignMedals(input, TEST_CATEGORIES);
   assert.deepEqual(counts(result), { gold: 4, silver: 3, bronze: 3 });
   assert.equal(result.find((r) => r.id === "entry-3").rank, 3);
   assert.equal(result.find((r) => r.id === "entry-6").medal, "silver");
-  assert.deepEqual(counts(assignMedals(rows(1), DEFAULT_CATEGORIES)), {
+  assert.deepEqual(counts(assignMedals(rows(1), TEST_CATEGORIES)), {
     gold: 1,
     silver: 0,
     bronze: 0,
   });
-  assert.deepEqual(counts(assignMedals(rows(2), DEFAULT_CATEGORIES)), {
+  assert.deepEqual(counts(assignMedals(rows(2), TEST_CATEGORIES)), {
     gold: 1,
     silver: 1,
     bronze: 0,
   });
-  assert.deepEqual(counts(assignMedals(rows(3), DEFAULT_CATEGORIES)), {
+  assert.deepEqual(counts(assignMedals(rows(3), TEST_CATEGORIES)), {
     gold: 1,
     silver: 1,
     bronze: 1,
   });
   assert.deepEqual(
-    counts(assignMedals(rows(10, { score: 0 }), DEFAULT_CATEGORIES)),
+    counts(assignMedals(rows(10, { score: 0 }), TEST_CATEGORIES)),
     { gold: 10, silver: 0, bronze: 0 },
   );
 });
@@ -135,12 +152,12 @@ test("no partial results for missing scores or uncovered ages; zero and large me
     { age: null },
     { age: 16 },
   ])
-    assert.throws(() => assignMedals(rows(1, extra), DEFAULT_CATEGORIES));
+    assert.throws(() => assignMedals(rows(1, extra), TEST_CATEGORIES));
   assert.equal(
-    assignMedals(rows(1, { score: MAX_SCORE }), DEFAULT_CATEGORIES)[0].medal,
+    assignMedals(rows(1, { score: MAX_SCORE }), TEST_CATEGORIES)[0].medal,
     "gold",
   );
-  assert.throws(() => assignMedals([], DEFAULT_CATEGORIES));
+  assert.throws(() => assignMedals([], TEST_CATEGORIES));
 });
 test("center results sort medal first, then subject and age, preserving numeric scores", () => {
   const input = [
@@ -154,7 +171,7 @@ test("center results sort medal first, then subject and age, preserving numeric 
       id: "mental" + r.id,
     })),
   ];
-  const result = assignMedals(input, DEFAULT_CATEGORIES).sort(compareAwardRows);
+  const result = assignMedals(input, TEST_CATEGORIES).sort(compareAwardRows);
   assert.deepEqual(
     result.slice(0, 9).map((r) => r.medal),
     Array(9).fill("gold"),

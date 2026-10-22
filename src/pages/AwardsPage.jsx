@@ -12,7 +12,6 @@ import {
   Plus,
   RefreshCw,
   Search,
-  Settings2,
   Trash2,
 } from "lucide-react";
 import { api, dateLabel, ErrorBox, Modal, Spinner, useApp } from "../main";
@@ -21,6 +20,7 @@ import {
   AWARD_SUBJECTS,
   MAX_SCORE,
   categoryLabel,
+  normalizeCategories,
 } from "../../shared/award-rules.js";
 import "./AwardsPage.css";
 
@@ -244,7 +244,7 @@ export default function AwardsPage() {
       throw e;
     }
   };
-  async function generate() {
+  async function generate(categories) {
     setGenerating(true);
     setError("");
     try {
@@ -252,9 +252,10 @@ export default function AwardsPage() {
       const current = state.current;
       const saved = await api(`/awards/${current.event.id}/generate`, {
         method: "POST",
-        body: JSON.stringify({ expectedHash: current.inputHash }),
+        body: JSON.stringify({ expectedHash: current.inputHash, categories }),
       });
       apply(saved);
+      setCategoriesOpen(false);
       notify("Места присвоены. Файлы центров готовы.");
       requestAnimationFrame(() =>
         document.getElementById("center-results")?.scrollIntoView({
@@ -266,7 +267,8 @@ export default function AwardsPage() {
         }),
       );
     } catch (e) {
-      setError(e.message);
+      if (e.status === 401) setUser(null);
+      throw e;
     } finally {
       setGenerating(false);
     }
@@ -454,35 +456,20 @@ export default function AwardsPage() {
                       >
                         <RefreshCw size={16} />
                       </button>
-                      <button
-                        className="aw-settings"
-                        disabled={saving > 0 || generating}
-                        onClick={() => setCategoriesOpen(true)}
-                      >
-                        <Settings2 size={17} />
-                        {tr("Возрастные категории")}
-                      </button>
                     </div>
                   </div>
                   {!data.categories.length && (
                     <div className="aw-setup">
                       <div>
                         <strong>
-                          {tr("Сначала задайте возрастные категории")}
+                          {tr("Сначала баллы — затем возрастные группы")}
                         </strong>
                         <p>
                           {tr(
-                            "Например, 12–13 и 14–15 лет. Возраст считаем на дату олимпиады; дети из разных категорий не соревнуются между собой.",
+                            "Готовых групп нет. Заполните баллы по всем предметам и нажмите «Вывести результаты». В открывшемся окне вы сами укажете, какие возраста соревнуются вместе.",
                           )}
                         </p>
                       </div>
-                      <button
-                        className="btn btn-secondary btn-small"
-                        onClick={() => setCategoriesOpen(true)}
-                      >
-                        {tr("Настроить ")}
-                        <ArrowRight size={17} />
-                      </button>
                     </div>
                   )}
                   {data.summary.uncategorized > 0 &&
@@ -731,12 +718,16 @@ export default function AwardsPage() {
                           className="btn btn-primary"
                           disabled={
                             generating ||
+                            saving > 0 ||
                             !effective.length ||
-                            remaining > 0 ||
-                            !data.categories.length ||
-                            data.summary.uncategorized > 0
+                            remaining > 0
                           }
-                          onClick={generate}
+                          onClick={async () => {
+                            try {
+                              await saveBeforeLeave();
+                              setCategoriesOpen(true);
+                            } catch {}
+                          }}
                         >
                           {tr(
                             generating ? "Рассчитываю…" : "Вывести результаты",
@@ -864,15 +855,7 @@ export default function AwardsPage() {
             <CategoriesEditor
               data={data}
               onClose={() => setCategoriesOpen(false)}
-              onSave={async (categories) => {
-                await saveScores();
-                const value = await api(`/awards/${eventId}/categories`, {
-                  method: "PUT",
-                  body: JSON.stringify({ categories }),
-                });
-                apply(value);
-                setCategoriesOpen(false);
-              }}
+              onSave={generate}
             />
           )}
           {leaveTo && (
@@ -925,12 +908,14 @@ function CategoriesEditor({ data, onClose, onSave }) {
           minAge: String(c.minAge),
           maxAge: String(c.maxAge),
         }))
-      : [...new Set(data.rows.map((r) => r.age).filter((age) => age !== null))]
-          .sort((a, b) => a - b)
-          .map((age) => ({ minAge: String(age), maxAge: String(age) })),
+      : [{ minAge: "", maxAge: "" }],
   );
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
+  function changeItems(update) {
+    setItems(update);
+    setError("");
+  }
   return (
     <Modal
       title={tr("Возрастные категории")}
@@ -953,12 +938,24 @@ function CategoriesEditor({ data, onClose, onSave }) {
           }
           setBusy(true);
           try {
-            await onSave(
+            const categories = normalizeCategories(
               items.map((c) => ({
                 minAge: Number(c.minAge),
                 maxAge: Number(c.maxAge),
               })),
             );
+            if (
+              data.rows.some(
+                (row) => row.age === null || !categories.some(
+                  (category) => row.age >= category.minAge && row.age <= category.maxAge,
+                ),
+              )
+            ) {
+              throw Error(
+                "Для некоторых участников не задана возрастная категория. Проверьте диапазоны возраста.",
+              );
+            }
+            await onSave(categories);
           } catch (e) {
             setError(e.message);
             setBusy(false);
@@ -967,7 +964,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
       >
         <p>
           {tr(
-            "Полный возраст на дату олимпиады. Диапазоны включают обе границы и не должны пересекаться: например, 12–13 и 14–15 лет.",
+            "Укажите группы вручную: например, от 9 до 11 — это 9, 10 и 11 лет включительно. Возраст считаем на дату олимпиады. Группы не должны пересекаться и должны охватывать всех участников. Каждый предмет оценивается отдельно.",
           )}
         </p>
         {error && <ErrorBox>{tr(error)}</ErrorBox>}
@@ -987,7 +984,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
                   value={category.minAge}
                   disabled={busy}
                   onChange={(e) =>
-                    setItems((list) =>
+                    changeItems((list) =>
                       list.map((c, i) =>
                         i === index ? { ...c, minAge: e.target.value } : c,
                       ),
@@ -1009,7 +1006,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
                   value={category.maxAge}
                   disabled={busy}
                   onChange={(e) =>
-                    setItems((list) =>
+                    changeItems((list) =>
                       list.map((c, i) =>
                         i === index ? { ...c, maxAge: e.target.value } : c,
                       ),
@@ -1023,7 +1020,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
                 aria-label={tr("Удалить категорию {0}", [index + 1])}
                 disabled={busy}
                 onClick={() =>
-                  setItems((list) => list.filter((_, i) => i !== index))
+                  changeItems((list) => list.filter((_, i) => i !== index))
                 }
               >
                 <Trash2 size={18} />
@@ -1036,7 +1033,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
           type="button"
           disabled={busy || items.length >= 100}
           onClick={() =>
-            setItems((list) => [...list, { minAge: "", maxAge: "" }])
+            changeItems((list) => [...list, { minAge: "", maxAge: "" }])
           }
         >
           <Plus size={17} />
@@ -1047,7 +1044,7 @@ function CategoriesEditor({ data, onClose, onSave }) {
           type="submit"
           disabled={busy}
         >
-          {tr(busy ? "Сохраняю…" : "Сохранить категории")}
+          {tr(busy ? "Рассчитываю…" : "Рассчитать места")}
           <Check size={18} />
         </button>
       </form>

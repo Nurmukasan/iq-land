@@ -172,7 +172,7 @@ test("language endpoint ignores untrusted country/forwarding headers; multilingu
     await api.request(`/awards/${id}/generate`, {
       cookie: api.director,
       method: "POST",
-      body: { expectedHash: state.inputHash },
+      body: { expectedHash: state.inputHash, categories: [{ minAge: 0, maxAge: 99 }] },
     })
   ).data;
   for (const { code } of LANGUAGES) {
