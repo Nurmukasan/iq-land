@@ -2,6 +2,7 @@ import { formatDate } from "../shared/i18n/dates.js";
 import { tr, getIntlLocale, getLanguage } from "./i18n/runtime.js";
 import LanguageProvider, { useLanguage } from "./i18n/LanguageProvider";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import { generalContact } from "./lib/contacts.js";
 import React, {
   createContext,
   useContext,
@@ -248,6 +249,7 @@ export function Footer() {
           <div>
             <Link to="/#faq">{tr("Вопросы и ответы")}</Link>
             <Link to="/#contacts">{tr("Контакты")}</Link>
+            <a href={generalContact.href}>{generalContact.phone}</a>
             <a
               className="footer-instagram"
               href="https://www.instagram.com/iqland_competitions/"

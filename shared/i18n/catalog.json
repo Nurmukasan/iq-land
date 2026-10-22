@@ -1,4 +1,22 @@
 {
+  "Общие вопросы": {
+    "en": "General enquiries",
+    "kk": "Жалпы сұрақтар",
+    "az": "Ümumi suallar",
+    "uz": "Umumiy savollar"
+  },
+  "Вопросы по учебной части": {
+    "en": "Academic enquiries",
+    "kk": "Оқу бөлімі бойынша сұрақтар",
+    "az": "Tədrislə bağlı suallar",
+    "uz": "O‘quv ishlari bo‘yicha savollar"
+  },
+  "Есть вопрос об участии или хотите привезти свою команду? Позвоните нам. Анонсы и моменты с наших олимпиад — в Instagram.": {
+    "en": "Have a question about taking part or bringing your team? Give us a call. Follow our olympiad announcements and highlights on Instagram.",
+    "kk": "Қатысу туралы сұрағыңыз бар ма немесе командаңызды әкелгіңіз келе ме? Бізге қоңырау шалыңыз. Олимпиадаларымыздың хабарландырулары мен қызықты сәттері Instagram-да.",
+    "az": "İştirak etmək və ya komandanızı gətirmək barədə sualınız var? Bizə zəng edin. Olimpiadalarımızın elanları və maraqlı anları Instagram-dadır.",
+    "uz": "Ishtirok etish yoki jamoangizni olib kelish haqida savolingiz bormi? Bizga qo‘ng‘iroq qiling. Olimpiadalarimiz e’lonlari va yorqin lahzalari Instagram’da."
+  },
   "Заявки команд": {
     "en": "Team applications",
     "kk": "Командалардың өтінімдері",
