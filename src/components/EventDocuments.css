@@ -1,0 +1,91 @@
+.event-documents {
+  margin: 24px 0;
+  min-width: 0;
+  text-align: left;
+}
+.event-documents h3 {
+  margin: 0 0 8px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.event-documents > p,
+.event-documents-uploader > p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #68758d;
+  margin: 0 0 16px;
+}
+.event-documents ul {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.event-documents li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dfe3e9;
+  border-radius: 13px;
+  background: #f4f6fa;
+  padding-right: 8px;
+}
+.event-documents a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px;
+  min-width: 0;
+  flex: 1;
+  border-radius: 12px;
+}
+.event-documents a > span { min-width: 0; flex: 1; }
+.event-documents svg { flex-shrink: 0; }
+.event-documents strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.event-documents small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #68758d;
+}
+.event-documents a:hover { background: #eaf0ff; }
+.event-documents a:focus-visible { outline: 2px solid #3454d9; outline-offset: 2px; }
+.event-documents-uploader {
+  border: 1px solid #dfe3e9;
+  border-radius: 16px;
+  padding: 22px;
+  margin: 24px 0;
+  min-width: 0;
+}
+.event-documents-uploader > label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.event-documents-uploader > input { width: 100%; max-width: 100%; font-size: 13px; }
+.event-documents-uploader > small {
+  display: block;
+  font-size: 12px;
+  color: #68758d;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+.event-documents-uploader .document-upload-status { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.event-documents-uploader .document-upload-error { color: #a4342a; margin-top: 14px; }
+.event-card-documents { margin: 0 0 20px; font-size: 13px; text-align: left; }
+.reg-success > .event-documents { width: min(100%, 680px); margin: 32px auto; }
+@media (max-width: 480px) {
+  .event-documents-uploader { padding: 16px; }
+  .event-documents a { padding: 12px; gap: 10px; }
+}

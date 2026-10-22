@@ -41,6 +41,7 @@ import {
 } from "../main";
 import EventPhoto from "../components/EventPhoto";
 import EventVideoUploader from "../components/EventVideoUploader";
+import EventDocumentsUploader from "../components/EventDocumentsUploader";
 import CabinetSidebar from "../components/CabinetSidebar";
 
 const isPastEvent = (event) =>
@@ -1265,15 +1266,18 @@ function EventEditor({ event, onClose, onSaved }) {
       currency: "KZT",
       image: "",
       telegramUrl: "",
+      documents: [],
       description: "",
       active: true,
       ...event,
     }),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
-    [uploading, setUploading] = useState(false);
+    [uploading, setUploading] = useState(false),
+    [documentsUploading, setDocumentsUploading] = useState(false);
   const saving = useRef(false),
     photoBusy = useRef(false),
+    documentBusy = useRef(false),
     mounted = useRef(false),
     saveRequest = useRef(null);
   useEffect(() => {
@@ -1286,7 +1290,7 @@ function EventEditor({ event, onClose, onSaved }) {
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
   async function save(e) {
     e.preventDefault();
-    if (saving.current || photoBusy.current) return;
+    if (saving.current || photoBusy.current || documentBusy.current) return;
     if (!form.subjects.length) {
       setError("Выберите хотя бы одну дисциплину олимпиады.");
       return;
@@ -1333,7 +1337,7 @@ function EventEditor({ event, onClose, onSaved }) {
             photoBusy.current = value;
             setUploading(value);
           }}
-          disabled={busy}
+          disabled={busy || documentsUploading}
         />
         <div className="fields-grid">
           {[
@@ -1471,9 +1475,18 @@ function EventEditor({ event, onClose, onSaved }) {
           />{" "}
           {tr("Показывать в публичной афише")}
         </label>
+        <EventDocumentsUploader
+          value={form.documents}
+          onChange={(documents) => set("documents", documents)}
+          disabled={busy || uploading}
+          onBusyChange={(value) => {
+            documentBusy.current = value;
+            setDocumentsUploading(value);
+          }}
+        />
         {error && <ErrorBox>{tr(error)}</ErrorBox>}
         <button
-          disabled={busy || uploading}
+          disabled={busy || uploading || documentsUploading}
           className="btn btn-primary full-width"
         >
           {tr(busy ? "Сохраняем…" : "Сохранить мероприятие")}

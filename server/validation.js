@@ -2,6 +2,8 @@ import { z } from "zod";
 import { isExistingEventImage } from "./event-images.js";
 import { isExistingEventVideo } from "./event-videos.js";
 import { normalizeTelegramUrl } from "../shared/telegram.js";
+import { existingDocument } from "./event-documents.js";
+import { MAX_EVENT_DOCUMENTS } from "../shared/event-documents.js";
 export { normalizeTelegramUrl } from "../shared/telegram.js";
 const text = (max = 150) =>
   z
@@ -78,6 +80,13 @@ export const eventSchema = z
       )
       .default(""),
     telegramUrl,
+    documents: z.array(z.object({
+      name: z.string().trim().min(1).max(180).refine((name) => !/[\x00-\x1f\x7f/\\]/.test(name), "Проверьте название файла."),
+      url: z.string().max(255).refine((url) => Boolean(existingDocument(url)), "Загрузите файл через форму мероприятия."),
+    }).transform((doc) => ({ ...doc, size: existingDocument(doc.url).size })))
+      .max(MAX_EVENT_DOCUMENTS, "Не более 10 файлов для одной олимпиады.")
+      .refine((docs) => new Set(docs.map((doc) => doc.url)).size === docs.length, "Один и тот же файл добавлен несколько раз.")
+      .optional(),
     description: text(2000),
     active: z.boolean().default(true),
   })

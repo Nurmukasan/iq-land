@@ -50,6 +50,7 @@ const publicEventKeys = [
   "currency",
   "image",
   "description",
+  "documents",
   "active",
   "video",
   "resultsPublished",

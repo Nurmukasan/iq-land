@@ -49,6 +49,8 @@ import {
 import "./Registration.css";
 import { normalizeTelegramUrl } from "../../shared/telegram.js";
 import EventPhoto from "../components/EventPhoto";
+import EventDocuments from "../components/EventDocuments";
+import { sanitizeEventDocuments } from "../../shared/event-documents.js";
 
 const emptyContact = () => ({
   center: "",
@@ -86,6 +88,7 @@ function restoreReceipt(saved, event) {
       id: receipt.id,
       count: receipt.count,
       telegramUrl: telegramInvite(receipt.telegramUrl),
+      documents: sanitizeEventDocuments(receipt.documents ?? event.documents),
     },
   };
 }
@@ -614,6 +617,7 @@ export default function Registration() {
             id: response.id,
             count: response.count,
             telegramUrl: telegramInvite(response.telegramUrl),
+            documents: sanitizeEventDocuments(response.documents),
           },
           draft: snapshot,
         };
@@ -876,6 +880,7 @@ export default function Registration() {
             </div>
           </section>
         )}
+        <EventDocuments documents={receipt.documents ?? event.documents} />
         <div className="reg-success-actions">
           <button
             className="btn btn-primary"

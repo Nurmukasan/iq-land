@@ -26,6 +26,8 @@ const eventColumns = new Set(
     .all()
     .map((column) => column.name),
 );
+if (!eventColumns.has("documents"))
+  db.exec("ALTER TABLE events ADD COLUMN documents TEXT NOT NULL DEFAULT '[]'");
 if (!eventColumns.has("video"))
   db.exec("ALTER TABLE events ADD COLUMN video TEXT NOT NULL DEFAULT ''");
 if (!eventColumns.has("results_published"))
@@ -108,6 +110,7 @@ export function eventObject(e, { includePrivate = false } = {}) {
         price: e.price,
         currency: e.currency,
         image: e.image,
+        documents: JSON.parse(e.documents || "[]"),
         description: e.description,
         active: Boolean(e.active),
         video: e.video || "",
