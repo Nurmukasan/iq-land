@@ -1,4 +1,16 @@
 {
+  "Автор сайта и техническая поддержка": {
+    "en": "Website creator & technical support",
+    "kk": "Сайт авторы және техникалық қолдау",
+    "az": "Saytın müəllifi və texniki dəstək",
+    "uz": "Sayt muallifi va texnik yordam"
+  },
+  "Техническая поддержка": {
+    "en": "Technical support",
+    "kk": "Техникалық қолдау",
+    "az": "Texniki dəstək",
+    "uz": "Texnik yordam"
+  },
   "Общие вопросы": {
     "en": "General enquiries",
     "kk": "Жалпы сұрақтар",

@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { api, dateLabel, priceLabel, Modal, Spinner, ErrorBox } from "../main";
 import EventPhoto from "../components/EventPhoto";
-import { academicContacts, generalContact } from "../lib/contacts.js";
+import { academicContacts, generalContact, technicalContact } from "../lib/contacts.js";
 import "./Home.css";
 import "./LandingSections.css";
 
@@ -895,6 +895,20 @@ export default function Home() {
                 <Phone size={21} aria-hidden="true" />
               </a>
             ))}
+          </div>
+        </div>
+        <div className="technical-contact" id="technical-support" aria-labelledby="technical-support-title">
+          <h3 id="technical-support-title">{tr("Автор сайта и техническая поддержка")}</h3>
+          <div className="technical-contact-links">
+            <a href={technicalContact.href}>
+              <Phone size={18} aria-hidden="true" />
+              {technicalContact.phone}
+            </a>
+            <a href={technicalContact.telegramUrl} target="_blank" rel="noopener noreferrer">
+              <Send size={18} aria-hidden="true" />
+              Telegram · {technicalContact.telegramHandle}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>
