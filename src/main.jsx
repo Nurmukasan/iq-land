@@ -249,6 +249,7 @@ export function Footer() {
           <div>
             <Link to="/#faq">{tr("Вопросы и ответы")}</Link>
             <Link to="/#contacts">{tr("Контакты")}</Link>
+            <Link to="/#technical-support">{tr("Техническая поддержка")}</Link>
             <a href={generalContact.href}>{generalContact.phone}</a>
             <a
               className="footer-instagram"

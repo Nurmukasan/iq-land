@@ -3,6 +3,13 @@ export const generalContact = {
   href: "tel:+77012201594",
 };
 
+export const technicalContact = {
+  phone: "+7 (771) 485-92-26",
+  href: "tel:+77714859226",
+  telegramHandle: "@Werfyy",
+  telegramUrl: "https://t.me/Werfyy",
+};
+
 export const academicContacts = [
   {
     name: "Zhanar Kassymova",
