@@ -26,6 +26,7 @@ import {
   Users,
   AlertCircle,
   FileCheck2,
+  UploadCloud,
   ChevronDown,
 } from "lucide-react";
 import {
@@ -40,12 +41,12 @@ import {
 import {
   makeStudent,
   validateStudent,
-  parseStudentList,
   rosterStats,
   findDuplicates,
   validateContact,
   sanitizeDraft,
 } from "../lib/registration";
+import { previewRoster, readRosterFile } from "../lib/roster-import.js";
 import "./Registration.css";
 import { normalizeTelegramUrl } from "../../shared/telegram.js";
 import EventPhoto from "../components/EventPhoto";
@@ -67,6 +68,7 @@ const steps = [
 ];
 const draftKey = (id) => `iqland:team-draft:${id}`;
 const receiptKey = (id) => `iqland:pending-receipt:${id}`;
+const attemptKey = (id) => `iqland:submission-attempt:${id}`;
 const receiptReadyEvent = "iqland:registration-completed";
 const telegramInvite = (value) => normalizeTelegramUrl(value) || "";
 function restoreReceipt(saved, event) {
@@ -158,9 +160,19 @@ export default function Registration() {
     [pasteText, setPasteText] = useState(""),
     [importErrors, setImportErrors] = useState([]);
   const [query, setQuery] = useState(""),
+    [onlyIssues, setOnlyIssues] = useState(false),
+    [issueKeys, setIssueKeys] = useState(() => new Set()),
+    [autoSave, setAutoSave] = useState(""),
     [draft, setDraft] = useState(null),
     [leaveTo, setLeaveTo] = useState(null);
+  const [importBusy, setImportBusy] = useState(false),
+    [importFileError, setImportFileError] = useState(""),
+    [importSheets, setImportSheets] = useState([]),
+    [importSheet, setImportSheet] = useState(0);
   const formRef = useRef(null),
+    fileInput = useRef(null),
+    importRequest = useRef(0),
+    submissionAttempt = useRef(null),
     busyRef = useRef(false),
     routeGeneration = useRef(0),
     mounted = useRef(false),
@@ -181,6 +193,12 @@ export default function Registration() {
     let cancelled = false;
     mounted.current = true;
     routeGeneration.current += 1;
+    importRequest.current += 1;
+    setImportBusy(false);
+    setImportSheets([]);
+    setImportFileError("");
+    setOnlyIssues(false);
+    setAutoSave("");
     setLoading(true);
     setLoadError("");
     Promise.all([
@@ -299,6 +317,7 @@ export default function Registration() {
   useEffect(() => {
     if (!dirty) return;
     const unload = (e) => {
+      preserveOnBack();
       e.preventDefault();
       e.returnValue = "";
     };
@@ -351,6 +370,20 @@ export default function Registration() {
     };
   }, [dirty]);
 
+  useEffect(() => {
+    if (!dirty || loading || sending || receipt || event?.id !== id) return;
+    setAutoSave("saving");
+    const snapshot = { version: 1, students: students.length ? students : [makeStudent(subjects)], contact, teachers, savedAt: new Date().toISOString() };
+    const timeout = setTimeout(() => {
+      try {
+        sessionStorage.setItem(draftKey(id), JSON.stringify(snapshot));
+        setAutoSave("saved");
+        setDraft(null);
+      } catch { setAutoSave("failed"); }
+    }, 600);
+    return () => clearTimeout(timeout);
+  }, [students, contact, teachers, id, loading, sending, receipt, event?.id]);
+
   const stats = useMemo(
     () => rosterStats(students, subjects),
     [students, event],
@@ -360,17 +393,17 @@ export default function Registration() {
     [students],
   );
   const imported = useMemo(
-    () => parseStudentList(pasteText, subjects, defaults),
+    () => previewRoster(pasteText, subjects, defaults),
     [pasteText, event, defaults],
   );
   const shownStudents = students
     .map((student, index) => ({ student, index }))
     .filter(
       ({ student }) =>
-        !query ||
+        (!onlyIssues || issueKeys.has(student.key)) && (!query ||
         student.name
           .toLocaleLowerCase("ru-RU")
-          .includes(query.toLocaleLowerCase("ru-RU")),
+          .includes(query.toLocaleLowerCase("ru-RU"))),
     );
 
   function chooseEvent(selected) {
@@ -400,6 +433,7 @@ export default function Registration() {
     setError("");
   }
   function addStudents(count = 1) {
+    setOnlyIssues(false);
     setStudents((list) => [
       ...list,
       ...Array.from({ length: Math.min(count, 300 - list.length) }, () =>
@@ -425,6 +459,7 @@ export default function Registration() {
   }
   function copyStudent(student) {
     if (students.length >= 300) return;
+    setOnlyIssues(false);
     const next = makeStudent(subjects, {
       ...student,
       name: "",
@@ -446,6 +481,7 @@ export default function Registration() {
       setStudentErrors(errors);
       setQuery("");
       if (!students.length || Object.keys(errors).length) {
+        setOnlyIssues(false);
         setError(
           students.length
             ? "Проверьте отмеченные поля учеников."
@@ -536,9 +572,33 @@ export default function Registration() {
     } catch {}
     setDraft(null);
   }
-  function importStudents() {
-    const retained = students.filter((s) => hasRowData(s, subjects));
-    if (imported.errors.length) {
+  async function loadRosterFile(file) {
+    if (!file || !event) return;
+    const request = ++importRequest.current, eventId = event.id;
+    setPaste(true);
+    setImportBusy(true);
+    setImportFileError("");
+    setImportErrors([]);
+    try {
+      const sheets = await readRosterFile(file);
+      if (!mounted.current || request !== importRequest.current || liveState.current?.id !== eventId) return;
+      setImportSheets(sheets);
+      setImportSheet(0);
+      setPasteText(sheets[0].text);
+    } catch (error) {
+      if (mounted.current && request === importRequest.current) setImportFileError(error.message);
+    } finally {
+      if (mounted.current && request === importRequest.current) setImportBusy(false);
+    }
+  }
+  function closeImport() {
+    importRequest.current++;
+    setImportBusy(false);
+    setPaste(false);
+  }
+  function importStudents(allowIncomplete = false) {
+    const retained = students.filter((s) => s.name.trim() || s.birth.trim());
+    if (imported.fatal || (imported.errors.length && !allowIncomplete) || !imported.students.length) {
       setImportErrors(imported.errors);
       return;
     }
@@ -551,7 +611,11 @@ export default function Registration() {
       ]);
       return;
     }
-    setStudents([...retained, ...imported.students]);
+    const added = imported.students.map((s) => ({ ...s, subjects: s.subjects.filter((subject) => subjects.includes(subject)) }));
+    setStudents([...retained, ...added]);
+    setStudentErrors(allowIncomplete ? Object.fromEntries(added.map((s) => [s.key, validateStudent(s, subjects)])) : {});
+    setOnlyIssues(allowIncomplete);
+    setIssueKeys(new Set(added.filter((s) => Object.keys(validateStudent(s, subjects)).length).map((s) => s.key)));
     setPaste(false);
     setPasteText("");
     setImportErrors([]);
@@ -591,9 +655,7 @@ export default function Registration() {
       routeGeneration.current === generation &&
       liveState.current?.id === submitted.event.id;
     try {
-      const response = await api("/registrations", {
-        method: "POST",
-        body: JSON.stringify({
+      const body = JSON.stringify({
           eventId: submitted.event.id,
           students: submitted.students.map(({ key, ...s }) => ({
             ...s,
@@ -605,10 +667,24 @@ export default function Registration() {
           ),
           teachers: submitted.teachers.map((t) => t.trim()),
           consent: true,
-        }),
+        });
+      if (submissionAttempt.current?.body !== body) {
+        let previous;
+        try { previous = JSON.parse(sessionStorage.getItem(attemptKey(submitted.event.id)) || "null"); } catch {}
+        const key = previous?.body === body && /^[A-Za-z0-9_-]{16,128}$/.test(previous.key || "")
+          ? previous.key
+          : `team-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+        submissionAttempt.current = { body, key };
+        try { sessionStorage.setItem(attemptKey(submitted.event.id), JSON.stringify(submissionAttempt.current)); } catch {}
+      }
+      const response = await api("/registrations", {
+        method: "POST",
+        body,
+        headers: { "Idempotency-Key": submissionAttempt.current.key },
       });
       try {
         sessionStorage.removeItem(draftKey(submitted.event.id));
+        sessionStorage.removeItem(attemptKey(submitted.event.id));
       } catch {}
       if (!isCurrent()) {
         const completion = {
@@ -1045,11 +1121,16 @@ export default function Registration() {
                   </span>
                 </div>
                 <div className="reg-tools">
+                  <button type="button" className="btn btn-primary btn-small" onClick={() => fileInput.current?.click()}>
+                    <UploadCloud size={18} /> {tr("Загрузить Excel")}
+                  </button>
                   <button
                     type="button"
                     className="btn btn-secondary btn-small"
                     onClick={() => {
                       setPaste(true);
+                      setImportSheets([]);
+                      setImportFileError("");
                       setImportErrors([]);
                     }}
                   >
@@ -1080,6 +1161,8 @@ export default function Registration() {
                     {tr(" Сохранить черновик")}
                   </button>
                 </div>
+                <p className="reg-fast-hint">{tr("30–50 учеников? Загрузите XLSX или вставьте таблицу целиком. Класс и предметы можно указать один раз для всей группы.")}</p>
+                {autoSave && <p className={"reg-autosave " + autoSave} role="status">{tr(autoSave === "saved" ? "Черновик сохранён автоматически в этой вкладке" : autoSave === "saving" ? "Сохраняю черновик…" : "Не удалось сохранить черновик. Не закрывайте вкладку.")}</p>}
                 <details className="reg-bulk-disclosure">
                   <summary>
                     {tr("Общие настройки команды")}
@@ -1158,7 +1241,17 @@ export default function Registration() {
                     />
                   </label>
                 )}
-                <div className="reg-student-scroll">
+                {(stats.issues > 0 || onlyIssues) && students.length > 1 && (
+                  <button type="button" className="text-link reg-issues-filter" aria-pressed={onlyIssues} onClick={() => { setOnlyIssues(!onlyIssues); setIssueKeys(new Set(students.filter((s) => Object.keys(validateStudent(s, subjects)).length).map((s) => s.key))); setQuery(""); }}>
+                    {tr(onlyIssues ? "Показать всех учеников" : "Показать только незаполненные строки")}
+                  </button>
+                )}
+                <div className="reg-student-scroll" onKeyDown={(e) => {
+                  if (e.key !== "Enter" || e.nativeEvent.isComposing || !e.target.matches('input:not([type="checkbox"]),select')) return;
+                  e.preventDefault();
+                  const fields = [...e.currentTarget.querySelectorAll('input:not([type="checkbox"]),select')];
+                  fields[fields.indexOf(e.target) + (e.shiftKey ? -1 : 1)]?.focus();
+                }}>
                   <table className="reg-students">
                     <thead>
                       <tr>
@@ -1194,6 +1287,16 @@ export default function Registration() {
                                     errors.name ? s.key + "-name" : undefined
                                   }
                                   autoComplete="off"
+                                  onPaste={(e) => {
+                                    const text = e.clipboardData.getData("text");
+                                    if (!/[\t\n\r]/.test(text)) return;
+                                    e.preventDefault();
+                                    setPasteText(text);
+                                    setImportSheets([]);
+                                    setImportFileError("");
+                                    setImportErrors([]);
+                                    setPaste(true);
+                                  }}
                                   placeholder={tr("Фамилия Имя")}
                                   value={s.name}
                                   onChange={(e) =>
@@ -1356,6 +1459,7 @@ export default function Registration() {
                     </tbody>
                   </table>
                 </div>
+                {onlyIssues && !shownStudents.length && !query && <p className="reg-import-ready"><Check size={17} />{tr("Все строки заполнены. Можно продолжить.")}</p>}
                 {query && !shownStudents.length && (
                   <p className="reg-hint">
                     {tr("Такого ученика нет в списке. Измените поиск.")}
@@ -1823,12 +1927,26 @@ export default function Registration() {
           <EventChoices />
         </Modal>
       )}
+      <input ref={fileInput} type="file" hidden accept=".xlsx,.csv,.tsv,.txt" aria-label={tr("Загрузить список учеников из файла")} onChange={(e) => { const file = e.target.files[0]; e.target.value = ""; loadRosterFile(file); }} />
       {paste && (
         <Modal
           title={tr("Вставить список учеников")}
-          onClose={() => setPaste(false)}
+          onClose={closeImport}
           wide
         >
+          <div className="reg-import-file-tools">
+            <button type="button" className="btn btn-secondary btn-small" disabled={importBusy} onClick={() => fileInput.current?.click()}><UploadCloud size={18} />{tr("Выбрать файл XLSX или CSV")}</button>
+            <small>{tr("До 300 учеников · файл до 5 МБ · данные читаются в вашем браузере")}</small>
+          </div>
+          {importBusy && <p role="status">{tr("Читаю список…")}</p>}
+          {importFileError && <ErrorBox>{tr(importFileError)}</ErrorBox>}
+          {importSheets.length > 1 && <label className="field"><span>{tr("Лист Excel")}</span><select aria-label={tr("Лист Excel")} value={importSheet} disabled={importBusy} onChange={(e) => { const index = Number(e.target.value); setImportSheet(index); setPasteText(importSheets[index].text); setImportErrors([]); }}>{importSheets.map((sheet, i) => <option value={i} key={i}>{sheet.name}</option>)}</select></label>}
+          <div className="reg-import-defaults">
+            <label className="field"><span>{tr("Класс для строк без класса")}</span><select aria-label={tr("Класс для строк без класса")} value={defaults.grade} disabled={importBusy} onChange={(e) => { setDefaults((v) => ({ ...v, grade: e.target.value })); setImportErrors([]); }}><option value="">{tr("Выбрать класс")}</option>{Array.from({ length: 13 }, (_, i) => <option value={i} key={i}>{tr(i === 0 ? "Дошкольники" : i + " класс")}</option>)}</select></label>
+            <fieldset><legend>{tr("Дисциплины для новых учеников")}</legend><div className="reg-subject-options">{subjects.map((s) => <label className={defaults.subjects.includes(s) ? "is-selected" : ""} key={s}><input type="checkbox" checked={defaults.subjects.includes(s)} disabled={importBusy} onChange={(e) => { setDefaults((v) => ({ ...v, subjects: e.target.checked ? [...v.subjects, s] : v.subjects.filter((subject) => subject !== s) })); setImportErrors([]); }} />{tr(s)}</label>)}</div></fieldset>
+          </div>
+          <details className="reg-import-source" open={!importSheets.length}>
+          <summary>{tr("Вставить или изменить исходную таблицу")}</summary>
           <p>
             {tr("Скопируйте из Excel столбцы")}{" "}
             <strong>{tr("ФИО, дата рождения, класс")}</strong>
@@ -1850,9 +1968,12 @@ export default function Registration() {
               rows={7}
               aria-label={tr("Список учеников")}
               autoFocus
+              disabled={importBusy}
+              maxLength={2000000}
               value={pasteText}
               onChange={(e) => {
                 setPasteText(e.target.value);
+                setImportFileError("");
                 setImportErrors([]);
               }}
               placeholder={tr(
@@ -1860,6 +1981,9 @@ export default function Registration() {
               )}
             />
           </label>
+          </details>
+          {imported.students.length > 0 && <div className="reg-import-preview"><strong>{tr("Найдено учеников: {0}", [imported.students.length])}</strong><p>{tr("Первые строки для проверки. Столбцы с заголовками распознаются автоматически.")}</p><div><table><thead><tr><th>{tr("ФИО")}</th><th>{tr("Дата рождения")}</th><th>{tr("Класс")}</th></tr></thead><tbody>{imported.students.slice(0, 5).map((s) => <tr key={s.key}><td>{s.name}</td><td>{s.birth}</td><td>{s.grade}</td></tr>)}</tbody></table></div></div>}
+          {imported.errors.length > 0 && imported.students.length > 0 && !imported.fatal && <p className="reg-import-warning">{tr("Нужно исправить строк: {0}", [new Set(imported.errors.map((issue) => issue.line)).size])}</p>}
           <p className="small muted">
             {tr(
               "Дата: ДД.ММ.ГГГГ или ГГГГ-ММ-ДД. Класс 0 — дошкольник. Заполненные строки в вашей команде сохранятся.",
@@ -1898,11 +2022,13 @@ export default function Registration() {
           <button
             className="btn btn-primary full-width"
             type="button"
-            onClick={importStudents}
+            disabled={importBusy || Boolean(importFileError)}
+            onClick={() => importStudents()}
           >
             {tr("Добавить учеников ")}
             <Plus size={19} />
           </button>
+          {imported.errors.length > 0 && !imported.fatal && imported.students.length > 0 && <button className="btn btn-secondary full-width reg-import-fix" type="button" disabled={importBusy || Boolean(importFileError)} onClick={() => importStudents(true)}>{tr("Добавить список и исправить ошибки в форме")}</button>}
         </Modal>
       )}
       {leaveTo && (
@@ -1933,6 +2059,7 @@ export default function Registration() {
               className="btn btn-secondary full-width"
               onClick={() => {
                 const target = leaveTo;
+                try { sessionStorage.removeItem(draftKey(event.id)); } catch {}
                 setLeaveTo(null);
                 navigate(target);
               }}

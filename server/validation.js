@@ -38,7 +38,8 @@ export const registrationSchema = z.object({
   phone: z
     .string()
     .trim()
-    .regex(/^\+?[\d\s()\-]{7,25}$/, "Проверьте номер телефона"),
+    .regex(/^\+?[\d\s()\-]{7,25}$/, "Проверьте номер телефона")
+    .refine((value) => { const count = value.replace(/\D/g, "").length; return count >= 7 && count <= 15; }, "Проверьте номер телефона"),
   teachers: z.array(text()).max(30).default([]),
   note: z.string().trim().max(2000).default(""),
   consent: z.literal(true, "Подтвердите согласие на обработку данных"),

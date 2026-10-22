@@ -21,6 +21,12 @@ const validStudent = (fields = {}) => ({
   ...fields,
 });
 
+test("duplicate warnings recognize equivalent whitespace and letter case without merging pupils", () => {
+  const first = validStudent({ key: "first", name: "Ахметова   Алия" });
+  const second = validStudent({ key: "second", name: "  ахметова алия  " });
+  assert.deepEqual(findDuplicates([first, second]), ["first", "second"]);
+});
+
 test("student defaults get fresh keys and independent subject selections", () => {
   const defaults = { grade: "4", subjects: [subjects[1]] };
   const first = makeStudent(subjects, defaults);

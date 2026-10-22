@@ -15,7 +15,8 @@
     "test:awards": "npm run build && node tests/awards-browser.mjs",
     "test:launch": "npm run build && node tests/launch-browser.mjs",
     "test:i18n": "npm run build && node tests/i18n-browser.mjs",
-    "test:documents": "npm run build && node tests/documents-browser.mjs"
+    "test:documents": "npm run build && node tests/documents-browser.mjs",
+    "test:bulk-registration": "npm run build && node tests/bulk-registration-browser.mjs"
   },
   "engines": {
     "node": ">=24.0.0"

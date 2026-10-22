@@ -1,4 +1,166 @@
 {
+  "Вставить или изменить исходную таблицу": {
+    "en": "Paste or edit the source table",
+    "kk": "Бастапқы кестені қою немесе өзгерту",
+    "az": "Mənbə cədvəlini yapışdır və ya dəyişdir",
+    "uz": "Asl jadvalni joylashtirish yoki tahrirlash"
+  },
+  "Нужно исправить строк: {0}": {
+    "en": "Rows to fix: {0}",
+    "kk": "Түзетілетін жолдар: {0}",
+    "az": "Düzəldiləcək sətirlər: {0}",
+    "uz": "Tuzatilishi kerak bo‘lgan qatorlar: {0}"
+  },
+  "Загрузить Excel": {
+    "en": "Upload Excel",
+    "kk": "Excel жүктеу",
+    "az": "Excel yüklə",
+    "uz": "Excel yuklash"
+  },
+  "30–50 учеников? Загрузите XLSX или вставьте таблицу целиком. Класс и предметы можно указать один раз для всей группы.": {
+    "en": "30–50 students? Upload an XLSX file or paste the whole table. Set the grade and subjects once for the group.",
+    "kk": "30–50 оқушы ма? XLSX жүктеңіз немесе бүкіл кестені қойыңыз. Сынып пен пәндерді бүкіл топ үшін бір рет көрсетуге болады.",
+    "az": "30–50 şagird? XLSX faylı yükləyin və ya bütün cədvəli yapışdırın. Sinfi və fənləri bütün qrup üçün bir dəfə seçin.",
+    "uz": "30–50 o‘quvchimi? XLSX faylini yuklang yoki butun jadvalni joylashtiring. Sinf va fanlarni butun guruh uchun bir marta belgilang."
+  },
+  "Черновик сохранён автоматически в этой вкладке": {
+    "en": "Draft saved automatically in this tab",
+    "kk": "Жоба осы қойындыда автоматты түрде сақталды",
+    "az": "Qaralama bu vərəqdə avtomatik saxlanıldı",
+    "uz": "Qoralama shu varaqda avtomatik saqlandi"
+  },
+  "Сохраняю черновик…": {
+    "en": "Saving draft…",
+    "kk": "Жоба сақталуда…",
+    "az": "Qaralama saxlanılır…",
+    "uz": "Qoralama saqlanmoqda…"
+  },
+  "Не удалось сохранить черновик. Не закрывайте вкладку.": {
+    "en": "Could not save the draft. Keep this tab open.",
+    "kk": "Жобаны сақтау мүмкін болмады. Қойындыны жаппаңыз.",
+    "az": "Qaralamanı saxlamaq mümkün olmadı. Vərəqi bağlamayın.",
+    "uz": "Qoralamani saqlab bo‘lmadi. Bu varaqni yopmang."
+  },
+  "Показать всех учеников": {
+    "en": "Show all students",
+    "kk": "Барлық оқушыны көрсету",
+    "az": "Bütün şagirdləri göstər",
+    "uz": "Barcha o‘quvchilarni ko‘rsatish"
+  },
+  "Показать только незаполненные строки": {
+    "en": "Show incomplete rows only",
+    "kk": "Тек толтырылмаған жолдарды көрсету",
+    "az": "Yalnız doldurulmamış sətirləri göstər",
+    "uz": "Faqat to‘ldirilmagan qatorlarni ko‘rsatish"
+  },
+  "Все строки заполнены. Можно продолжить.": {
+    "en": "All rows are complete. You can continue.",
+    "kk": "Барлық жол толтырылды. Жалғастыруға болады.",
+    "az": "Bütün sətirlər doldurulub. Davam edə bilərsiniz.",
+    "uz": "Barcha qatorlar to‘ldirildi. Davom etishingiz mumkin."
+  },
+  "Загрузить список учеников из файла": {
+    "en": "Upload a student list from a file",
+    "kk": "Оқушылар тізімін файлдан жүктеу",
+    "az": "Şagird siyahısını fayldan yüklə",
+    "uz": "O‘quvchilar ro‘yxatini fayldan yuklash"
+  },
+  "Выбрать файл XLSX или CSV": {
+    "en": "Choose an XLSX or CSV file",
+    "kk": "XLSX немесе CSV файлын таңдау",
+    "az": "XLSX və ya CSV faylı seç",
+    "uz": "XLSX yoki CSV faylini tanlash"
+  },
+  "До 300 учеников · файл до 5 МБ · данные читаются в вашем браузере": {
+    "en": "Up to 300 students · files up to 5 MB · read locally in your browser",
+    "kk": "300 оқушыға дейін · файл 5 МБ-қа дейін · деректер браузеріңізде оқылады",
+    "az": "300 şagirdə qədər · fayl 5 MB-dək · məlumatlar brauzerinizdə oxunur",
+    "uz": "300 tagacha o‘quvchi · fayl 5 MB gacha · ma’lumotlar brauzeringizda o‘qiladi"
+  },
+  "Читаю список…": {
+    "en": "Reading list…",
+    "kk": "Тізім оқылуда…",
+    "az": "Siyahı oxunur…",
+    "uz": "Ro‘yxat o‘qilmoqda…"
+  },
+  "Лист Excel": {
+    "en": "Excel sheet",
+    "kk": "Excel парағы",
+    "az": "Excel vərəqi",
+    "uz": "Excel varag‘i"
+  },
+  "Класс для строк без класса": {
+    "en": "Grade for rows without a grade",
+    "kk": "Сыныбы көрсетілмеген жолдар үшін сынып",
+    "az": "Sinfi göstərilməyən sətirlər üçün sinif",
+    "uz": "Sinfi ko‘rsatilmagan qatorlar uchun sinf"
+  },
+  "Найдено учеников: {0}": {
+    "en": "Students found: {0}",
+    "kk": "Табылған оқушылар: {0}",
+    "az": "Tapılan şagirdlər: {0}",
+    "uz": "Topilgan o‘quvchilar: {0}"
+  },
+  "Первые строки для проверки. Столбцы с заголовками распознаются автоматически.": {
+    "en": "Check the first rows below. Columns with headings are detected automatically.",
+    "kk": "Тексеру үшін алғашқы жолдар көрсетілген. Тақырыптары бар бағандар автоматты түрде анықталады.",
+    "az": "Yoxlamaq üçün ilk sətirlər göstərilir. Başlıqlı sütunlar avtomatik tanınır.",
+    "uz": "Tekshirish uchun dastlabki qatorlar ko‘rsatilgan. Sarlavhali ustunlar avtomatik aniqlanadi."
+  },
+  "Добавить список и исправить ошибки в форме": {
+    "en": "Add the list and fix errors in the form",
+    "kk": "Тізімді қосып, қателерді формада түзету",
+    "az": "Siyahını əlavə et və səhvləri formada düzəlt",
+    "uz": "Ro‘yxatni qo‘shib, xatolarni shaklda tuzatish"
+  },
+  "Список слишком большой. В одной заявке — до 300 учеников.": {
+    "en": "The list is too large. Up to 300 students per application.",
+    "kk": "Тізім тым үлкен. Бір өтінімде 300 оқушыға дейін.",
+    "az": "Siyahı çox böyükdür. Bir müraciətdə ən çox 300 şagird.",
+    "uz": "Ro‘yxat juda katta. Bitta arizada 300 tagacha o‘quvchi."
+  },
+  "Проверьте кавычки и разделители в списке.": {
+    "en": "Check the quotes and separators in the list.",
+    "kk": "Тізімдегі тырнақшалар мен бөлгіштерді тексеріңіз.",
+    "az": "Siyahıdakı dırnaq işarələrini və ayırıcıları yoxlayın.",
+    "uz": "Ro‘yxatdagi qo‘shtirnoq va ajratgichlarni tekshiring."
+  },
+  "Не удалось прочитать Excel. Сохраните файл в формате XLSX или CSV.": {
+    "en": "Could not read Excel. Save the file as XLSX or CSV.",
+    "kk": "Excel файлын оқу мүмкін болмады. Файлды XLSX немесе CSV пішімінде сақтаңыз.",
+    "az": "Excel faylını oxumaq mümkün olmadı. Faylı XLSX və ya CSV formatında saxlayın.",
+    "uz": "Excel faylini o‘qib bo‘lmadi. Faylni XLSX yoki CSV formatida saqlang."
+  },
+  "Файл Excel слишком сложный. Оставьте только таблицу с учениками.": {
+    "en": "The Excel file is too complex. Keep only the student table.",
+    "kk": "Excel файлы тым күрделі. Тек оқушылар кестесін қалдырыңыз.",
+    "az": "Excel faylı çox mürəkkəbdir. Yalnız şagird cədvəlini saxlayın.",
+    "uz": "Excel fayli juda murakkab. Faqat o‘quvchilar jadvalini qoldiring."
+  },
+  "Список больше 5 МБ. Оставьте только данные учеников.": {
+    "en": "The list exceeds 5 MB. Keep only the student data.",
+    "kk": "Тізім 5 МБ-тан асады. Тек оқушылар деректерін қалдырыңыз.",
+    "az": "Siyahı 5 MB-dan böyükdür. Yalnız şagird məlumatlarını saxlayın.",
+    "uz": "Ro‘yxat 5 MB dan katta. Faqat o‘quvchilar ma’lumotlarini qoldiring."
+  },
+  "Выберите XLSX, CSV, TSV или TXT. Старый XLS сначала сохраните как XLSX.": {
+    "en": "Choose XLSX, CSV, TSV or TXT. Save older XLS files as XLSX first.",
+    "kk": "XLSX, CSV, TSV немесе TXT таңдаңыз. Ескі XLS файлын алдымен XLSX ретінде сақтаңыз.",
+    "az": "XLSX, CSV, TSV və ya TXT seçin. Köhnə XLS faylını əvvəlcə XLSX kimi saxlayın.",
+    "uz": "XLSX, CSV, TSV yoki TXT tanlang. Eski XLS faylini avval XLSX sifatida saqlang."
+  },
+  "Не удалось проверить отправку. Обновите страницу.": {
+    "en": "Could not verify the submission. Refresh the page.",
+    "kk": "Өтінімнің жіберілуін тексеру мүмкін болмады. Бетті жаңартыңыз.",
+    "az": "Göndərişi yoxlamaq mümkün olmadı. Səhifəni yeniləyin.",
+    "uz": "Yuborishni tekshirib bo‘lmadi. Sahifani yangilang."
+  },
+  "Данные заявки изменились. Обновите страницу и проверьте список перед отправкой.": {
+    "en": "The application data has changed. Refresh the page and check the list before submitting.",
+    "kk": "Өтінім деректері өзгерді. Бетті жаңартып, жібермес бұрын тізімді тексеріңіз.",
+    "az": "Müraciət məlumatları dəyişib. Səhifəni yeniləyin və göndərməzdən əvvəl siyahını yoxlayın.",
+    "uz": "Ariza ma’lumotlari o‘zgardi. Sahifani yangilang va yuborishdan oldin ro‘yxatni tekshiring."
+  },
   "Добавить файлы": {
     "en": "Add files",
     "kk": "Файлдарды қосу",
