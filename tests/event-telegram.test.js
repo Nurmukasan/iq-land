@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -32,7 +33,7 @@ const registration = (eventId) => ({
   teacher: "Тестовый учитель",
   email: "teacher@example.test",
   phone: "+77001234567",
-  consent: true,
+  consent: true, privacyVersion: PRIVACY_VERSION,
   students: [
     {
       name: "Тестовый участник",

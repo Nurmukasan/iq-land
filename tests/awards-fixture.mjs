@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -29,7 +30,7 @@ export const teamPayload = (eventId, overrides = {}) => ({
   teacher: "Тестовый Учитель",
   email: "teacher@example.test",
   phone: "+77001234567",
-  consent: true,
+  consent: true, privacyVersion: PRIVACY_VERSION,
   students: [
     {
       name: "Тестовый Ученик",
@@ -40,7 +41,7 @@ export const teamPayload = (eventId, overrides = {}) => ({
   ],
   ...overrides,
 });
-export async function awardsFixture() {
+export async function awardsFixture({ environment = {} } = {}) {
   const dir = mkdtempSync(join(tmpdir(), "iqland-awards-"));
   const socket = createServer();
   socket.listen(0, "127.0.0.1");
@@ -76,6 +77,7 @@ export async function awardsFixture() {
     child = spawn(process.execPath, ["server/index.js"], {
       env: {
         ...process.env,
+        ...environment,
         DATA_DIR: dir,
         PORT: String(port),
         NODE_ENV: "test",

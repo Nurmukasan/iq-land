@@ -191,8 +191,18 @@
     "az": "{0} faylını sil",
     "uz": "{0} faylini olib tashlash"
   },
-  "МБ": { "en": "MB", "kk": "МБ", "az": "MB", "uz": "MB" },
-  "КБ": { "en": "KB", "kk": "КБ", "az": "KB", "uz": "KB" },
+  "МБ": {
+    "en": "MB",
+    "kk": "МБ",
+    "az": "MB",
+    "uz": "MB"
+  },
+  "КБ": {
+    "en": "KB",
+    "kk": "КБ",
+    "az": "KB",
+    "uz": "KB"
+  },
   "Файлы с критериями · необязательно": {
     "en": "Criteria files · optional",
     "kk": "Критерийлер файлдары · міндетті емес",
@@ -4806,5 +4816,185 @@
     "kk": "Таныстық hello сөзінен басталады.",
     "az": "Tanışlıq hello ilə başlayır.",
     "uz": "Tanishuv hello so‘zidan boshlanadi."
+  },
+  "Я совершеннолетний представитель центра. Согласен на обработку моих данных по указанным условиям и подтверждаю, что получил необходимые согласия законных представителей учеников и других педагогов на передачу их данных организатору для участия в олимпиаде.": {
+    "en": "I am an adult representative of the centre. I consent to the processing of my data under these terms and confirm that I have obtained the necessary consents from the pupils’ legal representatives and other teachers to share their data with the organiser for participation in the competition.",
+    "kk": "Мен орталықтың кәмелетке толған өкілімін. Осы шарттар бойынша өз деректерімді өңдеуге келісемін және олимпиадаға қатысу үшін оқушылардың заңды өкілдері мен басқа педагогтердің деректерін ұйымдастырушыға беруге қажетті келісімдерін алғанымды растаймын.",
+    "az": "Mən mərkəzin yetkinlik yaşına çatmış nümayəndəsiyəm. Bu şərtlərlə məlumatlarımın emalına razıyam və olimpiadada iştirak üçün şagirdlərin qanuni nümayəndələrindən və digər müəllimlərdən məlumatlarının təşkilatçıya ötürülməsi üçün lazımi razılıqları aldığımı təsdiqləyirəm.",
+    "uz": "Men markazning voyaga yetgan vakiliman. Ushbu shartlar asosida ma’lumotlarim qayta ishlanishiga roziman hamda olimpiadada qatnashish uchun o‘quvchilarning qonuniy vakillari va boshqa pedagoglardan ularning ma’lumotlarini tashkilotchiga berishga zarur roziliklarni olganimni tasdiqlayman."
+  },
+  "Кто подаёт заявку": {
+    "en": "Who submits the application",
+    "kk": "Өтінімді кім береді",
+    "az": "Ərizəni kim təqdim edir",
+    "uz": "Arizani kim topshiradi"
+  },
+  "Форма предназначена для совершеннолетнего учителя или представителя центра. До передачи данных детей получите согласия их законных представителей, а для дополнительных сертификатов — согласия педагогов. Подтверждение учителя в форме не заменяет эти согласия.": {
+    "en": "This form is for an adult teacher or centre representative. Obtain the consent of children’s legal representatives before sharing their data, and teachers’ consent for additional certificates. The teacher’s confirmation in this form does not replace those consents.",
+    "kk": "Нысан кәмелетке толған мұғалімге немесе орталық өкіліне арналған. Балалардың деректерін бермес бұрын олардың заңды өкілдерінің, ал қосымша сертификаттар үшін педагогтердің келісімін алыңыз. Нысандағы мұғалімнің растауы бұл келісімдерді алмастырмайды.",
+    "az": "Forma yetkin müəllim və ya mərkəz nümayəndəsi üçündür. Uşaqların məlumatlarını ötürməzdən əvvəl qanuni nümayəndələrinin, əlavə sertifikatlar üçün isə müəllimlərin razılığını alın. Müəllimin bu formadakı təsdiqi həmin razılıqları əvəz etmir.",
+    "uz": "Shakl voyaga yetgan o‘qituvchi yoki markaz vakili uchun mo‘ljallangan. Bolalar ma’lumotlarini berishdan oldin ularning qonuniy vakillari, qo‘shimcha sertifikatlar uchun esa pedagoglarning roziligini oling. Shakldagi o‘qituvchi tasdig‘i bu roziliklarning o‘rnini bosmaydi."
+  },
+  "Данные нужны для регистрации команды, связи по заявке, проверки возрастной категории, проведения олимпиады, протоколов и сертификатов. Сохраняются дата подтверждения, редакция условий и язык согласия. Данные заявки не используются для рекламных рассылок.": {
+    "en": "Data is needed to register the team, communicate about the application, verify age groups, run the competition, and prepare records and certificates. We record the confirmation date, terms version and consent language. Application data is not used for advertising mailings.",
+    "kk": "Деректер команданы тіркеу, өтінім бойынша байланысу, жас санатын тексеру, олимпиаданы өткізу, хаттамалар мен сертификаттар үшін қажет. Растау күні, шарттар нұсқасы және келісім тілі сақталады. Өтінім деректері жарнамалық хабарламаларға қолданылмайды.",
+    "az": "Məlumatlar komandanın qeydiyyatı, ərizə üzrə əlaqə, yaş qrupunun yoxlanması, olimpiadanın keçirilməsi, protokol və sertifikatlar üçün lazımdır. Təsdiq tarixi, şərtlərin versiyası və razılığın dili saxlanılır. Ərizə məlumatları reklam göndərişləri üçün istifadə edilmir.",
+    "uz": "Ma’lumotlar jamoani ro‘yxatga olish, ariza bo‘yicha bog‘lanish, yosh toifasini tekshirish, olimpiadani o‘tkazish, bayonnoma va sertifikatlar uchun kerak. Tasdiq sanasi, shartlar tahriri va rozilik tili saqlanadi. Ariza ma’lumotlari reklama xabarlari uchun ishlatilmaydi."
+  },
+  "Кому доступны данные": {
+    "en": "Who can access the data",
+    "kk": "Деректерге кім қол жеткізеді",
+    "az": "Məlumatlara kimin çıxışı var",
+    "uz": "Ma’lumotlardan kim foydalanadi"
+  },
+  "Заявки и полный протокол доступны только организаторам в закрытом кабинете. Результаты центра передаются его уполномоченному представителю. Провайдер сервера обрабатывает данные при обеспечении работы сайта. Передача другим получателям и за границу требует отдельного законного основания.": {
+    "en": "Applications and the full records are available only to organisers in the private cabinet. A centre’s results are shared with its authorised representative. The hosting provider processes data to operate the website. Sharing with other recipients or abroad requires a separate lawful basis.",
+    "kk": "Өтінімдер мен толық хаттама тек ұйымдастырушыларға жабық кабинетте қолжетімді. Орталықтың нәтижелері оның уәкілетті өкіліне беріледі. Сервер провайдері сайт жұмысын қамтамасыз ету кезінде деректерді өңдейді. Басқа алушыларға немесе шетелге беру үшін бөлек заңды негіз қажет.",
+    "az": "Ərizələr və tam protokol yalnız təşkilatçılara qapalı kabinetdə açıqdır. Mərkəzin nəticələri onun səlahiyyətli nümayəndəsinə verilir. Hostinq provayderi saytın işləməsi üçün məlumatları emal edir. Digər alıcılara və xaricə ötürmə üçün ayrıca qanuni əsas lazımdır.",
+    "uz": "Arizalar va to‘liq bayonnoma faqat tashkilotchilarga yopiq kabinetda ochiq. Markaz natijalari uning vakolatli vakiliga beriladi. Server provayderi sayt ishlashini ta’minlashda ma’lumotlarni qayta ishlaydi. Boshqa oluvchilarga va xorijga berish uchun alohida qonuniy asos kerak."
+  },
+  "Фото, видео и Telegram": {
+    "en": "Photos, videos and Telegram",
+    "kk": "Фото, бейне және Telegram",
+    "az": "Foto, video və Telegram",
+    "uz": "Foto, video va Telegram"
+  },
+  "Согласие на участие не является согласием на публикацию изображения ребёнка. Организатор должен отдельно получить необходимые разрешения перед публикацией фото и видео. Переход в Telegram или Instagram добровольный: там действуют правила этих сервисов, данные из заявки автоматически им не передаются.": {
+    "en": "Consent to participation is not consent to publish a child’s image. The organiser must obtain the necessary separate permissions before publishing photos or videos. Visiting Telegram or Instagram is optional: their own rules apply there, and application data is not automatically shared with them.",
+    "kk": "Қатысуға келісім баланың бейнесін жариялауға келісім болып саналмайды. Ұйымдастырушы фото мен бейнені жарияламас бұрын қажетті бөлек рұқсаттарды алуға тиіс. Telegram немесе Instagram-ға өту ерікті: ол жерде сол сервистердің ережелері қолданылады, өтінім деректері оларға автоматты түрде берілмейді.",
+    "az": "İştiraka razılıq uşağın təsvirinin yayılmasına razılıq demək deyil. Təşkilatçı foto və video dərc etməzdən əvvəl lazımi ayrıca icazələri almalıdır. Telegram və ya Instagram-a keçid könüllüdür: orada həmin xidmətlərin qaydaları tətbiq olunur, ərizə məlumatları onlara avtomatik ötürülmür.",
+    "uz": "Ishtirok etishga rozilik bolaning tasvirini e’lon qilishga rozilik emas. Tashkilotchi foto va videolarni e’lon qilishdan oldin zarur alohida ruxsatlarni olishi kerak. Telegram yoki Instagram-ga o‘tish ixtiyoriy: u yerda o‘sha xizmatlarning qoidalari amal qiladi, ariza ma’lumotlari ularga avtomatik berilmaydi."
+  },
+  "Хранение и удаление": {
+    "en": "Retention and deletion",
+    "kk": "Сақтау және жою",
+    "az": "Saxlanma və silinmə",
+    "uz": "Saqlash va o‘chirish"
+  },
+  "Данные хранятся только пока нужны для организации олимпиады, выдачи результатов, рассмотрения обращений и исполнения обязанностей по закону. По завершении этих целей организатор должен удалить или обезличить данные, включая рабочие выгрузки, и ограничить сроки хранения резервных копий. Уточнить применимый срок можно у организатора до отправки заявки.": {
+    "en": "Data is retained only while needed to organise the competition, issue results, handle requests and meet legal duties. Once these purposes are complete, the organiser must delete or anonymise the data, including working exports, and limit backup retention. Ask the organiser about the applicable period before submitting the application.",
+    "kk": "Деректер олимпиаданы ұйымдастыру, нәтижелерді беру, өтініштерді қарау және заң міндеттерін орындау үшін қажет болғанша ғана сақталады. Бұл мақсаттар аяқталғанда ұйымдастырушы деректерді, соның ішінде жұмыс көшірмелерін жоюға немесе иесіздендіруге және резервтік көшірмелердің сақтау мерзімін шектеуге тиіс. Өтінім бермес бұрын қолданылатын мерзімді ұйымдастырушыдан нақтылаңыз.",
+    "az": "Məlumatlar yalnız olimpiadanı təşkil etmək, nəticələri vermək, müraciətlərə baxmaq və qanuni öhdəlikləri yerinə yetirmək üçün lazım olduğu müddətdə saxlanılır. Bu məqsədlər bitdikdə təşkilatçı işçi ixraclar da daxil məlumatları silməli və ya anonimləşdirməli, ehtiyat nüsxələrin saxlanma müddətini məhdudlaşdırmalıdır. Ərizəni göndərməzdən əvvəl tətbiq olunan müddəti təşkilatçıdan soruşun.",
+    "uz": "Ma’lumotlar faqat olimpiadani tashkil etish, natijalarni berish, murojaatlarni ko‘rib chiqish va qonuniy majburiyatlarni bajarish uchun zarur vaqt davomida saqlanadi. Maqsadlar tugagach, tashkilotchi ma’lumotlarni, jumladan ishchi eksportlarni o‘chirishi yoki shaxssizlantirishi va zaxira nusxalarini saqlash muddatini cheklashi kerak. Ariza berishdan oldin amal qiladigan muddatni tashkilotchidan aniqlang."
+  },
+  "Ваши права": {
+    "en": "Your rights",
+    "kk": "Сіздің құқықтарыңыз",
+    "az": "Hüquqlarınız",
+    "uz": "Huquqlaringiz"
+  },
+  "Участник, его законный представитель или педагог может запросить сведения об обработке и копию своих данных, исправление, блокирование, удаление или отозвать согласие. Напишите организатору, указав номер заявки и центр. Для защиты данных организатор проверит полномочия заявителя и ответит в применимый по закону срок. Отзыв не отменяет обработку, необходимую по закону, и может препятствовать дальнейшему участию.": {
+    "en": "A participant, their legal representative or a teacher can request processing information and a copy of their data, correction, blocking, deletion or withdrawal of consent. Contact the organiser with the application number and centre name. To protect the data, the organiser will verify the requester’s authority and respond within the applicable statutory period. Withdrawal does not prevent processing required by law and may prevent further participation.",
+    "kk": "Қатысушы, оның заңды өкілі немесе педагог өңдеу туралы мәлімет пен өз деректерінің көшірмесін, түзетуді, бұғаттауды, жоюды сұрата алады немесе келісімін қайтарып ала алады. Өтінім нөмірі мен орталықты көрсетіп, ұйымдастырушыға жазыңыз. Деректерді қорғау үшін ұйымдастырушы өтініш берушінің өкілеттігін тексеріп, заңда көзделген мерзімде жауап береді. Келісімді қайтарып алу заң бойынша қажетті өңдеуді тоқтатпайды және әрі қарай қатысуға кедергі келтіруі мүмкін.",
+    "az": "İştirakçı, onun qanuni nümayəndəsi və ya müəllim emal barədə məlumat və öz məlumatlarının surətini, düzəliş, bloklama, silinmə tələb edə və ya razılığını geri götürə bilər. Ərizə nömrəsi və mərkəzi göstərərək təşkilatçıya yazın. Məlumatları qorumaq üçün təşkilatçı müraciət edənin səlahiyyətini yoxlayacaq və qanuni müddətdə cavab verəcək. Razılığın geri götürülməsi qanunla tələb olunan emalı dayandırmır və sonrakı iştiraka mane ola bilər.",
+    "uz": "Ishtirokchi, uning qonuniy vakili yoki pedagog qayta ishlash haqida ma’lumot va o‘z ma’lumotlarining nusxasini, tuzatish, bloklash, o‘chirishni so‘rashi yoki roziligini qaytarib olishi mumkin. Ariza raqami va markazni ko‘rsatib tashkilotchiga yozing. Himoya uchun tashkilotchi so‘rovchining vakolatini tekshiradi va qonuniy muddatda javob beradi. Rozilikni qaytarib olish qonun talab qiladigan qayta ishlashni bekor qilmaydi va keyingi ishtirokka to‘sqinlik qilishi mumkin."
+  },
+  "Данные в браузере": {
+    "en": "Data in your browser",
+    "kk": "Браузердегі деректер",
+    "az": "Brauzerdəki məlumatlar",
+    "uz": "Brauzerdagi ma’lumotlar"
+  },
+  "Язык сохраняется в localStorage; черновик команды и попытка отправки — в sessionStorage текущей вкладки. До отправки черновик находится в браузере. На общем компьютере удалите черновик и закройте вкладки после работы. Для кабинета используется необходимая сессионная cookie; рекламных cookie и сторонней аналитики в приложении нет.": {
+    "en": "Your language is saved in localStorage; the team draft and submission attempt are saved in the current tab’s sessionStorage. Before submission the draft remains in your browser. On a shared computer, delete the draft and close the tabs after use. The cabinet uses an essential session cookie; the application has no advertising cookies or third-party analytics.",
+    "kk": "Тіл localStorage-та, команда жобасы мен жіберу әрекеті ағымдағы қойындының sessionStorage-ында сақталады. Жіберілгенге дейін жоба браузерде қалады. Ортақ компьютерде жұмыстан соң жобаны жойып, қойындыларды жабыңыз. Кабинетке қажетті сессиялық cookie қолданылады; қолданбада жарнамалық cookie мен үшінші тарап аналитикасы жоқ.",
+    "az": "Dil localStorage-da, komandanın qaralaması və göndərmə cəhdi cari vərəqin sessionStorage-da saxlanılır. Göndərilənədək qaralama brauzerdə qalır. Ortaq kompüterdə işdən sonra qaralamanı silin və vərəqləri bağlayın. Kabinet üçün zəruri sessiya cookie-si istifadə olunur; tətbiqdə reklam cookie-ləri və üçüncü tərəf analitikası yoxdur.",
+    "uz": "Til localStorage-da, jamoa qoralamasi va yuborish urinishi joriy varaqning sessionStorage-ida saqlanadi. Yuborilguncha qoralama brauzerda qoladi. Umumiy kompyuterda ishlagach qoralamani o‘chiring va varaqlarni yoping. Kabinet zarur sessiya cookie-sidan foydalanadi; ilovada reklama cookie-lari va uchinchi tomon tahlili yo‘q."
+  },
+  "Страна определяется приблизительно по IP-адресу локальной базой на сервере, без передачи IP внешнему сервису и без запроса точных координат. Технические журналы сервера могут содержать IP и время обращения; их доступ и срок хранения должны быть ограничены.": {
+    "en": "The server estimates your country from your IP using a local database, without sharing the IP with an external service or requesting precise coordinates. Server logs may contain IP addresses and request times; access and retention must be restricted.",
+    "kk": "Ел сервердегі жергілікті база арқылы IP-адрес бойынша шамамен анықталады; IP сыртқы сервиске берілмейді және нақты координаттар сұралмайды. Сервер журналдарында IP мен жүгіну уақыты болуы мүмкін; оларға қолжетімділік пен сақтау мерзімі шектелуге тиіс.",
+    "az": "Ölkə serverdə yerli baza vasitəsilə IP ünvanından təxmini müəyyən edilir; IP xarici xidmətə ötürülmür və dəqiq koordinatlar soruşulmur. Server jurnallarında IP və müraciət vaxtı ola bilər; çıxış və saxlanma müddəti məhdudlaşdırılmalıdır.",
+    "uz": "Mamlakat serverdagi mahalliy baza yordamida IP manzildan taxminan aniqlanadi; IP tashqi xizmatga berilmaydi va aniq koordinatalar so‘ralmaydi. Server jurnallarida IP va murojaat vaqti bo‘lishi mumkin; kirish va saqlash muddati cheklanishi kerak."
+  },
+  "Условия участия и оплата": {
+    "en": "Participation and payment",
+    "kk": "Қатысу және төлем",
+    "az": "İştirak və ödəniş",
+    "uz": "Ishtirok va to‘lov"
+  },
+  "Отправка заявки означает запрос на участие. До оплаты согласуйте с организатором итоговую стоимость, программу, исполнителя услуг, порядок отмены и возврата. Оплата и данные банковских карт через эту форму не принимаются. Подтверждение обработки данных не заменяет договор на участие.": {
+    "en": "Submitting an application is a request to participate. Before paying, agree with the organiser on the final price, programme, service provider, cancellation and refund terms. This form does not accept payments or bank card details. Data processing consent does not replace a participation contract.",
+    "kk": "Өтінім жіберу — қатысу туралы сұрау. Төлемге дейін ұйымдастырушымен түпкілікті құнды, бағдарламаны, қызмет көрсетушіні, бас тарту және ақшаны қайтару шарттарын келісіңіз. Бұл нысан төлем мен банк карталарының деректерін қабылдамайды. Деректерді өңдеуге келісім қатысу шартын алмастырмайды.",
+    "az": "Ərizənin göndərilməsi iştirak sorğusudur. Ödənişdən əvvəl son qiyməti, proqramı, xidmət göstərən şəxsi, ləğv və geri ödəniş şərtlərini təşkilatçı ilə razılaşdırın. Bu forma ödəniş və bank kartı məlumatlarını qəbul etmir. Məlumatların emalına razılıq iştirak müqaviləsini əvəz etmir.",
+    "uz": "Ariza yuborish — ishtirok etish so‘rovi. To‘lovdan oldin yakuniy narx, dastur, xizmat ko‘rsatuvchi, bekor qilish va pulni qaytarish shartlarini tashkilotchi bilan kelishing. Bu shakl to‘lov va bank kartasi ma’lumotlarini qabul qilmaydi. Ma’lumotlarni qayta ishlashga rozilik ishtirok shartnomasining o‘rnini bosmaydi."
+  },
+  "Редакция условий": {
+    "en": "Terms version",
+    "kk": "Шарттар нұсқасы",
+    "az": "Şərtlərin versiyası",
+    "uz": "Shartlar tahriri"
+  },
+  "Наименование организатора": {
+    "en": "Organiser name",
+    "kk": "Ұйымдастырушы атауы",
+    "az": "Təşkilatçının adı",
+    "uz": "Tashkilotchi nomi"
+  },
+  "ИИН / БИН": {
+    "en": "IIN / BIN",
+    "kk": "ЖСН / БСН",
+    "az": "IIN / BIN",
+    "uz": "IIN / BIN"
+  },
+  "Адрес для обращений": {
+    "en": "Contact address",
+    "kk": "Өтініштерге арналған мекенжай",
+    "az": "Müraciət ünvanı",
+    "uz": "Murojaat manzili"
+  },
+  "Страна хранения данных": {
+    "en": "Data storage country",
+    "kk": "Деректер сақталатын ел",
+    "az": "Məlumatların saxlandığı ölkə",
+    "uz": "Ma’lumotlar saqlanadigan mamlakat"
+  },
+  "Не удалось загрузить сведения организатора.": {
+    "en": "Could not load the organiser’s details.",
+    "kk": "Ұйымдастырушы мәліметтерін жүктеу мүмкін болмады.",
+    "az": "Təşkilatçı məlumatlarını yükləmək mümkün olmadı.",
+    "uz": "Tashkilotchi ma’lumotlarini yuklab bo‘lmadi."
+  },
+  "Условия обработки данных обновились. Обновите страницу и подтвердите согласие заново.": {
+    "en": "The data processing terms have changed. Reload the page and confirm your consent again.",
+    "kk": "Деректерді өңдеу шарттары жаңарды. Бетті жаңартып, келісімді қайта растаңыз.",
+    "az": "Məlumatların emalı şərtləri yenilənib. Səhifəni yeniləyin və razılığı yenidən təsdiqləyin.",
+    "uz": "Ma’lumotlarni qayta ishlash shartlari yangilandi. Sahifani yangilang va rozilikni qayta tasdiqlang."
+  },
+  "Не указывайте ИИН, паспортные данные, медицинские сведения и данные банковских карт в комментариях или файлах со списком учеников.": {
+    "en": "Do not include national ID numbers, passport details, medical information or bank card details in comments or pupil list files.",
+    "kk": "Пікірлерде немесе оқушылар тізімі бар файлдарда ЖСН, паспорт, медициналық мәліметтер мен банк картасының деректерін көрсетпеңіз.",
+    "az": "Şərhlərdə və ya şagird siyahısı fayllarında şəxsiyyət nömrəsi, pasport, tibbi və bank kartı məlumatlarını göstərməyin.",
+    "uz": "Izohlar yoki o‘quvchilar ro‘yxati fayllariga shaxsiy ID, pasport, tibbiy va bank kartasi ma’lumotlarini kiritmang."
+  },
+  "Публикуйте только материалы, на которые у вас есть права. Для узнаваемых детей получите отдельные разрешения законных представителей на публикацию изображения; согласие на регистрацию этого не заменяет. Не используйте музыку без необходимых прав.": {
+    "en": "Only publish materials you have rights to use. Obtain separate permission from legal representatives to publish images of identifiable children; registration consent does not replace it. Do not use music without the necessary rights.",
+    "kk": "Тек пайдалануға құқығыңыз бар материалдарды жариялаңыз. Танылатын балалардың бейнесін жариялау үшін заңды өкілдердің бөлек рұқсатын алыңыз; тіркелуге келісім оны алмастырмайды. Қажетті құқықтарсыз музыканы пайдаланбаңыз.",
+    "az": "Yalnız istifadə hüququnuz olan materialları dərc edin. Tanınan uşaqların təsvirlərini yaymaq üçün qanuni nümayəndələrindən ayrıca icazə alın; qeydiyyat razılığı bunu əvəz etmir. Lazımi hüquqlar olmadan musiqidən istifadə etməyin.",
+    "uz": "Faqat foydalanish huquqingiz bor materiallarni e’lon qiling. Tanib bo‘ladigan bolalar tasvirini e’lon qilish uchun qonuniy vakillaridan alohida ruxsat oling; ro‘yxatdan o‘tish roziligi buning o‘rnini bosmaydi. Kerakli huquqlarsiz musiqadan foydalanmang."
+  },
+  "У этой заявки нет сохранённой редакции согласия. Проверьте подтверждающие документы отдельно.": {
+    "en": "This application has no recorded consent version. Check supporting documents separately.",
+    "kk": "Бұл өтінімде келісімнің сақталған нұсқасы жоқ. Растайтын құжаттарды бөлек тексеріңіз.",
+    "az": "Bu ərizə üçün razılıq versiyası saxlanılmayıb. Təsdiqedici sənədləri ayrıca yoxlayın.",
+    "uz": "Bu ariza uchun rozilik tahriri saqlanmagan. Tasdiqlovchi hujjatlarni alohida tekshiring."
+  },
+  "Фото и документы мероприятия доступны всем посетителям. Не публикуйте списки детей и контакты; проверьте права на материалы и разрешения на изображения.": {
+    "en": "Event photos and documents are public. Do not publish pupil lists or contact details; check material rights and image permissions.",
+    "kk": "Іс-шара фотолары мен құжаттары барлығына қолжетімді. Балалар тізімі мен байланыс деректерін жарияламаңыз; материалдарға құқықтар мен бейнелерге рұқсаттарды тексеріңіз.",
+    "az": "Tədbirin foto və sənədləri hamıya açıqdır. Uşaq siyahıları və əlaqə məlumatlarını dərc etməyin; material hüquqlarını və təsvir icazələrini yoxlayın.",
+    "uz": "Tadbir foto va hujjatlari hammaga ochiq. Bolalar ro‘yxati va aloqa ma’lumotlarini e’lon qilmang; material huquqlari va tasvir ruxsatlarini tekshiring."
+  },
+  "Приём новых заявок временно приостановлен. По вопросам участия свяжитесь с организатором.": {
+    "en": "New applications are temporarily paused. Contact the organiser about participation.",
+    "kk": "Жаңа өтінімдерді қабылдау уақытша тоқтатылды. Қатысу мәселелері бойынша ұйымдастырушыға хабарласыңыз.",
+    "az": "Yeni ərizələrin qəbulu müvəqqəti dayandırılıb. İştirak barədə təşkilatçı ilə əlaqə saxlayın.",
+    "uz": "Yangi arizalar qabul qilish vaqtincha to‘xtatildi. Ishtirok masalalari bo‘yicha tashkilotchiga murojaat qiling."
+  },
+  "Приём заявок приостановлен": {
+    "en": "Applications are paused",
+    "kk": "Өтінім қабылдау тоқтатылды",
+    "az": "Ərizə qəbulu dayandırılıb",
+    "uz": "Arizalar qabuli to‘xtatildi"
   }
 }

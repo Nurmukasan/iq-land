@@ -8,6 +8,7 @@ import {
   sanitizeDraft,
   validateContact,
   validateStudent,
+  sameRegistrationAttempt,
 } from "../src/lib/registration.js";
 
 const subjects = ["Математика", "Английский язык"];
@@ -19,6 +20,17 @@ const validStudent = (fields = {}) => ({
   grade: "5",
   subjects: [subjects[0]],
   ...fields,
+});
+
+test("submission retries retain their key across notice metadata updates but never across pupil/contact changes", () => {
+  const old = { eventId: "event", students: [{ name: "ТЕСТ Ученик" }], center: "ТЕСТ Центр", consent: true };
+  const current = { ...old, privacyVersion: "new", consentLanguage: "kk" };
+  const json = JSON.stringify;
+  assert.ok(sameRegistrationAttempt(json(old), json(current)));
+  assert.ok(sameRegistrationAttempt(json(current), json({ ...current, consentLanguage: "ru" })));
+  assert.ok(!sameRegistrationAttempt(json(old), json({ ...current, center: "Другой центр" })));
+  assert.ok(!sameRegistrationAttempt(json(old), json({ ...current, students: [{ name: "Другой ученик" }] })));
+  for (const bad of [undefined, "null", "[]", "bad"]) assert.ok(!sameRegistrationAttempt(bad, json(current)));
 });
 
 test("duplicate warnings recognize equivalent whitespace and letter case without merging pupils", () => {

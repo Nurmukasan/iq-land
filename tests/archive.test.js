@@ -456,6 +456,7 @@ test("only admins can edit archive settings; invalid URLs are rejected and ordin
     200,
   );
   assert.equal((await api.request(`/api/archive/${id}`)).data.event.video, "");
+  assert.equal((await api.request(upload.data.url)).response.status, 404, "Removed montage cannot be opened by its old URL");
 });
 
 test("video uploads enforce admin, format, and size; public videos support exact bytes, HEAD, ranges, and restart", async (t) => {
@@ -477,6 +478,10 @@ test("video uploads enforce admin, format, and size; public videos support exact
       result.data.url,
       new RegExp(`^/api/event-videos/[0-9a-f-]{36}\\.${video.extension}$`),
     );
+    assert.equal((await api.request(result.data.url)).response.status, 404, "Unpublished montage is private");
+    assert.equal((await api.request(result.data.url, { cookie: api.admin })).response.status, 200, "Staff can preview before publishing");
+    const eventId = await api.createEvent();
+    assert.equal((await api.request(`/api/events/${eventId}/archive`, { method: "PUT", cookie: api.admin, body: { video: result.data.url, resultsPublished: false } })).response.status, 200);
     const file = await api.request(result.data.url);
     assert.equal(file.response.status, 200);
     assert.equal(file.response.headers.get("content-type"), video.type);
@@ -489,6 +494,7 @@ test("video uploads enforce admin, format, and size; public videos support exact
       video.bytes.length,
     );
     assert.equal(file.response.headers.get("accept-ranges"), "bytes");
+    assert.equal(file.response.headers.get("cache-control"), "no-store");
     assert.deepEqual(file.bytes, video.bytes);
     const head = await api.request(result.data.url, { method: "HEAD" });
     assert.equal(head.response.status, 200);
