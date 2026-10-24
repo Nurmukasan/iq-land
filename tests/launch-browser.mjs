@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import { chromium, expect as baseExpect } from "@playwright/test";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -198,7 +199,7 @@ function batch(index) {
       `Тестовый Помощник ${index + 1} Б`,
     ],
     note: "ТЕСТОВЫЕ ДАННЫЕ — все имена и контакты вымышлены.",
-    consent: true,
+    consent: true, privacyVersion: PRIVACY_VERSION,
     students: Array.from({ length: 21 }, (_, i) => {
       const n = index * 21 + i;
       return {

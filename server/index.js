@@ -26,15 +26,20 @@ import { detectLanguage } from "./language.js";
 import { documentFile, storeEventDocument } from "./event-documents.js";
 import { DOCUMENT_TYPES, documentExtension, MAX_DOCUMENT_BYTES } from "../shared/event-documents.js";
 import { translate, exportLanguage } from "../shared/i18n/index.js";
+import { PRIVACY_VERSION, CONSENT_TEXT, PRIVACY_SECTIONS, REGISTRATION_PAUSED_MESSAGE } from "../shared/privacy.js";
+import { legalDetails } from "./legal.js";
 
 const app = express();
 const production = process.env.NODE_ENV === "production";
+const publicLegalDetails = legalDetails();
+const registrationsPaused = process.env.IQLAND_REGISTRATION_PAUSED === "true";
 // Nginx connects locally and overwrites X-Forwarded-For with the peer's IP.
 // Trust only that local hop, never arbitrary public proxy chains.
 if (production) app.set("trust proxy", "loopback");
 app.disable("x-powered-by");
 app.use(
   helmet({
+    referrerPolicy: { policy: "no-referrer" },
     contentSecurityPolicy: production
       ? {
           directives: {
@@ -49,6 +54,7 @@ app.use(
 );
 app.use("/api", (req, res, next) => {
   res.set("Cache-Control", "no-store");
+  res.set("X-Robots-Tag", "noindex, nofollow");
   if (!["GET", "HEAD", "OPTIONS"].includes(req.method) && req.headers.origin) {
     try {
       if (new URL(req.headers.origin).host !== req.headers.host)
@@ -118,6 +124,10 @@ app.post("/api/event-videos", auth, admin, async (req, res) => {
   }
 });
 app.get("/api/event-videos/:filename", (req, res, next) => {
+  const staff = ["admin", "director"].includes(req.user?.role);
+  if (!staff && !db.prepare("SELECT 1 FROM events WHERE video=? AND active=1 AND date<? LIMIT 1")
+    .get(`/api/event-videos/${req.params.filename}`, new Date().toISOString().slice(0, 10)))
+    return res.status(404).json({ error: "Видео не найдено" });
   const path = videoPath(req.params.filename);
   if (!path) return res.status(404).json({ error: "Видео не найдено" });
   const extension = req.params.filename.split(".").at(-1);
@@ -126,7 +136,7 @@ app.get("/api/event-videos/:filename", (req, res, next) => {
       ([, ext]) => ext === extension,
     )[0],
     "X-Content-Type-Options": "nosniff",
-    "Cache-Control": "public, max-age=31536000, immutable",
+    "Cache-Control": "no-store",
   });
   res.sendFile(path, (error) => {
     if (!error) return;
@@ -186,6 +196,7 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (req, res) =>
   res.json({ status: "ok", storage: "sqlite" }),
 );
+app.get("/api/legal", (req, res) => res.json({ ...publicLegalDetails, privacyVersion: PRIVACY_VERSION, registrationOpen: !registrationsPaused }));
 app.get("/api/promo", (req, res) =>
   res.json(
     JSON.parse(
@@ -299,6 +310,10 @@ app.post(
   },
 );
 app.get("/api/event-images/:filename", (req, res) => {
+  const staff = ["admin", "director"].includes(req.user?.role);
+  if (!staff && !db.prepare("SELECT 1 FROM events WHERE image=? AND active=1 LIMIT 1")
+    .get(`/api/event-images/${req.params.filename}`))
+    return res.status(404).json({ error: "Фотография не найдена" });
   const path = imagePath(req.params.filename);
   if (!path) return res.status(404).json({ error: "Фотография не найдена" });
   const extension = req.params.filename.split(".").at(-1);
@@ -307,7 +322,7 @@ app.get("/api/event-images/:filename", (req, res) => {
       ([, ext]) => ext === extension,
     )[0],
     "X-Content-Type-Options": "nosniff",
-    "Cache-Control": "public, max-age=31536000, immutable",
+    "Cache-Control": "no-store",
   });
   res.sendFile(path);
 });
@@ -378,7 +393,10 @@ app.post(
     const requestKey = req.get("Idempotency-Key");
     if (requestKey && !/^[A-Za-z0-9_-]{16,128}$/.test(requestKey))
       return res.status(400).json({ error: "Не удалось проверить отправку. Обновите страницу." });
-    const requestHash = digest(JSON.stringify(data));
+    // Language/notice updates must not turn a retry of an existing team into
+    // a second registration, including requests saved before versioned consent.
+    const { privacyVersion, consentLanguage, ...registrationContent } = data;
+    const requestHash = digest(JSON.stringify(registrationContent));
     const respondToRetry = (previous) => {
       if (previous.request_hash !== requestHash)
         return res.status(409).json({ error: "Данные заявки изменились. Обновите страницу и проверьте список перед отправкой." });
@@ -388,6 +406,12 @@ app.post(
       const previous = db.prepare("SELECT * FROM registration_requests WHERE request_key=?").get(requestKey);
       if (previous) return respondToRetry(previous);
     }
+    // Recover an existing legacy receipt above, but never accept a new team
+    // without an explicit confirmation of the current notice.
+    if (registrationsPaused)
+      return res.status(503).json({ error: REGISTRATION_PAUSED_MESSAGE });
+    if (!data.privacyVersion)
+      return res.status(400).json({ error: "Условия обработки данных обновились. Обновите страницу и подтвердите согласие заново." });
     const e = eventObject(
       db
         .prepare("SELECT * FROM events WHERE id=? AND active=1")
@@ -427,6 +451,17 @@ app.post(
         data.note,
         new Date().toISOString(),
       );
+      // Historical applications are deliberately not backfilled with consent.
+      const language = data.consentLanguage || "ru";
+      const notice = JSON.stringify({
+        version: PRIVACY_VERSION,
+        organizer: publicLegalDetails,
+        sections: PRIVACY_SECTIONS.map((section) => section.map((text) => translate(text, language))),
+      });
+      db.prepare("INSERT INTO registration_consents VALUES(?,?,?,?,?,?,?)").run(
+        id, new Date().toISOString(), data.privacyVersion, language,
+        translate(CONSENT_TEXT, language), notice, digest(notice),
+      );
       for (const s of data.students) {
         const sid = randomUUID();
         db.prepare("INSERT INTO students VALUES(?,?,?,?,?)").run(
@@ -457,7 +492,7 @@ app.post(
 app.get("/api/manage", auth, (req, res) => {
   const registrations = db
     .prepare(
-      "SELECT r.*, (SELECT COUNT(*) FROM students s WHERE s.registration_id=r.id) AS student_count FROM registrations r ORDER BY r.created DESC",
+      "SELECT r.*, c.accepted_at AS consent_at, c.policy_version AS privacy_version, (SELECT COUNT(*) FROM students s WHERE s.registration_id=r.id) AS student_count FROM registrations r LEFT JOIN registration_consents c ON c.registration_id=r.id ORDER BY r.created DESC",
     )
     .all()
     .map((r) => ({ ...r, teachers: JSON.parse(r.teachers) }));

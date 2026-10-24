@@ -2810,3 +2810,7 @@ svg {
 .nav-links > a[aria-current="page"]::after {
   transform: scaleX(1);
 }
+
+.legal-details > div { margin: 1rem 0; }
+.legal-details dt { font-size: .875rem; color: var(--muted, #66736d); }
+.legal-details dd { margin: .25rem 0 0; overflow-wrap: anywhere; }

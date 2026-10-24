@@ -4,6 +4,7 @@ import { isExistingEventVideo } from "./event-videos.js";
 import { normalizeTelegramUrl } from "../shared/telegram.js";
 import { existingDocument } from "./event-documents.js";
 import { MAX_EVENT_DOCUMENTS } from "../shared/event-documents.js";
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 export { normalizeTelegramUrl } from "../shared/telegram.js";
 const text = (max = 150) =>
   z
@@ -43,6 +44,8 @@ export const registrationSchema = z.object({
   teachers: z.array(text()).max(30).default([]),
   note: z.string().trim().max(2000).default(""),
   consent: z.literal(true, "Подтвердите согласие на обработку данных"),
+  privacyVersion: z.literal(PRIVACY_VERSION, "Условия обработки данных обновились. Обновите страницу и подтвердите согласие заново.").optional(),
+  consentLanguage: z.enum(["ru", "kk", "en", "az", "uz"]).optional(),
   students: z
     .array(
       z.object({

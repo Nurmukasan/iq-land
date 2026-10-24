@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import { chromium, expect as baseExpect } from "@playwright/test";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
@@ -117,7 +118,7 @@ function student(name, grade, subjects = ["Математика"]) {
 async function register(page, eventId, students) {
   return json(page, "/registrations", {
     method: "POST",
-    data: { ...privateContact, eventId, consent: true, students },
+    data: { ...privateContact, eventId, consent: true, privacyVersion: PRIVACY_VERSION, students },
   });
 }
 

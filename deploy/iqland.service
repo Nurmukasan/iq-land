@@ -11,6 +11,7 @@ Environment=NODE_ENV=production
 Environment=HOST=127.0.0.1
 Environment=PORT=3001
 Environment=DATA_DIR=/var/lib/iqland/data
+EnvironmentFile=-/etc/iqland.env
 ExecStart=/usr/bin/node /opt/iq-land/server/index.js
 Restart=on-failure
 RestartSec=5

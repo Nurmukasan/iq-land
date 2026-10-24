@@ -2,6 +2,16 @@ import { translate, LANGUAGES } from "../../shared/i18n/index.js";
 const currentDate = () => new Date().toISOString().slice(0, 10);
 let studentSequence = 0;
 
+export function sameRegistrationAttempt(previousBody, nextBody) {
+  const content = (body) => {
+    const value = JSON.parse(body);
+    if (!value || typeof value !== "object" || Array.isArray(value)) throw Error("Invalid attempt");
+    const { privacyVersion, consentLanguage, ...data } = value;
+    return JSON.stringify(data);
+  };
+  try { return content(previousBody) === content(nextBody); } catch { return false; }
+}
+
 export function makeStudent(availableSubjects, defaults = {}) {
   return {
     name: "",

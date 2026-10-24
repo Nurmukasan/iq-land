@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import { chromium, expect } from "@playwright/test";
 import { spawn } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, mkdirSync } from "node:fs";
@@ -248,7 +249,7 @@ try {
       phone: "+77001234567",
       teachers: [],
       note: "",
-      consent: true,
+      consent: true, privacyVersion: PRIVACY_VERSION,
       students: [
         {
           name: "Тестовый Ученик",

@@ -5,6 +5,8 @@ import {
   dateTimeLabel,
 } from "../i18n/runtime.js";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { CONSENT_TEXT, PRIVACY_VERSION, REGISTRATION_PAUSED_MESSAGE } from "../../shared/privacy.js";
+import { generalContact } from "../lib/contacts.js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -45,6 +47,7 @@ import {
   findDuplicates,
   validateContact,
   sanitizeDraft,
+  sameRegistrationAttempt,
 } from "../lib/registration";
 import { previewRoster, readRosterFile } from "../lib/roster-import.js";
 import "./Registration.css";
@@ -142,6 +145,7 @@ export default function Registration() {
     [event, setEvent] = useState(null),
     [loading, setLoading] = useState(true),
     [loadError, setLoadError] = useState("");
+  const [registrationOpen, setRegistrationOpen] = useState(false);
   const [step, setStep] = useState(1),
     [visited, setVisited] = useState(1),
     [students, setStudents] = useState([]),
@@ -204,11 +208,13 @@ export default function Registration() {
     Promise.all([
       api("/events"),
       id ? api("/events/" + id) : Promise.resolve(null),
+      api("/legal"),
     ])
-      .then(([list, selected]) => {
+      .then(([list, selected, legal]) => {
         if (cancelled) return;
         setEvents(list);
         setEvent(selected);
+        setRegistrationOpen(legal.registrationOpen === true);
         setStep(1);
         setVisited(1);
         setConsent(false);
@@ -667,11 +673,13 @@ export default function Registration() {
           ),
           teachers: submitted.teachers.map((t) => t.trim()),
           consent: true,
+          privacyVersion: PRIVACY_VERSION,
+          consentLanguage: getLanguage(),
         });
-      if (submissionAttempt.current?.body !== body) {
+      if (!sameRegistrationAttempt(submissionAttempt.current?.body, body)) {
         let previous;
         try { previous = JSON.parse(sessionStorage.getItem(attemptKey(submitted.event.id)) || "null"); } catch {}
-        const key = previous?.body === body && /^[A-Za-z0-9_-]{16,128}$/.test(previous.key || "")
+        const key = sameRegistrationAttempt(previous?.body, body) && /^[A-Za-z0-9_-]{16,128}$/.test(previous.key || "")
           ? previous.key
           : `team-${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
         submissionAttempt.current = { body, key };
@@ -820,6 +828,14 @@ export default function Registration() {
         </Link>
       </main>
     );
+  if (!receipt && !registrationOpen)
+    return <main className="container reg-page reg-success">
+      <ShieldCheck size={45} />
+      <h1>{tr("Приём заявок приостановлен")}</h1>
+      <p>{tr(REGISTRATION_PAUSED_MESSAGE)}</p>
+      <a className="btn btn-primary" href={generalContact.href}>{generalContact.phone}</a>
+      <Link className="back-link" to="/#events">{tr("К афише")}</Link>
+    </main>;
   if (!event)
     return (
       <main className="container reg-page">
@@ -1786,14 +1802,13 @@ export default function Registration() {
                     onChange={(e) => setConsent(e.target.checked)}
                   />
                   <span>
-                    {tr(
-                      "Подтверждаю корректность данных и наличие согласий законных представителей учеников и педагогов на обработку данных для участия в олимпиаде.",
-                    )}{" "}
+                    {tr(CONSENT_TEXT)}{" "}
                     <Link to="/privacy" target="_blank">
                       {tr("Условия обработки данных")}
                     </Link>
                   </span>
                 </label>
+                <p className="muted small">{tr("Не указывайте ИИН, паспортные данные, медицинские сведения и данные банковских карт в комментариях или файлах со списком учеников.")}</p>
               </section>
             )}
             {error && <ErrorBox>{tr(error)}</ErrorBox>}

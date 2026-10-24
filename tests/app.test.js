@@ -1,3 +1,4 @@
+import { PRIVACY_VERSION } from "../shared/privacy.js";
 import test, { before, after } from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -65,7 +66,7 @@ const payload = {
   phone: "+7 (700) 123-45-67",
   teachers: ["Второй Педагог"],
   note: "Тестовая заявка",
-  consent: true,
+  consent: true, privacyVersion: PRIVACY_VERSION,
   students: [
     {
       name: "Ахметова Алия",

@@ -862,6 +862,9 @@ export default function Dashboard() {
             {tr("Получена: ")}
             {tr(dateTimeLabel(detail.created))}
           </p>
+          <p className="muted small">{detail.privacy_version
+            ? <>{tr("Редакция условий")}: {detail.privacy_version} · {tr(dateTimeLabel(detail.consent_at))}</>
+            : tr("У этой заявки нет сохранённой редакции согласия. Проверьте подтверждающие документы отдельно.")}</p>
         </Modal>
       )}
       {editing && (
@@ -970,6 +973,7 @@ function ArchiveEditor({ event, onClose, onSaved }) {
           {tr(
             "На странице олимпиады публикуется видео и программа. Имена учеников и награды доступны только организаторам.",
           )}
+          <p>{tr("Публикуйте только материалы, на которые у вас есть права. Для узнаваемых детей получите отдельные разрешения законных представителей на публикацию изображения; согласие на регистрацию этого не заменяет. Не используйте музыку без необходимых прав.")}</p>
         </div>
         {event.active && isPastEvent(event) && (
           <Link
@@ -1231,6 +1235,7 @@ function EventPhotoUploader({ value, onChange, onBusyChange, disabled }) {
         <small id={inputId + "-hint"} className="event-photo-upload-hint">
           {tr("JPEG, PNG или WebP · до 8 МБ. Можно перетащить фото сюда.")}
         </small>
+        <small className="event-photo-upload-hint">{tr("Фото и документы мероприятия доступны всем посетителям. Не публикуйте списки детей и контакты; проверьте права на материалы и разрешения на изображения.")}</small>
         {uploading ? (
           <p className="event-photo-upload-status" role="status">
             {tr("Загружаем фото…")}

@@ -168,7 +168,8 @@ test("event images require an organizer, reject invalid uploads, and retain real
     assert.equal(response.status, 201, `${image.type} must be accepted`);
     assert.match(data.url, /^\/api\/event-images\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(?:png|jpe?g|webp)$/);
     assert.match(data.url, image.extension);
-    const result = await api.request(data.url);
+    assert.equal((await api.request(data.url)).response.status, 404, "Unpublished uploads must stay private");
+    const result = await api.request(data.url, { cookie: api.director });
     assert.equal(result.response.status, 200);
     assert.equal(result.response.headers.get("content-type"), image.type);
     assert.equal(result.response.headers.get("x-content-type-options"), "nosniff");
@@ -234,16 +235,21 @@ test("event images require an organizer, reject invalid uploads, and retain real
   await api.stop();
   await api.start();
   for (const image of uploaded) {
-    const result = await api.request(image.url);
+    const result = await api.request(image.url, { cookie: api.director });
     assert.equal(result.response.status, 200);
     assert.equal(result.response.headers.get("content-type"), image.type);
     assert.deepEqual(result.bytes, image.bytes);
   }
   assert.equal((await api.request(`/api/events/${eventId}`)).data.image, uploaded[0].url);
+  assert.equal((await api.request(uploaded[0].url)).response.status, 200, "Published photo is public");
+  assert.equal((await api.request(uploaded[0].url)).response.headers.get("cache-control"), "no-store");
+  assert.equal((await api.request(`/api/events/${eventId}`, { method: "PUT", cookie: api.admin, body: { ...event, image: uploaded[0].url, active: false } })).response.status, 200);
+  assert.equal((await api.request(uploaded[0].url)).response.status, 404, "Hiding event revokes anonymous image access");
   assert.equal((await api.request(`/api/events/${eventId}`, {
     method: "PUT", cookie: api.admin, body: { ...event, image: "" },
   })).response.status, 200, "Admin can remove a photo after restart");
   assert.equal((await api.request(`/api/events/${eventId}`)).data.image, "");
+  assert.equal((await api.request(uploaded[0].url)).response.status, 404, "Removing photo revokes its public URL");
 });
 
 test("demo events are opt-in and the legacy migration hides only unchanged demos once while retaining teams", async (t) => {
